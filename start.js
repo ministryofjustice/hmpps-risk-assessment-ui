@@ -24,6 +24,7 @@ function start() {
  * Start master process
  */
 function startMaster() {
+  console.log('error')
   logger.info(`Master started. PID: ${process.pid}`)
   process.on('SIGINT', () => {
     logger.info(`Master exiting`)

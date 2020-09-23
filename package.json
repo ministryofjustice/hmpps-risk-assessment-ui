@@ -126,16 +126,10 @@
     }
   },
   "lint-staged": {
-    "linters": {
-      "*.{js,json,css}": [
-        "prettier --write",
-        "eslint --fix",
-        "git add"
-      ]
-    },
-    "ignore": [
-      "package.json",
-      "package-lock.json"
+    "*.{js,json,css}": [
+      "prettier --write",
+      "eslint --cache --fix",
+      "git add"
     ]
   }
 }
