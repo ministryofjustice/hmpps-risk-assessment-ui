@@ -1,13 +1,13 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "sentence-planning.fullname" . -}}
+{{- $fullName := include "risk-assessment-ui.fullname" . -}}
 {{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    app: {{ template "sentence-planning.name" . }}
-    chart: {{ template "sentence-planning.chart" . }}
+    app: {{ template "risk-assessment-ui.name" . }}
+    chart: {{ template "risk-assessment-ui.chart" . }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
   annotations:

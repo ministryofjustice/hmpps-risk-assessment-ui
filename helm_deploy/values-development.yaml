@@ -21,7 +21,4 @@ ingress:
   cert_secret: risk-assessment-ui-cert
 
 env:
-  OFFENDERASSESSMENT_API_URL: http://offender-assessment-api.risk-assessment-ui-development.svc.cluster.local
-  KEYCLOAK_REALM: https://development.oasys-auth.service.justice.gov.uk/auth/realms/risk-assessment-ui
-  KEYCLOAK_UPSTREAM_URL: http://127.0.0.1:3000
-  KEYCLOAK_REDIRECTION_URL: https://development.risk-assessment-ui.service.justice.gov.uk
+  OFFENDERASSESSMENT_API_URL: http://offender-assessment-api.hmpps-assessments-dev.svc.cluster.local
