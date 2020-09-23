@@ -76,7 +76,7 @@ jobs:
       - setup_remote_docker:
           docker_layer_caching: true
       - snyk/scan:
-          docker-image-name: 'quay.io/hmpps/sentence-planning:latest'
+          docker-image-name: 'quay.io/hmpps/risk-assessment-ui:latest'
           target-file: 'Dockerfile'
           fail-on-issues: false
           monitor-on-build: true
@@ -94,17 +94,17 @@ workflows:
       - test:
           requires:
             - build
-      - dps/helm_lint:
+      - hmpps/helm_lint:
           name: helm_lint
-          env: development
-          chart_name: sentence-planning
-      - dps/build_docker:
+          env: "development"
+          chart_name: risk-assessment-ui
+      - hmpps/build_docker:
           name: build_docker
           filters:
             branches:
               only:
                 - main
-      - dps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_dev
           env: "development"
           filters:
@@ -119,21 +119,21 @@ workflows:
           type: approval
           requires:
             - deploy_dev
-      - dps/deploy_env:
+      - hmpps/deploy_env:
           name: deploy_preprod
           env: "preprod"
-          context: sentence-planning-preprod
+          context: risk-assessment-ui-preprod
           requires:
             - request-preprod-approval
-      - request-prod-approval:
-          type: approval
-          requires:
-            - deploy_preprod
-      - dps/deploy_env:
-          name: deploy_prod
-          env: "prod"
-          slack_notification: true
-          context: sentence-planning-prod
-          requires:
-            - request-prod-approval
+#      - request-prod-approval:
+#          type: approval
+#          requires:
+#            - deploy_preprod
+#      - hmpps/deploy_env:
+#          name: deploy_prod
+#          env: "prod"
+#          slack_notification: true
+#          context: sentence-planning-prod
+#          requires:
+#            - request-prod-approval
 

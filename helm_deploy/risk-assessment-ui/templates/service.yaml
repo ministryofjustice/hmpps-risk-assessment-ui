@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "sentence-planning.fullname" . }}
+  labels:
+    app: {{ template "sentence-planning.name" . }}
+    chart: {{ template "sentence-planning.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80 
+      targetPort: {{ .Values.gatekeeper.image.port }} 
+      name: gatekeeper
+  selector:
+    app: {{ template "sentence-planning.name" . }}
+    release: {{ .Release.Name }}
