@@ -49,6 +49,9 @@ jobs:
     executor: builder
     steps:
       - checkout
+      - run:
+          name: Install Dependencies
+          command: npm ci
       - restore_cache:
           key: dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
       - run:
