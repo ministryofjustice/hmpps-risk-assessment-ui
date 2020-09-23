@@ -22,15 +22,14 @@ jobs:
       - run:
           name: Update npm
           command: 'sudo npm install -g npm@latest'
-      - run: echo "checksum package-lock.json 1"
-      - run: echo {{ checksum "package-lock.json" }}
+#      - restore_cache:
+#          key: dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
       - restore_cache:
-          key: dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
+          keys:
+            - dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
           command: npm ci
-      - run: echo "checksum package-lock.json 2"
-      - run: echo {{ checksum "package-lock.json" }}
       - save_cache:
           key: dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
           paths:
@@ -53,10 +52,9 @@ jobs:
     executor: builder
     steps:
       - checkout
-      - run: echo "checksum package-lock.json 3"
-      - run: echo {{ checksum "package-lock.json" }}
       - restore_cache:
-          key: dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
+          keys:
+            - dependency-cache-${CACHE_VERSION}-{{ checksum "package-lock.json" }}
       - run:
           name: unit tests
           command: npm run test
