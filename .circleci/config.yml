@@ -102,7 +102,7 @@ workflows:
       - hmpps/helm_lint:
           name: helm_lint
           env: "development"
-          chart_name: risk-assessment-ui
+          chart_name: hmpps-risk-assessment-ui
       - hmpps/build_docker:
           name: build_docker
           filters:
