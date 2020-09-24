@@ -50,9 +50,6 @@ jobs:
     executor: builder
     steps:
       - checkout
-      - run:
-          name: Update npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache:
           keys:
             - dependency-cache-${CACHE_VERSION}-{{ checksum "package.json" }}
@@ -112,6 +109,7 @@ workflows:
       - hmpps/deploy_env:
           name: deploy_dev
           env: "development"
+          chart_name: hmpps-risk-assessment-ui
           filters:
             branches:
               only:
