@@ -1,7 +1,7 @@
 const { stubFor } = require('./wiremock')
 const questionGroups = require('./responses/questionGroups.json')
 
-stubQuestionGroup = groupId => {
+const stubQuestionGroup = groupId => {
   return stubFor({
     request: {
       method: 'GET',
