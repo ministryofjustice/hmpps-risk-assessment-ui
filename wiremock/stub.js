@@ -1,9 +1,9 @@
 const { stubFor, resetStubs } = require('./wiremock')
+const { stubQuestions } = require('./assessmentApi')
 
 async function stub() {
   await resetStubs()
 
-  console.log('hello')
   stubFor({
     request: {
       method: 'GET',
@@ -17,6 +17,8 @@ async function stub() {
       body: 'ping',
     },
   })
+
+  stubQuestions()
 }
 
 stub()
