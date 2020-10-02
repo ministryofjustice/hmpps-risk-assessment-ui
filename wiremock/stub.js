@@ -1,5 +1,5 @@
 const { stubFor, resetStubs } = require('./wiremock')
-const { stubQuestions } = require('./assessmentApi')
+const { stubQuestions, stubAnswers } = require('./assessmentApi')
 
 async function stub() {
   await resetStubs()
@@ -19,6 +19,7 @@ async function stub() {
   })
 
   stubQuestions()
+  stubAnswers()
 }
 
 stub()
