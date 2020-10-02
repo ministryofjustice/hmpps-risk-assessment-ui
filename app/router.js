@@ -29,7 +29,7 @@ module.exports = app => {
   })
   app.get(`/start`, (req, res) => startController(req, res))
 
-  app.get(`/questionGroup/:groupId`, displayQuestionGroup)
+  app.get(`/questiongroup/:groupId`, displayQuestionGroup)
 
   app.get('*', (req, res) => res.render('app/error', { error: '404, Page Not Found' }))
 }
