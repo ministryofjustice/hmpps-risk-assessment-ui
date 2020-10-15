@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: "off" */
 import './commands'
 
 // There seem to be some uncaught exceptions in Gov UK

@@ -7,7 +7,7 @@ const startPage = () =>
 
 export default {
   verifyOnPage: startPage,
-  goTo: offenderNo => {
+  goTo: () => {
     cy.visit(`/start`)
     return startPage()
   },
