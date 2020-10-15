@@ -55,7 +55,7 @@
     "cssmin": "cleancss -o public/stylesheets/application.min.css public/stylesheets/application.css",
     "server": "node ./start.js",
     "start": "npm run clean && npm run build && node ./start.js",
-    "start:local": "npm run clean && npm run build && npm run setupStubs && NODE_ENV=local node ./start.js",
+    "start:local": "npm run clean && npm run build && npm run setupStubs && NODE_ENV=local node ./start.js & npm run watch",
     "start:cypress": "npm run clean && npm run build && npm run setupStubs && PORT=3008 node ./start.js",
     "lint-sass": "./node_modules/.bin/sass-lint -v",
     "test": "jest",

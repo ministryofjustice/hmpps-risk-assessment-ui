@@ -39,7 +39,7 @@
                 {% for question in questions %}
 
                     {{ govukInput({
-                        id: question.questionId,
+                        id: 'id-' + question.questionId,
                         name: question.questionCode,
                         errorMessage: errors.responsibilityOther,
                         value: question.answerText | encodeHtml | safe,
