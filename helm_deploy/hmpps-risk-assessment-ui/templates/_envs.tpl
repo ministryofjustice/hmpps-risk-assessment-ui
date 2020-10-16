@@ -4,7 +4,7 @@ Environment variables for web and worker containers
 */}}
 {{- define "deployment.envs" }}
 env:
-- name: API_CLIENT_ID
+  - name: API_CLIENT_ID
     valueFrom:
       secretKeyRef:
         name: {{ template "risk-assessment-ui.name" . }}
