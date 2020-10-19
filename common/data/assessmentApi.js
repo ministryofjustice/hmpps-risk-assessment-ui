@@ -8,7 +8,7 @@ const {
   },
 } = require('../config')
 
-const apiClientCredentials = (clientId, clientSecret) => Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
+const apiClientCredentials = () => Buffer.from(`${clientId}:${clientSecret}`).toString('base64')
 
 const getQuestionGroup = (groupId, tokens) => {
   const path = `${url}/questions/${groupId}`
@@ -23,7 +23,7 @@ const getData = async (path, { authorisationToken }) => {
   try {
     return await superagent
       .get(path)
-      .auth(apiClientCredentials(clientId, clientSecret), { type: 'bearer' })
+      .auth(apiClientCredentials(), { type: 'bearer' })
       .set('x-correlation-id', getCorrelationId())
       .timeout(timeout)
       .then(response => {
