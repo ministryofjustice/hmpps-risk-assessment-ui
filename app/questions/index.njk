@@ -1,5 +1,4 @@
 {% extends "common/templates/layout.njk" %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set heading = "Risk Assessment UI" %}
 
@@ -11,8 +10,4 @@
     <h1 class="govuk-heading-l">
         Risk Assessment UI
     </h1>
-    {{ govukButton({
-        text: 'Continue',
-        href: "/questions"
-    }) }}
 {% endblock %}
