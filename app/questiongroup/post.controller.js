@@ -11,15 +11,7 @@ const saveQuestionGroup = async ({ params: { groupId }, body, tokens }, res) => 
     // save answers
     await postAnswers(assessmentId, episodeId, answers, tokens)
 
-    // decide where to go next :)
-
-    const questionGroup = await getQuestionGroup(groupId, tokens)
-
-    return res.render(`${__dirname}/index`, {
-      heading: questionGroup.contents[0].title,
-      groupId,
-      questions: questionGroup.contents[0].contents,
-    })
+    return res.redirect(`/questionGroup/${groupId}`)
   } catch (error) {
     logger.error(`Could not retrieve question group for ${groupId}, error: ${error}`)
     return res.render('app/error', { error })
