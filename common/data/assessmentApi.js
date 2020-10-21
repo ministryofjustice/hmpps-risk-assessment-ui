@@ -12,19 +12,40 @@ const getQuestionGroup = (groupId, tokens) => {
   return getData(path, tokens)
 }
 
+const getAnswers = (assessmentId, episodeId, tokens) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
+  return getData(path, tokens)
+}
+
 const getQuestionList = tokens => {
   const path = `${url}/questions/list`
   return getData(path, tokens)
 }
 
-const getData = async (path, { authorisationToken }) => {
-  if (authorisationToken === undefined) {
-    return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
-  }
+const postAnswers = (assessmentId, episodeId, answers, tokens) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
+  return postData(path, tokens, answers)
+}
+
+const getData = (path, tokens) => {
   logger.info(`Calling offenderAssessments API with GET: ${path}`)
+
+  return action(superagent.get(path), tokens)
+}
+
+const postData = (path, tokens, data) => {
+  logger.info(`Calling offenderAssessments API with POST: ${path}`)
+
+  return action(superagent.post(path).send(data), tokens)
+}
+
+const action = async (agent, { authorisationToken }) => {
+  if (authorisationToken === undefined) {
+    return logError('No authorisation token found when calling offenderAssessments API')
+  }
+
   try {
-    return await superagent
-      .get(path)
+    return await agent
       .auth(authorisationToken, { type: 'bearer' })
       .set('x-correlation-id', getCorrelationId())
       .timeout(timeout)
@@ -35,25 +56,7 @@ const getData = async (path, { authorisationToken }) => {
     return logError(error)
   }
 }
-// const postData = async (path, { authorisationToken }, data) => {
-//   if (authorisationToken === undefined) {
-//     return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
-//   }
-//   logger.info(`Calling offenderAssessments API with POST: ${path}`)
-//   try {
-//     return await superagent
-//       .post(path)
-//       .send(data)
-//       .auth(authorisationToken, { type: 'bearer' })
-//       .set('x-correlation-id', getCorrelationId())
-//       .timeout(timeout)
-//       .then(response => {
-//         return response.body
-//       })
-//   } catch (error) {
-//     return logError(error)
-//   }
-// }
+
 //
 // const putData = async (path, { authorisationToken }, data) => {
 //   if (authorisationToken === undefined) {
@@ -83,5 +86,7 @@ const logError = error => {
 
 module.exports = {
   getQuestionGroup,
+  getAnswers,
   getQuestionList,
+  postAnswers,
 }

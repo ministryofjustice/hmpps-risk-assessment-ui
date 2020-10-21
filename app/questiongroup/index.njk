@@ -29,6 +29,10 @@
         {{ heading }}
     </h1>
 
+    <h3 class="govuk-heading-m">
+        {{ subheading }}
+    </h3>
+
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
 
@@ -40,8 +44,8 @@
                     {% case 'freetext' %}
                         {{ govukInput({
                             id: 'id-' + question.questionId,
-                            name: question.questionCode,
-                            value: question.answerText | encodeHtml | safe,
+                            name: 'id-' + question.questionId,
+                            value: answers[question.questionId].freeTextAnswer | encodeHtml | safe,
                             label: {
                                 text: question.questionText,
                                 isPageHeading: false,
@@ -54,8 +58,8 @@
                     {% case 'textarea' %}
                         {{ govukTextarea({
                             id: 'id-' + question.questionId,
-                            name: question.questionCode,
-                            value: question.answerText | encodeHtml | safe,
+                            name: 'id-' + question.questionId,
+                            value: answers[question.questionId].freeTextAnswer | encodeHtml | safe,
                             label: {
                                 text: question.questionText,
                                 isPageHeading: false,
@@ -71,10 +75,17 @@
 
                 {% endfor %}
 
-                {{ govukButton({
-                    text: 'Continue',
-                    classes: 'govuk-!-margin-bottom-3'
-                }) }}
+                {% if last %}
+                  {{ govukButton({
+                      text: 'Save',
+                      classes: 'govuk-!-margin-bottom-3'
+                  }) }}
+                {% else %}
+                  {{ govukButton({
+                      text: 'Continue',
+                      classes: 'govuk-!-margin-bottom-3'
+                  }) }}
+                {% endif %}
             </form>
         </div>
     </div>
