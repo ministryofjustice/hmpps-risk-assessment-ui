@@ -22,34 +22,25 @@ const postAnswers = (assessmentId, episodeId, answers, tokens) => {
   return postData(path, tokens, answers)
 }
 
-const getData = async (path, { authorisationToken }) => {
-  if (authorisationToken === undefined) {
-    return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
-  }
+const getData = (path, tokens) => {
   logger.info(`Calling offenderAssessments API with GET: ${path}`)
-  try {
-    return await superagent
-      .get(path)
-      .auth(authorisationToken, { type: 'bearer' })
-      .set('x-correlation-id', getCorrelationId())
-      .timeout(timeout)
-      .then(response => {
-        return response.body
-      })
-  } catch (error) {
-    return logError(error)
-  }
+
+  return action(superagent.get(path), tokens)
 }
 
-const postData = async (path, { authorisationToken }, data) => {
-  if (authorisationToken === undefined) {
-    return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
-  }
+const postData = (path, tokens, data) => {
   logger.info(`Calling offenderAssessments API with POST: ${path}`)
+
+  return action(superagent.post(path).send(data), tokens)
+}
+
+const action = async (agent, { authorisationToken }) => {
+  if (authorisationToken === undefined) {
+    return logError('No authorisation token found when calling offenderAssessments API')
+  }
+
   try {
-    return await superagent
-      .post(path)
-      .send(data)
+    return await agent
       .auth(authorisationToken, { type: 'bearer' })
       .set('x-correlation-id', getCorrelationId())
       .timeout(timeout)
