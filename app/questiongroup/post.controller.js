@@ -2,7 +2,7 @@ const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, postAnswers } = require('../../common/data/assessmentApi')
 
 const assessmentId = 'e69a61ff-7395-4a12-b434-b1aa6478aded'
-const episodeId = 'e69a61ff-7395-4a12-b434-b1aa6478aded'
+const episodeId = '4511a3f6-7f51-4b96-b603-4e75eac0c839'
 
 const saveQuestionGroup = async ({ params: { groupId }, body, tokens }, res) => {
   try {
@@ -27,10 +27,15 @@ const saveQuestionGroup = async ({ params: { groupId }, body, tokens }, res) => 
 }
 
 function extractAnswers(body) {
-  return Object.entries(body).reduce((answers, [key, value]) => {
+  const shapedAnswers = Object.entries(body).reduce((answers, [key, value]) => {
     const trimmedKey = key.replace(/^id-/, '')
-    return Object.assign(answers, { [trimmedKey]: value })
+
+    const answerValue = { freeTextAnswer: value, answers: {} }
+
+    return Object.assign(answers, { [trimmedKey]: answerValue })
   }, {})
+
+  return { answers: shapedAnswers }
 }
 
 module.exports = { saveQuestionGroup }
