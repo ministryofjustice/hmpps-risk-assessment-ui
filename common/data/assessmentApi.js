@@ -17,6 +17,11 @@ const getQuestionList = tokens => {
   return getData(path, tokens)
 }
 
+const postAnswers = (assessmentId, episodeId, answers, tokens) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
+  return postData(path, tokens, answers)
+}
+
 const getData = async (path, { authorisationToken }) => {
   if (authorisationToken === undefined) {
     return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
@@ -35,25 +40,27 @@ const getData = async (path, { authorisationToken }) => {
     return logError(error)
   }
 }
-// const postData = async (path, { authorisationToken }, data) => {
-//   if (authorisationToken === undefined) {
-//     return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
-//   }
-//   logger.info(`Calling offenderAssessments API with POST: ${path}`)
-//   try {
-//     return await superagent
-//       .post(path)
-//       .send(data)
-//       .auth(authorisationToken, { type: 'bearer' })
-//       .set('x-correlation-id', getCorrelationId())
-//       .timeout(timeout)
-//       .then(response => {
-//         return response.body
-//       })
-//   } catch (error) {
-//     return logError(error)
-//   }
-// }
+
+const postData = async (path, { authorisationToken }, data) => {
+  if (authorisationToken === undefined) {
+    return logError(`No authorisation token found when calling offenderAssessments API: ${path}`)
+  }
+  logger.info(`Calling offenderAssessments API with POST: ${path}`)
+  try {
+    return await superagent
+      .post(path)
+      .send(data)
+      .auth(authorisationToken, { type: 'bearer' })
+      .set('x-correlation-id', getCorrelationId())
+      .timeout(timeout)
+      .then(response => {
+        return response.body
+      })
+  } catch (error) {
+    return logError(error)
+  }
+}
+
 //
 // const putData = async (path, { authorisationToken }, data) => {
 //   if (authorisationToken === undefined) {
@@ -84,4 +91,5 @@ const logError = error => {
 module.exports = {
   getQuestionGroup,
   getQuestionList,
+  postAnswers,
 }

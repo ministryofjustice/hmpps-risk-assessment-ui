@@ -1,5 +1,5 @@
 const { logger } = require('../../common/logging/logger')
-const { getQuestionGroup } = require('../../common/data/assessmentApi')
+const { getQuestionGroup, postAnswers } = require('../../common/data/assessmentApi')
 
 const assessmentId = 'e69a61ff-7395-4a12-b434-b1aa6478aded'
 const episodeId = 'e69a61ff-7395-4a12-b434-b1aa6478aded'
@@ -9,6 +9,8 @@ const saveQuestionGroup = async ({ params: { groupId }, body, tokens }, res) => 
     const answers = extractAnswers(body)
 
     // save answers
+    await postAnswers(assessmentId, episodeId, answers, tokens)
+
     // decide where to go next :)
 
     const questionGroup = await getQuestionGroup(groupId, tokens)
