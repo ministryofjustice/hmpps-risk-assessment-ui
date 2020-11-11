@@ -63,6 +63,19 @@ const stubAssessmentEpisodes = () => {
       jsonBody: assessmentEpisodes,
     },
   })
+  stubFor({
+    request: {
+      method: 'POST',
+      urlPattern: `/assessments/.+?/episodes/.+?`,
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: {},
+    },
+  })
 }
 const stubQuestions = async () => {
   await stubQuestionGroup('1234')
