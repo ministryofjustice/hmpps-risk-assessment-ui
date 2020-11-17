@@ -136,7 +136,7 @@ workflows:
       - test:
           requires:
             - build
-      - cypress_integration_tests
+      - cypress_integration_tests:
           requires:
             - build
       - hmpps/helm_lint:
