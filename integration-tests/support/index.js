@@ -8,7 +8,11 @@ before(() => {
 })
 
 beforeEach(() => {
-  // any functionality to happen before ever test
+  // any functionality to happen before every test
+})
+
+afterEach(() => {
+  cy.pa11y()
 })
 
 // There seem to be some uncaught exceptions in Gov UK
