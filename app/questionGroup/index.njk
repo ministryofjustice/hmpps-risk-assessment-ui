@@ -17,9 +17,11 @@
 {% endblock %}
 
 {% block beforeContent %}
-    {{ govukBackLink({
-        href: "/assessments"
-    }) }}
+    <div role="navigation" aria-label="back">
+        {{ govukBackLink({
+            href: "/assessments"
+        }) }}
+    </div>
 {% endblock %}
 
 {% block content %}

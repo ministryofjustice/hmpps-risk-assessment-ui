@@ -11,10 +11,7 @@ module.exports = on => {
   })
 
   on('task', {
-    lighthouse: lighthouse(lighthouseReport => {
-      // eslint-disable-next-line no-console
-      console.log(lighthouseReport) // raw lighthouse report
-    }),
+    lighthouse: lighthouse(),
     pa11y: pa11y(), // calling the function is important
     reset: resetStubs,
     stubAssessmentApi: () => Promise.all([stubQuestions(), stubForms(), stubAnswers(), stubEpisodes()]),

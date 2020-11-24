@@ -69,7 +69,7 @@
     "int-test-ui": "cypress open"
   },
   "dependencies": {
-    "@ministryofjustice/frontend": "^0.0.16-alpha",
+    "@ministryofjustice/frontend": "^0.0.21",
     "accessible-autocomplete": "^2.0.2",
     "agentkeepalive": "^4.1.0",
     "applicationinsights": "^1.7.3",
@@ -82,7 +82,7 @@
     "dotenv": "^8.2.0",
     "express": "4.17.1",
     "express-validator": "^6.4.0",
-    "govuk-frontend": "^3.8.0",
+    "govuk-frontend": "^3.10.0",
     "helmet": "^3.21.2",
     "lodash": "^4.17.19",
     "morgan": "1.9.x",
