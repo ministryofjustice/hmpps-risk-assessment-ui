@@ -1,12 +1,12 @@
 {
   "name": "risk-assessment-ui",
   "description": "HMPPS UI Service",
-  "repository": "git@github.com:ministryofjustice/xxxUPDATExxx.git",
+  "repository": "git@github.com:ministryofjustice/hmpps-risk-assessment-ui.git",
   "version": "0.0.1",
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=12.18.4",
+    "node": ">=14.0.0",
     "npm": ">=6.14.5"
   },
   "jest": {
@@ -51,7 +51,7 @@
     "concat": "concat -o public/javascripts/application.js public/javascripts/browsered.js && rm public/javascripts/browsered.js",
     "copy-assets": "copyfiles -e \"**/*.test.js\" -e \"**/sass/**/*\" -e \"**/javascripts/**/*\" -u 1 common/assets/**/* public && copyfiles -u 3 common/assets/images/**/* public/images && copyfiles -u 3 common/assets/javascripts/**/* public/javascripts",
     "copy-govuk-assets": "copyfiles -u 1 node_modules/govuk-frontend/govuk/assets/fonts/**/* -f public/assets/fonts && copyfiles -u 1 node_modules/govuk-frontend/govuk/assets/images/**/* -f public/assets/images",
-    "compile-sass": "node-sass --include-path node_modules/ common/assets/sass -o public/stylesheets",
+    "compile-sass": "sass --load-path node_modules/ common/assets/sass:public/stylesheets",
     "cssmin": "cleancss -o public/stylesheets/application.min.css public/stylesheets/application.css",
     "server": "node ./start.js",
     "start": "npm run clean && npm run build && node ./start.js",
@@ -60,8 +60,8 @@
     "lint-sass": "./node_modules/.bin/sass-lint -v",
     "test": "jest",
     "lint": "eslint . --cache --max-warnings 0",
-    "watch:node-sass": "nodemon -e scss -x \"npm run build:css\"",
-    "watch": "npm run watch:node-sass",
+    "watch:sass": "nodemon -e scss -x \"npm run build:css\"",
+    "watch": "npm run watch:sass",
     "record-build-info": "node ./bin/record-build-info",
     "setupStubs": "node ./wiremock/stub.js",
     "int-test": "rm ./integration-tests/reports/*.xml && cypress run --browser chrome --headless",
@@ -124,10 +124,10 @@
     "minimist": "^1.2.3",
     "mocha-junit-reporter": "^2.0.0",
     "nock": "^12.0.3",
-    "node-sass": "^4.14.1",
     "nodemon": "^2.0.4",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.0",
+    "sass": "^1.29.0",
     "sass-lint": "^1.2.3",
     "supertest": "^4.0.2"
   },
