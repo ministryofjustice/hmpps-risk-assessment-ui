@@ -6,7 +6,7 @@ const startPsrFromCourt = async ({ body, tokens }, res) => {
 
   const assessment = await assessmentSupervision({ courtCode, caseNumber }, tokens)
 
-  res.redirect(`${assessment.assessmentUuid}/assessments`)
+  res.redirect(`${assessment.assessmentUuid}/questionGroup/pre_sentence_report/0`)
 }
 
 module.exports = { startPsrFromCourt }
