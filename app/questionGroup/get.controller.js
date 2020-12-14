@@ -1,19 +1,18 @@
 const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
-const devAssessmentId = 'e69a61ff-7395-4a12-b434-b1aa6478aded'
-
-const displayQuestionGroup = async ({ params: { groupId, subgroup }, tokens }, res) => {
+const displayQuestionGroup = async ({ params: { assessmentId, groupId, subgroup }, tokens }, res) => {
   try {
     const questionGroup = await grabQuestionGroup(groupId, tokens)
     const subIndex = Number.parseInt(subgroup, 10)
     if (subIndex >= questionGroup.contents.length) {
-      return res.redirect('/assessments')
+      return res.redirect(`${assessmentId}/assessments`)
     }
-    const { answers } = await grabAnswers(devAssessmentId, 'current', tokens)
+    const { answers } = await grabAnswers(assessmentId, 'current', tokens)
     const questions = annotateWithAnswers(questionGroup.contents[subIndex].contents, answers)
 
     return res.render(`${__dirname}/index`, {
+      assessmentId,
       heading: questionGroup.title,
       subheading: questionGroup.contents[subIndex].title,
       groupId,

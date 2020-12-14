@@ -1,21 +1,24 @@
 const { logger } = require('../../common/logging/logger')
-const { getAssessmentsList } = require('../../common/data/assessmentApi')
+const { getAssessmentsList, getQuestionGroup } = require('../../common/data/assessmentApi')
 const { sortObject } = require('../../common/utils/util')
 
-const displayAssessmentsList = async ({ params: { assessmentId }, tokens }, res) => {
+const displayAssessmentsList = async ({ tokens }, res) => {
   try {
     const questionsList = await getAssessmentsList(tokens)
 
-    const topLevelForms = questionsList
+    const assessmentGroupId = questionsList
       .filter(form => form.questionCount === 0)
-      .map(form => {
+      .map(form => form.groupId)[0]
+
+    const { contents } = await getQuestionGroup(assessmentGroupId, tokens)
+
+    const topLevelForms = contents
+      .map((form, index) => {
         return {
-          ...form,
-          path: `/${assessmentId}/questionGroup/${form.groupId}/0`,
+          title: form.title,
+          path: `/questionGroup/${assessmentGroupId}/${index}`,
         }
       })
-
-    topLevelForms.sort(sortObject('title'))
 
     return res.render(`${__dirname}/index`, {
       forms: topLevelForms,
