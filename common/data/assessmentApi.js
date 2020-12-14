@@ -7,8 +7,8 @@ const {
   },
 } = require('../config')
 
-const getOffenderData = tokens => {
-  const path = `${url}/offender/summary`
+const getOffenderData = (uuid, tokens) => {
+  const path = `${url}/assessment/{uuid}/subject`
   return getData(path, tokens)
 }
 

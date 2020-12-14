@@ -9,7 +9,7 @@ const stubOffenderDetails = () => {
   stubFor({
     request: {
       method: 'GET',
-      urlPattern: `/offender/summary`,
+      urlPattern: `/assessment/.+?/subject`,
     },
     response: {
       headers: {

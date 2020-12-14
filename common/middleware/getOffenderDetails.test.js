@@ -1,6 +1,9 @@
 const getOffenderDetails = require('./getOffenderDetails')
 const { getOffenderData } = require('../data/assessmentApi')
 const mockOffenderData = require('../../wiremock/responses/offenderDetails.json')
+const {
+  dev: { devAssessmentId },
+} = require('../config')
 
 jest.mock('../../common/data/assessmentApi')
 
@@ -10,10 +13,9 @@ describe('getOffenderDetails middleware', () => {
   const offenderData = mockOffenderData
   const next = jest.fn()
   const render = jest.fn()
-  const id = '0118 999 881 999 119 7253'
   const tokens = {}
   beforeEach(() => {
-    req = { tokens, params: { id } }
+    req = { tokens }
     res = { render, locals: {} }
     getOffenderData.mockResolvedValue(offenderData)
   })
@@ -37,7 +39,7 @@ describe('getOffenderDetails middleware', () => {
     })
     it('should call the data service once and pass the id', () => {
       expect(getOffenderData).toHaveBeenCalledTimes(1)
-      expect(getOffenderData).toHaveBeenCalledWith(tokens)
+      expect(getOffenderData).toHaveBeenCalledWith(devAssessmentId, tokens)
     })
     it('should call the next function', () => {
       expect(next).toHaveBeenCalledTimes(1)
