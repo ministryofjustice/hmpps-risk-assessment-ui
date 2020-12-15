@@ -3,6 +3,23 @@ const questionGroups = require('./responses/questionGroups.json')
 const questionAnswers = require('./responses/questionAnswers.json')
 const questionList = require('./responses/questionList.json')
 const assessmentEpisodes = require('./responses/assessmentEpisodes.json')
+const assessmentSupervision = require('./responses/assessmentSupervision.json')
+
+const stubAssessmentSupervision = () => {
+  stubFor({
+    request: {
+      method: 'POST',
+      urlPattern: '/assessments/supervision',
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: assessmentSupervision,
+    },
+  })
+}
 
 const stubQuestionGroup = groupId => {
   stubFor({
@@ -92,10 +109,14 @@ const stubForms = async () => {
 const stubEpisodes = async () => {
   await stubAssessmentEpisodes()
 }
+const stubSupervision = async () => {
+  await stubAssessmentSupervision()
+}
 
 module.exports = {
   stubForms,
   stubQuestions,
   stubAnswers,
   stubEpisodes,
+  stubSupervision,
 }

@@ -7,7 +7,7 @@ const displayQuestionGroup = async ({ params: { assessmentId, groupId, subgroup 
     const subIndex = Number.parseInt(subgroup, 10)
 
     if (subIndex >= questionGroup.contents.length) {
-      return res.redirect(`${assessmentId}/assessments`)
+      return res.redirect(`/${assessmentId}/assessments`)
     }
     if (questionGroup.groupId !== groupId) {
       return res.redirect(`/${assessmentId}/questionGroup/${questionGroup.groupId}/${subIndex}`)

@@ -8,7 +8,7 @@ const assessmentsPage = () =>
 export default {
   verifyOnPage: assessmentsPage,
   goTo: () => {
-    cy.visit(`/assessments`)
+    cy.visit(`/e69a61ff-7395-4a12-b434-b1aa6478aded/assessments`)
     return assessmentsPage()
   },
 }

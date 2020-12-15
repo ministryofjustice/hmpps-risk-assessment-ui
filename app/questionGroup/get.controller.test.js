@@ -211,6 +211,6 @@ describe('display question group and answers', () => {
     req.params.subgroup = 3
     getQuestionGroup.mockReturnValueOnce(questionGroup)
     await displayQuestionGroup(req, res)
-    expect(res.redirect).toHaveBeenCalledWith('test-assessment-id/assessments')
+    expect(res.redirect).toHaveBeenCalledWith('/test-assessment-id/assessments')
   })
 })
