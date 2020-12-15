@@ -3,7 +3,24 @@ const questionGroups = require('./responses/questionGroups.json')
 const questionAnswers = require('./responses/questionAnswers.json')
 const questionList = require('./responses/questionList.json')
 const assessmentEpisodes = require('./responses/assessmentEpisodes.json')
+const offenderDetails = require('./responses/offenderDetails.json')
 const assessmentSupervision = require('./responses/assessmentSupervision.json')
+
+const stubOffenderDetails = () => {
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: `/assessment/.+?/subject`,
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: offenderDetails,
+    },
+  })
+}
 
 const stubAssessmentSupervision = () => {
   stubFor({
@@ -119,4 +136,5 @@ module.exports = {
   stubAnswers,
   stubEpisodes,
   stubSupervision,
+  stubOffenderDetails,
 }
