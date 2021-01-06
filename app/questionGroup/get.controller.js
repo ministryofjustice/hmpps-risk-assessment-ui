@@ -1,3 +1,4 @@
+const nunjucks = require('nunjucks')
 const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
@@ -58,10 +59,44 @@ const annotateWithAnswers = (questions, answers) => {
   })
 }
 
-const annotateAnswerSchemas = (answerSchemas, answerValue) => {
-  if (answerValue === null) return answerSchemas
+const annotateAnswerSchemaConditionals = answerSchemas => {
+  return answerSchemas.map(schema => {
+    if (schema.conditional) {
+      const condQuestion = {
+        type: 'question',
+        questionId: 'conditional-question-id-1111111',
+        questionCode: 'Further information',
+        answerType: 'textarea',
+        questionText: 'Further information',
+        displayOrder: '1',
+        mandatory: 'no',
+        conditional: 'yes',
+        answerSchemas: [],
+        answer: null,
+      }
 
-  return answerSchemas.map(as =>
+      let conditionalQuestionString =
+        '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
+      conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(condQuestion)}) }}`
+
+      console.log(conditionalQuestionString)
+
+      const updatedSchema = schema
+      updatedSchema.conditional = { html: nunjucks.renderString(conditionalQuestionString) }
+      return updatedSchema
+    }
+    return schema
+  })
+}
+
+const annotateAnswerSchemas = (answerSchemas, answerValue) => {
+  const answerSchemaConditionals = annotateAnswerSchemaConditionals(answerSchemas)
+
+  if (answerValue === null) {
+    return answerSchemaConditionals
+  }
+
+  return answerSchemaConditionals.map(as =>
     Object.assign(as, {
       checked: as.value === answerValue,
       selected: as.value === answerValue,

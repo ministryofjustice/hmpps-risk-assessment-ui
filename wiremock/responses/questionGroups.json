@@ -175,7 +175,8 @@
                 "answerSchemaUuid": "44444444-4444-4444-4444-444444444444",
                 "answerSchemaCode": "SR15.1.2.1",
                 "value": "Y",
-                "text": "Yes"
+                "text": "Yes",
+                "conditional": "conditional-question-id-1111111"
               },
               {
                 "answerSchemaUuid": "44444444-4444-4444-4444-444444444445",
@@ -184,6 +185,18 @@
                 "text": "No"
               }
             ]
+          },
+          {
+            "type": "question",
+            "questionId": "conditional-question-id-1111111",
+            "questionCode": "Further information",
+            "answerType": "textarea",
+            "questionText": "Further information",
+            "displayOrder": "1",
+            "mandatory": "no",
+            "conditional": "yes",
+            "answerSchemas": [],
+            "answer": null
           },
           {
             "type": "question",
@@ -359,7 +372,7 @@
             "questionId": "11111111-1111-1111-1111-111111111231",
             "questionCode": "no_fixed_abode",
             "answerType": "radio",
-            "questionText": "Currently of no fixed abode or in transient accomodation",
+            "questionText": "Currently of no fixed abode or in transient accommodation",
             "displayOrder": "1",
             "mandatory": "no",
             "answerSchemas": [
