@@ -1,3 +1,15 @@
+// Initialise nunjucks environment
+const { configure } = require('nunjucks')
+
+const nunjucksEnvironment = configure({}, {})
+const dateFilter = require('nunjucks-date-filter')
+const { encodeHTML } = require('../../common/utils/util')
+const { mojDate } = require('../../node_modules/@ministryofjustice/frontend/moj/filters/all.js')()
+// add custom nunjucks filters
+nunjucksEnvironment.addFilter('date', dateFilter)
+nunjucksEnvironment.addFilter('mojDate', mojDate)
+nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
+
 const { displayQuestionGroup } = require('./get.controller')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 const questionGroupPointer = require('../../wiremock/responses/questionGroups.json')[
