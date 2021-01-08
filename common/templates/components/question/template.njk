@@ -1,8 +1,8 @@
-{%- from "govuk/components/input/macro.njk" import govukInput -%}
-{%- from "govuk/components/textarea/macro.njk" import govukTextarea -%}
-{%- from "govuk/components/radios/macro.njk" import govukRadios -%}
-{%- from "govuk/components/select/macro.njk" import govukSelect -%}
-{%- from "govuk/components/date-input/macro.njk" import govukDateInput -%}
+{%- from "node_modules/govuk-frontend/govuk/components/input/macro.njk" import govukInput -%}
+{%- from "node_modules/govuk-frontend/govuk/components/textarea/macro.njk" import govukTextarea -%}
+{%- from "node_modules/govuk-frontend/govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "node_modules/govuk-frontend/govuk/components/select/macro.njk" import govukSelect -%}
+{%- from "node_modules/govuk-frontend/govuk/components/date-input/macro.njk" import govukDateInput -%}
 
 {# templates for each question type #}
 {% switch question.answerType %}
@@ -14,7 +14,7 @@
       label: {
         text: question.questionText,
         isPageHeading: false,
-        classes: question.questionCode
+        classes: question.questionCode + ' govuk-label--m'
       },
       hint: {
         text: question.hint
@@ -28,32 +28,20 @@
       label: {
         text: question.questionText,
         isPageHeading: false,
-        classes: question.questionCode
+        classes: question.questionCode + ' govuk-label--m'
       },
       hint: {
         text: question.hint
       }
     }) }}
   {% case 'radio' %}
-    {% set emailHtml %}
-      {{ govukInput({
-        id: "contact-by-email",
-        name: "contact-by-email",
-        type: "email",
-        spellcheck: false,
-        classes: "govuk-!-width-one-third",
-        label: {
-          text: "Email address"
-        }
-      }) }}
-    {% endset -%}
-
     {{ govukRadios({
       idPrefix: 'id-' + question.questionId,
       name: 'id-' + question.questionId,
       fieldset: {
         legend: {
-          text: question.questionText
+          text: question.questionText,
+          classes: question.questionCode + ' govuk-label--m'
         }
       },
       items: question.answerSchemas
@@ -64,7 +52,8 @@
       id: 'id-' + question.questionId,
       name: 'id-' + question.questionId,
       label: {
-        text: question.questionText
+        text: question.questionText,
+        classes: question.questionCode + ' govuk-label--m'
       },
       items: question.answerSchemas
     }) }}
@@ -86,7 +75,8 @@
       fieldset: {
         legend: {
           text: question.questionText,
-          isPageHeading: false
+          isPageHeading: false,
+          classes: question.questionCode + ' govuk-label--m'
         }
       },
       hint: {

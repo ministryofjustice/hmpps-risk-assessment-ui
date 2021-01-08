@@ -1,4 +1,17 @@
 const nunjucks = require('nunjucks')
+
+// Initialise nunjucks environment
+const { configure } = require('nunjucks')
+
+const nunjucksEnvironment = configure({}, {})
+const dateFilter = require('nunjucks-date-filter')
+const { encodeHTML } = require('../../common/utils/util')
+const { mojDate } = require('../../node_modules/@ministryofjustice/frontend/moj/filters/all.js')()
+// add custom nunjucks filters
+nunjucksEnvironment.addFilter('date', dateFilter)
+nunjucksEnvironment.addFilter('mojDate', mojDate)
+nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
+
 const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
@@ -15,7 +28,8 @@ const displayQuestionGroup = async ({ params: { assessmentId, groupId, subgroup 
     }
 
     const { answers } = await grabAnswers(assessmentId, 'current', tokens)
-    const questions = annotateWithAnswers(questionGroup.contents[subIndex].contents, answers)
+    let questions = annotateWithAnswers(questionGroup.contents[subIndex].contents, answers)
+    questions = compileInlineConditionalQuestions(questions)
 
     return res.render(`${__dirname}/index`, {
       assessmentId,
@@ -59,44 +73,51 @@ const annotateWithAnswers = (questions, answers) => {
   })
 }
 
-const annotateAnswerSchemaConditionals = answerSchemas => {
-  return answerSchemas.map(schema => {
-    if (schema.conditional) {
-      const condQuestion = {
-        type: 'question',
-        questionId: 'conditional-question-id-1111111',
-        questionCode: 'Further information',
-        answerType: 'textarea',
-        questionText: 'Further information',
-        displayOrder: '1',
-        mandatory: 'no',
-        conditional: 'yes',
-        answerSchemas: [],
-        answer: null,
+const compileInlineConditionalQuestions = questions => {
+  // construct an object with all conditional questions, keyed on id
+  const conditionalQuestions = {}
+  questions.forEach(question => {
+    if (question.conditional) {
+      const key = question.questionId
+      conditionalQuestions[key] = question
+    }
+  })
+
+  // remove now unneeded conditional questions
+  const unconditionalQuestions = questions.filter(question => {
+    return !question.conditional
+  })
+
+  // add in rendered conditional question strings to each answer
+  return unconditionalQuestions.map(question => {
+    const currentQuestion = question
+    currentQuestion.answerSchemas = question.answerSchemas.map(schema => {
+      if (schema.conditional) {
+        let conditionalQuestionString =
+          '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
+        conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(conditionalQuestions[schema.conditional])}) }}`
+
+        const updatedSchema = schema
+        updatedSchema.conditional = {
+          html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),
+        }
+
+        return updatedSchema
       }
 
-      let conditionalQuestionString =
-        '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
-      conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(condQuestion)}) }}`
+      return schema
+    })
 
-      console.log(conditionalQuestionString)
-
-      const updatedSchema = schema
-      updatedSchema.conditional = { html: nunjucks.renderString(conditionalQuestionString) }
-      return updatedSchema
-    }
-    return schema
+    return currentQuestion
   })
 }
 
 const annotateAnswerSchemas = (answerSchemas, answerValue) => {
-  const answerSchemaConditionals = annotateAnswerSchemaConditionals(answerSchemas)
-
   if (answerValue === null) {
-    return answerSchemaConditionals
+    return answerSchemas
   }
 
-  return answerSchemaConditionals.map(as =>
+  return answerSchemas.map(as =>
     Object.assign(as, {
       checked: as.value === answerValue,
       selected: as.value === answerValue,
