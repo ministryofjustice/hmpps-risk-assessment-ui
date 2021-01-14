@@ -18,7 +18,9 @@
       },
       hint: {
         text: question.hint
-      }
+      },
+      errorMessage: errors['id-' + question.questionId]
+
     }) }}
   {% case 'textarea' %}
     {{ govukTextarea({
@@ -32,7 +34,8 @@
       },
       hint: {
         text: question.hint
-      }
+      },
+      errorMessage: errors['id-' + question.questionId]
     }) }}
   {% case 'radio' %}
     {{ govukRadios({
@@ -44,7 +47,8 @@
           classes: question.questionCode + ' govuk-label--m'
         }
       },
-      items: question.answerSchemas
+      items: question.answerSchemas,
+      errorMessage: errors['id-' + question.questionId]
     }) }}
 
   {% case 'dropdown' %}
@@ -55,7 +59,8 @@
         text: question.questionText,
         classes: question.questionCode + ' govuk-label--m'
       },
-      items: question.answerSchemas
+      items: question.answerSchemas,
+      errorMessage: errors['id-' + question.questionId]
     }) }}
 
   {% case 'date' %}
@@ -98,7 +103,8 @@
           name: "year",
           value: answerYear
         }
-      ]
+      ],
+      errorMessage: errors['id-' + question.questionId]
     }) }}
 
   {% default %}

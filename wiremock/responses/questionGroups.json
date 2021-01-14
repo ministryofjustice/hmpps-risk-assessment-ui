@@ -124,9 +124,10 @@
             "answerType": "freetext",
             "questionText": "Forename",
             "displayOrder": "1",
-            "mandatory": "no",
+            "mandatory": "yes",
             "answerSchemas": [],
-            "answer": null
+            "answer": null,
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the reasons for the proposal\",\"errorSummary\":\"Enter the reasons for the proposal\"}}"
           },
           {
             "type": "question",
@@ -135,9 +136,10 @@
             "answerType": "freetext",
             "questionText": "Surname",
             "displayOrder": "2",
-            "mandatory": "no",
+            "mandatory": "yes",
             "answerSchemas": [],
-            "answer": null
+            "answer": null,
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the reasons for the proposal\",\"errorSummary\":\"Enter the reasons for the proposal\"}}"
           },
           {
             "type": "question",

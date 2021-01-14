@@ -3,7 +3,10 @@ const nunjucks = require('nunjucks')
 const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
-const displayQuestionGroup = async ({ params: { assessmentId, groupId, subgroup }, tokens }, res) => {
+const displayQuestionGroup = async (
+  { params: { assessmentId, groupId, subgroup }, errors = {}, errorSummary = {}, tokens },
+  res,
+) => {
   try {
     const questionGroup = await grabQuestionGroup(groupId, tokens)
     const subIndex = Number.parseInt(subgroup, 10)
@@ -26,6 +29,8 @@ const displayQuestionGroup = async ({ params: { assessmentId, groupId, subgroup 
       groupId,
       questions,
       last: subIndex + 1 === questionGroup.contents.length,
+      errors,
+      errorSummary,
     })
   } catch (error) {
     return res.render('app/error', { error })

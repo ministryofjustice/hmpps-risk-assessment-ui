@@ -1,10 +1,34 @@
 /* eslint-disable no-param-reassign */
+const { body } = require('express-validator')
 const { logger } = require('../../common/logging/logger')
+const { displayQuestionGroup } = require('./get.controller')
 const { postAnswers } = require('../../common/data/assessmentApi')
 
-const saveQuestionGroup = async ({ params: { assessmentId, groupId, subgroup }, body, tokens }, res) => {
+const validationRules = () => {
+  return [
+    body('id-11111111-1111-1111-1111-111111111202')
+      .isLength({ min: 1 })
+      .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' }),
+    body('id-11111111-1111-1111-1111-111111111201')
+      .isLength({ min: 1 })
+      .withMessage({ error: 'Enter the surname' }),
+  ]
+}
+
+const saveQuestionGroup = async (req, res) => {
+  const {
+    params: { assessmentId, groupId, subgroup },
+    body: reqBody,
+    tokens,
+    errors,
+  } = req
+  console.log(errors)
+  if (errors) {
+    return displayQuestionGroup(req, res)
+  }
+
   try {
-    const dateKeys = findDateAnswerKeys(body)
+    const dateKeys = findDateAnswerKeys(reqBody)
 
     dateKeys.forEach(key => {
       const dateKey = key.replace(/-day$/, '')
@@ -20,7 +44,7 @@ const saveQuestionGroup = async ({ params: { assessmentId, groupId, subgroup }, 
       delete body[`${dateKey}-month`]
       delete body[`${dateKey}-day`]
     })
-    const answers = extractAnswers(body)
+    const answers = extractAnswers(reqBody)
 
     await postAnswers(assessmentId, 'current', answers, tokens)
 
@@ -32,16 +56,16 @@ const saveQuestionGroup = async ({ params: { assessmentId, groupId, subgroup }, 
   }
 }
 
-function findDateAnswerKeys(body) {
+function findDateAnswerKeys(postBody) {
   // find keys of all the dates in the body
   const pattern = /-day$/
-  return Object.keys(body).filter(key => {
+  return Object.keys(postBody).filter(key => {
     return pattern.test(key)
   })
 }
 
-function extractAnswers(body) {
-  const shapedAnswers = Object.entries(body).reduce((answers, [key, value]) => {
+function extractAnswers(postBody) {
+  const shapedAnswers = Object.entries(postBody).reduce((answers, [key, value]) => {
     const trimmedKey = key.replace(/^id-/, '')
 
     const answerValue = { freeTextAnswer: value, answers: {} }
@@ -52,4 +76,4 @@ function extractAnswers(body) {
   return { answers: shapedAnswers }
 }
 
-module.exports = { saveQuestionGroup }
+module.exports = { saveQuestionGroup, QuestionGroupValidationRules: validationRules }
