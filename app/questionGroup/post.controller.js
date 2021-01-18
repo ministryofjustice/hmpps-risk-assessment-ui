@@ -1,11 +1,13 @@
 /* eslint-disable no-param-reassign */
 const { body } = require('express-validator')
 const { logger } = require('../../common/logging/logger')
-const { displayQuestionGroup } = require('./get.controller')
+const { displayQuestionGroup, grabQuestionGroup } = require('./get.controller')
 const { postAnswers } = require('../../common/data/assessmentApi')
 
-const validationRules = () => {
-  return [
+const validationRulesOld = req => {
+  console.log('hello')
+  console.log(req)
+  const validationString = [
     body('id-11111111-1111-1111-1111-111111111202')
       .isLength({ min: 1 })
       .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' }),
@@ -13,6 +15,47 @@ const validationRules = () => {
       .isLength({ min: 1 })
       .withMessage({ error: 'Enter the surname' }),
   ]
+  console.log(validationString)
+  return validationString
+}
+
+const showBody = (req, res, next) => {
+  // console.log('=================')
+  // console.log(req['express-validator#contexts'])
+  return next()
+}
+
+const validationRules = async (req, res, next) => {
+  const {
+    params: { groupId },
+    tokens,
+  } = req
+  // get questionGroup again
+  console.log('in validation rules')
+  // console.log(req)
+
+  const questionGroup = await grabQuestionGroup(groupId, tokens)
+
+  console.log("I've found this question group")
+  console.log(questionGroup)
+
+  body('id-11111111-1111-1111-1111-111111111202')
+    .isLength({ min: 1 })
+    .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' })
+  body('id-11111111-1111-1111-1111-111111111201')
+    .isLength({ min: 1 })
+    .withMessage({ error: 'Enter the surname' })
+
+  return next()
+  return () => {
+    body('id-11111111-1111-1111-1111-111111111202')
+      .isLength({ min: 1 })
+      .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' })
+    body('id-11111111-1111-1111-1111-111111111201')
+      .isLength({ min: 1 })
+      .withMessage({ error: 'Enter the surname' })
+    next()
+  }
 }
 
 const saveQuestionGroup = async (req, res) => {
@@ -26,6 +69,8 @@ const saveQuestionGroup = async (req, res) => {
   if (errors) {
     return displayQuestionGroup(req, res)
   }
+
+  console.log('in savequestiongroup')
 
   try {
     const dateKeys = findDateAnswerKeys(reqBody)
@@ -76,4 +121,4 @@ function extractAnswers(postBody) {
   return { answers: shapedAnswers }
 }
 
-module.exports = { saveQuestionGroup, QuestionGroupValidationRules: validationRules }
+module.exports = { saveQuestionGroup, QuestionGroupValidationRules: validationRules, showBody }

@@ -4,7 +4,7 @@ const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
 const displayQuestionGroup = async (
-  { params: { assessmentId, groupId, subgroup }, errors = {}, errorSummary = {}, tokens },
+  { params: { assessmentId, groupId, subgroup }, errors = {}, errorSummary, tokens },
   res,
 ) => {
   try {
@@ -118,4 +118,4 @@ const annotateAnswerSchemas = (answerSchemas, answerValue) => {
   )
 }
 
-module.exports = { displayQuestionGroup }
+module.exports = { displayQuestionGroup, grabQuestionGroup }
