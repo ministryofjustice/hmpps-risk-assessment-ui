@@ -39,4 +39,37 @@ context('Basic questions display', () => {
 
     AssessmentsPage.verifyOnPage()
   })
+
+  it('Post and see error summary and question error', () => {
+    const questionsPage = QuestionsPage.goTo()
+
+    questionsPage
+      .questions()
+      .eq(0)
+      .find('input')
+      .type('Grant')
+
+    questionsPage.save().click()
+
+    // see errors triggered by mandatory field validation
+    questionsPage.errorSummary().contains('You must enter a surname')
+    questionsPage
+      .questions()
+      .eq(1)
+      .find('.govuk-error-message')
+      .contains('Enter the surname')
+
+    cy.pa11y({
+      hideElements: 'input[aria-expanded]',
+    })
+
+    questionsPage
+      .questions()
+      .eq(1)
+      .find('input')
+      .type('Hart')
+
+    questionsPage.save().click()
+    AssessmentsPage.verifyOnPage()
+  })
 })

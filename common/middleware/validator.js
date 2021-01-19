@@ -3,8 +3,6 @@ const { removeBlankErrors, formatErrors, formatErrorSummary } = require('../util
 const { isEmptyObject } = require('../utils/util')
 
 const validate = (req, res, next) => {
-  console.log('in validate function')
-  console.log(req.validationConfig)
   const { errors } = validationResult(req)
 
   if (isEmptyObject(errors)) {

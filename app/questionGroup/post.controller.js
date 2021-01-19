@@ -3,26 +3,17 @@ const { body } = require('express-validator')
 const { logger } = require('../../common/logging/logger')
 const { displayQuestionGroup, grabQuestionGroup } = require('./get.controller')
 const { postAnswers } = require('../../common/data/assessmentApi')
+const { dynamicMiddleware } = require('../../common/utils/util')
 
-const validationRulesOld = req => {
-  console.log('hello')
-  console.log(req)
-  const validationString = [
-    body('id-11111111-1111-1111-1111-111111111202')
-      .isLength({ min: 1 })
-      .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' }),
-    body('id-11111111-1111-1111-1111-111111111201')
-      .isLength({ min: 1 })
-      .withMessage({ error: 'Enter the surname' }),
-  ]
-  console.log(validationString)
-  return validationString
-}
-
-const showBody = (req, res, next) => {
-  // console.log('=================')
-  // console.log(req['express-validator#contexts'])
-  return next()
+const constructValidationRule = (questionId, validationType, validationSettings) => {
+  switch (validationType) {
+    case 'mandatory':
+      return body(questionId)
+        .isLength({ min: 1 })
+        .withMessage({ error: validationSettings.errorMessage, errorSummary: validationSettings.errorSummary })
+    default:
+      return ''
+  }
 }
 
 const validationRules = async (req, res, next) => {
@@ -30,32 +21,22 @@ const validationRules = async (req, res, next) => {
     params: { groupId },
     tokens,
   } = req
-  // get questionGroup again
-  console.log('in validation rules')
-  // console.log(req)
-
   const questionGroup = await grabQuestionGroup(groupId, tokens)
 
-  console.log("I've found this question group")
-  console.log(questionGroup)
+  const validatorsToSend = []
 
-  body('id-11111111-1111-1111-1111-111111111202')
-    .isLength({ min: 1 })
-    .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' })
-  body('id-11111111-1111-1111-1111-111111111201')
-    .isLength({ min: 1 })
-    .withMessage({ error: 'Enter the surname' })
+  questionGroup.contents[0].contents.forEach(question => {
+    if (question.validation) {
+      const validation = JSON.parse(question.validation)
+      if (validation) {
+        Object.entries(validation).forEach(([validationType, feedback]) => {
+          validatorsToSend.push(constructValidationRule(`id-${question.questionId}`, validationType, feedback))
+        })
+      }
+    }
+  })
 
-  return next()
-  return () => {
-    body('id-11111111-1111-1111-1111-111111111202')
-      .isLength({ min: 1 })
-      .withMessage({ error: 'Enter the forename', errorSummary: 'You must enter a forename' })
-    body('id-11111111-1111-1111-1111-111111111201')
-      .isLength({ min: 1 })
-      .withMessage({ error: 'Enter the surname' })
-    next()
-  }
+  await dynamicMiddleware(validatorsToSend, req, res, next)
 }
 
 const saveQuestionGroup = async (req, res) => {
@@ -65,12 +46,9 @@ const saveQuestionGroup = async (req, res) => {
     tokens,
     errors,
   } = req
-  console.log(errors)
   if (errors) {
     return displayQuestionGroup(req, res)
   }
-
-  console.log('in savequestiongroup')
 
   try {
     const dateKeys = findDateAnswerKeys(reqBody)
@@ -121,4 +99,4 @@ function extractAnswers(postBody) {
   return { answers: shapedAnswers }
 }
 
-module.exports = { saveQuestionGroup, QuestionGroupValidationRules: validationRules, showBody }
+module.exports = { saveQuestionGroup, questionGroupValidationRules: validationRules }
