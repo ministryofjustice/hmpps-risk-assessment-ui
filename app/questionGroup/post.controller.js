@@ -18,14 +18,15 @@ const constructValidationRule = (questionId, validationType, validationSettings)
 
 const validationRules = async (req, res, next) => {
   const {
-    params: { groupId },
+    params: { groupId, subgroup },
     tokens,
   } = req
   const questionGroup = await grabQuestionGroup(groupId, tokens)
+  const subIndex = Number.parseInt(subgroup, 10)
 
   const validatorsToSend = []
 
-  questionGroup.contents[0].contents.forEach(question => {
+  questionGroup.contents[subIndex].contents.forEach(question => {
     if (question.validation) {
       const validation = JSON.parse(question.validation)
       if (validation) {

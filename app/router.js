@@ -28,7 +28,7 @@ module.exports = app => {
   //     if (!result.healthy) {
   //       res.status(503)
   //     }
-  //     res.json(RESULT)
+  //     res.json(result)
   //     return result
   //   })
   // })
