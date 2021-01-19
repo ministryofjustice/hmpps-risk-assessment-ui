@@ -56,16 +56,16 @@ const saveQuestionGroup = async (req, res) => {
     dateKeys.forEach(key => {
       const dateKey = key.replace(/-day$/, '')
       let constructedDate = ''
-      if (body[`${dateKey}-year`] && body[`${dateKey}-month`] && body[`${dateKey}-day`]) {
+      if (reqBody[`${dateKey}-year`] && reqBody[`${dateKey}-month`] && reqBody[`${dateKey}-day`]) {
         constructedDate = new Date(
-          `${body[`${dateKey}-year`]}-${body[`${dateKey}-month`]}-${body[`${dateKey}-day`]}`,
+          `${reqBody[`${dateKey}-year`]}-${reqBody[`${dateKey}-month`]}-${reqBody[`${dateKey}-day`]}`,
         ).toISOString()
       }
 
-      body[dateKey] = constructedDate
-      delete body[`${dateKey}-year`]
-      delete body[`${dateKey}-month`]
-      delete body[`${dateKey}-day`]
+      reqBody[dateKey] = constructedDate
+      delete reqBody[`${dateKey}-year`]
+      delete reqBody[`${dateKey}-month`]
+      delete reqBody[`${dateKey}-day`]
     })
     const answers = extractAnswers(reqBody)
 
