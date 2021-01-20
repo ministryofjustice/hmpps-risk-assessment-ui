@@ -20,19 +20,51 @@ const validationRules = async (req, res, next) => {
   const {
     params: { groupId, subgroup },
     tokens,
+    body: reqBody,
   } = req
   const questionGroup = await grabQuestionGroup(groupId, tokens)
   const subIndex = Number.parseInt(subgroup, 10)
+  const currentQuestions = questionGroup.contents[subIndex].contents
 
   const validatorsToSend = []
 
-  questionGroup.contents[subIndex].contents.forEach(question => {
+  currentQuestions.forEach(question => {
+    let addThisValidation = true
     if (question.validation) {
-      const validation = JSON.parse(question.validation)
-      if (validation) {
-        Object.entries(validation).forEach(([validationType, feedback]) => {
-          validatorsToSend.push(constructValidationRule(`id-${question.questionId}`, validationType, feedback))
+      // check if this is a conditional question with a parent
+      if (question.conditional) {
+        let conditionalParentAnswer = ''
+        const conditionalQuestionToFind = question.questionId
+        const parentQuestion = currentQuestions.filter(thisQuestion => {
+          let foundParent = false
+          thisQuestion.answerSchemas.forEach(schema => {
+            if (schema.conditional === conditionalQuestionToFind) {
+              foundParent = true
+              conditionalParentAnswer = schema.value
+            }
+          })
+          return foundParent
         })
+
+        if (parentQuestion[0]) {
+          // if parent question answer submitted does not match the triggering answer, skip this validation
+          const answerId = `id-${parentQuestion[0].questionId}`
+          if (reqBody[answerId] !== conditionalParentAnswer) {
+            addThisValidation = false
+          }
+        } else {
+          logger.error(`No parent question found for conditional question ${question.questionId}`)
+          addThisValidation = false
+        }
+      }
+
+      if (addThisValidation) {
+        const validation = JSON.parse(question.validation)
+        if (validation) {
+          Object.entries(validation).forEach(([validationType, feedback]) => {
+            validatorsToSend.push(constructValidationRule(`id-${question.questionId}`, validationType, feedback))
+          })
+        }
       }
     }
   })
