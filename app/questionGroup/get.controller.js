@@ -4,7 +4,7 @@ const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
 const displayQuestionGroup = async (
-  { params: { assessmentId, groupId, subgroup }, errors = {}, errorSummary, tokens },
+  { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary, tokens },
   res,
 ) => {
   try {
@@ -19,10 +19,11 @@ const displayQuestionGroup = async (
     }
 
     const { answers } = await grabAnswers(assessmentId, 'current', tokens)
-    let questions = annotateWithAnswers(questionGroup.contents[subIndex].contents, answers)
+    let questions = annotateWithAnswers(questionGroup.contents[subIndex].contents, answers, body)
     questions = compileInlineConditionalQuestions(questions)
 
     return res.render(`${__dirname}/index`, {
+      bodyAnswers: { ...body },
       assessmentId,
       heading: questionGroup.title,
       subheading: questionGroup.contents[subIndex].title,
@@ -55,10 +56,10 @@ const grabAnswers = (assessmentId, episodeId, tokens) => {
   }
 }
 
-const annotateWithAnswers = (questions, answers) => {
+const annotateWithAnswers = (questions, answers, body) => {
   return questions.map(q => {
     const answer = answers[q.questionId]
-    const answerValue = answer ? answer.freeTextAnswer : null
+    const answerValue = body[`id-${q.questionId}`] || (answer ? answer.freeTextAnswer : null)
     return Object.assign(q, {
       answer: answerValue,
       answerSchemas: annotateAnswerSchemas(q.answerSchemas, answerValue),

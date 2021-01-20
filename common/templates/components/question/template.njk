@@ -5,12 +5,14 @@
 {%- from "node_modules/govuk-frontend/govuk/components/date-input/macro.njk" import govukDateInput -%}
 
 {# templates for each question type #}
+{% set questionAnswer = bodyAnswer or question.answer or '' %}
+
 {% switch question.answerType %}
   {% case 'freetext' %}
     {{ govukInput({
       id: 'id-' + question.questionId,
       name: 'id-' + question.questionId,
-      value: question.answer | encodeHtml | safe,
+      value: questionAnswer | encodeHtml | safe,
       label: {
         text: question.questionText,
         isPageHeading: false,
@@ -26,7 +28,7 @@
     {{ govukTextarea({
       id: 'id-' + question.questionId,
       name: 'id-' + question.questionId,
-      value: question.answer | encodeHtml | safe,
+      value: questionAnswer | encodeHtml | safe,
       label: {
         text: question.questionText,
         isPageHeading: false,

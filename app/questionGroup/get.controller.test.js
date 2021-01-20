@@ -24,6 +24,7 @@ let expectedForThisTest
 
 const expected = {
   assessmentId: 'test-assessment-id',
+  bodyAnswers: {},
   errors: {},
   groupId: '22222222-2222-2222-2222-222222222203',
   heading: 'Brief Form',
@@ -164,6 +165,7 @@ const expected = {
 
 describe('display question group and answers', () => {
   const req = {
+    body: {},
     tokens,
     params: {
       assessmentId: 'test-assessment-id',
