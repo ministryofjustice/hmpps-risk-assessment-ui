@@ -20,7 +20,7 @@ const displayQuestionGroup = async (
 
     const { answers } = await grabAnswers(assessmentId, 'current', tokens)
     let questions = annotateWithAnswers(questionGroup.contents[subIndex].contents, answers, body)
-    questions = compileInlineConditionalQuestions(questions)
+    questions = compileInlineConditionalQuestions(questions, errors)
 
     return res.render(`${__dirname}/index`, {
       bodyAnswers: { ...body },
@@ -67,7 +67,7 @@ const annotateWithAnswers = (questions, answers, body) => {
   })
 }
 
-const compileInlineConditionalQuestions = questions => {
+const compileInlineConditionalQuestions = (questions, errors) => {
   // construct an object with all conditional questions, keyed on id
   const conditionalQuestions = {}
   questions.forEach(question => {
@@ -87,10 +87,19 @@ const compileInlineConditionalQuestions = questions => {
     const currentQuestion = question
     currentQuestion.answerSchemas = question.answerSchemas.map(schema => {
       if (schema.conditional) {
+        let thisError
+        const errorString = errors[`id-${conditionalQuestions[schema.conditional].questionId}`]
+          ? errors[`id-${conditionalQuestions[schema.conditional].questionId}`].text
+          : null
+        if (errorString) {
+          thisError = `{text:'${errorString}'}`
+        }
         let conditionalQuestionString =
           '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
-        conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(conditionalQuestions[schema.conditional])}) }}`
 
+        conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(
+          conditionalQuestions[schema.conditional],
+        )},'','',${thisError}) }}`
         const updatedSchema = schema
         updatedSchema.conditional = {
           html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),

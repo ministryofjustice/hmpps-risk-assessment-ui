@@ -1558,7 +1558,7 @@
             "questionText": "Offence analysis",
             "displayOrder": 1,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter your analysis of the offence\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter your analysis of the offence\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter your analysis of the offence\",\"errorSummary\":\"Enter your analysis of the offence\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1570,7 +1570,7 @@
             "questionText": "Why did the offence occur?",
             "displayOrder": 2,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Explain why the offence occured\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nExplain why the offence occured\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Explain why the offence occured\",\"errorSummary\":\"Explain why the offence occured\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1582,7 +1582,7 @@
             "questionText": "Does the individual accept responsibility for the current offence?",
             "displayOrder": 3,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1608,7 +1608,7 @@
             "questionText": "Give details",
             "displayOrder": 4,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -1646,7 +1646,7 @@
             "questionText": "Give details",
             "displayOrder": 6,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -1658,7 +1658,7 @@
             "questionText": "Do the current offence(s) indicate an escalation in seriousness from earlier offending?",
             "displayOrder": 7,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1684,7 +1684,7 @@
             "questionText": "Give details",
             "displayOrder": 8,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -1696,7 +1696,7 @@
             "questionText": "Are current offence(s) part of an established pattern of offending?",
             "displayOrder": 9,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1722,7 +1722,7 @@
             "questionText": "Give details",
             "displayOrder": 10,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -1734,7 +1734,7 @@
             "questionText": "Does the individual have any history of statutory sexual offences?",
             "displayOrder": 11,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1759,7 +1759,7 @@
             "questionText": "Does the current offence have a sexual element or motivation?",
             "displayOrder": 12,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1784,7 +1784,7 @@
             "questionText": "Have they ever committed a sexual or sexually motivated offence?",
             "displayOrder": 13,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1809,7 +1809,7 @@
             "questionText": "Have any of these involved actual or attempted contact against a victim who was a stranger?",
             "displayOrder": 14,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1834,7 +1834,7 @@
             "questionText": "Date of most recent sanction involving a sexual or sexually motivated offence",
             "displayOrder": 15,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the date of the most recent sanction involving a sexual or sexually motivated offence\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the date of the most recent sanction involving a sexual or sexually motivated offence\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the date of the most recent sanction involving a sexual or sexually motivated offence\",\"errorSummary\":\"Enter the date of the most recent sanction involving a sexual or sexually motivated offence\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1846,7 +1846,7 @@
             "questionText": "Number of previous or current sanctions involving contact adult sexual offences",
             "displayOrder": 16,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the number of previous or current sanctions involving contact adult sexual offences\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the number of previous or current sanctions involving contact adult sexual offences\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the number of previous or current sanctions involving contact adult sexual offences\",\"errorSummary\":\"Enter the number of previous or current sanctions involving contact adult sexual offences\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1858,7 +1858,7 @@
             "questionText": "Number of previous or current sanctions involving contact child sexual offences",
             "displayOrder": 17,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the number of previous or current sanctions involving contact child sexual offences\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the number of previous or current sanctions involving contact child sexual offences\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the number of previous or current sanctions involving contact child sexual offences\",\"errorSummary\":\"Enter the number of previous or current sanctions involving contact child sexual offences\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1870,7 +1870,7 @@
             "questionText": "Number of previous or current sanctions involving indecent image sexual offences",
             "displayOrder": 18,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the number of previous or current sanctions involving indecent image sexual offences\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the number of previous or current sanctions involving indecent image sexual offences\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the number of previous or current sanctions involving indecent image sexual offences\",\"errorSummary\":\"Enter the number of previous or current sanctions involving indecent image sexual offences\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1882,7 +1882,7 @@
             "questionText": "Number of previous or current sanctions involving other non-contact sexual or sexually motivated offences",
             "displayOrder": 19,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Number of previous or current sanctions involving other non-contact sexual or sexually motivated offences\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nNumber of previous or current sanctions involving other non-contact sexual or sexually motivated offences\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Number of previous or current sanctions involving other non-contact sexual or sexually motivated offences\",\"errorSummary\":\"Number of previous or current sanctions involving other non-contact sexual or sexually motivated offences\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -1894,7 +1894,7 @@
             "questionText": "Have you completed an interview and/or OASys?",
             "displayOrder": 20,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1919,7 +1919,7 @@
             "questionText": "Does the individual have any previous convictions?",
             "displayOrder": 21,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -1944,7 +1944,7 @@
             "questionText": "Does the individual have any previous convictions for the following:",
             "displayOrder": 22,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select any previous convictions\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect any previous convictions\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select any previous convictions\",\"errorSummary\":\"Select any previous convictions\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -2055,7 +2055,7 @@
             "questionText": "Did the offence involve carrying or use of a weapon?",
             "displayOrder": 32,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2154,7 +2154,7 @@
             "questionText": "Suitability of accommodation. ",
             "displayOrder": 1,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2185,7 +2185,7 @@
             "questionText": "Give details",
             "displayOrder": 2,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2197,7 +2197,7 @@
             "questionText": "Are any current or previous accommodation issues linked to offending behaviour?",
             "displayOrder": 3,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2222,7 +2222,7 @@
             "questionText": "Accommodation type",
             "displayOrder": 4,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the accommodation type\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the accommodation type\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the accommodation type\",\"errorSummary\":\"Select the accommodation type\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2271,7 +2271,7 @@
             "questionText": "Give details",
             "displayOrder": 5,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2283,7 +2283,7 @@
             "questionText": "Are education, training, employment and/or basic skills issues linked to offending behaviour?",
             "displayOrder": 6,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2308,7 +2308,7 @@
             "questionText": "Education, training and employability status",
             "displayOrder": 7,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the education, training and employability status\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the education, training and employability status\\r\\n\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the education, training and employability status\",\"errorSummary\":\"Select the education, training and employability status\\r\\n\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -2320,7 +2320,7 @@
             "questionText": "Give details",
             "displayOrder": 8,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2332,7 +2332,7 @@
             "questionText": "Hours of work or education / training per week",
             "displayOrder": 9,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the hours of work or education / training per week\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the hours of work or education / training per week\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the hours of work or education / training per week\",\"errorSummary\":\"Enter the hours of work or education / training per week\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -2344,7 +2344,7 @@
             "questionText": "Is a Skills for Life assessment required?",
             "displayOrder": 10,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2369,7 +2369,7 @@
             "questionText": "Are financial issues linked to offending behaviour?",
             "displayOrder": 11,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2395,7 +2395,7 @@
             "questionText": "Give details",
             "displayOrder": 12,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"xxxEnter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2407,7 +2407,7 @@
             "questionText": "What is the person's current relationship with their partner?",
             "displayOrder": 13,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2432,7 +2432,7 @@
             "questionText": "Is there evidence that the individual is a perpetrator of domestic violence or partner abuse?",
             "displayOrder": 14,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2458,7 +2458,7 @@
             "questionText": "Give details",
             "displayOrder": 15,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2470,7 +2470,7 @@
             "questionText": "Is the person's current use of alcohol a problem?",
             "displayOrder": 16,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2501,7 +2501,7 @@
             "questionText": "Give details",
             "displayOrder": 17,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2513,7 +2513,7 @@
             "questionText": "Is there evidence of binge drinking or excessive use of alcohol in the last 6 months?",
             "displayOrder": 18,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2544,7 +2544,7 @@
             "questionText": "Give details",
             "displayOrder": 19,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2556,7 +2556,7 @@
             "questionText": "Is there a need for a specialist assessment?",
             "displayOrder": 20,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2582,7 +2582,7 @@
             "questionText": "Give details",
             "displayOrder": 21,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2594,7 +2594,7 @@
             "questionText": "Is drug misuse linked to offending behaviour?",
             "displayOrder": 22,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2620,7 +2620,7 @@
             "questionText": "Give details",
             "displayOrder": 23,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2632,7 +2632,7 @@
             "questionText": "Is there current or recent drug misuse on a daily or weekly basis?",
             "displayOrder": 24,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2658,7 +2658,7 @@
             "questionText": "Give details",
             "displayOrder": 25,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2670,7 +2670,7 @@
             "questionText": "Is the individual motivated to tackle drugs misuse?",
             "displayOrder": 26,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes, no or in part\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes, no or in part\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes, no or in part\",\"errorSummary\":\"Select yes, no or in part\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -2682,7 +2682,7 @@
             "questionText": "Give details",
             "displayOrder": 27,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2694,7 +2694,7 @@
             "questionText": "Is mental health linked to offending behaviour?",
             "displayOrder": 28,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2720,7 +2720,7 @@
             "questionText": "Give details",
             "displayOrder": 29,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2732,7 +2732,7 @@
             "questionText": "Does the individual have current mental health issues or a history of such issues?",
             "displayOrder": 30,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2758,7 +2758,7 @@
             "questionText": "Give details",
             "displayOrder": 31,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2770,7 +2770,7 @@
             "questionText": "Is there evidence of self-harm, attempted suicide, suicidal thoughts or feelings?",
             "displayOrder": 32,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select evidence\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect evidence\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select evidence\",\"errorSummary\":\"Select evidence\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -2781,7 +2781,7 @@
             "answerType": "freetext",
             "displayOrder": 33,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -2793,7 +2793,7 @@
             "questionText": "Can the individual cope in custody / hostel setting?",
             "displayOrder": 34,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2819,7 +2819,7 @@
             "questionText": "Give details",
             "displayOrder": 35,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2831,7 +2831,7 @@
             "questionText": "Are there particular social and emotional consequences of imprisonment?",
             "displayOrder": 36,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2857,7 +2857,7 @@
             "questionText": "Give details",
             "displayOrder": 37,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2869,7 +2869,7 @@
             "questionText": "Is a specialist mental health report required?",
             "displayOrder": 38,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2895,7 +2895,7 @@
             "questionText": "Give details",
             "displayOrder": 39,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2907,7 +2907,7 @@
             "questionText": "Are thinking and behaviour a relevant factor?",
             "displayOrder": 40,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2932,7 +2932,7 @@
             "questionText": "Is impulsivity a problem for the individual?",
             "displayOrder": 41,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -2963,7 +2963,7 @@
             "questionText": "Give details",
             "displayOrder": 42,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -2975,7 +2975,7 @@
             "questionText": "Is temper control a problem for the individual?",
             "displayOrder": 43,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3006,7 +3006,7 @@
             "questionText": "Does the individual have pro-criminal attitudes?",
             "displayOrder": 44,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the degree to which this is an issue\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the degree to which this is an issue\",\"errorSummary\":\"Select the degree to which this is an issue\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3037,7 +3037,7 @@
             "questionText": "Is there evidence that the individual demonstrates inadequate social or interpersonal skills?",
             "displayOrder": 45,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3063,7 +3063,7 @@
             "questionText": "Give details",
             "displayOrder": 46,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -3075,7 +3075,7 @@
             "questionText": "Is there evidence that the individual uses inappropriate problem solving strategies?",
             "displayOrder": 47,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3101,7 +3101,7 @@
             "questionText": "Give details",
             "displayOrder": 48,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -3113,7 +3113,7 @@
             "questionText": "Is there evidence that the individual has difficulty understanding other people’s points of view?",
             "displayOrder": 49,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3139,7 +3139,7 @@
             "questionText": "Give details",
             "displayOrder": 50,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -3151,7 +3151,7 @@
             "questionText": "Are anti-social or discriminatory attitudes or behaviour associated with offending?",
             "displayOrder": 51,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes, no, or in part\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes, no, or in part\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3163,7 +3163,7 @@
             "questionText": "Give details",
             "displayOrder": 52,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -3175,7 +3175,7 @@
             "questionText": "Additional information about the individual relevant to their offence(s) and the management of the offender",
             "displayOrder": 53,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3187,7 +3187,7 @@
             "questionText": "Is there evidence of the individual experiencing trauma?",
             "displayOrder": 54,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3212,7 +3212,7 @@
             "questionText": "Does the individual have caring responsibilities for children or adults, or have they ever had caring responsibilities for children or adults?",
             "displayOrder": 55,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3269,7 +3269,7 @@
             "questionText": "What are the individual's risk factors?",
             "displayOrder": 3,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the individual' risk factors\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the individual' risk factors\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the individual' risk factors\",\"errorSummary\":\"Enter the individual' risk factors\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3281,7 +3281,7 @@
             "questionText": "What are the individual's protective factors?",
             "displayOrder": 4,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter protective factors\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter protective factors\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter protective factors\",\"errorSummary\":\"Enter protective factors\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3293,7 +3293,7 @@
             "questionText": "Do you assess risk of serious harm to be imminent?",
             "displayOrder": 5,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3319,7 +3319,7 @@
             "questionText": "Give details",
             "displayOrder": 6,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -3331,7 +3331,7 @@
             "questionText": "Likelihood of further offending",
             "displayOrder": 7,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the likelihood of further offending\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the likelihood of further offending\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the likelihood of further offending\",\"errorSummary\":\"Select the likelihood of further offending\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3368,7 +3368,7 @@
             "questionText": "Risk of serious harm",
             "displayOrder": 8,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the risk of serious harm\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the risk of serious harm\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the risk of serious harm\",\"errorSummary\":\"Select the risk of serious harm\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3405,7 +3405,7 @@
             "questionText": "Does the Risk of Serious Harm Screening indicate a need for a full Risk of Serious Harm Analysis?",
             "displayOrder": 9,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect yes or no\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3430,7 +3430,7 @@
             "questionText": "Response to previous supervision",
             "displayOrder": 10,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the individual's response to previous supervision\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the individual's response to previous supervision\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the individual's response to previous supervision\",\"errorSummary\":\"Select the individual's response to previous supervision\"}}",
             "conditional": false,
             "answerSchemas": [
               {
@@ -3461,7 +3461,7 @@
             "questionText": "Give details",
             "displayOrder": 11,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           }
@@ -3505,7 +3505,7 @@
             "questionText": "Enter a proposed sentence",
             "displayOrder": 3,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter a proposed sentence\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter a proposed sentence\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter a proposed sentence\",\"errorSummary\":\"Enter a proposed sentence\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3517,7 +3517,7 @@
             "questionText": "Give details",
             "displayOrder": 4,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter details\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
             "conditional": true,
             "answerSchemas": []
           },
@@ -3529,7 +3529,7 @@
             "questionText": "Reasons for proposal",
             "displayOrder": 5,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the reasons for the proposal\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the reasons for the proposal\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the reasons for the proposal\",\"errorSummary\":\"Enter the reasons for the proposal\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3541,7 +3541,7 @@
             "questionText": "Sentence length",
             "displayOrder": 6,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the sentence length\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the sentence length\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the sentence length\",\"errorSummary\":\"Enter the sentence length\"}}",
             "conditional": false,
             "answerSchemas": []
           },
@@ -3553,7 +3553,7 @@
             "questionText": "Individual's attitude to proposed sentence",
             "displayOrder": 7,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the individual's attitude to proposed sentence\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nEnter the individual's attitude to proposed sentence\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the individual's attitude to proposed sentence\",\"errorSummary\":\"Enter the individual's attitude to proposed sentence\"}}",
             "conditional": false,
             "answerSchemas": []
           }
@@ -3575,7 +3575,7 @@
             "questionText": "Information sources",
             "displayOrder": 1,
             "mandatory": true,
-            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the information sources\",\"errorSummary\":\"There is a problem\\r\\n\\r\\nSelect the information sources\"}}",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select the information sources\",\"errorSummary\":\"Select the information sources\"}}",
             "conditional": false,
             "answerSchemas": [
               {

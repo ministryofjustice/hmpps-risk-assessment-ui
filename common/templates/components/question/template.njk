@@ -6,6 +6,7 @@
 
 {# templates for each question type #}
 {% set questionAnswer = bodyAnswer or question.answer or '' %}
+{% set errorMessage = thisErrorMessage or errors['id-' + question.questionId] %}
 
 {% switch question.answerType %}
   {% case 'freetext' %}
@@ -21,7 +22,7 @@
       hint: {
         text: question.hint
       },
-      errorMessage: errors['id-' + question.questionId]
+      errorMessage: errorMessage
 
     }) }}
   {% case 'textarea' %}
@@ -37,7 +38,7 @@
       hint: {
         text: question.hint
       },
-      errorMessage: errors['id-' + question.questionId]
+      errorMessage: errorMessage
     }) }}
   {% case 'radio' %}
     {{ govukRadios({
@@ -50,7 +51,7 @@
         }
       },
       items: question.answerSchemas,
-      errorMessage: errors['id-' + question.questionId]
+      errorMessage: errorMessage
     }) }}
 
   {% case 'dropdown' %}
@@ -62,7 +63,7 @@
         classes: question.questionCode + ' govuk-label--m'
       },
       items: question.answerSchemas,
-      errorMessage: errors['id-' + question.questionId]
+      errorMessage: errorMessage
     }) }}
 
   {% case 'date' %}
@@ -106,7 +107,7 @@
           value: answerYear
         }
       ],
-      errorMessage: errors['id-' + question.questionId]
+      errorMessage: errorMessage
     }) }}
 
   {% default %}
