@@ -104,6 +104,7 @@ const expected = {
       questionId: '11111111-1111-1111-1111-111111111231',
       questionText: 'Currently of no fixed abode or in transient accommodation',
       type: 'question',
+      validation: '{"mandatory":{"errorMessage":"Select an option","errorSummary":"Select an accommodation status"}}',
     },
     {
       answer: null,

@@ -35,6 +35,19 @@ context('Basic questions display', () => {
       .find('input')
       .type('Hart')
 
+    questionsPage
+      .questions()
+      .eq(7)
+      .get('[type="radio"]')
+      .first()
+      .check()
+
+    questionsPage
+      .questions()
+      .eq(8)
+      .find('textarea')
+      .type('More accommodation details')
+
     questionsPage.save().click()
 
     AssessmentsPage.verifyOnPage()
@@ -52,12 +65,21 @@ context('Basic questions display', () => {
     questionsPage.save().click()
 
     // see errors triggered by mandatory field validation
+    questionsPage.errorSummary().contains('Select an accommodation status')
+
     questionsPage.errorSummary().contains('You must enter a surname')
+
     questionsPage
       .questions()
       .eq(1)
       .find('.govuk-error-message')
       .contains('Enter the surname')
+
+    questionsPage
+      .questions()
+      .eq(7)
+      .find('.govuk-error-message')
+      .contains('Select an option')
 
     cy.pa11y({
       hideElements: 'input[aria-expanded]',
@@ -68,6 +90,31 @@ context('Basic questions display', () => {
       .eq(1)
       .find('input')
       .type('Hart')
+
+    // check to see conditional question
+    questionsPage
+      .questions()
+      .eq(7)
+      .get('[type="radio"]')
+      .first()
+      .check()
+
+    questionsPage.save().click()
+
+    // see conditional question error
+    questionsPage.errorSummary().contains('Enter more detail about the accommodation')
+    questionsPage
+      .questions()
+      .eq(8)
+      .find('.govuk-error-message')
+      .contains('Enter some details')
+
+    // enter something in the conditional and get back to assessment page
+    questionsPage
+      .questions()
+      .eq(8)
+      .find('textarea')
+      .type('More accommodation details')
 
     questionsPage.save().click()
     AssessmentsPage.verifyOnPage()

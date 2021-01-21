@@ -171,6 +171,7 @@
             "questionText": "Currently of no fixed abode or in transient accommodation",
             "displayOrder": "1",
             "mandatory": "no",
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an accommodation status\"}}",
             "answerSchemas": [
               {
                 "answerSchemaUuid": "44444444-4444-4444-4444-444444444444",
@@ -197,7 +198,8 @@
             "mandatory": "no",
             "conditional": "yes",
             "answerSchemas": [],
-            "answer": null
+            "answer": null,
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter some details\",\"errorSummary\":\"Enter more detail about the accommodation\"}}"
           },
           {
             "type": "question",
@@ -2167,21 +2169,35 @@
                 "answerSchemaUuid": "f00e171e-8530-454d-a016-17ad89bb51ba",
                 "answerSchemaCode": "some_problems",
                 "value": "some problems",
-                "text": "Some problems"
+                "text": "Some problems",
+                "conditional": "ab231f3d-3500-4005-b548-aa207c352de8xxx"
               },
               {
                 "answerSchemaUuid": "2ea7feb8-16eb-4ad9-99a9-19be49d2eeb9",
                 "answerSchemaCode": "significant_problems",
                 "value": "significant problems",
-                "text": "Significant problems"
+                "text": "Significant problems",
+                "conditional": "ab231f3d-3500-4005-b548-aa207c352de8yyy"
               }
             ]
           },
           {
             "type": "question",
-            "questionId": "ab231f3d-3500-4005-b548-aa207c352de8",
+            "questionId": "ab231f3d-3500-4005-b548-aa207c352de8xxx",
             "questionCode": "99.1.1",
             "answerType": "freetext",
+            "questionText": "Give details",
+            "displayOrder": 2,
+            "mandatory": true,
+            "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
+            "conditional": true,
+            "answerSchemas": []
+          },
+          {
+            "type": "question",
+            "questionId": "ab231f3d-3500-4005-b548-aa207c352de8yyy",
+            "questionCode": "99.1.1",
+            "answerType": "textarea",
             "questionText": "Give details",
             "displayOrder": 2,
             "mandatory": true,
@@ -2226,6 +2242,12 @@
             "conditional": false,
             "answerSchemas": [
               {
+                "answerSchemaUuid": "eb4b029e-de02-47eb-9625-4a64f5adea79xxx",
+                "answerSchemaCode": "",
+                "value": "",
+                "text": "Select an answer"
+              },
+              {
                 "answerSchemaUuid": "eb4b029e-de02-47eb-9625-4a64f5adea79",
                 "answerSchemaCode": "tenant_owner_occupied",
                 "value": "tenant owner / occupied",
@@ -2267,12 +2289,12 @@
             "type": "question",
             "questionId": "05a1a157-8b15-4fb6-a70c-c5e91c61cd75",
             "questionCode": "99.4",
-            "answerType": "freetext",
+            "answerType": "textarea",
             "questionText": "Give details",
             "displayOrder": 5,
-            "mandatory": true,
+            "mandatory": false,
             "validation": "{\"mandatory\":{\"errorMessage\":\"Enter details\",\"errorSummary\":\"Enter details\"}}",
-            "conditional": true,
+            "conditional": false,
             "answerSchemas": []
           },
           {
