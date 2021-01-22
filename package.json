@@ -113,7 +113,7 @@
     "cypress-file-upload": "^4.0.7",
     "cypress-multi-reporters": "^1.4.0",
     "envfile": "^3.0.0",
-    "eslint": "^7.14.0",
+    "eslint": "^7.18.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-cypress": "^2.10.3",

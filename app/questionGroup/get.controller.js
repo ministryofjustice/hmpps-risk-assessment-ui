@@ -88,9 +88,8 @@ const compileInlineConditionalQuestions = (questions, errors) => {
     currentQuestion.answerSchemas = question.answerSchemas.map(schema => {
       if (schema.conditional) {
         let thisError
-        const errorString = errors[`id-${conditionalQuestions[schema.conditional].questionId}`]
-          ? errors[`id-${conditionalQuestions[schema.conditional].questionId}`].text
-          : null
+        const errorString = errors[`id-${conditionalQuestions[schema.conditional].questionId}`]?.text
+
         if (errorString) {
           thisError = `{text:'${errorString}'}`
         }
