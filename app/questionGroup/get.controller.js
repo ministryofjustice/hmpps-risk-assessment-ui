@@ -69,49 +69,63 @@ const annotateWithAnswers = (questions, answers, body) => {
 
 const compileInlineConditionalQuestions = (questions, errors) => {
   // construct an object with all conditional questions, keyed on id
-  const conditionalQuestions = {}
+  const inlineConditionalQuestions = {}
   questions.forEach(question => {
     if (question.conditional) {
       const key = question.questionId
-      conditionalQuestions[key] = question
+      inlineConditionalQuestions[key] = question
     }
   })
 
-  // remove now unneeded conditional questions
-  const unconditionalQuestions = questions.filter(question => {
-    return !question.conditional
-  })
-
-  // add in rendered conditional question strings to each answer
-  return unconditionalQuestions.map(question => {
+  // add in rendered conditional question strings to each answer when displayed inline
+  // add appropriate classes to hide questions to be displayed out-of-line
+  const compiledQuestions = questions.map(question => {
     const currentQuestion = question
-    currentQuestion.answerSchemas = question.answerSchemas.map(schema => {
-      if (schema.conditional) {
-        let thisError
-        const errorString = errors[`id-${conditionalQuestions[schema.conditional].questionId}`]?.text
+    currentQuestion.answerSchemas = question.answerSchemas.map(schemaLine => {
+      const updatedSchemaLine = schemaLine
+      if (schemaLine.conditional) {
+        // if to be displayed inline then compile HTML string and add
+        if (schemaLine.display_inline) {
+          let thisError
+          const errorString = errors[`id-${inlineConditionalQuestions[schemaLine.conditional].questionId}`]?.text
 
-        if (errorString) {
-          thisError = `{text:'${errorString}'}`
+          if (errorString) {
+            thisError = `{text:'${errorString}'}`
+          }
+          let conditionalQuestionString =
+            '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
+
+          conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(
+            inlineConditionalQuestions[schemaLine.conditional],
+          )},'','',${thisError}) }}`
+
+          updatedSchemaLine.conditional = {
+            html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),
+          }
+
+          // delete the target question from the questions list
+        } else {
+          // add this id, value and trigger id to an object
+
+          delete updatedSchemaLine.conditional
         }
-        let conditionalQuestionString =
-          '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
 
-        conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(
-          conditionalQuestions[schema.conditional],
-        )},'','',${thisError}) }}`
-        const updatedSchema = schema
-        updatedSchema.conditional = {
-          html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),
-        }
-
-        return updatedSchema
+        return updatedSchemaLine
       }
 
-      return schema
+      return schemaLine
     })
 
+    // return question if it was to be displayed out-of-line
     return currentQuestion
   })
+
+  // remove now unneeded conditional questions
+  // const unconditionalQuestions = compiledQuestions.filter(question => {
+  //   return !question.conditional
+  // })
+
+  return compiledQuestions
 }
 
 const annotateAnswerSchemas = (answerSchemas, answerValue) => {
