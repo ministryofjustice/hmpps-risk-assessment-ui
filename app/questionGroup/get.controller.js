@@ -1,3 +1,4 @@
+// @ts-check
 const nunjucks = require('nunjucks')
 
 const { logger } = require('../../common/logging/logger')
@@ -69,13 +70,16 @@ const annotateWithAnswers = (questions, answers, body) => {
 
 const compileInlineConditionalQuestions = (questions, errors) => {
   // construct an object with all conditional questions, keyed on id
-  const inlineConditionalQuestions = {}
+  const conditionalQuestions = {}
   questions.forEach(question => {
     if (question.conditional) {
       const key = question.questionId
-      inlineConditionalQuestions[key] = question
+      conditionalQuestions[key] = question
     }
   })
+
+  const conditionalQuestionsToRemove = []
+  const outOfLineConditionalQuestions = []
 
   // add in rendered conditional question strings to each answer when displayed inline
   // add appropriate classes to hide questions to be displayed out-of-line
@@ -84,10 +88,12 @@ const compileInlineConditionalQuestions = (questions, errors) => {
     currentQuestion.answerSchemas = question.answerSchemas.map(schemaLine => {
       const updatedSchemaLine = schemaLine
       if (schemaLine.conditional) {
-        // if to be displayed inline then compile HTML string and add
-        if (schemaLine.display_inline) {
+        const subjectId = schemaLine.conditional
+        if (schemaLine.displayInline) {
+          // if to be displayed inline then compile HTML string and add to parent question answer
           let thisError
-          const errorString = errors[`id-${inlineConditionalQuestions[schemaLine.conditional].questionId}`]?.text
+
+          const errorString = errors[`id-${conditionalQuestions[subjectId].questionId}`]?.text
 
           if (errorString) {
             thisError = `{text:'${errorString}'}`
@@ -96,36 +102,53 @@ const compileInlineConditionalQuestions = (questions, errors) => {
             '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
 
           conditionalQuestionString += `{{ renderQuestion(${JSON.stringify(
-            inlineConditionalQuestions[schemaLine.conditional],
+            conditionalQuestions[subjectId],
           )},'','',${thisError}) }}`
 
           updatedSchemaLine.conditional = {
             html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),
           }
 
-          // delete the target question from the questions list
+          // mark the target question to be deleted later
+          conditionalQuestionsToRemove.push(subjectId)
         } else {
-          // add this id, value and trigger id to an object
-
-          delete updatedSchemaLine.conditional
+          updatedSchemaLine.attributes = [
+            ['data-conditional', `${subjectId}`],
+            ['data-aria-controls', `conditional-id-form-${subjectId}`],
+            ['aria-expanded', `false`],
+          ]
+          currentQuestion.isConditional = true
+          currentQuestion.attributes = [['data-contains-conditional', 'true']]
         }
-
         return updatedSchemaLine
       }
-
       return schemaLine
     })
-
-    // return question if it was to be displayed out-of-line
     return currentQuestion
   })
 
-  // remove now unneeded conditional questions
-  // const unconditionalQuestions = compiledQuestions.filter(question => {
-  //   return !question.conditional
-  // })
-
   return compiledQuestions
+    .filter(question => {
+      // remove questions that have been rendered inline
+      return (
+        !conditionalQuestionsToRemove.includes(question.questionId) ||
+        outOfLineConditionalQuestions.includes(question.questionId)
+      )
+    })
+    .map(question => {
+      // add css to hide questions to be displayed out of line
+      const questionObject = question
+      if (questionObject.conditional) {
+        questionObject.formClasses =
+          'govuk-radios__conditional govuk-radios__conditional--noIndent govuk-radios__conditional--hidden'
+        questionObject.isConditional = true
+        questionObject.attributes = [
+          ['data-outofline', 'true'],
+          ['data-base-id', `${questionObject.questionId}`],
+        ]
+      }
+      return questionObject
+    })
 }
 
 const annotateAnswerSchemas = (answerSchemas, answerValue) => {
