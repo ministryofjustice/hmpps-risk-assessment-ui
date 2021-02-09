@@ -5,7 +5,7 @@ const { logger } = require('../../common/logging/logger')
 const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
 
 const displayQuestionGroup = async (
-  { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary, tokens },
+  { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, tokens },
   res,
 ) => {
   try {
