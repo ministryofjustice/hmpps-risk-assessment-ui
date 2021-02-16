@@ -18,12 +18,29 @@ window.GOVUKFrontend.Radios.handleConditionalRadioClick = function(event) {
   var $radioGroup = $clickedInput.closest('.govuk-radios').querySelectorAll('input[type="radio"]')
 
   nodeListForEach($radioGroup, function($radio) {
-    var $elementToToggle = $radio.getAttribute('data-conditional')
-    if ($elementToToggle) {
+    var $elementsToToggle = $radio.getAttribute('data-conditional')
+    if ($elementsToToggle) {
+      console.log('trying to toggle ' + $elementsToToggle)
       var inputIsChecked = $radio.checked
-      var $target = document.querySelector('#conditional-id-form-' + $elementToToggle)
+      var $elementArray = $elementsToToggle.split(' ')
+      $elementArray.forEach(function(test) {
+        console.log('HIYA')
+        console.log(test)
+      })
+      console.log('$elementArray')
+      console.log($elementArray)
+      $elementArray.forEach(function($element) {
+        console.log('I SEE YA')
+        var $target = document.querySelector('#conditional-id-form-' + $element)
+        console.log($target)
+        console.log($element)
+        if ($target) {
+          console.log('showing ')
+          $target.classList.toggle('govuk-radios__conditional--hidden', !inputIsChecked)
+        }
+      })
+
       $radio.setAttribute('aria-expanded', inputIsChecked)
-      $target.classList.toggle('govuk-radios__conditional--hidden', !inputIsChecked)
     }
   })
 }

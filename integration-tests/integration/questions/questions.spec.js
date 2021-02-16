@@ -65,9 +65,7 @@ context('Basic questions display', () => {
 
     cy.get('#conditional-id-form-conditional-question-id-9911111').should('be.visible')
 
-    cy.pa11y({
-      hideElements: 'input[aria-expanded]',
-    })
+    cy.checkA11y()
 
     // hide it
     questionsPage
@@ -107,9 +105,7 @@ context('Basic questions display', () => {
       .find('.govuk-error-message')
       .contains('Select an option')
 
-    cy.pa11y({
-      hideElements: 'input[aria-expanded]',
-    })
+    cy.checkA11y()
 
     questionsPage
       .questions()
