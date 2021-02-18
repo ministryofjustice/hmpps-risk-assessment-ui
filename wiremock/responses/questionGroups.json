@@ -178,8 +178,12 @@
                 "answerSchemaCode": "SR15.1.2.1",
                 "value": "Y",
                 "text": "Yes",
-                "conditional": "conditional-question-id-1111111",
-                "displayInline": true
+                "conditionals": [
+                  {
+                    "conditional": "conditional-question-id-1111111",
+                    "displayInline": true
+                  }
+                ]
               },
               {
                 "answerSchemaUuid": "44444444-4444-4444-4444-444444444445",
@@ -216,8 +220,12 @@
                 "answerSchemaCode": "SR15.1.2.1",
                 "value": "Y",
                 "text": "Yes",
-                "conditional": "conditional-question-id-9911111",
-                "displayInline": false
+                "conditionals": [
+                  {
+                    "conditional": "conditional-question-id-9911111",
+                    "displayInline": false
+                  }
+                ]
               },
               {
                 "answerSchemaUuid": "99444444-4444-4444-4444-444444444445",
@@ -308,6 +316,109 @@
             "displayOrder": "1",
             "mandatory": "no",
             "hint": "Enter any other relevant information",
+            "answerSchemas": []
+          },
+          {
+            "type": "question",
+            "questionId": "4077c218-3a16-4b92-9f98-bdd33cee476b",
+            "questionCode": "96.1",
+            "answerType": "radio",
+            "questionText": "Is drug misuse linked to offending behaviour?",
+            "displayOrder": 23,
+            "mandatory": true,
+            "conditional": false,
+            "answerSchemas": [
+              {
+                "answerSchemaUuid": "98dcf9ac-4112-4d05-8159-409fa3545139",
+                "answerSchemaCode": "yes",
+                "value": "y",
+                "text": "Yes",
+                "conditional": "ef018645-b846-4022-b290-1e7d3d380b4d",
+                "displayInline": true,
+                "conditionals": [
+                  {
+                    "conditional": "ef018645-b846-4022-b290-1e7d3d380b4d",
+                    "displayInline": true
+                  },
+                  {
+                    "conditional": "0419944f-ad54-4035-bef0-dca3bda4ff64",
+                    "displayInline": false
+                  },
+                  {
+                    "conditional": "db85cfb1-bf5e-4852-bfe8-137f44570cab",
+                    "displayInline": false
+                  }
+                ]
+              },
+              {
+                "answerSchemaUuid": "80d453da-1755-4740-9c72-dee00a3b5abc",
+                "answerSchemaCode": "no",
+                "value": "n",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "type": "question",
+            "questionId": "ef018645-b846-4022-b290-1e7d3d380b4d",
+            "questionCode": "97.1",
+            "answerType": "textarea",
+            "questionText": "Give details",
+            "displayOrder": 24,
+            "mandatory": true,
+            "conditional": true,
+            "answerSchemas": []
+          },
+          {
+            "type": "question",
+            "questionId": "0419944f-ad54-4035-bef0-dca3bda4ff64",
+            "questionCode": "98.1",
+            "answerType": "radio",
+            "questionText": "Is there current or recent drug misuse on a daily or weekly basis?",
+            "displayOrder": 25,
+            "mandatory": true,
+            "conditional": true,
+            "answerSchemas": [
+              {
+                "answerSchemaUuid": "98dcf9ac-4112-4d05-8159-409fa3545139",
+                "answerSchemaCode": "yes",
+                "value": "y",
+                "text": "Yes",
+                "conditionals": [
+                  {
+                    "conditional": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
+                    "displayInline": true
+                  }
+                ]
+              },
+              {
+                "answerSchemaUuid": "80d453da-1755-4740-9c72-dee00a3b5abc",
+                "answerSchemaCode": "no",
+                "value": "n",
+                "text": "No"
+              }
+            ]
+          },
+          {
+            "type": "question",
+            "questionId": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
+            "questionCode": "99.1",
+            "answerType": "textarea",
+            "questionText": "Give details",
+            "displayOrder": 26,
+            "mandatory": true,
+            "conditional": true,
+            "answerSchemas": []
+          },
+          {
+            "type": "question",
+            "questionId": "db85cfb1-bf5e-4852-bfe8-137f44570cab",
+            "questionCode": "100.1",
+            "answerType": "freetext",
+            "questionText": "Is the individual motivated to tackle drugs misuse?",
+            "displayOrder": 27,
+            "mandatory": true,
+            "conditional": true,
             "answerSchemas": []
           }
         ]
@@ -971,8 +1082,12 @@
                 "answerSchemaCode": "yes",
                 "value": "y",
                 "text": "Yes",
-                "conditional": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
-                "displayInline": true
+                "conditionals": [
+                  {
+                    "conditional": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
+                    "displayInline": true
+                  }
+                ]
               },
               {
                 "answerSchemaUuid": "80d453da-1755-4740-9c72-dee00a3b5abc",

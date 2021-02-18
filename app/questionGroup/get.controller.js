@@ -120,10 +120,6 @@ const compileInlineConditionalQuestions = (questions, errors) => {
         if (outOfLineConditionalsForThisAnswer?.length) {
           const pre = 'conditional-id-form-'
           const ariaControls = outOfLineConditionalsForThisAnswer.map(i => pre + i).join(' ')
-          console.log('ariaControls')
-          console.log(ariaControls)
-          console.log('outOfLineConditionalsForThisAnswer')
-          console.log(outOfLineConditionalsForThisAnswer.join(' '))
           updatedSchemaLine.attributes = [
             ['data-conditional', outOfLineConditionalsForThisAnswer.join(' ')],
             ['data-aria-controls', ariaControls],
@@ -133,7 +129,6 @@ const compileInlineConditionalQuestions = (questions, errors) => {
           currentQuestion.attributes = [['data-contains-conditional', 'true']]
         }
 
-        console.log(updatedSchemaLine)
         return updatedSchemaLine
       })
       return schemaLine
