@@ -19,7 +19,6 @@ window.GOVUKFrontend.syncConditionals = function($nodeList) {
     if ($elementsToToggle) {
       var inputIsChecked = $currentNode.checked
       var $elementArray = $elementsToToggle.split(' ')
-      $elementArray.forEach(function(test) {})
       $elementArray.forEach(function($element) {
         var $target = document.querySelector('#conditional-id-form-' + $element)
         if ($target) {
