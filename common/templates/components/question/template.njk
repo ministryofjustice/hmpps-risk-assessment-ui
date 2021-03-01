@@ -1,6 +1,7 @@
 {%- from "node_modules/govuk-frontend/govuk/components/input/macro.njk" import govukInput -%}
 {%- from "node_modules/govuk-frontend/govuk/components/textarea/macro.njk" import govukTextarea -%}
 {%- from "node_modules/govuk-frontend/govuk/components/radios/macro.njk" import govukRadios -%}
+{%- from "node_modules/govuk-frontend/govuk/components/checkboxes/macro.njk" import govukCheckboxes -%}
 {%- from "node_modules/govuk-frontend/govuk/components/select/macro.njk" import govukSelect -%}
 {%- from "node_modules/govuk-frontend/govuk/components/date-input/macro.njk" import govukDateInput -%}
 
@@ -61,6 +62,24 @@
     }) }}
   {% case 'radio' %}
     {{ govukRadios({
+      idPrefix: 'id-' + question.questionId,
+      name: 'id-' + question.questionId,
+      formGroup : {
+        classes: question.formClasses
+      },
+      attributes: question.attributes,
+      fieldset: {
+        legend: {
+          text: question.questionText,
+          classes: question.questionCode + ' govuk-label--m'
+        }
+      },
+      items: question.answerSchemas,
+      errorMessage: errorMessage,
+      isConditional: question.isConditional
+    }) }}
+  {% case 'checkbox' %}
+    {{ govukCheckboxes({
       idPrefix: 'id-' + question.questionId,
       name: 'id-' + question.questionId,
       formGroup : {
