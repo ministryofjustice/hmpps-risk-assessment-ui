@@ -8,6 +8,17 @@
 {% set questionAnswer = bodyAnswer or question.answer or '' %}
 {% set errorMessage = thisErrorMessage or errors['id-' + question.questionId] %}
 
+{% if question.type == 'group' %}
+  <h2 class="govuk-heading-m">
+    {{ question.title }}
+  </h2>
+
+
+  {% for question in question.contents %}
+      {{ renderQuestion(question, errors, bodyAnswers['id-' + question.questionId]) }}
+  {% endfor %}
+{% endif %}
+
 {% switch question.answerType %}
   {% case 'freetext' %}
     {{ govukInput({
