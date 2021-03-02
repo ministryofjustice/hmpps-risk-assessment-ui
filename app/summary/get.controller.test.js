@@ -1,6 +1,4 @@
 // Initialise nunjucks environment
-const { configure } = require('nunjucks')
-
 const { displayQuestionGroupSummary } = require('./get.controller')
 const { getQuestionGroupSummary } = require('../../common/data/assessmentApi')
 const questionGroupSummaryPointer = require('../../wiremock/responses/questionGroups.json')[
