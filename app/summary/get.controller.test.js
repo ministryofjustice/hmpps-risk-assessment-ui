@@ -1,5 +1,5 @@
 // Initialise nunjucks environment
-const { displayQuestionGroupSummary } = require('./get.controller')
+const { displayOverview } = require('./get.controller')
 const { getQuestionGroupSummary } = require('../../common/data/assessmentApi')
 const questionGroupSummaryPointer = require('../../wiremock/responses/questionGroups.json')[
   '7a6836c1-2caf-4a0d-8e5c-5d13482a868f'
@@ -36,7 +36,7 @@ describe('display question group summary', () => {
   it('should render the page with the correct structure', async () => {
     getQuestionGroupSummary.mockReturnValueOnce(questionGroupSummary)
 
-    await displayQuestionGroupSummary(req, res)
+    await displayOverview(req, res)
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/index`, expectedForThisTest)
   })
 
@@ -45,7 +45,7 @@ describe('display question group summary', () => {
     getQuestionGroupSummary.mockImplementation(() => {
       throw theError
     })
-    await displayQuestionGroupSummary(req, res)
+    await displayOverview(req, res)
     expect(res.render).toHaveBeenCalledWith(`app/error`, { error: theError })
   })
 })
