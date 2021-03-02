@@ -53,4 +53,6 @@ const grabQuestionGroupSummary = (groupId, tokens) => {
   }
 }
 
-module.exports = { displayQuestionGroupSummary }
+module.exports = {
+  displayOverview: displayQuestionGroupSummary,
+}
