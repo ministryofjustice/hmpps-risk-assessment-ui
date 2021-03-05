@@ -178,8 +178,8 @@ const annotateAnswerSchemas = (answerSchemas, answerValue) => {
 
   return answerSchemas.map(as =>
     Object.assign(as, {
-      checked: as.value === answerValue,
-      selected: as.value === answerValue,
+      checked: as.value === answerValue || answerValue.includes(as.value),
+      selected: as.value === answerValue || answerValue.includes(as.value),
     }),
   )
 }
