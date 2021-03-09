@@ -418,6 +418,70 @@
             "mandatory": true,
             "conditional": true,
             "answerSchemas": []
+          },
+          {
+            "type": "question",
+            "questionId": "1111",
+            "questionCode": "readonly_radio",
+            "answerType": "radio",
+            "questionText": "Radio readonly question",
+            "displayOrder": "1",
+            "mandatory": "no",
+            "readOnly": true,
+            "answerSchemas": [
+              {
+                "answerSchemaUuid": "2222",
+                "value": "Y",
+                "text": "Yes"
+              },
+              {
+                "answerSchemaUuid": "3333",
+                "value": "N",
+                "text": "No"
+              },
+              {
+                "answerSchemaUuid": "4444",
+                "value": "U",
+                "text": "Don't know"
+              }
+            ]
+          },
+          {
+            "type": "question",
+            "questionId": "5555",
+            "questionCode": "readonly_checkbox",
+            "answerType": "checkbox",
+            "questionText": "checkbox readonly question",
+            "displayOrder": "1",
+            "mandatory": "no",
+            "readOnly": true,
+            "answerSchemas": [
+              {
+                "answerSchemaUuid": "6666",
+                "value": "OPT1",
+                "text": "Option 1"
+              },
+              {
+                "answerSchemaUuid": "7777",
+                "value": "OPT2",
+                "text": "Option 2"
+              },
+              {
+                "answerSchemaUuid": "8888",
+                "value": "OPT3",
+                "text": "Option 3"
+              },
+              {
+                "answerSchemaUuid": "9999",
+                "value": "OPT4",
+                "text": "Option 4"
+              },
+              {
+                "answerSchemaUuid": "AAAA",
+                "value": "OPT5",
+                "text": "Option 5"
+              }
+            ]
           }
         ]
       }
