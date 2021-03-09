@@ -95,7 +95,10 @@
         },
         items: question.answerSchemas,
         errorMessage: errorMessage,
-        isConditional: question.isConditional
+        isConditional: question.isConditional,
+        hint: {
+          text: question.hint
+        }
       }) }}
     {% case 'checkbox' %}
       {{ govukCheckboxes({
@@ -113,7 +116,10 @@
         },
         items: question.answerSchemas,
         errorMessage: errorMessage,
-        isConditional: question.isConditional
+        isConditional: question.isConditional,
+        hint: {
+          text: question.hint
+        }
       }) }}
 
     {% case 'dropdown' %}
@@ -130,7 +136,10 @@
         attributes: question.attributes,
         items: question.answerSchemas,
         errorMessage: errorMessage,
-        isConditional: question.isConditional
+        isConditional: question.isConditional,
+        hint: {
+          text: question.hint
+        }
       }) }}
 
     {% case 'date' %}
