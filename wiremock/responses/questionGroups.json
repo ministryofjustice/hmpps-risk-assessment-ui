@@ -421,33 +421,6 @@
           },
           {
             "type": "question",
-            "questionId": "1111",
-            "questionCode": "readonly_radio",
-            "answerType": "radio",
-            "questionText": "Radio readonly question",
-            "displayOrder": "1",
-            "mandatory": "no",
-            "readOnly": true,
-            "answerSchemas": [
-              {
-                "answerSchemaUuid": "2222",
-                "value": "Y",
-                "text": "Yes"
-              },
-              {
-                "answerSchemaUuid": "3333",
-                "value": "N",
-                "text": "No"
-              },
-              {
-                "answerSchemaUuid": "4444",
-                "value": "U",
-                "text": "Don't know"
-              }
-            ]
-          },
-          {
-            "type": "question",
             "questionId": "11111111-1111-1111-1111-111111111631",
             "questionCode": "sources_of_information",
             "answerType": "checkbox",
@@ -479,6 +452,33 @@
                 "answerSchemaCode": "SR15.1.2.2",
                 "value": "hostel",
                 "text": "Hostel"
+              }
+            ]
+          },
+          {
+            "type": "question",
+            "questionId": "1111",
+            "questionCode": "readonly_radio",
+            "answerType": "radio",
+            "questionText": "Radio readonly question",
+            "displayOrder": "1",
+            "mandatory": "no",
+            "readOnly": true,
+            "answerSchemas": [
+              {
+                "answerSchemaUuid": "2222",
+                "value": "Y",
+                "text": "Yes"
+              },
+              {
+                "answerSchemaUuid": "3333",
+                "value": "N",
+                "text": "No"
+              },
+              {
+                "answerSchemaUuid": "4444",
+                "value": "U",
+                "text": "Don't know"
               }
             ]
           },
