@@ -24,6 +24,11 @@ describe('display question group summary', () => {
   const res = {
     render: jest.fn(),
     redirect: jest.fn(),
+    locals: {
+      offenderDetails: {
+        name: 'Fred Smith',
+      },
+    },
   }
 
   beforeEach(() => {

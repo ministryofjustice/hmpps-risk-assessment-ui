@@ -54,6 +54,36 @@ const stubQuestionGroup = groupId => {
     },
   })
 }
+
+const stubAllInternalQuestionGroups = groups => {
+  if (Array.isArray(groups)) {
+    groups.forEach(group => {
+      if (group.contents?.type === 'group') {
+        stubAllInternalQuestionGroups(group.contents)
+      }
+    })
+  } else {
+    stubFor({
+      request: {
+        method: 'GET',
+        urlPattern: `/questions/${groups.groupId}`,
+      },
+      response: {
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8',
+        },
+        status: 200,
+        jsonBody: groups,
+      },
+    })
+    groups.contents?.forEach(subgroup => {
+      if (subgroup.type === 'group') {
+        stubAllInternalQuestionGroups(subgroup)
+      }
+    })
+  }
+}
+
 const stubQuestionGroupSummary = groupId => {
   stubFor({
     request: {
@@ -133,6 +163,8 @@ const stubQuestions = async () => {
   await stubQuestionGroup('22222222-2222-2222-2222-222222222201')
   await stubQuestionGroup('22222222-2222-2222-2222-222222222240')
   await stubQuestionGroup('65a3924c-4130-4140-b7f4-cc39a52603bb') // short psr
+
+  await stubAllInternalQuestionGroups(questionGroups['65a3924c-4130-4140-b7f4-cc39a52603bb'])
 }
 
 const stubQuestionSummaries = async () => {
