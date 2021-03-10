@@ -169,6 +169,7 @@ const stubQuestions = async () => {
 
 const stubQuestionSummaries = async () => {
   await stubQuestionGroupSummary('65a3924c-4130-4140-b7f4-cc39a52603bb') // short psr
+  await stubQuestionGroupSummary('22222222-2222-2222-2222-222222222203') // brief
 }
 const stubAnswers = async () => {
   await stubAnswersGroup(1234)

@@ -155,5 +155,24 @@
         ]
       }
     ]
+  },
+  "22222222-2222-2222-2222-222222222203": {
+    "groupId": "22222222-2222-2222-2222-222222222203",
+    "groupCode": "Brief_form",
+    "title": "Brief form",
+    "contents": [
+      {
+        "groupId": "f1150d9c-1746-4cb2-b721-92de8375f2c9",
+        "groupCode": "1_individual_and_case_details",
+        "title": "Sample questions",
+        "contents": [
+          {
+            "groupId": "22222222-2222-2222-2222-222222222203",
+            "groupCode": "sample1",
+            "title": "Sample page 1"
+          }
+        ]
+      }
+    ]
   }
 }
