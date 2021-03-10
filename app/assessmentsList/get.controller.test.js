@@ -51,8 +51,8 @@ describe('getFormsList', () => {
         {
           contentCount: 12,
           groupCount: 0,
-          groupId: '7a6836c1-2caf-4a0d-8e5c-5d13482a868f',
-          path: '/test-assessment-id/questionGroup/7a6836c1-2caf-4a0d-8e5c-5d13482a868f/0',
+          groupId: '65a3924c-4130-4140-b7f4-cc39a52603bb',
+          path: '/test-assessment-id/questionGroup/65a3924c-4130-4140-b7f4-cc39a52603bb/0',
           questionCount: 0,
           title: 'Short pre sentence assessment',
         },
