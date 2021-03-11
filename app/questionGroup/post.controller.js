@@ -133,7 +133,6 @@ function extractAnswers(postBody) {
   const shapedAnswers = Object.entries(postBody).reduce((answers, [key, value]) => {
     const trimmedKey = key.replace(/^id-/, '')
 
-    console.log()
     let answerValue
     if (Array.isArray(value)) {
       const thisAnswer = {}
