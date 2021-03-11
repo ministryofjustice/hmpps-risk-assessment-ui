@@ -133,11 +133,12 @@ function extractAnswers(postBody) {
   const shapedAnswers = Object.entries(postBody).reduce((answers, [key, value]) => {
     const trimmedKey = key.replace(/^id-/, '')
 
+    console.log()
     let answerValue
     if (Array.isArray(value)) {
       const thisAnswer = {}
       value.forEach(answer => {
-        thisAnswer[answer] = null
+        thisAnswer[answer] = ''
       })
       answerValue = { freeTextAnswer: null, answers: thisAnswer }
     } else {
