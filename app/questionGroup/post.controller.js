@@ -24,7 +24,7 @@ const validationRules = async (req, res, next) => {
   } = req
   const questionGroup = await grabQuestionGroup(groupId, tokens)
   const subIndex = Number.parseInt(subgroup, 10)
-  const currentQuestions = questionGroup.contents[subIndex].contents
+  const currentQuestions = questionGroup.contents
 
   const validatorsToSend = []
 
