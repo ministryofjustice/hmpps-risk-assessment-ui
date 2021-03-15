@@ -2,7 +2,7 @@ const page = require('../page')
 const AssessmentsPage = require('../assessments/assessmentsPage')
 
 const questionsPage = () =>
-  page('Brief Form', {
+  page('Case Identification', {
     questions: () => cy.get('.govuk-form-group'),
     errorSummary: () => cy.get('.govuk-error-summary'),
     save: () => cy.get('button').contains('Save'),

@@ -2,21 +2,27 @@
 const nunjucks = require('nunjucks')
 const { processReplacements } = require('../../common/utils/util')
 const { logger } = require('../../common/logging/logger')
-const { getQuestionGroup, getAnswers } = require('../../common/data/assessmentApi')
+const { getAnswers } = require('../../common/data/assessmentApi')
 
 const displayQuestionGroup = async (
   { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, tokens },
   res,
 ) => {
   try {
-    let questionGroup = await grabQuestionGroup(groupId, tokens)
+    let { questionGroup } = res.locals
     questionGroup = processReplacements(questionGroup, res.locals.offenderDetails)
     const subIndex = Number.parseInt(subgroup, 10)
 
+    console.log('subIndex')
+    console.log(subIndex)
+    console.log(JSON.stringify(questionGroup, null, 2))
+
     if (subIndex >= questionGroup.contents.length) {
+      console.log('returning to summary')
       return res.redirect(`/${assessmentId}/assessments`)
     }
     if (questionGroup.groupId !== groupId) {
+      console.log('going to next subindex')
       return res.redirect(`/${assessmentId}/questionGroup/${questionGroup.groupId}/${subIndex}`)
     }
 
@@ -38,24 +44,6 @@ const displayQuestionGroup = async (
     })
   } catch (error) {
     return res.render('app/error', { error })
-  }
-}
-
-const grabQuestionGroup = async (groupId, tokens) => {
-  try {
-    const questions = await getQuestionGroup(groupId, tokens)
-    const readOnlyToAttribute = q => {
-      if (q.readOnly) {
-        // eslint-disable-next-line no-param-reassign
-        q.attributes = { readonly: true, disabled: true, ...q.attributes }
-      }
-      q.contents?.forEach(c => readOnlyToAttribute(c))
-    }
-    questions.contents?.forEach(q => readOnlyToAttribute(q))
-    return questions
-  } catch (error) {
-    logger.error(`Could not retrieve question group for ${groupId}, error: ${error}`)
-    throw error
   }
 }
 
@@ -225,4 +213,4 @@ const annotateAnswerSchemas = (answerSchemas, answerValue) => {
   })
 }
 
-module.exports = { displayQuestionGroup, grabQuestionGroup }
+module.exports = { displayQuestionGroup }
