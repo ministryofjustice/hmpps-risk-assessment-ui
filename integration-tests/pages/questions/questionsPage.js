@@ -5,7 +5,7 @@ const questionsPage = () =>
   page('Case Identification', {
     questions: () => cy.get('.govuk-form-group'),
     errorSummary: () => cy.get('.govuk-error-summary'),
-    save: () => cy.get('button').contains('Save'),
+    save: () => cy.get('button').contains('Continue'),
   })
 
 export default {
