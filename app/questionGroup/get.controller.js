@@ -13,16 +13,10 @@ const displayQuestionGroup = async (
     questionGroup = processReplacements(questionGroup, res.locals.offenderDetails)
     const subIndex = Number.parseInt(subgroup, 10)
 
-    console.log('subIndex')
-    console.log(subIndex)
-    console.log(JSON.stringify(questionGroup, null, 2))
-
     if (subIndex >= questionGroup.contents.length) {
-      console.log('returning to summary')
       return res.redirect(`/${assessmentId}/assessments`)
     }
     if (questionGroup.groupId !== groupId) {
-      console.log('going to next subindex')
       return res.redirect(`/${assessmentId}/questionGroup/${questionGroup.groupId}/${subIndex}`)
     }
 
