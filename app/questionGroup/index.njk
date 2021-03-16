@@ -18,7 +18,8 @@
 {% block beforeContent %}
     <div role="navigation" aria-label="back">
         {{ govukBackLink({
-            href: "/" + assessmentId + "/assessments"
+            href: "/" + assessmentId + "/questiongroup/" + navigation.previous.url,
+            text: "Back to " + navigation.previous.name
         }) }}
     </div>
 {% endblock %}
@@ -27,6 +28,7 @@
     {# include errorSummary partial #}
     {{ super() }}
 
+    <span class="govuk-caption-xl">{{ navigation.parent }}</span>
     <h1 class="govuk-heading-l">
         {{ heading }}
     </h1>

@@ -110,7 +110,9 @@ const saveQuestionGroup = async (req, res) => {
     await postAnswers(assessmentId, 'current', answers, tokens)
 
     const subIndex = Number.parseInt(subgroup, 10)
-    return res.redirect(`/${assessmentId}/questionGroup/${groupId}/${subIndex + 1}`)
+    console.log('res.locals.navigation')
+    console.log(res.locals.navigation)
+    return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)
   } catch (error) {
     logger.error(`Could not save to assessment ${assessmentId}, current episode, error: ${error}`)
     return res.render('app/error', { error })
