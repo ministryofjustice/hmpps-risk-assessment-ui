@@ -23,7 +23,6 @@ const displayQuestionGroup = async (
       subheading: questionGroup.contents[subIndex].title,
       groupId,
       questions,
-      last: subIndex + 1 === questionGroup.contents.length,
       errors,
       errorSummary,
     })

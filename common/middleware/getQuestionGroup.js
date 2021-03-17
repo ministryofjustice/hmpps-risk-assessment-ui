@@ -59,7 +59,6 @@ module.exports = async ({ params: { groupId, subgroup = 0, page = 0 }, tokens },
     const questions = await getQuestionGroup(groupId, tokens)
 
     const thisQuestionGroup = questions.contents[subgroup].contents[page]
-
     const readOnlyToAttribute = q => {
       if (q.readOnly) {
         // eslint-disable-next-line no-param-reassign
