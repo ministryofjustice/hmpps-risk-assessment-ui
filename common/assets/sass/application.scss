@@ -9,6 +9,27 @@
 
 $white-transparent: rgba(255, 255, 255, .25);
 
+.govuk-width-container--app-extra-wide {
+  max-width: 1220px;
+}
+
+.key-details-bar {
+  background-color: #1d70b8;
+  color: #fff;
+  padding: 30px;
+}
+
+.key-details-bar_divider {
+  color: #fff;
+  font-size: 19px;
+}
+
+.key-details-bar__name {
+  font-size: 24px;
+  font-family: "GDS Transport", Arial, sans-serif;
+  font-weight: 700;
+}
+
 .moj-header__link, .moj-header__navigation-link {
   &:focus {
     background-color: govuk-colour("yellow");
@@ -163,4 +184,13 @@ p {
 
 .govuk-summary-list--no-bottom-margin {
   margin-bottom: 0;
+}
+
+.govuk-summary-list__key {
+  font-weight: 400 !important;
+  color: #505a5f;
+}
+
+.questiongroup-action-buttons {
+  margin-top: govuk-spacing(8);
 }

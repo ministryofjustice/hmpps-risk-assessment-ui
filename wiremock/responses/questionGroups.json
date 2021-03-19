@@ -1197,7 +1197,7 @@
                 "questionText": "Date of birth",
                 "displayOrder": 5,
                 "mandatory": true,
-                "readOnly": false,
+                "readOnly": true,
                 "conditional": false,
                 "answerSchemas": []
               },
@@ -1209,7 +1209,7 @@
                 "questionText": "Age",
                 "displayOrder": 6,
                 "mandatory": true,
-                "readOnly": false,
+                "readOnly": true,
                 "conditional": false,
                 "answerSchemas": []
               },
@@ -1281,7 +1281,7 @@
                 "questionText": "CRN",
                 "displayOrder": 11,
                 "mandatory": true,
-                "readOnly": false,
+                "readOnly": true,
                 "conditional": false,
                 "answerSchemas": []
               },
@@ -1292,50 +1292,6 @@
                 "answerType": "freetext",
                 "questionText": "Address",
                 "displayOrder": 12,
-                "mandatory": true,
-                "readOnly": true,
-                "conditional": false,
-                "answerSchemas": []
-              },
-              {
-                "type": "question",
-                "questionId": "deaf25bc-0677-4d3f-9d09-c7c44c7c34c7",
-                "questionCode": "14.1.2",
-                "answerType": "freetext",
-                "displayOrder": 13,
-                "mandatory": true,
-                "readOnly": true,
-                "conditional": false,
-                "answerSchemas": []
-              },
-              {
-                "type": "question",
-                "questionId": "1ef76cd5-2d77-4e2a-9fb6-8f9aa5d4b657",
-                "questionCode": "14.1.3",
-                "answerType": "freetext",
-                "displayOrder": 14,
-                "mandatory": true,
-                "readOnly": true,
-                "conditional": false,
-                "answerSchemas": []
-              },
-              {
-                "type": "question",
-                "questionId": "ee346f9f-2d49-4070-afc2-4f9dabc1efa7",
-                "questionCode": "14.1.4",
-                "answerType": "freetext",
-                "displayOrder": 15,
-                "mandatory": true,
-                "readOnly": true,
-                "conditional": false,
-                "answerSchemas": []
-              },
-              {
-                "type": "question",
-                "questionId": "3eff7d61-dd85-4ecf-a91d-92d8ffd4fec9",
-                "questionCode": "14.1.5",
-                "answerType": "freetext",
-                "displayOrder": 16,
                 "mandatory": true,
                 "readOnly": true,
                 "conditional": false,

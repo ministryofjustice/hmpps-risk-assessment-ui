@@ -32,10 +32,43 @@
     "5555": {
       "freeTextAnswer": null,
       "answers": {
-        "6666": null,
-        "7777": null,
-        "AAAA": null
+        "6666": "",
+        "7777": "",
+        "AAAA": ""
       }
+    },
+    "33923c1e-e3ba-4c02-ba42-3b8d828f9e18": {
+      "freeTextAnswer": "Hart"
+    },
+    "81cbd5f5-f8ec-430e-b18a-c48fdf660216": {
+      "freeTextAnswer": "None"
+    },
+    "2d6f7515-dd03-4cfc-b365-6739e1251498": {
+      "freeTextAnswer": "Gary"
+    },
+    "6b04e69d-4ffd-46c6-869a-1f4005979848": {
+      "freeTextAnswer": "None"
+    },
+    "83612e87-a57c-4b20-ab6d-76148e61a37b": {
+      "freeTextAnswer": "1987-03-14"
+    },
+    "4333785d-2419-4b8e-b01d-20380ec14dfc": {
+      "freeTextAnswer": "34"
+    },
+    "70348c31-66aa-4e10-b0a5-4644e7fb85ff": {
+      "freeTextAnswer": "Male"
+    },
+    "49ec3bae-2726-4a43-84de-0e63e9f98bb1": {
+      "freeTextAnswer": "2012/123450000F"
+    },
+    "558c142a-b3d1-4a5c-a1e4-12917d8353e0": {
+      "freeTextAnswer": "J081276"
+    },
+    "f3e03d17-015c-46d7-bf33-52c5d8503c08": {
+      "freeTextAnswer": "100 Drive Street<br>Flat 10<br>London"
+    },
+    "92f76d3e-23c2-4a6e-b213-4e9f98c460cb": {
+      "freeTextAnswer": "NW1 6XE"
     }
   }
 }
