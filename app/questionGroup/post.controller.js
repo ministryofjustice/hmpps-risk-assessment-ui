@@ -128,25 +128,7 @@ function findDateAnswerKeys(postBody) {
 function extractAnswers(postBody, questions) {
   const shapedAnswers = Object.entries(postBody).reduce((answers, [key, value]) => {
     const trimmedKey = key.replace(/^id-/, '')
-
-    let answerValue
-    const { answerType } = questions.filter(question => trimmedKey === question.questionId)[0] || 'freetext'
-
-    if (answerType === 'checkbox' || answerType === 'radio') {
-      const thisAnswer = {}
-      if (Array.isArray(value)) {
-        value.forEach(answer => {
-          thisAnswer[answer] = ''
-        })
-      } else {
-        thisAnswer[value] = ''
-      }
-      answerValue = { freeTextAnswer: null, answers: thisAnswer }
-    } else {
-      answerValue = { freeTextAnswer: value, answers: {} }
-    }
-
-    return Object.assign(answers, { [trimmedKey]: answerValue })
+    return Object.assign(answers, { [trimmedKey]: value })
   }, {})
 
   return { answers: shapedAnswers }
