@@ -63,7 +63,7 @@ const annotateWithAnswers = (questions, answers, body) => {
     let displayAnswer
     let answerValues
     if (q.answerType === 'radio' || q.answerType === 'checkbox') {
-      const answer = answers[q.questionId]?.answers
+      const answer = answers[q.questionId]
 
       if (answer) {
         const answerText = []
@@ -78,7 +78,7 @@ const annotateWithAnswers = (questions, answers, body) => {
       answerValues = body[`id-${q.questionId}`] || answerValues
     } else {
       const answer = answers[q.questionId]
-      displayAnswer = body[`id-${q.questionId}`] || (answer ? answer.freeTextAnswer : null)
+      displayAnswer = body[`id-${q.questionId}`] || (Array.isArray(answer) ? answer[0] : null)
     }
 
     return Object.assign(q, {
