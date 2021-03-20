@@ -100,14 +100,12 @@ const saveQuestionGroup = async (req, res) => {
     tokens,
     errors,
   } = req
-  const { questionGroup } = res.locals
-
   if (errors) {
     return displayQuestionGroup(req, res)
   }
 
   try {
-    const answers = extractAnswers(reqBody, questionGroup.contents)
+    const answers = extractAnswers(reqBody)
     await postAnswers(assessmentId, 'current', answers, tokens)
 
     return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)
@@ -125,7 +123,7 @@ function findDateAnswerKeys(postBody) {
   })
 }
 
-function extractAnswers(postBody, questions) {
+function extractAnswers(postBody) {
   const shapedAnswers = Object.entries(postBody).reduce((answers, [key, value]) => {
     const trimmedKey = key.replace(/^id-/, '')
     return Object.assign(answers, { [trimmedKey]: value })
