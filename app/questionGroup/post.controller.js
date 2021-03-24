@@ -106,7 +106,12 @@ const saveQuestionGroup = async (req, res) => {
 
   try {
     const answers = extractAnswers(reqBody)
-    await postAnswers(assessmentId, 'current', answers, tokens)
+    // eslint-disable-next-line no-unused-vars
+    const [ok, episode] = await postAnswers(assessmentId, 'current', answers, tokens)
+
+    if (!ok) {
+      return displayQuestionGroup(req, res)
+    }
 
     return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)
   } catch (error) {
