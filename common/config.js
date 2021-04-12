@@ -23,8 +23,8 @@ module.exports = {
     hmppsAssessments: {
       url: get('HMPPS_ASSESSMENT_API_URL', 'http://localhost:9191', true),
       timeout: {
-        response: get('HMPPS_ASSESSMENT_API_ENDPOINT_TIMEOUT_RESPONSE', 20000, true),
-        deadline: get('HMPPS_ASSESSMENT_API_TIMEOUT_DEADLINE', 20000, true),
+        response: get('HMPPS_ASSESSMENT_API_ENDPOINT_TIMEOUT_RESPONSE', 120000, true),
+        deadline: get('HMPPS_ASSESSMENT_API_TIMEOUT_DEADLINE', 120000, true),
       },
       agent: {
         maxSockets: 100,
