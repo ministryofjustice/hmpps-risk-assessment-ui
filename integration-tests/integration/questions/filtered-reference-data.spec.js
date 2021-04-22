@@ -42,12 +42,16 @@ context('Test filtered reference data fields', () => {
   })
 
   it('updates reference data fields when the target field is updated', () => {
-    const questionsPage = FilteredReferenceDataTestPage.goTo()
-
     cy.intercept(
       'POST',
       '/e69a61ff-7395-4a12-b434-b1aa6478aded/episode/4511a3f6-7f51-4b96-b603-4e75eac0c839/referencedata/filtered',
     ).as('update')
+
+    const questionsPage = FilteredReferenceDataTestPage.goTo()
+
+    cy.wait('@update')
+      .its('response.statusCode')
+      .should('eq', 200)
 
     questionsPage
       .questions()
