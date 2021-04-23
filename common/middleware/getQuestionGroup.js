@@ -128,7 +128,7 @@ module.exports = async ({ params: { groupId, subgroup = 0, page = 0 }, tokens },
         'data-question-type': question.answerType,
       }
 
-      if (question.referenceDataTargets) {
+      if (question.referenceDataTargets?.length > 0) {
         const referenceDataTargets = question.referenceDataTargets.map(({ questionSchemaUuid, isRequired }) => ({
           uuid: questionSchemaUuid,
           isRequired,
