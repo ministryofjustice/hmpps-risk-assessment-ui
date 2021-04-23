@@ -128,8 +128,12 @@ module.exports = async ({ params: { groupId, subgroup = 0, page = 0 }, tokens },
         'data-question-type': question.answerType,
       }
 
-      if (question.referenceDataTarget) {
-        attributes['data-reference-data-target'] = question.referenceDataTarget
+      if (question.referenceDataTargets) {
+        const referenceDataTargets = question.referenceDataTargets.map(({ questionSchemaUuid, isRequired }) => ({
+          uuid: questionSchemaUuid,
+          isRequired,
+        }))
+        attributes['data-reference-data-target'] = JSON.stringify(referenceDataTargets)
       }
 
       return {

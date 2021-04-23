@@ -356,7 +356,12 @@ describe('getQuestionGroup middleware', () => {
                   answerType: 'text',
                   questionId: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
                   questionText: 'Test Question',
-                  referenceDataTarget: 'eeeeeeee-dddd-cccc-bbbb-aaaaaaaaaaaa',
+                  referenceDataTargets: [
+                    {
+                      questionSchemaUuid: 'eeeeeeee-dddd-cccc-bbbb-aaaaaaaaaaaa',
+                      isRequired: false,
+                    },
+                  ],
                 },
               ],
             },
@@ -397,7 +402,9 @@ describe('getQuestionGroup middleware', () => {
       expect(res.locals.questionGroup.contents[0]).toMatchObject({
         type: 'question',
         questionText: 'Test Question',
-        attributes: { 'data-reference-data-target': 'eeeeeeee-dddd-cccc-bbbb-aaaaaaaaaaaa' },
+        attributes: {
+          'data-reference-data-target': '[{"uuid":"eeeeeeee-dddd-cccc-bbbb-aaaaaaaaaaaa","isRequired":false}]',
+        },
       })
     })
 
