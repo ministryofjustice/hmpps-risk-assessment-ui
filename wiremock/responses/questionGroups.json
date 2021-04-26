@@ -610,6 +610,7 @@
                 "mandatory": "yes",
                 "answerSchemas": [],
                 "answer": null,
+                "referenceDataCategory": "FILTERED_REFERENCE_DATA",
                 "referenceDataTargets": [
                   {
                     "questionSchemaUuid": "11111111-1111-1111-1111-111111111202",

@@ -1,7 +1,7 @@
 /* eslint-disable */
 function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
   var state = {}
-  var elementsWithTargets = document.querySelectorAll('[data-reference-data-target]')
+  var dynamicElements = document.querySelectorAll('[data-is-dynamic]')
 
   function targetHasValues(state) {
     var requiredQuestions = Object.keys(state.requiredValues)
@@ -128,10 +128,10 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
     })
   }
 
-  for (var i = 0; i < elementsWithTargets.length; i++) {
-    var element = elementsWithTargets[i]
+  for (var i = 0; i < dynamicElements.length; i++) {
+    var element = dynamicElements[i]
     var questionUuid = element.dataset.questionUuid
-    var targets = JSON.parse(element.dataset.referenceDataTarget)
+    var targets = JSON.parse(element.dataset.referenceDataTargets)
 
     state[questionUuid] = { questionUuid: questionUuid, targetValues: {}, requiredValues: {} }
 

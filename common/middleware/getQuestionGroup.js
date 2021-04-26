@@ -60,7 +60,7 @@ const applyStaticReferenceData = async (questionResponse, tokens) => {
     if (questionSchema.type === 'group') {
       return questionSchema.contents.flatMap(extractReferenceDataCategories)
     }
-    if (questionSchema.referenceDataCategory) {
+    if (questionSchema.referenceDataCategory && questionSchema.referenceDataCategory !== 'FILTERED_REFERENCE_DATA') {
       return [questionSchema.referenceDataCategory]
     }
     return []
@@ -128,12 +128,13 @@ module.exports = async ({ params: { groupId, subgroup = 0, page = 0 }, tokens },
         'data-question-type': question.answerType,
       }
 
-      if (question.referenceDataTargets?.length > 0) {
+      if (question.referenceDataCategory === 'FILTERED_REFERENCE_DATA') {
         const referenceDataTargets = question.referenceDataTargets.map(({ questionSchemaUuid, isRequired }) => ({
           uuid: questionSchemaUuid,
           isRequired,
         }))
-        attributes['data-reference-data-target'] = JSON.stringify(referenceDataTargets)
+        attributes['data-is-dynamic'] = true
+        attributes['data-reference-data-targets'] = JSON.stringify(referenceDataTargets)
       }
 
       return {
