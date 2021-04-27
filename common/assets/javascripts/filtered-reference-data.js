@@ -1,12 +1,13 @@
 /* eslint-disable */
 function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
   var state = {}
-  var elementsWithTargets = document.querySelectorAll('[data-reference-data-target]')
+  var dynamicElements = document.querySelectorAll('[data-is-dynamic]')
 
   function targetHasValues(state) {
-    var keys = Object.keys(state)
-    for (var i = 0; i < keys.length; i++) {
-      if (state[keys[i]] === null) {
+    var requiredQuestions = Object.keys(state.requiredValues)
+    for (var i = 0; i < requiredQuestions.length; i++) {
+      var key = requiredQuestions[i]
+      if (state.requiredValues[key] && !state.targetValues[key]) {
         return false
       }
     }
@@ -80,8 +81,10 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
 
   function selectFirstRadio(radioGroup) {
     var firstRadio = radioGroup.querySelector('input')
-    radioGroup.value = firstRadio.value
-    firstRadio.checked = true
+    if (firstRadio) {
+      radioGroup.value = firstRadio.value
+      firstRadio.checked = true
+    }
   }
 
   function updateOptions(element, options) {
@@ -96,7 +99,7 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
     return
   }
 
-  function fetchReferenceData(state, multipleChoiceElement, callback) {
+  function fetchReferenceData(state, element, callback) {
     if (targetHasValues(state)) {
       var req = new XMLHttpRequest()
       req.open('POST', '/' + assessmentUuid + '/episode/' + episodeUuid + '/referencedata/filtered')
@@ -105,50 +108,58 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
 
       req.onload = function() {
         if (this.status !== 200) {
-          return removeExistingOptions(multipleChoiceElement)
+          return removeExistingOptions(element)
         }
-        callback(JSON.parse(this.responseText))
+        updateOptions(element, JSON.parse(this.responseText))
       }
 
       req.onerror = function() {
-        removeExistingOptions(multipleChoiceElement)
+        removeExistingOptions(element)
       }
     }
   }
 
-  function addListenerToTarget(questionUuid, multipleChoiceElement, state) {
-    target.addEventListener('change', function(event) {
+  function addListenerToTarget(targetElement, element, state) {
+    var questionUuid = targetElement.dataset.questionUuid
+    targetElement.addEventListener('change', function(event) {
       state.targetValues[questionUuid] = event.target.value
 
-      fetchReferenceData(state, multipleChoiceElement, function(newOptions) {
-        updateOptions(multipleChoiceElement, newOptions)
-      })
+      fetchReferenceData(state, element)
     })
   }
 
-  for (var i = 0; i < elementsWithTargets.length; i++) {
-    var element = elementsWithTargets[i]
+  for (var i = 0; i < dynamicElements.length; i++) {
+    var element = dynamicElements[i]
     var questionUuid = element.dataset.questionUuid
-    var targetId = element.dataset.referenceDataTarget
+    var targets = JSON.parse(element.dataset.referenceDataTargets)
 
-    state[questionUuid] = { questionUuid: questionUuid, targetValues: {} }
-    state[questionUuid].targetValues[targetId] = null
-
-    var targets = document.querySelectorAll('[data-question-uuid="' + targetId + '"]')
+    state[questionUuid] = { questionUuid: questionUuid, targetValues: {}, requiredValues: {} }
 
     for (var j = 0; j < targets.length; j++) {
       var target = targets[j]
-      var targetId = target.dataset.questionUuid
 
-      if (isRadio(target)) {
-        selectFirstRadio(target)
+      if (target.uuid === questionUuid) {
+        continue
       }
 
-      state[questionUuid].targetValues[targetId] = target.value
-      fetchReferenceData(state[questionUuid], element, function(newOptions) {
-        updateOptions(element, newOptions)
-      })
-      addListenerToTarget(targetId, element, state[questionUuid])
+      state[questionUuid].targetValues[target.uuid] = null
+      state[questionUuid].requiredValues[target.uuid] = target.isRequired
+
+      var targetElements = document.querySelectorAll('[data-question-uuid="' + target.uuid + '"]')
+
+      for (var k = 0; k < targetElements.length; k++) {
+        var targetElement = targetElements[k]
+        var targetElementUuid = targetElement.dataset.questionUuid
+
+        if (isRadio(targetElement)) {
+          selectFirstRadio(targetElement)
+        }
+
+        state[questionUuid].targetValues[targetElementUuid] = targetElement.value
+        addListenerToTarget(targetElement, element, state[questionUuid])
+      }
     }
+
+    fetchReferenceData(state[questionUuid], element)
   }
 }
