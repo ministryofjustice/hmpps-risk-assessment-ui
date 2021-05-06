@@ -115,6 +115,10 @@ const extractLink = questionType => {
   return link
 }
 
+const doReplace = (input, target, replacement) => {
+  return input.split(target).join(replacement)
+}
+
 // This function executes middleware in series
 const dynamicMiddleware = async (validators, req, res, next) => {
   async.eachSeries(
@@ -158,4 +162,5 @@ module.exports = {
   dynamicMiddleware,
   processReplacements,
   extractLink,
+  doReplace,
 }

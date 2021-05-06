@@ -16,6 +16,7 @@
 {% endblock %}
 
 {% block beforeContent %}
+    referrer:{{ thisUrl }}a
     <div role="navigation" aria-label="back">
         {{ govukBackLink({
             href: "/" + assessmentId + "/questiongroup/" + navigation.previous.url,
@@ -39,7 +40,7 @@
             <form method="post" id="{{ groupId }}" novalidate>
 
                 {% for question in questions %}
-                    {{ renderQuestion(question, errors, bodyAnswers['id-' + question.questionId], '', requested_url) }}
+                    {{ renderQuestion(question, errors, bodyAnswers['id-' + question.questionId], '', thisUrl) }}
                 {% endfor %}
 
                 <div class="questiongroup-action-buttons">

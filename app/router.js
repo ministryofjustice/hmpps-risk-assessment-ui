@@ -12,6 +12,7 @@ const getQuestionGroup = require('../common/middleware/getQuestionGroup')
 const { startController } = require('./start/get.controller')
 const { displayAssessmentsList } = require('./assessmentsList/get.controller')
 const { displayQuestionGroup } = require('./questionGroup/get.controller')
+const { displayAddRow } = require('./addRow/get.controller')
 
 const { displayOverview } = require('./summary/get.controller')
 const { completeAssessment } = require('./summary/post.controller')
@@ -77,6 +78,8 @@ module.exports = app => {
   )
 
   app.post(`/:assessmentId/episode/:episodeId/referencedata/filtered`, fetchFilteredReferenceData)
+
+  app.get(`/:assessmentId/questiongroup/:groupId/:subgroup/:page/addrow/:tableName`, getOffenderDetails, displayAddRow)
 
   app.post('/:assessmentId/questiongroup/:groupId/summary', getOffenderDetails, completeAssessment)
 

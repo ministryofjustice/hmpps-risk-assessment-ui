@@ -23,7 +23,7 @@
 {% endif %}
 
 
-{% if question.type == 'table' %}
+{% if question.type == 'table' or question.type == 'TableQuestionDto'%}
   {% set numColumns = question.contents.length %}
   {% set numRows = question.contents[0].answer.length %}
 
@@ -79,7 +79,7 @@
   {% set qType = question.answerType %}
   {% set regExp = r/^presentation: link.*/gi %}
   {% if regExp.test(qType) %}
-    {%  set linkTarget = question.answerType | extractLink %}
+    {%  set linkTarget = question.answerType | extractLink | doReplace('<base>', requested_url) %}
     {% set qType = 'presentation: link' %}
   {% endif %}
 
