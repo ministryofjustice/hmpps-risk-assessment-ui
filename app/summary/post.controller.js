@@ -13,6 +13,7 @@ const completeAssessment = async (req, res) => {
     const [ok] = await postCompleteAssessment(assessmentId, tokens)
 
     if (ok) {
+      res.locals.hideOffenderDetails = true
       return res.render(`${__dirname}/success`, { offenderName: res.locals.offenderDetails.name })
     }
     res.locals.assessmentCompletedMessage = 'There was a problem marking the assessment as complete'
