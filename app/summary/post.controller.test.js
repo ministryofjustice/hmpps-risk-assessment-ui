@@ -26,7 +26,7 @@ describe('display complete assessment page', () => {
     },
   }
 
-  before(() => {
+  beforeEach(() => {
     assessmentEpisodes = JSON.parse(JSON.stringify(assessmentEpisodesJson))
     postCompleteAssessment.mockReset()
   })
@@ -36,6 +36,6 @@ describe('display complete assessment page', () => {
 
     await completeAssessment(req, res)
 
-    expect(res.render).toHaveBeenCalledWith(`${__dirname}/rhekehkrjhkr`, { offenderName: ' Smith' })
+    expect(res.render).toHaveBeenCalledWith(`${__dirname}/success`, { offenderName: 'Fred Smith' })
   })
 })
