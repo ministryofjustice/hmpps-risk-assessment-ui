@@ -54,6 +54,7 @@ module.exports = {
         maxSockets: 100,
         maxFreeSockets: 10,
         freeSocketTimeout: 30000,
+        verifyToken: get('OAUTH_VERIFY_TOKEN', false, true),
       },
     },
   },
@@ -69,6 +70,7 @@ module.exports = {
   },
   clientId: get('API_CLIENT_ID', 'clientId'),
   clientSecret: get('API_CLIENT_SECRET', 'clientSecret'),
+  sessionSecret: get('SESSION_SECRET', 'superSecret'),
   dev: {
     devAssessmentId: get('DEV_ASSESSMENT_ID', 'e69a61ff-7395-4a12-b434-b1aa6478aded'),
     devPreSentenceQuestionGroupId: get('DEV_PRE_SENTENCE_QUESTION_GROUP_ID', '65a3924c-4130-4140-b7f4-cc39a52603bb'),
