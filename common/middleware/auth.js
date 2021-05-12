@@ -40,7 +40,7 @@ const checkUserIsAuthenticated = (verifyToken = tokenVerifier) => {
 
 const userHasExpiredToken = (tokenExpiryTime, nowInSeconds = Date.now()) => tokenExpiryTime < nowInSeconds
 
-const refreshUserToken = (req, res, next) => {
+const checkForTokenRefresh = (req, res, next) => {
   const { user } = req
   if (user && userHasExpiredToken(user.tokenExpiryTime)) {
     logger.info(`Token expiring for user: ${user.username} - attempting refresh`)
@@ -126,7 +126,7 @@ const initializeAuth = () => {
 
 module.exports = {
   checkUserIsAuthenticated,
-  refreshUserToken,
+  checkForTokenRefresh,
   handleLoginCallback,
   handleLogout,
   init: initializeAuth,

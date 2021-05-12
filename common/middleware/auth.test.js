@@ -119,7 +119,7 @@ describe('Auth', () => {
     })
   })
 
-  describe('refreshUserToken', () => {
+  describe('checkForTokenRefresh', () => {
     const res = {}
     const next = jest.fn()
 
@@ -155,7 +155,7 @@ describe('Auth', () => {
         cb(null, 'ACCESS_TOKEN', 'NEW_REFRESH_TOKEN')
       })
 
-      auth.refreshUserToken(req, res, () => {
+      auth.checkForTokenRefresh(req, res, () => {
         expect(req.user.refreshToken).toEqual('NEW_REFRESH_TOKEN')
         expect(req.session.save).toHaveBeenCalled()
 
@@ -173,14 +173,14 @@ describe('Auth', () => {
         },
       }
 
-      auth.refreshUserToken(req, res, next)
+      auth.checkForTokenRefresh(req, res, next)
       expect(refresh.requestNewAccessToken).not.toHaveBeenCalled()
       expect(next).toHaveBeenCalled()
     })
 
     it('does nothing when there is no user', () => {
       const req = {}
-      auth.refreshUserToken(req, res, next)
+      auth.checkForTokenRefresh(req, res, next)
       expect(refresh.requestNewAccessToken).not.toHaveBeenCalled()
       expect(next).toHaveBeenCalled()
     })

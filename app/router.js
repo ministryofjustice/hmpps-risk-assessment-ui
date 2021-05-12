@@ -32,7 +32,7 @@ const {
   checkUserIsAuthenticated,
   handleLoginCallback,
   handleLogout,
-  refreshUserToken,
+  checkForTokenRefresh,
 } = require('../common/middleware/auth')
 
 // Export
@@ -66,7 +66,7 @@ module.exports = app => {
   app.get('/logout', handleLogout())
   app.get('/login/error', (req, res) => res.status(401).render('app/error', { error: 'Unable to sign in' }))
 
-  app.use(checkUserIsAuthenticated(), addUserToLocals)
+  app.use(checkUserIsAuthenticated(), checkForTokenRefresh, addUserToLocals)
 
   app.get(`/`, (req, res) => {
     res.redirect('/start')
