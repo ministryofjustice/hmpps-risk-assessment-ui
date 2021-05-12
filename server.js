@@ -12,8 +12,9 @@ const loggingMiddleware = require('morgan')
 const compression = require('compression')
 const { configure } = require('nunjucks')
 const dateFilter = require('nunjucks-date-filter')
-const cookieSession = require('cookie-session')
+const session = require('express-session')
 const helmet = require('helmet')
+const passport = require('passport')
 
 // Local dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -23,13 +24,12 @@ const { mojDate } = require('./node_modules/@ministryofjustice/frontend/moj/filt
 const logger = require('./common/logging/logger')
 const router = require('./app/router')
 const noCache = require('./common/utils/no-cache')
-const addUserInformation = require('./common/middleware/add-user-information')
 const { mdcSetup } = require('./common/logging/logger-mdc')
-const createCredentials = require('./common/middleware/createCredentials')
 const { updateCorrelationId } = require('./common/middleware/updateCorrelationId')
 const { applicationInsights } = require('./common/config')
 const { encodeHTML, extractLink } = require('./common/utils/util')
-const clientSecret = require('./common/config')
+const { sessionSecret } = require('./common/config')
+const auth = require('./common/middleware/auth')
 
 // Global constants
 const { static: _static } = express
@@ -40,7 +40,6 @@ const PORT = process.env.PORT || 3000
 const { NODE_ENV } = process.env
 const CSS_PATH = staticify.getVersionedPath('/stylesheets/application.min.css')
 const JAVASCRIPT_PATH = staticify.getVersionedPath('/javascripts/application.js')
-const allGateKeeperPages = /^\/(?!health$).*/
 
 // Define app views
 const APP_VIEWS = [
@@ -98,36 +97,16 @@ function initialiseGlobalMiddleware(app) {
   app.use(urlencoded({ extended: true }))
 
   app.use(
-    cookieSession({
+    session({
       name: 'session',
-      keys: ['key1', 'key2'],
-      secret: clientSecret,
-
-      // Cookie Options
+      secret: sessionSecret,
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     }),
   )
 
-  if (process.env.NODE_ENV === 'local') {
-    app.use(allGateKeeperPages, (req, res, next) => {
-      const keycloakHeaders = [
-        'x-auth-name',
-        'x-auth-username',
-        'x-auth-given-name',
-        'x-auth-family-name',
-        'x-auth-email',
-        'x-auth-locations',
-      ]
-      logger.info(`Running locally: setting default headers for ${keycloakHeaders}`)
-      keycloakHeaders.forEach(headerName => {
-        req.headers[headerName] = `Test ${headerName}`
-      })
-      next()
-    })
-  }
-
-  app.use(allGateKeeperPages, addUserInformation)
-  app.use(allGateKeeperPages, createCredentials)
+  auth.init()
+  app.use(passport.initialize())
+  app.use(passport.session())
 
   // must be after session since we need session
   app.use(mdcSetup)
