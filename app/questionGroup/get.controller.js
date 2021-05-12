@@ -4,14 +4,14 @@ const { logger } = require('../../common/logging/logger')
 const { getAnswers } = require('../../common/data/hmppsAssessmentApi')
 
 const displayQuestionGroup = async (
-  { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, tokens },
+  { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, user },
   res,
 ) => {
   try {
     const { questionGroup } = res.locals
     const subIndex = Number.parseInt(subgroup, 10)
 
-    const { answers, episodeUuid } = await grabAnswers(assessmentId, 'current', tokens)
+    const { answers, episodeUuid } = await grabAnswers(assessmentId, 'current', user?.token)
 
     res.locals.assessmentUuid = assessmentId
     res.locals.episodeUuid = episodeUuid
@@ -34,9 +34,9 @@ const displayQuestionGroup = async (
   }
 }
 
-const grabAnswers = (assessmentId, episodeId, tokens) => {
+const grabAnswers = (assessmentId, episodeId, token) => {
   try {
-    return getAnswers(assessmentId, episodeId, tokens)
+    return getAnswers(assessmentId, episodeId, token)
   } catch (error) {
     logger.error(`Could not retrieve answers for assessment ${assessmentId} episode ${episodeId}, error: ${error}`)
     throw error
