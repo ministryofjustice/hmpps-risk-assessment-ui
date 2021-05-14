@@ -1,12 +1,12 @@
 const refresh = require('passport-oauth2-refresh')
 const passport = require('passport')
 const auth = require('./auth')
-const { getToken } = require('../data/oauth')
+const { checkTokenIsActive } = require('../data/oauth')
 
 jest.mock('passport-oauth2-refresh')
 jest.mock('passport')
 jest.mock('../data/oauth', () => ({
-  getToken: jest.fn(),
+  checkTokenIsActive: jest.fn(),
 }))
 
 describe('Auth', () => {
@@ -17,11 +17,11 @@ describe('Auth', () => {
       },
     }
 
-    beforeEach(() => getToken.mockReset())
+    beforeEach(() => checkTokenIsActive.mockReset())
 
     it('returns true if the token is active', async () => {
       const req = { ...baseRequest }
-      getToken.mockResolvedValue(true)
+      checkTokenIsActive.mockResolvedValue(true)
       const result = await auth.tokenVerifier(req, true)
       expect(result).toBe(true)
     })
@@ -30,12 +30,12 @@ describe('Auth', () => {
       const req = { ...baseRequest, verified: true }
       const result = await auth.tokenVerifier(req, true)
       expect(result).toBe(true)
-      expect(getToken).not.toHaveBeenCalled()
+      expect(checkTokenIsActive).not.toHaveBeenCalled()
     })
 
     it('returns false if the token is inactive', async () => {
       const req = { ...baseRequest }
-      getToken.mockResolvedValue(false)
+      checkTokenIsActive.mockResolvedValue(false)
       const result = await auth.tokenVerifier(req, true)
       expect(result).toBe(false)
     })
@@ -44,7 +44,7 @@ describe('Auth', () => {
       const req = { ...baseRequest }
       const result = await auth.tokenVerifier(req, false)
       expect(result).toBe(true)
-      expect(getToken).not.toHaveBeenCalled()
+      expect(checkTokenIsActive).not.toHaveBeenCalled()
     })
   })
 

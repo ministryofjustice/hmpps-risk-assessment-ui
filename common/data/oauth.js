@@ -12,7 +12,7 @@ const getJwtToken = () => {
   return postData(`${url}/token?grant_type=client_credentials`)
 }
 
-const getToken = async token => {
+const checkTokenIsActive = async token => {
   return superagent
     .post(`${url}/token/verify`)
     .auth(token, { type: 'bearer' })
@@ -47,5 +47,5 @@ const logError = error => {
 
 module.exports = {
   getJwtToken,
-  getToken,
+  checkTokenIsActive,
 }

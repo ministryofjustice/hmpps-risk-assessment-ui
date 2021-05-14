@@ -1,7 +1,7 @@
 const passport = require('passport')
 const { Strategy } = require('passport-oauth2')
 const refresh = require('passport-oauth2-refresh')
-const { getToken } = require('../data/oauth')
+const { checkTokenIsActive } = require('../data/oauth')
 const config = require('../config')
 const logger = require('../logging/logger')
 
@@ -20,7 +20,7 @@ const tokenVerifier = async (req, enabled = config.apis.oauth.verifyToken) => {
     return true
   }
 
-  const result = await getToken(user.token)
+  const result = await checkTokenIsActive(user.token)
   if (result) {
     req.verified = true
   }
