@@ -54,7 +54,7 @@ module.exports = {
         maxSockets: 100,
         maxFreeSockets: 10,
         freeSocketTimeout: 30000,
-        verifyToken: get('OAUTH_VERIFY_TOKEN', false, true),
+        verifyToken: get('OAUTH_VERIFY_TOKEN', true),
       },
     },
   },
