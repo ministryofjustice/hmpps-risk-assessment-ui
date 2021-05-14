@@ -45,7 +45,7 @@ module.exports = {
       },
     },
     oauth: {
-      url: get('OAUTH_ENDPOINT_URL', 'http://localhost:9191/oauth', true),
+      url: get('OAUTH_ENDPOINT_URL', 'http://localhost:9191/auth', true),
       timeout: {
         response: get('OAUTH_API_ENDPOINT_TIMEOUT_RESPONSE', 10000, true),
         deadline: get('OAUTH_API_TIMEOUT_DEADLINE', 10000, true),
