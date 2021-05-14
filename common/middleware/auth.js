@@ -38,7 +38,7 @@ const checkUserIsAuthenticated = (verifyToken = tokenVerifier) => {
   }
 }
 
-const userHasExpiredToken = (tokenExpiryTime, nowInSeconds = Date.now()) => tokenExpiryTime < nowInSeconds
+const userHasExpiredToken = (tokenExpiryTime, nowInSeconds = Date.now()) => tokenExpiryTime <= nowInSeconds
 
 const checkForTokenRefresh = (req, res, next) => {
   const { user } = req

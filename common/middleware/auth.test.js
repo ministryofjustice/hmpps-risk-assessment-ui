@@ -109,6 +109,15 @@ describe('Auth', () => {
       expect(isExpired).toBe(true)
     })
 
+    it('returns true when the token is about to expire', () => {
+      const now = Date.now()
+      const expiry = now
+
+      const isExpired = auth.userHasExpiredToken(expiry, now)
+
+      expect(isExpired).toBe(true)
+    })
+
     it('returns false when the token has not expired', () => {
       const now = Date.now()
       const expiry = now + 60
