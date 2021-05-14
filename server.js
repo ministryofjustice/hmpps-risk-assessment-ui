@@ -15,6 +15,8 @@ const dateFilter = require('nunjucks-date-filter')
 const session = require('express-session')
 const helmet = require('helmet')
 const passport = require('passport')
+const redis = require('redis')
+const connectRedis = require('connect-redis')
 
 // Local dependencies
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -28,7 +30,7 @@ const { mdcSetup } = require('./common/logging/logger-mdc')
 const { updateCorrelationId } = require('./common/middleware/updateCorrelationId')
 const { applicationInsights } = require('./common/config')
 const { encodeHTML, extractLink } = require('./common/utils/util')
-const { sessionSecret } = require('./common/config')
+const config = require('./common/config')
 const auth = require('./common/middleware/auth')
 
 // Global constants
@@ -40,6 +42,8 @@ const PORT = process.env.PORT || 3000
 const { NODE_ENV } = process.env
 const CSS_PATH = staticify.getVersionedPath('/stylesheets/application.min.css')
 const JAVASCRIPT_PATH = staticify.getVersionedPath('/javascripts/application.js')
+
+const RedisStore = connectRedis(session)
 
 // Define app views
 const APP_VIEWS = [
@@ -96,11 +100,21 @@ function initialiseGlobalMiddleware(app) {
   app.use(json())
   app.use(urlencoded({ extended: true }))
 
+  const redisClient = redis.createClient({
+    port: config.redis.port,
+    password: config.redis.password,
+    host: config.redis.host,
+    tls: config.redis.tls_enabled === 'true' ? {} : false,
+  })
+
   app.use(
     session({
-      name: 'session',
-      secret: sessionSecret,
-      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+      store: new RedisStore({ client: redisClient }),
+      secret: config.sessionSecret,
+      cookie: { secure: config.https, sameSite: 'lax', maxAge: 24 * 60 * 60 * 1000 }, // 24 hours
+      resave: false, // redis implements touch so shouldn't need this
+      saveUninitialized: false,
+      rolling: true,
     }),
   )
 
