@@ -13,10 +13,12 @@ const { startController } = require('./start/get.controller')
 const { displayAssessmentsList } = require('./assessmentsList/get.controller')
 const { displayQuestionGroup } = require('./questionGroup/get.controller')
 const { displayAddRow } = require('./addRow/get.controller')
+const { saveTableRow } = require('./addRow/post.controller')
 
 const { displayOverview } = require('./summary/get.controller')
 const { completeAssessment } = require('./summary/post.controller')
-const { saveQuestionGroup, assembleDates, questionGroupValidationRules } = require('./questionGroup/post.controller')
+const { saveQuestionGroup } = require('./questionGroup/post.controller')
+const { questionGroupValidationRules, assembleDates } = require('../common/question-groups/post-question-groups')
 const { fetchFilteredReferenceData } = require('./referenceData/post.controller')
 const { psrFromCourt } = require('./psrFromCourt/get.controller')
 const { startPsrFromCourt, startPsrFromForm } = require('./psrFromCourt/post.controller')
@@ -79,7 +81,21 @@ module.exports = app => {
 
   app.post(`/:assessmentId/episode/:episodeId/referencedata/filtered`, fetchFilteredReferenceData)
 
-  app.get(`/:assessmentId/questiongroup/:groupId/:subgroup/:page/addrow/:tableName`, getOffenderDetails, displayAddRow)
+  app.get(
+    `/:assessmentId/questiongroup/:groupId/:subgroup/:page/addrow/:tableName`,
+    getOffenderDetails,
+    getQuestionGroup,
+    displayAddRow,
+  )
+  app.post(
+    `/:assessmentId/questiongroup/:groupId/:subgroup/:page/addrow/:tableName`,
+    getOffenderDetails,
+    assembleDates,
+    getQuestionGroup,
+    questionGroupValidationRules,
+    validate,
+    saveTableRow,
+  )
 
   app.post('/:assessmentId/questiongroup/:groupId/summary', getOffenderDetails, completeAssessment)
 

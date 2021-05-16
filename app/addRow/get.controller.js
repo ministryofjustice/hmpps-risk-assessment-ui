@@ -1,206 +1,51 @@
 // @ts-check
-const nunjucks = require('nunjucks')
 const { logger } = require('../../common/logging/logger')
-const { getAnswers } = require('../../common/data/hmppsAssessmentApi')
+const { removeUrlLevels } = require('../../common/utils/util')
+const {
+  annotateWithAnswers,
+  compileInlineConditionalQuestions,
+} = require('../../common/question-groups/get-question-groups')
 
 const displayAddRow = async (
-  { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, tokens, originalUrl },
+  { params: { assessmentId, groupId, tableName }, originalUrl, body, errors = {}, errorSummary = null },
   res,
 ) => {
   try {
     const { questionGroup } = res.locals
-    const subIndex = Number.parseInt(subgroup, 10)
+    const returnUrl = removeUrlLevels(originalUrl, 2)
 
-    const { answers, episodeUuid } = await grabAnswers(assessmentId, 'current', tokens)
+    // extract the table questions from the question group
+    const thisTable = questionGroup.contents.find(element => element.tableCode === tableName)
 
+    let heading = questionGroup.title || 'Add item'
+    let submitText = 'Save item'
+    if (tableName === 'children_at_risk_of_serious_harm') {
+      heading = 'Add a child'
+      submitText = 'Add child'
+    }
     res.locals.assessmentUuid = assessmentId
-    res.locals.episodeUuid = episodeUuid
 
-    let questions = annotateWithAnswers(questionGroup.contents, answers, body)
-    questions = compileInlineConditionalQuestions(questions, errors)
-
-    console.log(JSON.stringify(originalUrl, null, 2))
+    let questions = annotateWithAnswers(questionGroup.contents, {}, body)
+    questions = compileInlineConditionalQuestions(thisTable.contents, errors)
 
     return res.render(`${__dirname}/index`, {
-      thisUrl: originalUrl,
       bodyAnswers: { ...body },
       assessmentId,
-      heading: questionGroup.title,
-      subheading: questionGroup.contents[subIndex].title,
+      returnUrl,
+      heading,
+      submitText,
+      subheading: questionGroup.contents[0].title,
       groupId,
       questions,
       errors,
       errorSummary,
     })
   } catch (error) {
+    logger.error(
+      `Could not retrieve new table information for assessment ${assessmentId}, table ${tableName}, error: ${error}`,
+    )
     return res.render('app/error', { error })
   }
-}
-
-const grabAnswers = (assessmentId, episodeId, tokens) => {
-  try {
-    return getAnswers(assessmentId, episodeId, tokens)
-  } catch (error) {
-    logger.error(`Could not retrieve answers for assessment ${assessmentId} episode ${episodeId}, error: ${error}`)
-    throw error
-  }
-}
-
-const annotateWithAnswers = (questions, answers, body) => {
-  return questions.map(q => {
-    if (q.type === 'group' || q.type === 'table') {
-      // eslint-disable-next-line no-param-reassign
-      q.contents = annotateWithAnswers(q.contents, answers, body)
-      return q
-    }
-
-    let displayAnswer
-    let answerValues
-    if (q.answerType === 'radio' || q.answerType === 'checkbox') {
-      const answer = answers[q.questionId]
-
-      const answerText = []
-      answerValues = []
-      answer?.forEach(ans => {
-        const thisAnswer = q.answerSchemas.find(answerSchema => answerSchema.value === ans)
-        answerValues.push(thisAnswer?.value)
-        answerText.push(thisAnswer?.text)
-      })
-
-      answerValues = body[`id-${q.questionId}`] || answerValues
-    } else {
-      const answer = answers[q.questionId]
-
-      if (body[`id-${q.questionId}`]) {
-        displayAnswer = body[`id-${q.questionId}`]
-      } else if (Array.isArray(answer)) {
-        displayAnswer = answer.length === 1 ? answer[0] : answer
-      } else {
-        displayAnswer = null
-      }
-    }
-
-    return Object.assign(q, {
-      answer: displayAnswer,
-      answerSchemas: annotateAnswerSchemas(q.answerSchemas, answerValues),
-    })
-  })
-}
-
-const compileInlineConditionalQuestions = (questions, errors) => {
-  // construct an object with all conditional questions, keyed on id
-  const conditionalQuestions = {}
-  questions.forEach(question => {
-    if (question.conditional) {
-      const key = question.questionId
-      conditionalQuestions[key] = question
-    }
-  })
-
-  const conditionalQuestionsToRemove = []
-  const outOfLineConditionalQuestions = []
-
-  // add in rendered conditional question strings to each answer when displayed inline
-  // add appropriate classes to hide questions to be displayed out-of-line
-  const compiledQuestions = questions.map(question => {
-    if (question.type === 'group') {
-      // eslint-disable-next-line no-param-reassign
-      question.contents = compileInlineConditionalQuestions(question.contents, errors)
-      return question
-    }
-    const currentQuestion = question
-    currentQuestion.answerSchemas = question.answerSchemas?.map(schemaLine => {
-      const updatedSchemaLine = schemaLine
-      const outOfLineConditionalsForThisAnswer = []
-
-      schemaLine.conditionals?.forEach(conditionalDisplay => {
-        const subjectId = conditionalDisplay.conditional
-        if (conditionalDisplay.displayInline) {
-          // if to be displayed inline then compile HTML string and add to parent question answer
-          let thisError
-
-          const errorString = errors[`id-${conditionalQuestions[subjectId].questionId}`]?.text
-
-          if (errorString) {
-            thisError = `{text:'${errorString}'}`
-          }
-          let conditionalQuestionString =
-            '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
-
-          const conditionalQuestion = conditionalQuestions[subjectId]
-          const attributesString = JSON.stringify(conditionalQuestion.attributes)
-
-          conditionalQuestionString += `{{ renderQuestion(${JSON.stringify({
-            ...conditionalQuestion,
-            attributes: attributesString,
-          })},'','',${thisError}) }}`
-
-          updatedSchemaLine.conditional = {
-            html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),
-          }
-
-          // mark the target question to be deleted later
-          conditionalQuestionsToRemove.push(subjectId)
-        } else {
-          outOfLineConditionalsForThisAnswer.push(subjectId)
-        }
-
-        if (outOfLineConditionalsForThisAnswer?.length) {
-          const pre = 'conditional-id-form-'
-          const ariaControls = outOfLineConditionalsForThisAnswer.map(i => pre + i).join(' ')
-          updatedSchemaLine.attributes = [
-            ['data-conditional', outOfLineConditionalsForThisAnswer.join(' ')],
-            ['data-aria-controls', ariaControls],
-            ['aria-expanded', `false`],
-          ]
-          currentQuestion.isConditional = true
-          currentQuestion.attributes = [['data-contains-conditional', 'true']]
-        }
-
-        return updatedSchemaLine
-      })
-      return schemaLine
-    })
-    return currentQuestion
-  })
-
-  return compiledQuestions
-    .filter(question => {
-      // remove questions that have been rendered inline
-      return (
-        !conditionalQuestionsToRemove.includes(question.questionId) ||
-        outOfLineConditionalQuestions.includes(question.questionId)
-      )
-    })
-    .map(question => {
-      // add css to hide questions to be displayed out of line
-      const questionObject = question
-      if (!questionObject.questionText) {
-        questionObject.formClasses = 'govuk-input--packTogether'
-      }
-      if (questionObject.conditional) {
-        questionObject.formClasses =
-          'govuk-radios__conditional govuk-radios__conditional--noIndent govuk-radios__conditional--hidden'
-        questionObject.isConditional = true
-        questionObject.attributes = [
-          ['data-outofline', 'true'],
-          ['data-base-id', `${questionObject.questionId}`],
-        ]
-      }
-      return questionObject
-    })
-}
-
-const annotateAnswerSchemas = (answerSchemas, answerValue) => {
-  if (!answerValue || answerValue?.length === 0) {
-    return answerSchemas
-  }
-  return answerSchemas.map(as => {
-    return Object.assign(as, {
-      checked: as.value === answerValue || answerValue.includes(as.value),
-      selected: as.value === answerValue || answerValue.includes(as.value),
-    })
-  })
 }
 
 module.exports = { displayAddRow }
