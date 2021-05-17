@@ -68,6 +68,12 @@ module.exports = {
     disabled: get('APPINSIGHTS_DISABLE', false, { parser: bool }),
     internalLogging: get('APPINSIGHTS_LOGGING', false, { parser: bool }),
   },
+  redis: {
+    host: get('REDIS_HOST', 'localhost', true),
+    port: parseInt(get('REDIS_PORT', '6379'), 10),
+    password: get('REDIS_PASSWORD', '', true),
+    tls_enabled: get('REDIS_TLS_ENABLED', 'false', true),
+  },
   clientId: get('API_CLIENT_ID', 'clientId'),
   clientSecret: get('API_CLIENT_SECRET', 'clientSecret'),
   sessionSecret: get('SESSION_SECRET', 'superSecret'),
