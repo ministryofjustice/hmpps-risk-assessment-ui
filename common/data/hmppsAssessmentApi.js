@@ -47,6 +47,11 @@ const postAnswers = (assessmentId, episodeId, answers, authorisationToken) => {
   return postData(path, authorisationToken, answers)
 }
 
+const postTableRow = (assessmentId, episodeId, tableName, answers, authorisationToken) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}/${tableName}`
+  return postData(path, authorisationToken, answers)
+}
+
 const getFilteredReferenceData = (assessmentId, episodeId, questionUuid, parentList, authorisationToken) => {
   const path = `${url}/referencedata/filtered`
   const requestBody = {
@@ -133,4 +138,5 @@ module.exports = {
   getQuestionGroupSummary,
   postCompleteAssessment,
   getFilteredReferenceData,
+  postTableRow,
 }

@@ -60,7 +60,7 @@ const usesStaticReferenceData = questionSchema =>
 const usesDynamicReferenceData = questionSchema =>
   questionSchema.referenceDataCategory && questionSchema.referenceDataCategory === 'FILTERED_REFERENCE_DATA'
 
-const applyStaticReferenceData = async (questionResponse, tokens) => {
+const applyStaticReferenceData = async (questionResponse, authorisationToken) => {
   const extractReferenceDataCategories = questionSchema => {
     if (questionSchema.type === 'group') {
       return questionSchema.contents.flatMap(extractReferenceDataCategories)
@@ -81,7 +81,7 @@ const applyStaticReferenceData = async (questionResponse, tokens) => {
 
   const referenceDataRequests = Array.from(referenceDataCategories).map(async category => ({
     category,
-    data: await getReferenceDataListByCategory(category, tokens),
+    data: await getReferenceDataListByCategory(category, authorisationToken),
   }))
 
   const referenceDataResponses = await Promise.all(referenceDataRequests)

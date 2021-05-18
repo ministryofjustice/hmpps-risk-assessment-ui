@@ -29,7 +29,7 @@ const noCache = require('./common/utils/no-cache')
 const { mdcSetup } = require('./common/logging/logger-mdc')
 const { updateCorrelationId } = require('./common/middleware/updateCorrelationId')
 const { applicationInsights } = require('./common/config')
-const { encodeHTML, extractLink } = require('./common/utils/util')
+const { encodeHTML, extractLink, doReplace } = require('./common/utils/util')
 const config = require('./common/config')
 const auth = require('./common/middleware/auth')
 
@@ -42,6 +42,7 @@ const PORT = process.env.PORT || 3000
 const { NODE_ENV } = process.env
 const CSS_PATH = staticify.getVersionedPath('/stylesheets/application.min.css')
 const JAVASCRIPT_PATH = staticify.getVersionedPath('/javascripts/application.js')
+const allGateKeeperPages = /^\/(?!health$).*/
 
 const RedisStore = connectRedis(session)
 
@@ -99,6 +100,10 @@ function initialiseGlobalMiddleware(app) {
   })
   app.use(json())
   app.use(urlencoded({ extended: true }))
+  app.use(allGateKeeperPages, (req, res, next) => {
+    res.locals.requested_url = req.originalUrl
+    next()
+  })
 
   const redisClient = redis.createClient({
     port: config.redis.port,
@@ -155,6 +160,7 @@ function initialiseTemplateEngine(app) {
   // that might cause security issues otherwise
   nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
   nunjucksEnvironment.addFilter('extractLink', str => extractLink(str))
+  nunjucksEnvironment.addFilter('doReplace', (str, target, replacement) => doReplace(str, target, replacement))
 
   // Set view engine
   app.set('view engine', 'njk')
