@@ -23,7 +23,7 @@ const countWords = str => {
 }
 
 const removeUrlLevels = (url, levels) => {
-  return !levels
+  return !levels || !url
     ? url
     : url
         .split('/')
