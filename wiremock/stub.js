@@ -13,6 +13,7 @@ const {
   stubRemoveTableRow,
   stubGetUserProfile,
 } = require('./assessmentApi')
+const { stubGetUserProfile } = require('./userApi')
 const { stubGetAssessmentFromDelius, stubPostAssessmentFromDelius } = require('./assessmentFromDelius')
 const { stubStart } = require('./start')
 const { stubReferenceData } = require('./referenceData')

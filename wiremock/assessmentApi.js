@@ -8,22 +8,6 @@ const userProfile = require('./responses/userProfile.json')
 const offenderDetails = require('./responses/offenderDetails.json')
 const assessmentSupervision = require('./responses/assessmentSupervision.json')
 
-const stubGetUserProfile = () => {
-  stubFor({
-    request: {
-      method: 'GET',
-      urlPattern: '/user/USER_2/profile',
-    },
-    response: {
-      headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
-      },
-      status: 200,
-      jsonBody: userProfile,
-    },
-  })
-}
-
 const stubGetAssessments = () => {
   stubFor({
     request: {

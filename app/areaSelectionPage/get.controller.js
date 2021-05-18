@@ -1,5 +1,5 @@
 const { logger } = require('../../common/logging/logger')
-const { getUserProfile } = require('../../common/data/hmppsAssessmentApi')
+const { getUserProfile } = require('../../common/data/offenderAssessmentApi')
 
 const areaSelectionController = async ({ tokens }, res) => {
   try {

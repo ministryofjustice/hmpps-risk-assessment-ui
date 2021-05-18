@@ -11,8 +11,8 @@ const {
   stubGetAssessments,
   stubGetQuestionGroup,
   stubAssessmentComplete,
-  stubGetUserProfile,
 } = require('../../wiremock/assessmentApi')
+const { stubGetUserProfile } = require('../../wiremock/userApi')
 const { stubReferenceData } = require('../../wiremock/referenceData')
 const { stubAuth, getLoginUrl } = require('../../wiremock/auth')
 const { stubOasysUser } = require('../../wiremock/oasysUser')
