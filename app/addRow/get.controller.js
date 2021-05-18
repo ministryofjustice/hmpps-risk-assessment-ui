@@ -34,7 +34,6 @@ const displayAddRow = async (
       returnUrl,
       heading,
       submitText,
-      subheading: questionGroup.contents[0].title,
       groupId,
       questions,
       errors,

@@ -3,7 +3,7 @@ const nunjucks = require('nunjucks')
 
 const annotateWithAnswers = (questions, answers, body) => {
   return questions.map(q => {
-    if (q.type === 'group' || q.type === 'table') {
+    if (q.type === 'group' || q.type === 'table' || q.type === 'TableQuestionDto') {
       // eslint-disable-next-line no-param-reassign
       q.contents = annotateWithAnswers(q.contents, answers, body)
       return q

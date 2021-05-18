@@ -106,7 +106,7 @@ const encodeHTML = str => {
 // extract link target from question type formatted as:
 // presentation: link("/update-assessment")
 const extractLink = questionType => {
-  const regex = /^presentation: link|^presentation: buttonlink\("(?<link>.*)"\)/gm
+  const regex = /^(?:presentation: link|^presentation: buttonlink)\("(?<link>.*)"\)/gm
   const re = regex.exec(questionType)
   if (!re) return null
   const {
