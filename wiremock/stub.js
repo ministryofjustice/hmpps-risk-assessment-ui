@@ -11,6 +11,7 @@ const {
   stubGetAssessments,
   stubGetQuestionGroup,
   stubRemoveTableRow,
+  stubGetUserProfile,
 } = require('./assessmentApi')
 const { stubGetAssessmentFromDelius, stubPostAssessmentFromDelius } = require('./assessmentFromDelius')
 const { stubStart } = require('./start')
@@ -51,6 +52,7 @@ async function stub() {
   await stubOasysUser()
   await stubRemoveTableRow()
   stubOffenderDetails()
+  await stubGetUserProfile()
 }
 
 stub()

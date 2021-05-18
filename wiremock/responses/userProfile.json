@@ -1,0 +1,25 @@
+{
+  "userCode": "USER_2",
+  "firstName": "User",
+  "lastName": "Two",
+  "email": "test@hmps.gov.uk",
+  "regions": [
+    {
+      "name": "Hertfordshire",
+      "code": "HFS"
+    },
+    {
+      "name": "West Yorkshire",
+      "code": "YSW"
+    },
+    {
+      "name": "Lancashire",
+      "code": "LAN"
+    },
+    {
+      "name": "Lancashire 2 (HMP)",
+      "code": "LAN2"
+    }
+  ],
+  "enabled": true
+}
