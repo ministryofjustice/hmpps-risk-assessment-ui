@@ -10,7 +10,7 @@ nunjucksEnvironment.addFilter('date', dateFilter)
 nunjucksEnvironment.addFilter('mojDate', mojDate)
 nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
 
-const { compileInlineConditionalQuestions, annotateWithAnswers } = require('./get-question-groups')
+const { compileInlineConditionalQuestions } = require('./get-question-groups')
 
 const questions = [
   {
