@@ -6,6 +6,7 @@
 {%- from "node_modules/govuk-frontend/govuk/components/date-input/macro.njk" import govukDateInput -%}
 {%- from "node_modules/govuk-frontend/govuk/components/summary-list/macro.njk" import govukSummaryList -%}
 {%- from "node_modules/govuk-frontend/govuk/components/button/macro.njk" import govukButton -%}
+{%- from "node_modules/govuk-frontend/govuk/components/character-count/macro.njk" import govukCharacterCount -%}
 
 
 {# templates for each question type #}
@@ -161,25 +162,27 @@
         errorMessage: errorMessage
       }) }}
     {% case 'textarea' %}
-      {{ govukTextarea({
-        id: 'id-' + question.questionId,
-        name: 'id-' + question.questionId,
-        value: questionAnswer | encodeHtml | safe,
-        formGroup : {
-          classes: question.formClasses
-        },
-        attributes: question.attributes,
-        label: {
-          text: question.questionText,
-          isPageHeading: false,
-          classes: question.questionCode + ' govuk-label--m'
-        },
-        hint: {
-          text: question.helpText
-        },
-        errorMessage: errorMessage
-      }) }}
-    {% case 'radio' %}
+    {{ govukCharacterCount({
+      name:'id-' + question.questionId,
+      id: 'id-' + question.questionId,
+      maxlength: 4000,
+      value: questionAnswer | encodeHtml | safe,
+      label: {
+        text: question.questionText,
+        isPageHeading: false,
+        classes: question.questionCode + ' govuk-label--m'
+      },
+      formGroup : {
+        classes: question.formClasses
+      },
+      attributes: question.attributes,
+      hint: {
+        text: question.helpText
+      },
+      errorMessage: errorMessage
+    }) }}
+
+  {% case 'radio' %}
       {{ govukRadios({
         idPrefix: 'id-' + question.questionId,
         name: 'id-' + question.questionId,
