@@ -40,6 +40,8 @@ The `env` can be configured to to point the local Auth, for example
 
 ```
 OAUTH_ENDPOINT_URL=http://localhost:9090/auth
+AUTH_CLIENT_ID=clientId
+AUTH_CLIENT_SECRET=clientSecret
 API_CLIENT_ID=clientId
 API_CLIENT_SECRET=clientSecret
 ```

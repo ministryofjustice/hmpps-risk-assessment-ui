@@ -7,13 +7,25 @@ env:
   - name: API_CLIENT_ID
     valueFrom:
       secretKeyRef:
-        name: {{ template "risk-assessment-ui.name" . }}
+        name: {{ .Values.apiClientSecretName }}
         key: API_CLIENT_ID
 
   - name: API_CLIENT_SECRET
     valueFrom:
       secretKeyRef:
-        name: {{ template "risk-assessment-ui.name" . }}
+        name: {{ .Values.apiClientSecretName }}
+        key: API_CLIENT_SECRET
+
+  - name: AUTH_CLIENT_ID
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Values.authClientSecretName }}
+        key: API_CLIENT_ID
+
+  - name: AUTH_CLIENT_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: {{ .Values.authClientSecretName }}
         key: API_CLIENT_SECRET
 
   - name: APPINSIGHTS_INSTRUMENTATIONKEY
