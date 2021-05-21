@@ -70,7 +70,7 @@ const handleLoginCallback = () => {
 }
 
 const handleLogout = () => {
-  const logoutUrl = `${config.apis.oauth.url}/logout?client_id=${config.clientId}&redirect_uri=${config.domain}`
+  const logoutUrl = `${config.apis.oauth.url}/logout?client_id=${config.authClientId}&redirect_uri=${config.domain}`
 
   return (req, res) => {
     if (req.user) {
@@ -90,9 +90,9 @@ const generateBasicAuthToken = (clientId, clientSecret) => {
 }
 
 const initializeAuth = () => {
-  const { clientId, clientSecret, apis, domain } = config
+  const { authClientId, authClientSecret, apis, domain } = config
 
-  if (!config.clientId || !config.clientSecret || !domain || !config.apis?.oauth?.url) {
+  if (!config.authClientId || !config.authClientSecret || !domain || !config.apis?.oauth?.url) {
     throw new Error('Configuration missing for Auth')
   }
 
@@ -100,11 +100,11 @@ const initializeAuth = () => {
     {
       authorizationURL: `${apis.oauth.url}/oauth/authorize`,
       tokenURL: `${apis.oauth.url}/oauth/token`,
-      clientID: clientId,
-      clientSecret,
+      clientID: authClientId,
+      clientSecret: authClientSecret,
       callbackURL: `${domain}/login/callback`,
       state: true,
-      customHeaders: { Authorization: generateBasicAuthToken(clientId, clientSecret) },
+      customHeaders: { Authorization: generateBasicAuthToken(authClientId, authClientSecret) },
     },
     (token, refreshToken, params, profile, done) => {
       logger.info(`User logged in: ${params.user_name}}`)

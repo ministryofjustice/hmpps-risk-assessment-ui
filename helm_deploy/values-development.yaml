@@ -23,6 +23,9 @@ redis:
   secret: hmpps-assessments-elasticache-redis
   tlsEnabled: true
 
+apiClientSecretName: hmpps-assessments-api
+authClientSecretName: hmpps-risk-assessment-ui
+
 env:
   HMPPS_ASSESSMENT_API_URL: http://hmpps-assessments-api.hmpps-assessments-dev.svc.cluster.local
   OFFENDER_ASSESSMENT_API_URL: https://offender-dev.aks-dev-1.studio-hosting.service.justice.gov.uk
