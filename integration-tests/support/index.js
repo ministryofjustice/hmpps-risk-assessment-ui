@@ -3,15 +3,15 @@ import './commands'
 
 before(() => {
   cy.task('reset')
+  cy.clearCookies()
   cy.task('stubAuth')
   cy.task('stubAssessmentApi')
+  Cypress.Cookies.preserveOnce()
+  cy.login()
 })
 
 // any functionality to happen before every test
-beforeEach(() => {
-  cy.clearCookies()
-  cy.login()
-})
+beforeEach(() => {})
 
 // any functionality to happen after every test
 afterEach(() => {

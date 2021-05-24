@@ -73,7 +73,7 @@ const token = () =>
         token_type: 'bearer',
         refresh_token: 'refresh',
         user_name: 'TEST_USER',
-        expires_in: 600,
+        expires_in: 3600,
         scope: 'read write',
         internalUser: true,
       },
@@ -149,27 +149,8 @@ const stubEmail = username =>
     },
   })
 
-const stubClientCredentialsRequest = () =>
-  stubFor({
-    request: {
-      method: 'POST',
-      url: '/auth/oauth/token',
-    },
-    response: {
-      status: 200,
-    },
-  })
-
-const stubAuth = async () => {
-  await redirect()
-  await logout()
-  await token()
-  await stubUser()
-  await stubUserMe()
-  await stubUserMeRoles()
-  await stubEmail()
-  await stubClientCredentialsRequest()
-}
+const stubAuth = () =>
+  Promise.all([redirect(), logout(), token(), stubUser(), stubUserMe(), stubUserMeRoles(), stubEmail()])
 
 module.exports = {
   getLoginUrl,
