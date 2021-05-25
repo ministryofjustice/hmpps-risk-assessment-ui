@@ -25,8 +25,7 @@ const displayAddRow = async (
     }
     res.locals.assessmentUuid = assessmentId
 
-    let questions = annotateWithAnswers(questionGroup.contents, {}, body)
-    questions = compileInlineConditionalQuestions(thisTable.contents, errors)
+    const questions = compileInlineConditionalQuestions(thisTable.contents, errors)
 
     return res.render(`${__dirname}/index`, {
       bodyAnswers: { ...body },
