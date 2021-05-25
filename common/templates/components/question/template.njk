@@ -8,8 +8,14 @@
 {%- from "node_modules/govuk-frontend/govuk/components/button/macro.njk" import govukButton -%}
 {%- from "node_modules/govuk-frontend/govuk/components/character-count/macro.njk" import govukCharacterCount -%}
 
-{% macro renderReadonlyField(value='', qType='text') %}
-  {% switch qType %}
+{% macro renderReadonlyField(question, row='0') %}
+  {% if question.answer | isArr %}
+    {% set value = question.answer[row] %}
+  {% else %}
+    {% set value = question.answer %}
+  {% endif %}
+
+  {% switch question.answerType %}
   {% case 'date' %}{{ value | date("DD MMMM YYYY") }}
   {% default %}{{ value }}
   {% endswitch %}
@@ -63,8 +69,8 @@
       {% for column in range(0, numColumns) %}
         {% if 'presentation:' not in  question.contents[column].answerType %}
           <td class="govuk-table__cell govuk-table__cell-wrap">{% if defaultAnswer %}{{ defaultAnswer }}{% else %}
-{% if question.contents[column].answer | isArr %}{{ renderReadonlyField(question.contents[column].answer[row], question.contents[column].answerType) }}{% else %}{{ renderReadonlyField(question.contents[column].answer, question.contents[column].answerType) }}{% endif %}{% endif %}</td>
-        {% endif %}
+              {{ renderReadonlyField(question.contents[column], row) }}</td>
+        {% endif %}{% endif %}
       {% endfor %}
       <td class="govuk-table__cell">
         <ul class="govuk-list">

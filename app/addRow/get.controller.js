@@ -1,10 +1,7 @@
 // @ts-check
 const { logger } = require('../../common/logging/logger')
 const { removeUrlLevels } = require('../../common/utils/util')
-const {
-  annotateWithAnswers,
-  compileInlineConditionalQuestions,
-} = require('../../common/question-groups/get-question-groups')
+const { compileInlineConditionalQuestions } = require('../../common/question-groups/get-question-groups')
 
 const displayAddRow = async (
   { params: { assessmentId, groupId, tableName }, originalUrl, body, errors = {}, errorSummary = null },
