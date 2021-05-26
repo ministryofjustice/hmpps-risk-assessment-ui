@@ -1,6 +1,7 @@
 // @ts-check
 const logger = require('../logging/logger')
 const { getQuestionGroup } = require('../data/hmppsAssessmentApi')
+const { getApiToken } = require('../data/oauth')
 const { getReferenceDataListByCategory } = require('../data/offenderAssessmentApi')
 const { processReplacements } = require('../utils/util')
 
@@ -79,9 +80,11 @@ const applyStaticReferenceData = async (questionResponse, authorisationToken) =>
     return questionResponse
   }
 
+  const apiToken = await getApiToken()
+
   const referenceDataRequests = Array.from(referenceDataCategories).map(async category => ({
     category,
-    data: await getReferenceDataListByCategory(category, authorisationToken),
+    data: await getReferenceDataListByCategory(category, apiToken),
   }))
 
   const referenceDataResponses = await Promise.all(referenceDataRequests)
