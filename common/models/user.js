@@ -24,6 +24,10 @@ class User {
     return this
   }
 
+  setEmail(email) {
+    this.email = email
+  }
+
   getDetails() {
     return {
       email: this.email,
