@@ -66,6 +66,7 @@ const checkUserIsAuthenticated = (verifyToken = tokenVerifier) => {
 }
 
 const userHasExpiredToken = (tokenExpiryTime, nowInSeconds = Date.now()) => {
+  logger.info(`userHasExpiredToken tokenExpiryTime: ${tokenExpiryTime} nowInSeconds:${nowInSeconds}`)
   return tokenExpiryTime <= nowInSeconds
 }
 
