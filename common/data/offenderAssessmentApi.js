@@ -7,20 +7,20 @@ const {
   },
 } = require('../config')
 
-const getReferenceDataListByCategory = (category, tokens) => {
+const getReferenceDataListByCategory = (category, authorisationToken) => {
   const path = `${url}/referencedata/${category}`
-  return getData(path, tokens)
+  return getData(path, authorisationToken)
 }
 
-const getData = (path, tokens) => {
+const getData = (path, authorisationToken) => {
   logger.info(`Calling offenderAssessments API with GET: ${path}`)
 
-  return action(superagent.get(path), tokens).then(([_, body]) => body)
+  return action(superagent.get(path), authorisationToken).then(([_, body]) => body)
 }
 
-const action = async (agent, { authorisationToken }) => {
+const action = async (agent, authorisationToken) => {
   if (authorisationToken === undefined) {
-    return logError('No authorisation token found when calling offenderAssessments API')
+    return logger.warn('No authorisation token found when calling offenderAssessments API')
   }
 
   try {
@@ -44,7 +44,12 @@ const action = async (agent, { authorisationToken }) => {
 
 const logError = error => {
   logger.warn('Error calling offenderAssessments API')
-  logger.warn(error)
+  logger.warn({
+    status: error.status,
+    method: error.response?.req?.method,
+    url: error.response?.req?.url,
+    text: error.response?.text,
+  })
   throw error
 }
 
