@@ -4,7 +4,6 @@ const questionAnswers = require('./responses/questionAnswers.json')
 const questionGroupSummaries = require('./responses/questionGroupSummary.json')
 const questionList = require('./responses/questionList.json')
 const assessmentEpisodes = require('./responses/assessmentEpisodes.json')
-const userProfile = require('./responses/userProfile.json')
 const offenderDetails = require('./responses/offenderDetails.json')
 const assessmentSupervision = require('./responses/assessmentSupervision.json')
 

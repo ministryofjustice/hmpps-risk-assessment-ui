@@ -13,12 +13,11 @@ const {
   stubRemoveTableRow,
   stubGetUserProfile,
 } = require('./assessmentApi')
-const { stubGetUserProfile } = require('./userApi')
 const { stubGetAssessmentFromDelius, stubPostAssessmentFromDelius } = require('./assessmentFromDelius')
 const { stubStart } = require('./start')
 const { stubReferenceData } = require('./referenceData')
 const { stubGetToken } = require('./oauth')
-const { stubOasysUser } = require('./oasysUser')
+const { stubGetUserProfile, stubOasysUser } = require('./oasysUser')
 
 async function stub() {
   await resetStubs()

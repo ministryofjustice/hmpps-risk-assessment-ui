@@ -12,10 +12,9 @@ const {
   stubGetQuestionGroup,
   stubAssessmentComplete,
 } = require('../../wiremock/assessmentApi')
-const { stubGetUserProfile } = require('../../wiremock/userApi')
 const { stubReferenceData } = require('../../wiremock/referenceData')
 const { stubAuth, getLoginUrl } = require('../../wiremock/auth')
-const { stubOasysUser } = require('../../wiremock/oasysUser')
+const { stubOasysUser, stubGetUserProfile } = require('../../wiremock/oasysUser')
 const { stubGetToken } = require('../../wiremock/oauth')
 
 module.exports = on => {

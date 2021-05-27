@@ -1,4 +1,5 @@
 const { stubFor } = require('./wiremock')
+const userProfile = require('./responses/userProfile.json')
 
 const stubUserByEmail = () => {
   stubFor({
@@ -22,10 +23,27 @@ const stubUserByEmail = () => {
   })
 }
 
+const stubGetUserProfile = () => {
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/authentication/user/USER_2',
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: userProfile,
+    },
+  })
+}
+
 const stubOasysUser = async () => {
   await stubUserByEmail()
 }
 
 module.exports = {
   stubOasysUser,
+  stubGetUserProfile,
 }
