@@ -27,7 +27,7 @@ const stubGetUserProfile = () => {
   stubFor({
     request: {
       method: 'GET',
-      urlPattern: '/authentication/user/USER_2',
+      urlPattern: '/authentication/user/SUPPORT1',
     },
     response: {
       headers: {

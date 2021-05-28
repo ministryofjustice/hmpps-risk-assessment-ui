@@ -8,15 +8,18 @@
     <h1 class="govuk-heading-l">
         List of areas
     </h1>
-
     {{ govukInsetText({
-      text: "Because this is a new assessment, you must select an area to associate with an individual."
+        text: "Because this is a new assessment, you must select an area to associate with an individual."
     }) }}
-    <form method="post" novalidate>
-        {{accessibleAutocomplete('areaCode', areas, 'Choose an area')}}
-        {{ govukButton({
-            text: 'Start assessment',
-            isStartButton: true
-        }) }}
-    </form>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="post" novalidate>
+                {{accessibleAutocomplete('area', areas, 'Choose an area')}}
+                {{ govukButton({
+                    text: 'Start assessment',
+                    isStartButton: true
+                }) }}
+            </form>
+        </div>
+    </div>
 {% endblock %}

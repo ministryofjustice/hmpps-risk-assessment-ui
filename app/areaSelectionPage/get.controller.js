@@ -1,12 +1,17 @@
 const { logger } = require('../../common/logging/logger')
-const { getUserProfile } = require('../../common/data/offenderAssessmentApi')
 
-const areaSelectionController = async ({ tokens }, res) => {
+const areaSelectionController = async (req, res) => {
   try {
-    const { regions } = await getUserProfile('USER_2', tokens)
-    return res.render(`${__dirname}/index`, { areas: regions.map(({ name, code }) => ({ text: name, value: code })) })
+    const [flashRegions] = req.flash('regions')
+    const regions = typeof flashRegions === 'string' ? JSON.parse(flashRegions) : []
+    return res.render(`${__dirname}/index`, {
+      areas: regions.map(({ name, code }) => ({
+        text: name,
+        value: JSON.stringify({ areaName: name, areaCode: code }),
+      })),
+    })
   } catch (error) {
-    logger.error(`Could not retrieve areas, error: ${error}`)
+    logger.error(`Area selection, error: ${error}`)
     return res.render('app/error', { error })
   }
 }

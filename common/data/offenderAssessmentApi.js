@@ -8,9 +8,9 @@ const {
   },
 } = require('../config')
 
-const getUserProfile = (userCode, tokens) => {
-  const path = `${url}/user/${userCode}/profile`
-  return getData(path, tokens)
+const getUserProfile = (userCode, authorisationToken) => {
+  const path = `${url}/authentication/user/${userCode}`
+  return getData(path, authorisationToken)
 }
 
 const getReferenceDataListByCategory = (category, authorisationToken) => {

@@ -1,8 +1,8 @@
 {
-  "userCode": "USER_2",
-  "firstName": "User",
-  "lastName": "Two",
-  "email": "test@hmps.gov.uk",
+  "userCode": "SUPPORT1",
+  "firstName": "Ray",
+  "lastName": "Arnold",
+  "email": "ray.arnold@hmpps.gsi.gov.uk",
   "regions": [
     {
       "name": "Hertfordshire",
