@@ -1,7 +1,5 @@
 const { getUserProfile } = require('../../common/data/offenderAssessmentApi')
-const redis = require('../../common/data/redis')
-const User = require('../../common/models/user')
-const { REFRESH_TOKEN_LIFETIME_SECONDS } = require('../../common/utils/constants')
+const { cacheUserDetailsWithRegion } = require('../../common/data/cacheUserDetails')
 
 const {
   dev: { devAssessmentId },
@@ -12,11 +10,7 @@ const startController = async (req, res) => {
   if (user && (user.areaCode === undefined || user.areaCode === null)) {
     const { regions } = await getUserProfile(user.oasysUserCode, user.token)
     if (regions.length === 1) {
-      const serializedDetails = await redis.get(`user:${user.id}`)
-      const userDetails = new User()
-        .withDetails(JSON.parse(serializedDetails))
-        .setArea({ areaCode: regions[0].code, areaName: regions[0].name })
-      await redis.set(`user:${user.id}`, JSON.stringify(userDetails), 'EX', REFRESH_TOKEN_LIFETIME_SECONDS)
+      await cacheUserDetailsWithRegion(user.id, regions[0].code, regions[0].name)
     } else {
       req.flash('regions', JSON.stringify(regions))
       return res.redirect(`/area-selection-page`)
