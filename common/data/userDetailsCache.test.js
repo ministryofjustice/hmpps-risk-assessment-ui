@@ -41,11 +41,8 @@ describe('Auth', () => {
       expect(redis.get).toHaveBeenCalledWith('user:1')
       const userDetails = {
         isActive: true,
-        email: 'foo@bar.baz',
         oasysUserCode: 'SUPPORT1',
         username: 'Ray Arnold',
-        areaCode: 'HFS',
-        areaName: 'Hertfordshire',
       }
       expect(cachedDetails).toBe(JSON.stringify(userDetails))
     })

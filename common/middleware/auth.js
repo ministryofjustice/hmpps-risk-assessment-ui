@@ -41,7 +41,7 @@ passport.deserializeUser(async (serializedUser, done) => {
     const user = User.from(serializedUser)
     const serializedDetails = await getCachedUserDetails(user.id)
 
-    const details = serializedDetails !== null ? JSON.parse(serializedDetails) : await getAndCacheUserDetails(user)
+    const details = serializedDetails !== null ? serializedDetails : await getAndCacheUserDetails(user)
 
     user.withDetails(details)
     done(null, user)
