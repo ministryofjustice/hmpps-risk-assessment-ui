@@ -16,7 +16,7 @@ jest.mock('../data/oauth', () => ({
 jest.mock('../data/offenderAssessmentApi', () => ({
   getUserByEmail: jest.fn(),
 }))
-jest.mock('../data/cacheUserDetails', () => ({
+jest.mock('../data/userDetailsCache', () => ({
   cacheUserDetails: jest.fn(),
   getCachedUserDetails: jest.fn(),
 }))
