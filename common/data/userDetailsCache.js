@@ -2,7 +2,7 @@ const redis = require('./redis')
 const User = require('../models/user')
 const { REFRESH_TOKEN_LIFETIME_SECONDS } = require('../utils/constants')
 
-const cacheUserDetails = async (userId, oasysUser) => {
+const userDetailsCache = async (userId, oasysUser) => {
   const userDetails = {
     isActive: oasysUser?.accountStatus === 'ACTIVE',
     email: oasysUser?.email,
@@ -27,7 +27,7 @@ const getCachedUserDetails = async userId => {
 }
 
 module.exports = {
-  cacheUserDetails,
+  cacheUserDetails: userDetailsCache,
   getCachedUserDetails,
   cacheUserDetailsWithRegion,
 }

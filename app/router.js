@@ -91,8 +91,8 @@ module.exports = app => {
   })
   app.get(`/start`, startController)
 
-  app.get(`/area-selection-page`, areaSelectionController)
-  app.post('/area-selection-page', redirectToAssessmentList)
+  app.get(`/area-selection`, areaSelectionController)
+  app.post('/area-selection', redirectToAssessmentList)
 
   app.get(`/:assessmentId/assessments`, getOffenderDetails, displayAssessmentsList)
 

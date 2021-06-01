@@ -3,7 +3,7 @@ const passport = require('passport')
 const auth = require('./auth')
 const { checkTokenIsActive, getUserEmail, getApiToken } = require('../data/oauth')
 const { getUserByEmail } = require('../data/offenderAssessmentApi')
-const { cacheUserDetails, getCachedUserDetails } = require('../data/cacheUserDetails')
+const { cacheUserDetails, getCachedUserDetails } = require('../data/userDetailsCache')
 const User = require('../models/user')
 
 jest.mock('passport-oauth2-refresh')

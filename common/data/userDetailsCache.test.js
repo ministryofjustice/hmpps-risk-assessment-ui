@@ -1,4 +1,4 @@
-const { cacheUserDetails, getCachedUserDetails } = require('./cacheUserDetails')
+const { cacheUserDetails, getCachedUserDetails } = require('./userDetailsCache')
 const redis = require('./redis')
 
 jest.mock('../data/redis', () => ({

@@ -39,6 +39,22 @@ const stubGetUserProfile = () => {
   })
 }
 
+const stubGetUserProfileWithSingleArea = () => {
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: '/authentication/user/SUPPORT1',
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: userProfile,
+    },
+  })
+}
+
 const stubOasysUser = async () => {
   await stubUserByEmail()
 }
@@ -46,4 +62,5 @@ const stubOasysUser = async () => {
 module.exports = {
   stubOasysUser,
   stubGetUserProfile,
+  stubGetUserProfileWithSingleArea,
 }

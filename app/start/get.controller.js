@@ -1,5 +1,5 @@
 const { getUserProfile } = require('../../common/data/offenderAssessmentApi')
-const { cacheUserDetailsWithRegion } = require('../../common/data/cacheUserDetails')
+const { cacheUserDetailsWithRegion } = require('../../common/data/userDetailsCache')
 
 const {
   dev: { devAssessmentId },
@@ -13,7 +13,7 @@ const startController = async (req, res) => {
       await cacheUserDetailsWithRegion(user.id, regions[0].code, regions[0].name)
     } else {
       req.flash('regions', JSON.stringify(regions))
-      return res.redirect(`/area-selection-page`)
+      return res.redirect(`/area-selection`)
     }
   }
   return res.render(`${__dirname}/index`, { assessmentId: devAssessmentId })

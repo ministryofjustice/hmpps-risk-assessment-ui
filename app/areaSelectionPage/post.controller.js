@@ -1,4 +1,4 @@
-const { cacheUserDetailsWithRegion } = require('../../common/data/cacheUserDetails')
+const { cacheUserDetailsWithRegion } = require('../../common/data/userDetailsCache')
 
 const {
   dev: { devAssessmentId },
