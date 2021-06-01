@@ -14,7 +14,7 @@ const {
 } = require('../../wiremock/assessmentApi')
 const { stubReferenceData } = require('../../wiremock/referenceData')
 const { stubAuth, getLoginUrl } = require('../../wiremock/auth')
-const { stubOasysUser, stubGetUserProfileWithSingleArea } = require('../../wiremock/oasysUser')
+const { stubOasysUser, stubGetUserProfileWithSingleArea, stubGetUserProfile } = require('../../wiremock/oasysUser')
 const { stubGetToken } = require('../../wiremock/oauth')
 
 module.exports = on => {
@@ -40,8 +40,9 @@ module.exports = on => {
         stubGetQuestionGroup(),
         stubAssessmentComplete(),
         stubOasysUser(),
-        stubGetUserProfileWithSingleArea(),
       ]),
+    stubGetUserProfileWithSingleArea: () => Promise.all([stubGetUserProfileWithSingleArea()]),
+    stubGetUserProfileWithMultipleAreas: () => Promise.all([stubGetUserProfile()]),
     stubAuth: () => Promise.all([stubGetToken(), stubAuth()]),
     getLoginUrl,
   })

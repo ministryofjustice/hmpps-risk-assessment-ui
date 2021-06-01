@@ -1,35 +1,23 @@
-const StartPage = require('../../pages/start/startPage')
+const AssessmentPage = require('../../pages/assessments/assessmentsPage')
+const AreaSelectionPage = require('../../pages/areaSelection/areaSelectionPage')
 
-context('Start page display', () => {
+context('Area Selection page display all regions', () => {
   before(() => {
+    cy.task('reset')
+    cy.clearCookies()
+    cy.task('stubAuth')
     cy.task('stubAssessmentApi')
+    cy.task('stubGetUserProfileWithMultipleAreas')
+    Cypress.Cookies.preserveOnce()
+    cy.login()
   })
 
-  it('Displays start page', () => {
-    cy.visit('/start')
-    cy.url().should('include', 'start')
-    StartPage.verifyOnPage()
-    cy.get('h1').should('contain.text', 'Risk Assessment UI')
-  })
-
-  it('Displays the user name', () => {
-    cy.visit('/start')
-    cy.url().should('include', 'start')
-    StartPage.verifyOnPage()
-    cy.get('.moj-header__navigation-item').should('contain.text', 'Ray Arnold')
-  })
-
-  it('Has a link to logout', () => {
-    cy.visit('/start')
-    cy.url().should('include', 'start')
-    StartPage.verifyOnPage()
-    cy.get('.govuk-header__link').should('contain.text', 'Sign out')
-  })
-
-  it('Root (/) redirects to the start page', () => {
-    cy.visit('/')
-    cy.url().should('include', 'start')
-    StartPage.verifyOnPage()
-    cy.get('h1').should('contain.text', 'Risk Assessment UI')
+  it('Displays area selection page with multiple regions', () => {
+    const page = AreaSelectionPage.goTo()
+    AreaSelectionPage.verifyOnPage()
+    AreaSelectionPage.selectRegion('La', 'Lancashire')
+    AreaSelectionPage.selectRegion('La', 'Lancashire 2 (HMP)')
+    page.startAssessmentButton().click()
+    AssessmentPage.verifyOnPage()
   })
 })
