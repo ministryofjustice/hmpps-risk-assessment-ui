@@ -8,7 +8,9 @@ const areaSelectionPage = () =>
 export default {
   verifyOnPage: areaSelectionPage,
   selectRegion: (regionNamePrefix, regionName) => {
-    cy.get('#area').clear().type(regionNamePrefix)
+    cy.get('#area')
+      .clear()
+      .type(regionNamePrefix)
     cy.contains('li', regionName).click()
   },
   goTo: () => {
