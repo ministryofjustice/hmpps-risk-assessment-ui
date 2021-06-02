@@ -280,5 +280,4 @@ module.exports = {
   stubGetAssessments,
   stubGetQuestionGroup,
   stubRemoveTableRow,
-  stubGetUserProfile,
 }

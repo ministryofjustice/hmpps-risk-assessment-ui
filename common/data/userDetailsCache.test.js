@@ -43,8 +43,11 @@ describe('Auth', () => {
         isActive: true,
         oasysUserCode: 'SUPPORT1',
         username: 'Ray Arnold',
+        email: 'foo@bar.baz',
+        areaCode: 'HFS',
+        areaName: 'Hertfordshire',
       }
-      expect(cachedDetails).toBe(JSON.stringify(userDetails))
+      expect(cachedDetails).toStrictEqual(userDetails)
     })
   })
 })

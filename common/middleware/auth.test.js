@@ -296,6 +296,14 @@ describe('Auth', () => {
 
       getUserEmail.mockResolvedValue('foo@bar.baz')
       getApiToken.mockResolvedValue('BAR_TOKEN')
+      cacheUserDetails.mockResolvedValue({
+        isActive: true,
+        oasysUserCode: 'SUPPORT1',
+        username: 'Ray Arnold',
+        email: 'foo@bar.baz',
+        areaCode: 'HFS',
+        areaName: 'Hertfordshire',
+      })
       const oasysUser = {
         oasysUserCode: 'USER_CODE',
         userForename1: 'Test',
