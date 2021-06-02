@@ -362,10 +362,31 @@ describe('Auth', () => {
       const [deserializer] = passport.deserializeUser.mock.calls[0]
       expect(typeof deserializer).toBe('function')
 
-      getCachedUserDetails.mockResolvedValue('{"email":"foo@bar.baz","username":"Foo"}')
+      getCachedUserDetails.mockResolvedValue(
+        JSON.parse(
+          JSON.stringify({
+            isActive: true,
+            oasysUserCode: 'SUPPORT1',
+            username: 'Foo',
+            email: 'foo@bar.baz',
+            areaCode: 'HFS',
+            areaName: 'Hertfordshire',
+          }),
+        ),
+      )
       const callback = jest.fn()
 
-      await deserializer(User.from({ id: 1, token: 'FOO_TOKEN', username: 'Foo', email: 'foo@bar.baz' }), callback)
+      await deserializer(
+        User.from({
+          id: 1,
+          token: 'FOO_TOKEN',
+          username: 'Foo',
+          email: 'foo@bar.baz',
+          isActive: true,
+          oasysUserCode: 'SUPPORT1',
+        }),
+        callback,
+      )
 
       expect(getCachedUserDetails).toHaveBeenCalledWith(1)
       expect(callback).toHaveBeenCalled()
@@ -376,6 +397,8 @@ describe('Auth', () => {
       expect(user.getDetails()).toEqual({
         username: 'Foo',
         email: 'foo@bar.baz',
+        isActive: true,
+        oasysUserCode: 'SUPPORT1',
       })
       expect(user.getSession()).toEqual({
         id: 1,
