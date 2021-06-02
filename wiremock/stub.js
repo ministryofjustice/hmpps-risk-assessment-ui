@@ -11,7 +11,6 @@ const {
   stubGetAssessments,
   stubGetQuestionGroup,
   stubRemoveTableRow,
-  stubGetUserProfile,
 } = require('./assessmentApi')
 const { stubGetAssessmentFromDelius, stubPostAssessmentFromDelius } = require('./assessmentFromDelius')
 const { stubStart } = require('./start')
