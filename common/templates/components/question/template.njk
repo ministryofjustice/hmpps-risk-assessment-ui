@@ -14,10 +14,9 @@
   {% else %}
     {% set value = question.answer %}
   {% endif %}
-
   {% switch question.answerType %}
-  {% case 'date' %}{{ value | date("DD MMMM YYYY") }}
-  {% default %}{{ value }}
+    {% case 'date' %}{{ value | date("DD MMMM YYYY") }}
+    {% default %}{{ value }}
   {% endswitch %}
 {% endmacro %}
 
@@ -68,8 +67,7 @@
     <tr class="govuk-table__row">
       {% for column in range(0, numColumns) %}
         {% if 'presentation:' not in  question.contents[column].answerType %}
-          <td class="govuk-table__cell govuk-table__cell-wrap">{% if defaultAnswer %}{{ defaultAnswer }}{% else %}
-              {{ renderReadonlyField(question.contents[column], row) }}</td>
+          <td class="govuk-table__cell govuk-table__cell-wrap">{% if defaultAnswer %}{{ defaultAnswer }}{% else %}{{ renderReadonlyField(question.contents[column], row) }}</td>
         {% endif %}{% endif %}
       {% endfor %}
       <td class="govuk-table__cell">
