@@ -55,7 +55,7 @@
   {% else %}
     {% set numRows = 1 %}
   {% endif %}
-
+  
   {% if (question.contents[firstDataColumn].answer.length) == 0 %}
     {% set defaultAnswer = 'n/a' %}
   {% endif %}
@@ -64,8 +64,12 @@
     <caption class="govuk-table__caption govuk-table__caption--l">{{ question.title }}</caption>
     <thead class="govuk-table__head">
     <tr class="govuk-table__row">
+    {% set firstDataColumn = null %}
     {% for tableItems in question.contents %}
       {% if 'presentation:' not in tableItems.answerType %}
+        {% if firstDataColumn == null %}
+          {% set firstDataColumn = loop.index0 %}
+        {% endif %}
         <th scope="col" class="govuk-table__header" aria-sort="none">{{ tableItems.questionText }}</th>
       {% endif %}
     {%  endfor %}
