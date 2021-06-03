@@ -18,7 +18,7 @@ const displayDeleteRow = async (
       .find(element => element.tableCode === tableName)
       .contents.find(element => element.answerType.indexOf('presentation') === -1).questionId
 
-    const { answers } = await grabAnswers(assessmentId, 'current', user?.token)
+    const { answers } = await grabAnswers(assessmentId, 'current', user?.token, user?.id)
 
     const rowDescriptor = answers[thisTableIdentifier][tableRow]
 
@@ -46,9 +46,9 @@ const displayDeleteRow = async (
   }
 }
 
-const grabAnswers = (assessmentId, episodeId, token) => {
+const grabAnswers = (assessmentId, episodeId, token, userId) => {
   try {
-    return getAnswers(assessmentId, episodeId, token)
+    return getAnswers(assessmentId, episodeId, token, userId)
   } catch (error) {
     logger.error(`Could not retrieve answers for assessment ${assessmentId} episode ${episodeId}, error: ${error}`)
     throw error
