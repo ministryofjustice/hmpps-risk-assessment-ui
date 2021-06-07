@@ -7,7 +7,7 @@ jest.mock('../../common/data/offenderAssessmentApi', () => ({
 }))
 
 jest.mock('../../common/data/oauth', () => ({
-  getApiToken: jest.fn(() => 'FOO_TOKEN'),
+  getApiToken: jest.fn(),
 }))
 
 describe('get areas', () => {
@@ -19,6 +19,8 @@ describe('get areas', () => {
   const res = {
     render: jest.fn(),
   }
+
+  getApiToken.mockResolvedValue('FOO_TOKEN')
 
   beforeEach(() => {
     const testRegions = [
