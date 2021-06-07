@@ -1,8 +1,13 @@
 const { areaSelectionController } = require('./get.controller')
 const { getUserProfile } = require('../../common/data/offenderAssessmentApi')
+const { getApiToken } = require('../../common/data/oauth')
 
 jest.mock('../../common/data/offenderAssessmentApi', () => ({
   getUserProfile: jest.fn(),
+}))
+
+jest.mock('../../common/data/oauth', () => ({
+  getApiToken: jest.fn(() => 'FOO_TOKEN'),
 }))
 
 describe('get areas', () => {
