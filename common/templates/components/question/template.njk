@@ -55,7 +55,7 @@
   {% else %}
     {% set numRows = 1 %}
   {% endif %}
-
+  
   {% if (question.contents[firstDataColumn].answer.length) == 0 %}
     {% set defaultAnswer = 'n/a' %}
   {% endif %}
@@ -88,7 +88,7 @@
         <ul class="govuk-list">
           {% if not defaultAnswer %}
             <li><a class="govuk-link--no-visited-state" aria-label="Edit {{ renderReadonlyField(question.contents[firstDataColumn], row) }}" href="{{ requested_url }}/edit/{{ question.tableCode }}/{{ loop.index0 }}">Edit</a></li>
-            <li><a class="govuk-link--no-visited-state" aria-label="Delete {{ renderReadonlyField(question.contents[firstDataColumn], row) }}" href="{{ requested_url }}/delete/{{ question.tableCode }}/{{ loop.index0 }}">Remove</a></li>
+            <li><a class="govuk-link--no-visited-state" aria-label="Delete {{ renderReadonlyField(question.contents[firstDataColumn], row) }}"href="{{ requested_url }}/delete/{{ question.tableCode }}/{{ loop.index0 }}">Remove</a></li>
           {% endif %}
         </ul>
       </td>
