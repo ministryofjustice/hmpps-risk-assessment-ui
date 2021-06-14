@@ -1,5 +1,4 @@
 // @ts-check
-const { logger } = require('../../common/logging/logger')
 const {
   annotateWithAnswers,
   compileInlineConditionalQuestions,
