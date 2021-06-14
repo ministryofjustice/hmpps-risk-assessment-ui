@@ -1,7 +1,10 @@
 // @ts-check
 const { logger } = require('../../common/logging/logger')
 const { removeUrlLevels } = require('../../common/utils/util')
-const { compileInlineConditionalQuestions } = require('../../common/question-groups/get-question-groups')
+const {
+  annotateWithAnswers,
+  compileInlineConditionalQuestions,
+} = require('../../common/question-groups/get-question-groups')
 
 const displayAddRow = async (
   { params: { assessmentId, groupId, tableName }, originalUrl, body, errors = {}, errorSummary = null },
@@ -22,7 +25,8 @@ const displayAddRow = async (
     }
     res.locals.assessmentUuid = assessmentId
 
-    const questions = compileInlineConditionalQuestions(thisTable.contents, errors)
+    let questions = annotateWithAnswers(thisTable.contents, {}, body)
+    questions = compileInlineConditionalQuestions(questions, errors)
 
     return res.render(`${__dirname}/index`, {
       bodyAnswers: { ...body },

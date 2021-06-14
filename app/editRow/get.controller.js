@@ -1,0 +1,76 @@
+// @ts-check
+const { logger } = require('../../common/logging/logger')
+const { removeUrlLevels } = require('../../common/utils/util')
+const {
+  annotateWithAnswers,
+  compileInlineConditionalQuestions,
+} = require('../../common/question-groups/get-question-groups')
+const { getAnswers } = require('../../common/data/hmppsAssessmentApi')
+
+const editTableRow = async (
+  { params: { assessmentId, groupId, tableName, tableRow }, originalUrl, body, errors = {}, errorSummary = null, user },
+  res,
+) => {
+  try {
+    const { questionGroup } = res.locals
+    const returnUrl = removeUrlLevels(originalUrl, 2)
+
+    // extract the table questions from the question group
+    const thisTable = questionGroup.contents.find(element => element.tableCode === tableName)
+
+    let heading = questionGroup.title || 'Edit item'
+    let submitText = 'Save item'
+    if (tableName === 'children_at_risk_of_serious_harm') {
+      heading = 'Edit a child'
+      submitText = 'Edit child'
+    }
+    res.locals.assessmentUuid = assessmentId
+
+    const { answers } = await grabAnswers(assessmentId, 'current', user?.token, user?.id)
+
+    // update answers to just appropriate ones for this table row
+    // go through questions
+
+    // if this question is in answers, change answer to just the one for this row
+    thisTable.contents.forEach(question => {
+      if (answers[question.questionId] && answers[question.questionId].length > tableRow) {
+        if (Array.isArray(answers[question.questionId][tableRow])) {
+          answers[question.questionId] = answers[question.questionId][tableRow]
+        } else {
+          answers[question.questionId] = [answers[question.questionId][tableRow]]
+        }
+      }
+    })
+
+    let questions = annotateWithAnswers(thisTable.contents, answers, body)
+    questions = compileInlineConditionalQuestions(questions, errors)
+
+    return res.render(`${__dirname}/index`, {
+      bodyAnswers: { ...body },
+      assessmentId,
+      returnUrl,
+      heading,
+      submitText,
+      groupId,
+      questions,
+      errors,
+      errorSummary,
+    })
+  } catch (error) {
+    logger.error(
+      `Could not retrieve new table information for assessment ${assessmentId}, table ${tableName}, error: ${error}`,
+    )
+    return res.render('app/error', { error })
+  }
+}
+
+const grabAnswers = (assessmentId, episodeId, token, userId) => {
+  try {
+    return getAnswers(assessmentId, episodeId, token, userId)
+  } catch (error) {
+    logger.error(`Could not retrieve answers for assessment ${assessmentId} episode ${episodeId}, error: ${error}`)
+    throw error
+  }
+}
+
+module.exports = { editTableRow }
