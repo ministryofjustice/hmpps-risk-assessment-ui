@@ -1,4 +1,3 @@
-// const { logger } = require('../../common/logging/logger')
 const { assessmentSupervision } = require('../../common/data/hmppsAssessmentApi')
 
 const getErrorMessageFor = (reason, offender, user) => {

@@ -93,7 +93,6 @@ describe('POST: Start an assessment', () => {
 
       await middleware(req, res)
 
-      // These undefined values will need updating when we decide how to handle retrieving user details on error
       const theError = new Error(
         'Alan Grant is showing as a possible duplicate record under USER_AREA PNC 1234/123456A Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
       )
@@ -177,7 +176,6 @@ describe('POST: Start an assessment', () => {
 
       await middleware(req, res)
 
-      // These undefined values will need updating when we decide how to handle retrieving user details on error
       const theError = new Error(
         'Alan Grant is showing as a possible duplicate record under USER_AREA PNC 1234/123456A Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
       )
