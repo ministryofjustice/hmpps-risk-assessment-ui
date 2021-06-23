@@ -1,12 +1,15 @@
 // const { logger } = require('../../common/logging/logger')
 const { assessmentSupervision } = require('../../common/data/hmppsAssessmentApi')
 
-const getErrorMessageFor = (reason, offenderDetails, user) => {
+const getErrorMessageFor = (reason, offender, user) => {
   if (reason === 'OASYS_PERMISSION') {
     return 'You do not have permission to complete this type of assessment. Speak to your manager and ask them to request a change to your level of authorisation.'
   }
   if (reason === 'DUPLICATE_OFFENDER_RECORD') {
-    return `${offenderDetails.name} is showing as a possible duplicate record under ${user.areaName} PNC ${offenderDetails.pnc} Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team`
+    return `${offender?.name || 'The offender'} is showing as a possible duplicate record under ${
+      user.areaName
+    } PNC ${offender?.pnc ||
+      ''} Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team`
   }
 
   return 'Something went wrong' // Unhandled exception
@@ -19,7 +22,9 @@ const startAssessment = async (crn, deliusEventId, assessmentType, user, res) =>
 
     if (!ok) {
       // get offender details?
-      return res.render('app/error', { error: new Error(getErrorMessageFor(response.reason, {}, user)) })
+      return res.render('app/error', {
+        error: new Error(getErrorMessageFor(response.reason, response.offenderContext, user)),
+      })
     }
 
     return res.redirect(`/${response.assessmentUuid}/questionGroup/pre_sentence_assessment/summary`)

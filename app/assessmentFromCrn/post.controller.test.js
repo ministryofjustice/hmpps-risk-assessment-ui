@@ -77,7 +77,17 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 400, reason: 'DUPLICATE_OFFENDER_RECORD' }]
+      const apiResponse = [
+        false,
+        {
+          status: 400,
+          reason: 'DUPLICATE_OFFENDER_RECORD',
+          offenderContext: {
+            name: 'Alan Grant',
+            pnc: '1234/123456A',
+          },
+        },
+      ]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
@@ -85,7 +95,7 @@ describe('POST: Start an assessment', () => {
 
       // These undefined values will need updating when we decide how to handle retrieving user details on error
       const theError = new Error(
-        `${undefined} is showing as a possible duplicate record under USER_AREA PNC ${undefined} Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team`,
+        'Alan Grant is showing as a possible duplicate record under USER_AREA PNC 1234/123456A Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
       )
       expect(res.render).toHaveBeenCalledWith('app/error', { error: theError })
     })
@@ -151,7 +161,17 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 400, reason: 'DUPLICATE_OFFENDER_RECORD' }]
+      const apiResponse = [
+        false,
+        {
+          status: 400,
+          reason: 'DUPLICATE_OFFENDER_RECORD',
+          offenderContext: {
+            name: 'Alan Grant',
+            pnc: '1234/123456A',
+          },
+        },
+      ]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
@@ -159,7 +179,7 @@ describe('POST: Start an assessment', () => {
 
       // These undefined values will need updating when we decide how to handle retrieving user details on error
       const theError = new Error(
-        `${undefined} is showing as a possible duplicate record under USER_AREA PNC ${undefined} Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team`,
+        'Alan Grant is showing as a possible duplicate record under USER_AREA PNC 1234/123456A Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
       )
       expect(res.render).toHaveBeenCalledWith('app/error', { error: theError })
     })
