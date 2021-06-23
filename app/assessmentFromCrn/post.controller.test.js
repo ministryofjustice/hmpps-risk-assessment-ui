@@ -55,7 +55,7 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 401 }]
+      const apiResponse = [false, { status: 401, reason: 'OASYS_PERMISSION' }]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
@@ -77,7 +77,7 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 400 }]
+      const apiResponse = [false, { status: 400, reason: 'DUPLICATE_OFFENDER_RECORD' }]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
@@ -129,7 +129,7 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 401 }]
+      const apiResponse = [false, { status: 401, reason: 'OASYS_PERMISSION' }]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
@@ -151,7 +151,7 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 400 }]
+      const apiResponse = [false, { status: 400, reason: 'DUPLICATE_OFFENDER_RECORD' }]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 

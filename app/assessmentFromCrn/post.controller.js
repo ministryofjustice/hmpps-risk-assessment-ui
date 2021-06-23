@@ -1,12 +1,11 @@
 // const { logger } = require('../../common/logging/logger')
 const { assessmentSupervision } = require('../../common/data/hmppsAssessmentApi')
 
-const getErrorMessageFor = (status, offenderDetails, user) => {
-  // We should use an error enum here, status codes may be a bit ambiguous
-  if (status === 401) {
+const getErrorMessageFor = (reason, offenderDetails, user) => {
+  if (reason === 'OASYS_PERMISSION') {
     return 'You do not have permission to complete this type of assessment. Speak to your manager and ask them to request a change to your level of authorisation.'
   }
-  if (status === 400) {
+  if (reason === 'DUPLICATE_OFFENDER_RECORD') {
     return `${offenderDetails.name} is showing as a possible duplicate record under ${user.areaName} PNC ${offenderDetails.pnc} Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team`
   }
 
@@ -20,7 +19,7 @@ const startAssessment = async (crn, deliusEventId, assessmentType, user, res) =>
 
     if (!ok) {
       // get offender details?
-      return res.render('app/error', { error: new Error(getErrorMessageFor(response.status, {}, user)) })
+      return res.render('app/error', { error: new Error(getErrorMessageFor(response.reason, {}, user)) })
     }
 
     return res.redirect(`/${response.assessmentUuid}/questionGroup/pre_sentence_assessment/summary`)
@@ -29,16 +28,16 @@ const startAssessment = async (crn, deliusEventId, assessmentType, user, res) =>
   }
 }
 
-const createStartAssessmentFromCrnMiddleware = (start = startAssessment) => {
+const createStartAssessmentFromCrnMiddleware = () => {
   return function startAssessmentFromCrn({ params: { crn, deliusEventId, assessmentType }, user }, res) {
-    return start(crn, deliusEventId, assessmentType, user, res)
+    return startAssessment(crn, deliusEventId, assessmentType, user, res)
   }
 }
 
-const createStartAssessmentFromFormMiddleware = (start = startAssessment) => {
+const createStartAssessmentFromFormMiddleware = () => {
   return function startAssessmentFromForm({ body, user }, res) {
     const { crn, deliusEventId, assessmentType } = body
-    return start(crn, deliusEventId, assessmentType, user, res)
+    return startAssessment(crn, deliusEventId, assessmentType, user, res)
   }
 }
 
