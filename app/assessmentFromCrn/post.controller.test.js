@@ -55,7 +55,7 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 401, reason: 'OASYS_PERMISSION' }]
+      const apiResponse = [false, { status: 403, reason: 'OASYS_PERMISSION' }]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
@@ -134,7 +134,7 @@ describe('POST: Start an assessment', () => {
         user,
       }
 
-      const apiResponse = [false, { status: 401, reason: 'OASYS_PERMISSION' }]
+      const apiResponse = [false, { status: 403, reason: 'OASYS_PERMISSION' }]
 
       assessmentSupervision.mockResolvedValue(apiResponse)
 
