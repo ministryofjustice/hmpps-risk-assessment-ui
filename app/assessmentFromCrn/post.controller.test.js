@@ -82,10 +82,6 @@ describe('POST: Start an assessment', () => {
         {
           status: 400,
           reason: 'DUPLICATE_OFFENDER_RECORD',
-          offenderContext: {
-            name: 'Alan Grant',
-            pnc: '1234/123456A',
-          },
         },
       ]
 
@@ -94,7 +90,7 @@ describe('POST: Start an assessment', () => {
       await middleware(req, res)
 
       const theError = new Error(
-        'Alan Grant is showing as a possible duplicate record under USER_AREA PNC 1234/123456A Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
+        'The offender is showing as a possible duplicate record under USER_AREA. Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
       )
       expect(res.render).toHaveBeenCalledWith('app/error', { error: theError })
     })
@@ -165,10 +161,6 @@ describe('POST: Start an assessment', () => {
         {
           status: 400,
           reason: 'DUPLICATE_OFFENDER_RECORD',
-          offenderContext: {
-            name: 'Alan Grant',
-            pnc: '1234/123456A',
-          },
         },
       ]
 
@@ -177,7 +169,7 @@ describe('POST: Start an assessment', () => {
       await middleware(req, res)
 
       const theError = new Error(
-        'Alan Grant is showing as a possible duplicate record under USER_AREA PNC 1234/123456A Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
+        'The offender is showing as a possible duplicate record under USER_AREA. Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team',
       )
       expect(res.render).toHaveBeenCalledWith('app/error', { error: theError })
     })
