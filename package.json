@@ -59,7 +59,7 @@
     "lint-sass": "stylelint '**/*.scss'",
     "lint-sass:fix": "stylelint '**/*.scss' --fix",
     "test": "jest",
-    "lint": "eslint . --cache --max-warnings 0",
+    "lint": "eslint . --cache --max-warnings 0 && stylelint '**/*.scss' --cache --max-warnings 0",
     "watch:sass": "nodemon -e scss -x \"npm run build:css\"",
     "watch": "npm run watch:sass",
     "record-build-info": "node ./bin/record-build-info",
@@ -152,6 +152,10 @@
     "*.{js,json,css}": [
       "prettier --write",
       "eslint --cache --fix",
+      "git add"
+    ],
+    "*.{scss}": [
+      "stylelint '**/*.scss' --cache --fix",
       "git add"
     ]
   }
