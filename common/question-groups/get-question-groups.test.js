@@ -166,7 +166,7 @@ describe('process conditional questions', () => {
         ],
         conditional: 'yes',
         displayOrder: '1',
-        formClasses: 'govuk-radios__conditional govuk-radios__conditional--noIndent govuk-radios__conditional--hidden',
+        formClasses: 'govuk-radios__conditional govuk-radios__conditional--no-indent govuk-radios__conditional--hidden',
         isConditional: true,
         mandatory: 'no',
         questionCode: 'Further information',
