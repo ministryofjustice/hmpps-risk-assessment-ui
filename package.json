@@ -7,7 +7,7 @@
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0",
-    "npm": ">=6.14.5"
+    "npm": ">=7.0.0"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -39,11 +39,7 @@
       ]
     ]
   },
-  "resolutions": {
-    "minimist": "^1.2.3"
-  },
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
     "build": "npm run build:copy & npm run build:css & npm run build:js",
     "clean": "rimraf public",
     "build:copy": "npm run copy-govuk-assets && npm run copy-assets",
@@ -60,7 +56,8 @@
     "start": "npm run clean && npm run build && node ./start.js",
     "start:local": "npm run clean && npm run build && npm run setupStubs && NODE_ENV=local node ./start.js & npm run watch",
     "start:cypress": "npm run clean && npm run build && npm run setupStubs && NODE_ENV=local PORT=3008 INGRESS_URL=http://localhost:3008 npm run server",
-    "lint-sass": "./node_modules/.bin/sass-lint -v",
+    "lint-sass": "stylelint '**/*.scss'",
+    "lint-sass:fix": "stylelint '**/*.scss' --fix",
     "test": "jest",
     "lint": "eslint . --cache --max-warnings 0",
     "watch:sass": "nodemon -e scss -x \"npm run build:css\"",
@@ -134,14 +131,16 @@
     "husky": "^4.3.8",
     "jest": "^25.5.4",
     "lint-staged": "^10.5.4",
-    "minimist": "^1.2.3",
     "mocha-junit-reporter": "^2.0.0",
     "nock": "^12.0.3",
     "nodemon": "^2.0.7",
     "prettier": "^1.18.2",
     "rimraf": "^3.0.2",
-    "sass": "^1.32.8",
-    "sass-lint": "^1.2.3",
+    "sass": "^1.35.1",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-config-standard": "^22.0.0",
+    "stylelint-scss": "^3.19.0",
     "supertest": "^4.0.2"
   },
   "husky": {
