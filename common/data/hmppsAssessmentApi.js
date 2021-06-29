@@ -111,7 +111,7 @@ const action = async (agent, authorisationToken, userId) => {
       })
   } catch (error) {
     const { status, response } = error
-    if (status === 422) {
+    if (status === 400 || status === 403 || status === 422) {
       // unprocessable entity
       return [false, response.body]
     }
