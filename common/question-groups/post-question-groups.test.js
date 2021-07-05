@@ -103,6 +103,29 @@ const questionGroupWithOrphanConditional = {
   ],
 }
 
+const questionGroupWithNoConditional = {
+  type: 'group',
+  groupId: 'dc9baeea-566f-435f-8557-c3ab139befea',
+  groupCode: 'test_question_group',
+  title: 'Test question group',
+  contents: [
+    {
+      type: 'question',
+      questionId: '4d3e9793-e24f-4ccc-94c8-39b2f507e649',
+      questionCode: '124',
+      answerType: 'freetext',
+      questionText: 'Dependency target',
+      displayOrder: 2,
+      mandatory: true,
+      validation: '{"mandatory":{"errorMessage":"Enter text","errorSummary":"Enter text"}}',
+      readOnly: false,
+      conditional: false,
+      referenceDataTargets: [],
+      answerSchemas: [],
+    },
+  ],
+}
+
 describe('Question group validation rules', () => {
   const next = jest.fn()
 
@@ -186,6 +209,28 @@ describe('Question group validation rules', () => {
 
     // Ensure we log this event
     expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns the validators when not conditional', async () => {
+    const res = {
+      locals: {
+        questionGroup: questionGroupWithNoConditional,
+      },
+    }
+
+    const req = {
+      params: {},
+      body: {
+        'id-b9065f11-0955-416d-bd58-c234d8b6ffb5': 'NO',
+      },
+    }
+
+    await questionGroupValidationRules(req, res, next)
+
+    const [validatorsToSend] = dynamicMiddleware.mock.calls[0]
+
+    expect(validatorsToSend).toBeDefined()
+    expect(validatorsToSend.length).toBe(1)
   })
 })
 
