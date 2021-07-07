@@ -14,17 +14,15 @@ class AuthenticationError extends Error {
 }
 
 class ServerError extends Error {
-  constructor(message, explanation, ...params) {
+  constructor(message, ...params) {
     super(...params)
 
     if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, AuthenticationError)
+      Error.captureStackTrace(this, ServerError)
     }
 
     this.name = 'ServerError'
-    const defaultText = 'We are working to fix it as quickly as possible'
-    this.explanation = explanation || defaultText
-    this.message = message || defaultText
+    this.message = message || 'We are working to fix it as quickly as possible.'
   }
 }
 
