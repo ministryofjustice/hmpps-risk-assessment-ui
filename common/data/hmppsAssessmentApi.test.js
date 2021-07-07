@@ -51,9 +51,7 @@ describe('hmppsAssessmentApi', () => {
     })
     it('should throw an error if it does not receive a valid response', async () => {
       mockedEndpoint.get(offenderDataUrl).reply(503)
-      await expect(getOffenderData(uuid, authorisationToken, userId)).rejects.toThrowError(
-        'We are working to fix it as quickly as possible',
-      )
+      await expect(getOffenderData(uuid, authorisationToken, userId)).rejects.toThrowError()
     })
   })
 })
