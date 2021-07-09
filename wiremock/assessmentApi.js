@@ -151,6 +151,22 @@ const stubQuestionGroupSummary = groupId => {
   })
 }
 
+const stubAssessmentTypeSummary = assessmentType => {
+  stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: `/assessments/schema/${assessmentType}/summary`,
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: questionGroupSummaries[assessmentType],
+    },
+  })
+}
+
 const stubQuestionGroupCodeSummary = (groupCode, groupId) => {
   stubFor({
     request: {
@@ -255,6 +271,9 @@ const stubQuestionSummaries = async () => {
   await stubQuestionGroupSummary('65a3924c-4130-4140-b7f4-cc39a52603bb') // short psr
   await stubQuestionGroupSummary('22222222-2222-2222-2222-222222222203') // brief
 }
+const stubAssessmentTypeSummaries = async () => {
+  await stubAssessmentTypeSummary('ROSH') // brief
+}
 const stubAnswers = async () => {
   await stubAnswersGroup(1234)
 }
@@ -300,6 +319,7 @@ module.exports = {
   stubEpisodes,
   stubOffenderDetails,
   stubQuestionSummaries,
+  stubAssessmentTypeSummaries,
   stubAssessmentComplete,
   stubGetAssessments,
   stubGetQuestionGroup,

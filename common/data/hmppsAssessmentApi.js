@@ -29,6 +29,11 @@ const getQuestionGroupSummary = (groupId, authorisationToken, userId) => {
   return getData(path, authorisationToken, userId)
 }
 
+const getAssessmentSummary = (assessmentType, authorisationToken, userId) => {
+  const path = `${url}/assessments/schema/${assessmentType}/summary`
+  return getData(path, authorisationToken, userId)
+}
+
 const getAnswers = (assessmentId, episodeId, authorisationToken, userId) => {
   const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
   return getData(path, authorisationToken, userId)
@@ -143,6 +148,7 @@ module.exports = {
   getAssessmentsList,
   postAnswers,
   getQuestionGroupSummary,
+  getAssessmentSummary,
   postCompleteAssessment,
   getFilteredReferenceData,
   postTableRow,
