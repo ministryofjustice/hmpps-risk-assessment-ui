@@ -28,7 +28,7 @@ const { updateTableRow } = require('./editRow/post.controller')
 
 const { displayOverview } = require('./summary/get.controller')
 const { completeAssessment } = require('./summary/post.controller')
-const { saveQuestionGroup } = require('./questionGroup/post.controller')
+const { saveQuestionGroup, localValidationRules } = require('./questionGroup/post.controller')
 const { questionGroupValidationRules, assembleDates } = require('../common/question-groups/post-question-groups')
 const { fetchFilteredReferenceData } = require('./referenceData/post.controller')
 const { psrFromCourt } = require('./psrFromCourt/get.controller')
@@ -52,7 +52,7 @@ const {
   dev: { devAssessmentId },
 } = require('../common/config')
 
-const assessmentUrl = `/${devAssessmentId}/questiongroup/pre_sentence_assessment/summary`
+const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 
 // Export
 module.exports = app => {
@@ -122,6 +122,7 @@ module.exports = app => {
     assembleDates,
     getQuestionGroup,
     questionGroupValidationRules,
+    localValidationRules,
     validate,
     saveQuestionGroup,
   )
