@@ -11,10 +11,14 @@ const getErrorMessageFor = (reason, user) => {
   return 'Something went wrong' // Unhandled exception
 }
 
-const startAssessment = async (crn, deliusEventId, assessmentType, user, res) => {
+const startAssessment = async (crn, deliusEventId, assessmentSchemaCode, user, res) => {
   try {
     // eslint-disable-next-line no-unused-vars
-    const [ok, response] = await assessmentSupervision({ crn, deliusEventId, assessmentType }, user?.token, user?.id)
+    const [ok, response] = await assessmentSupervision(
+      { crn, deliusEventId, assessmentSchemaCode },
+      user?.token,
+      user?.id,
+    )
 
     if (!ok) {
       return res.render('app/error', {
@@ -22,19 +26,19 @@ const startAssessment = async (crn, deliusEventId, assessmentType, user, res) =>
       })
     }
 
-    return res.redirect(`/${response.assessmentUuid}/questionGroup/pre_sentence_assessment/summary`)
+    return res.redirect(`/${response.assessmentUuid}/questionGroup/${assessmentSchemaCode}/summary`)
   } catch (error) {
     return res.render('app/error', { error })
   }
 }
 
-const startAssessmentFromCrn = ({ params: { crn, deliusEventId, assessmentType }, user }, res) => {
-  return startAssessment(crn, deliusEventId, assessmentType, user, res)
+const startAssessmentFromCrn = ({ params: { crn, deliusEventId, assessmentSchemaCode }, user }, res) => {
+  return startAssessment(crn, deliusEventId, assessmentSchemaCode, user, res)
 }
 
 const startAssessmentFromForm = ({ body, user }, res) => {
-  const { crn, deliusEventId, assessmentType } = body
-  return startAssessment(crn, deliusEventId, assessmentType, user, res)
+  const { crn, deliusEventId, assessmentSchemaCode } = body
+  return startAssessment(crn, deliusEventId, assessmentSchemaCode, user, res)
 }
 
 module.exports = {
