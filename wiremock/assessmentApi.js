@@ -263,6 +263,7 @@ const stubQuestions = async () => {
   await stubQuestionGroup('ROSH')
   await stubQuestionGroup('pre_sentence_assessment')
   await stubQuestionGroup('12222222-2222-2222-2222-222222222203')
+  await stubQuestionGroup('rsr_only')
   // await stubAllInternalQuestionGroups(questionGroups['65a3924c-4130-4140-b7f4-cc39a52603bb'])
   // await stubAllInternalQuestionGroups(questionGroups['22222222-2222-2222-2222-222222222203'])
 }

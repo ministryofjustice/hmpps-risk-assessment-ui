@@ -103,8 +103,13 @@ const compileInlineConditionalQuestions = (questions, errors) => {
             attributes: attributesString,
           })},'','',${thisError}) }}`
 
+          const newHTML = nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, '')
+
+          let existingHTML = updatedSchemaLine.conditional?.html || ''
+          existingHTML += newHTML
+
           updatedSchemaLine.conditional = {
-            html: nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, ''),
+            html: existingHTML,
           }
 
           // mark the target question to be deleted later

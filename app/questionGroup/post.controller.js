@@ -37,7 +37,8 @@ const localValidationRules = async (req, res, next) => {
   } = res
   const validations = []
 
-  if (assessmentType === 'ROSH') {
+  // todo: update assessmentType
+  if (assessmentType === 'xxxx') {
     /// ///////////////////////////////////////////////////
     // Date of first sanction:
     validations.push(
