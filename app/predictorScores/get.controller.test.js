@@ -8,17 +8,33 @@ jest.mock('../../common/data/predictorScores', () => ({
 const episodeUuid = '22222222-2222-2222-2222-222222222222'
 
 const currentPredictorScore = {
-  date: '2021/07/23',
+  date: '2021-07-23T12:00',
   scores: [{ type: 'RSR', score: 'LOW' }],
 }
 
 const historicalPredictorScores = [
   {
-    date: '2021/07/22',
+    date: '2021-07-22T12:00',
     scores: [{ type: 'RSR', score: 'MEDIUM' }],
   },
   {
-    date: '2021/07/21',
+    date: '2021-07-21T12:00',
+    scores: [{ type: 'RSR', score: 'HIGH' }],
+  },
+]
+
+const formattedCurrentPredictorScore = {
+  date: '23 Jul 2021 at 12:00',
+  scores: [{ type: 'RSR', score: 'LOW' }],
+}
+
+const formattedHistoricalPredictorScores = [
+  {
+    date: '22 Jul 2021 at 12:00',
+    scores: [{ type: 'RSR', score: 'MEDIUM' }],
+  },
+  {
+    date: '21 Jul 2021 at 12:00',
     scores: [{ type: 'RSR', score: 'HIGH' }],
   },
 ]
@@ -46,8 +62,8 @@ describe('display predictor scores', () => {
     expect(getPredictorScoresForEpisode).toHaveBeenCalledWith(episodeUuid)
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/index`, {
       predictorScores: {
-        currentScores: currentPredictorScore,
-        historicalScores: historicalPredictorScores,
+        currentScores: formattedCurrentPredictorScore,
+        historicalScores: formattedHistoricalPredictorScores,
       },
     })
   })
