@@ -26,17 +26,21 @@ const saveQuestionGroup = async (req, res) => {
   try {
     const [ok, response] = await postAnswers(assessmentId, 'current', { answers }, user?.token, user?.id)
 
-    if (!ok) {
-      if (response.status === 422) {
-        const [validationErrors, errorSummary] = formatValidationErrors(response.errors, response.pageErrors)
-        req.errors = validationErrors
-        req.errorSummary = errorSummary
-        return displayQuestionGroup(req, res)
-      }
-      return res.render('app/error', { subHeading: getErrorMessage(response.reason) })
-    }
+    if (ok) {
+      const { episodeUuid, predictors = [] } = response
+      logger.info(`Received ${predictors.length} predictor scores for episode: ${episodeUuid}`)
 
-    return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)
+      // cache ready for redirect
+
+      return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)
+    }
+    if (response.status === 422) {
+      const [validationErrors, errorSummary] = formatValidationErrors(response.errors, response.pageErrors)
+      req.errors = validationErrors
+      req.errorSummary = errorSummary
+      return displayQuestionGroup(req, res)
+    }
+    return res.render('app/error', { subHeading: getErrorMessage(response.reason) })
   } catch (error) {
     logger.error(`Could not save to assessment ${assessmentId}, current episode, error: ${error}`)
     return res.render('app/error', { error })
