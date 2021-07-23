@@ -7765,7 +7765,13 @@
                         "answerSchemaUuid": "0d4682ab-7b24-4527-b0b3-b4d520e7c2d8",
                         "answerSchemaCode": "yes",
                         "value": "YES",
-                        "text": "Yes"
+                        "text": "Yes",
+                        "conditionals": [
+                          {
+                            "conditional": "86ee742c-4bfb-4e29-afca-04ad35a3abda",
+                            "displayInline": true
+                          }
+                        ]
                       },
                       {
                         "answerSchemaUuid": "2a6011b2-4973-4249-99fd-9f84dbb2c88e",
@@ -7785,7 +7791,7 @@
                     "mandatory": true,
                     "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no (contact against a stranger victim)\"}}",
                     "readOnly": false,
-                    "conditional": false,
+                    "conditional": true,
                     "referenceDataTargets": [],
                     "answerSchemas": [
                       {
