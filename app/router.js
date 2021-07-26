@@ -28,7 +28,7 @@ const { updateTableRow } = require('./editRow/post.controller')
 
 const { displayOverview } = require('./summary/get.controller')
 const { completeAssessment } = require('./summary/post.controller')
-const { saveQuestionGroup, localValidationRules } = require('./questionGroup/post.controller')
+const { saveQuestionGroup } = require('./questionGroup/post.controller')
 const { questionGroupValidationRules, assembleDates } = require('../common/question-groups/post-question-groups')
 const { fetchFilteredReferenceData } = require('./referenceData/post.controller')
 const { psrFromCourt } = require('./psrFromCourt/get.controller')
@@ -37,7 +37,7 @@ const { startPsrFromCourt, startPsrFromForm } = require('./psrFromCourt/post.con
 const { assessmentFromCrn } = require('./assessmentFromCrn/get.controller')
 const { startAssessmentFromCrn, startAssessmentFromForm } = require('./assessmentFromCrn/post.controller')
 
-const { validate } = require('../common/middleware/validator')
+const { validate, localValidationRules } = require('../common/middleware/validator')
 
 const {
   checkUserIsAuthenticated,
