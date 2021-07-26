@@ -9,10 +9,13 @@ const { dynamicMiddleware } = require('../../common/utils/util')
 
 const getFieldId = id => {
   const fields = {
-    dateFirstSanction: 'id-53daee33-2c52-48af-99cc-178c483bcf09',
-    totalSanctions: 'id-496587b9-81f3-47ad-a41e-77900fdca573',
-    violentOffences: 'id-74fd30c7-8f4d-4525-aa17-52dfb6c43814',
+    dateFirstSanction: 'id-5ca86a06-5472-4861-bd6a-a011780db49a',
+    totalSanctions: 'id-8e83a0ad-2fcf-4afb-a0af-09d1e23d3c33',
+    violentOffences: 'id-496587b9-81f3-47ad-a41e-77900fdca573',
     currentConvictionDate: 'id-f5d1dd7c-1774-4c76-89c2-a47240ad98ba',
+    haveTheyCommittedASexualOffence: 'id-58d3efd1-65a1-439b-952f-b2826ffa5e7',
+    dateOfMostRecentSexualOffence: 'id-a00223d0-1c20-43b5-8076-8a292ca2577',
+    dateOfCommencement: 'id-5cd344d4-acf3-45a9-9493-5dda5aa9dfa8',
   }
 
   if (fields[id]) {
@@ -38,7 +41,7 @@ const localValidationRules = async (req, res, next) => {
   const validations = []
 
   // todo: update assessmentType
-  if (assessmentType === 'xxxx') {
+  if (assessmentType === 'RSR') {
     /// ///////////////////////////////////////////////////
     // Date of first sanction:
     validations.push(
@@ -113,9 +116,54 @@ const localValidationRules = async (req, res, next) => {
               isAfter(parseISO(value), parseISO(reqBody[getFieldId('dateFirstSanction')]))
             )
           })
-          .withMessage({ error: 'XXX Current conviction cannot be before first conviction' }),
+          .withMessage({ error: 'PLACEHOLDER: Current conviction cannot be before the date at first sanction' }),
       )
     }
+
+    /// ///////////////////////////////////////////////////
+    // Date of most recent sanction involving a sexual or sexually motivated offence:
+    if (reqBody[getFieldId('haveTheyCommittedASexualOffence')] === 'YES') {
+      validations.push(
+        body(getFieldId('dateOfMostRecentSexualOffence'))
+          .custom(value => {
+            return value && isDate(parseISO(value))
+          })
+          .withMessage({ error: 'Enter a valid date' })
+          .bail()
+          .custom(value => {
+            return !isFuture(parseISO(value))
+          })
+          .withMessage({ error: 'Date cannot be in the future' })
+          .bail()
+          .custom(value => {
+            return isAfter(parseISO(value), parseISO(offenderDateOfBirth))
+          })
+          .withMessage({ error: 'Date must be later than the individual’s date of birth' })
+          .bail(),
+      )
+    }
+
+    validations.push(
+      body(getFieldId('dateOfCommencement'))
+        .custom(value => {
+          return value && isDate(parseISO(value))
+        })
+        .withMessage({ error: 'Enter a valid date' })
+        .bail()
+        .custom(value => {
+          return isAfter(parseISO(value), parseISO(offenderDateOfBirth))
+        })
+        .withMessage({ error: 'Date must be later than the individual’s date of birth' })
+        .bail()
+        .custom(value => {
+          const duration = intervalToDuration({
+            start: parseISO(offenderDateOfBirth),
+            end: parseISO(value),
+          })
+          return duration.years <= 110
+        })
+        .withMessage({ error: 'PLACEHOLDER: The individual must be aged 110 or younger on commencement' }),
+    )
 
     await dynamicMiddleware(validations, req, res, next)
   } else return next()
