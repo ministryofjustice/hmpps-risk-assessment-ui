@@ -82,6 +82,9 @@ const localValidationRules = async (req, res, next) => {
     const totalSanctions = parseInt(reqBody[getFieldId('totalSanctions')], 10)
     validations.push(
       body(getFieldId('violentOffences'))
+        .isInt()
+        .withMessage({ error: 'PLACEHOLDER: Enter the number of violent offences' })
+        .bail()
         .isInt({ min: 0, max: totalSanctions })
         .withMessage({ error: 'Cannot be greater than the total number of sanctions for all offences' }),
     )
