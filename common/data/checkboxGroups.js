@@ -5,7 +5,7 @@ const flattenCheckboxGroups = questions => {
         type: 'question',
         questionId: question.checkboxGroupId,
         questionCode: question.checkboxGroupCode,
-        answerType: 'checkbox',
+        answerType: 'checkboxGroup',
         questionText: question.title,
         displayOrder: question.displayOrder,
         mandatory: question.mandatory || true,
@@ -31,16 +31,17 @@ const extractCheckboxGroupAnswers = (questions = [], answers = {}) => {
       const checkboxGroupQuestions = checkboxGroup.contents
       checkboxGroupQuestions.forEach(({ questionId, answerSchemas = [] }) => {
         const answersForThisGroup = updatedAnswers[checkboxGroup.checkboxGroupId] || []
-        const [firstAnswer, secondAnswer] = answerSchemas
-        const answer = answersForThisGroup.includes(questionId) ? firstAnswer?.value : secondAnswer?.value
-        updatedAnswers[questionId] = [answer]
+        const [firstAnswer] = answerSchemas
+        if (answersForThisGroup.includes(questionId) && firstAnswer) {
+          updatedAnswers[questionId] = [firstAnswer.value]
+        }
       })
       return updatedAnswers
     },
     { ...answers },
   )
 
-  // Tidy up the answers and remove the checkBox group answers
+  // Tidy up the answers and remove the checkBox group wrappers
   checkboxGroups.forEach(({ checkboxGroupId }) => delete extractedAnswers[checkboxGroupId])
 
   return extractedAnswers

@@ -72,7 +72,7 @@ describe('checkboxGroups', () => {
           questionId: '91a60f48-89d4-4106-8f8a-fe797edca111',
           questionCode: 'checkbox_group',
           displayOrder: 1,
-          answerType: 'checkbox',
+          answerType: 'checkboxGroup',
           questionText: 'Checkbox group',
           mandatory: true,
           readOnly: false,
