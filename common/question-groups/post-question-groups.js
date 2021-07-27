@@ -138,7 +138,7 @@ function formatValidationErrors(serverErrors, pageErrors) {
   return [errors, errorSummary]
 }
 
-function extractAnswers(req, res) {
+function extractAnswers(req, res, next) {
   const { body: reqBody } = req
   const { questionGroup } = res.locals
   const currentQuestions = questionGroup.contents
@@ -150,7 +150,8 @@ function extractAnswers(req, res) {
 
   const answers = extractCheckboxGroupAnswers(currentQuestions, shapedAnswers)
 
-  return { answers }
+  req.body = answers
+  next()
 }
 
 module.exports = { questionGroupValidationRules, assembleDates, formatValidationErrors, extractAnswers }

@@ -19,8 +19,8 @@ const displayQuestionGroup = async (
     res.locals.assessmentUuid = assessmentId
     res.locals.episodeUuid = episodeUuid
 
-    let questions = annotateWithAnswers(questionGroup.contents, answers, body)
-    questions = flattenCheckboxGroups(questions)
+    let questions = flattenCheckboxGroups(questionGroup.contents)
+    questions = annotateWithAnswers(questions, answers, body)
     questions = compileInlineConditionalQuestions(questions, errors)
 
     return res.render(`${__dirname}/index`, {

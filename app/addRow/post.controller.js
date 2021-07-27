@@ -3,7 +3,7 @@ const { logger } = require('../../common/logging/logger')
 const { displayAddRow } = require('./get.controller')
 const { postTableRow } = require('../../common/data/hmppsAssessmentApi')
 const { removeUrlLevels } = require('../../common/utils/util')
-const { formatValidationErrors, extractAnswers } = require('../../common/question-groups/post-question-groups')
+const { formatValidationErrors } = require('../../common/question-groups/post-question-groups')
 
 const saveTableRow = async (req, res) => {
   const {
@@ -11,6 +11,7 @@ const saveTableRow = async (req, res) => {
     user,
     originalUrl,
     errors,
+    body: answers,
   } = req
   if (errors) {
     return displayAddRow(req, res)
@@ -18,8 +19,7 @@ const saveTableRow = async (req, res) => {
 
   try {
     const returnUrl = removeUrlLevels(originalUrl, 2)
-    const answers = extractAnswers(req, res)
-    const [ok, episode] = await postTableRow(assessmentId, 'current', tableName, answers, user?.token, user?.id)
+    const [ok, episode] = await postTableRow(assessmentId, 'current', tableName, { answers }, user?.token, user?.id)
 
     if (!ok) {
       const [validationErrors, errorSummary] = formatValidationErrors(episode.errors, episode.pageErrors)

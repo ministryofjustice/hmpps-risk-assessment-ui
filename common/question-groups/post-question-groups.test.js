@@ -355,9 +355,11 @@ describe('Extract answers', () => {
       },
     }
 
-    const { answers } = extractAnswers(req, res)
+    const next = jest.fn()
 
-    expect(answers['b9065f11-0955-416d-bd58-c234d8b6ffb5']).toEqual('YES')
+    extractAnswers(req, res, next)
+
+    expect(req.body['b9065f11-0955-416d-bd58-c234d8b6ffb5']).toEqual('YES')
   })
 
   it('handles when no answers are passed', () => {
@@ -375,8 +377,10 @@ describe('Extract answers', () => {
       },
     }
 
-    const { answers } = extractAnswers(req, res)
+    const next = jest.fn()
 
-    expect(answers).toBeDefined()
+    extractAnswers(req, res, next)
+
+    expect(req.body).toBeDefined()
   })
 })
