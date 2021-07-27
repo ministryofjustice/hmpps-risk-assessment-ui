@@ -22,7 +22,7 @@ const flattenCheckboxGroups = questions => {
   })
 }
 
-const extractCheckboxGroupAnswers = (questions, answers) => {
+const extractCheckboxGroupAnswers = (questions = [], answers = {}) => {
   const checkboxGroups = questions.filter(question => question.type === 'checkboxGroup')
 
   const extractedAnswers = checkboxGroups.reduce(
@@ -32,7 +32,8 @@ const extractCheckboxGroupAnswers = (questions, answers) => {
       checkboxGroupQuestions.forEach(({ questionId, answerSchemas = [] }) => {
         const answersForThisGroup = updatedAnswers[checkboxGroup.checkboxGroupId] || []
         const [firstAnswer, secondAnswer] = answerSchemas
-        updatedAnswers[questionId] = answersForThisGroup.includes(questionId) ? firstAnswer?.value : secondAnswer?.value
+        const answer = answersForThisGroup.includes(questionId) ? firstAnswer?.value : secondAnswer?.value
+        updatedAnswers[questionId] = [answer]
       })
       return updatedAnswers
     },

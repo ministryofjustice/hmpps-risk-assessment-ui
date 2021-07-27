@@ -8,7 +8,6 @@ const { formatValidationErrors, extractAnswers } = require('../../common/questio
 const saveTableRow = async (req, res) => {
   const {
     params: { assessmentId, tableName },
-    body: reqBody,
     user,
     originalUrl,
     errors,
@@ -19,7 +18,7 @@ const saveTableRow = async (req, res) => {
 
   try {
     const returnUrl = removeUrlLevels(originalUrl, 2)
-    const answers = extractAnswers(reqBody)
+    const answers = extractAnswers(req, res)
     const [ok, episode] = await postTableRow(assessmentId, 'current', tableName, answers, user?.token, user?.id)
 
     if (!ok) {

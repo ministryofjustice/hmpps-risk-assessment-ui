@@ -341,19 +341,41 @@ describe('Format validation errors', () => {
 
 describe('Extract answers', () => {
   it('formats answers that are passed to it', () => {
-    const postBody = {
-      'id-b9065f11-0955-416d-bd58-c234d8b6ffb5': 'YES',
+    const req = {
+      body: {
+        'id-b9065f11-0955-416d-bd58-c234d8b6ffb5': 'YES',
+      },
     }
 
-    const { answers } = extractAnswers(postBody)
+    const res = {
+      locals: {
+        questionGroup: {
+          contents: [],
+        },
+      },
+    }
+
+    const { answers } = extractAnswers(req, res)
 
     expect(answers['b9065f11-0955-416d-bd58-c234d8b6ffb5']).toEqual('YES')
   })
 
   it('handles when no answers are passed', () => {
-    const postBody = {}
+    const req = {
+      body: {
+        'id-b9065f11-0955-416d-bd58-c234d8b6ffb5': 'YES',
+      },
+    }
 
-    const { answers } = extractAnswers(postBody)
+    const res = {
+      locals: {
+        questionGroup: {
+          contents: [],
+        },
+      },
+    }
+
+    const { answers } = extractAnswers(req, res)
 
     expect(answers).toBeDefined()
   })

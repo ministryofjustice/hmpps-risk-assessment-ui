@@ -15,7 +15,6 @@ const getErrorMessage = reason => {
 const saveQuestionGroup = async (req, res) => {
   const {
     params: { assessmentId },
-    body: reqBody,
     user,
     errors,
   } = req
@@ -24,7 +23,7 @@ const saveQuestionGroup = async (req, res) => {
   }
 
   try {
-    const answers = extractAnswers(reqBody)
+    const answers = extractAnswers(req, res)
     const [ok, response] = await postAnswers(assessmentId, 'current', answers, user?.token, user?.id)
 
     if (!ok) {

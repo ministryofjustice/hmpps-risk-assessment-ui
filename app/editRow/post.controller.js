@@ -8,7 +8,6 @@ const { formatValidationErrors, extractAnswers } = require('../../common/questio
 const updateTableRow = async (req, res) => {
   const {
     params: { assessmentId, tableName, tableRow },
-    body: reqBody,
     user,
     originalUrl,
     errors,
@@ -19,7 +18,7 @@ const updateTableRow = async (req, res) => {
 
   try {
     const returnUrl = removeUrlLevels(originalUrl, 3)
-    const answers = extractAnswers(reqBody)
+    const answers = extractAnswers(req, res)
     const [ok, episode] = await updateEditedTableRow(
       assessmentId,
       'current',

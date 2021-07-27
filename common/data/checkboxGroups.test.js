@@ -97,8 +97,8 @@ describe('checkboxGroups', () => {
       const extractedAnswers = extractCheckboxGroupAnswers([checkboxGroup], answers)
 
       expect(extractedAnswers).toEqual({
-        '0941c5b2-f42d-4120-ad79-44954674fe00': 'YES',
-        'f988f76c-3d6c-4f45-aa29-7dc8d11198d7': 'YES',
+        '0941c5b2-f42d-4120-ad79-44954674fe00': ['YES'],
+        'f988f76c-3d6c-4f45-aa29-7dc8d11198d7': ['YES'],
       })
     })
   })
