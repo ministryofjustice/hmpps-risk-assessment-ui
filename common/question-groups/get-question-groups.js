@@ -38,7 +38,7 @@ const annotateWithAnswers = (questions, answers, body) => {
         const storedAnswer = answers[`${answerSchema.value}`]
         const answer = answerInBody || storedAnswer
 
-        if (!answer) {
+        if (!answer || !answer.includes('YES')) {
           return acc
         }
 
