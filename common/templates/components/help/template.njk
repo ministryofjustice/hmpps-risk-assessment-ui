@@ -171,6 +171,170 @@
             <p class='govuk-body'>If the individual is in prison enter the earliest possible release date; this may be HDC eligibility / parole eligibility date / conditional release date / automatic release date, etc. Use whichever date is earliest.</p>
             <p class='govuk-body'>If the individual is in custody because they have been recalled, use the current date if they could be released again at any time, otherwise use the earliest plausible date for re-release. For lifers/IPP’s use the parole hearing date / oral hearing date / tariff expiry date. If no date is available at all, use the date the assessment is being completed and review the assessment to include the exact date when it is confirmed. For community sentences, this will be the sentence date.</p>
           </div>
+        </div>        
+        {# {% else if groupId === '6d3a4377-2177-429e-a7fa-6aa2444d14dd' %} #}
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                Total number of all sanctions for offences
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>Count the total number of convictions, conditional or absolute discharges, cautions, reprimands or final warnings. Include current offences</p>
+          </div>
+        </div>
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                Did the offence include carrying or use of a weapon?
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>This includes any weapons the individual had in their possession. This might be, for example, a knife or gun, or any implement they used as a weapon, such as a hammer or screwdriver.</p>
+          </div>
+        </div>
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                Is the individual living in suitable accommodation?
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>If the individual is in custody, consider the accommodation they are likely to be returning to.</p>
+            <p class='govuk-body'>Suitability refers to the appropriateness and adequacy of the accommodation and the relationship the individual has with the other adults in it. Take into account the person’s capacity to live independently, bearing in mind the challenges often faced by individuals with a hidden disability.</p>
+            <p class='govuk-body'>'Quality' refers to the condition of the accommodation, whether it’s the individual’s own home or someone else's.</p>
+            <p class='govuk-body'>It’s important to consider:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>the safety of the accommodation</li>
+              <li>difficulties with neighbours</li>
+              <li>overcrowding</li>
+              <li>whether the individual’s victim lives in the same house, particularly where there is a history of domestic violence</li>
+              <li>whether the individual is the victim of domestic violence of another offence perpetrated by someone living in the same house</li>
+              <li>availability of social amenities and facilities</li>
+            </ul>
+          </div>
+        </div>
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                Is the person unemployed or will be unemployed upon release?
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>Remember that this is an assessment of the status of the individual’s current situation.  </p>
+            <p class='govuk-body'>If they are in custody, make the assessment in relation to the expected situation on their release. </p>
+            <p class='govuk-body'>Select <strong>No</strong> if the individual is or will be:</p>            
+            <ul class="govuk-list govuk-list--bullet">
+              <li>employed full-time or self-employed (30 or more hours a week, on average)</li>
+              <li>employed part-time or self-employed (less than 30 hours a week, on average)</li>
+              <li>employed on a temporary basis or casual work</li>
+            </ul>
+            <p class='govuk-body'>Select <strong>Yes</strong> if:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>the individual is or will be available for work but are not in employment, regardless of whether or not they are receiving benefits</li>
+              <li>retired or will be retired</li>
+              <li>a homemaker or incapacitated</li>
+              <li>a homemaker or incapacitated</li>
+              <li>cannot work for any reason</li>
+            </ul>
+            <p class='govuk-body'>Reasons for not working might be that they are:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>an asylum seeker</li>
+              <li>a refugee</li>
+              <li>a foreign national with no right to work in the UK</li>
+              <li>studying full or part time</li>
+            </ul>
+          </div>
+        </div>
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                What is the person's current relationship with their partner?
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>Remember that supportive relationships can work as a protective factor against future offending.</p>
+            <p class='govuk-body'>Consider:</p>            
+            <ul class="govuk-list govuk-list--bullet">
+              <li>the strength of the relationship. Is it mutually supportive and respectful, or are there difficulties and stresses? </li>
+              <li>not everyone wishes to have an exclusive intimate relationship at all stages of their lives. If the individual is not currently in a relationship consider how content they are with their current state.</li>
+              <li>if the individual is in prison consider how this has affected any prior attachments.</li>
+              <li>have relationships been maintained or have they ended?</li>
+              <li>have new partnerships been formed and how sustainable are they?</li>
+            </ul>
+            <p class='govuk-body'><strong>No problems:</strong></p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>the individual’s relationships appear to be positive, mutually supportive and caring</li>
+              <li>the relationship is strong and likely to act as a protective factor against further offending</li>
+              <li>the individual is single and content to be so</li>
+            </ul>
+            <p class='govuk-body'><strong>Some problems:</strong></p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>the relationship has some problems but there is still a level of respect, care and support, and the couple are making efforts to make the relationship work</li>
+              <li>the individual is single but not totally happy, and wants a partner, but is content and able to live with their present situation</li>
+            </ul>
+            <p class='govuk-body'><strong>Significant problems:</strong></p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>they acknowledge that their relationships are destructive or damaging to either partner, or there is evidence to suggest this is the case</li>
+              <li>the relationship is directly linked to offending</li>
+              <li>they are single and unhappy with their status</li>
+            </ul>
+          </div>
+        </div>
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                Is there evidence that the individual is a perpetrator of domestic abuse?
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>Select <strong>Yes</strong> if the individual:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>admits to causing physical or emotional harm to their partner</li>
+              <li>there is documented or reported evidence that they have previously, or are presently causing, physical or emotional harm</li>
+              <li>admits to using threats, or there is evidence of threats that cause severe psychological or emotional damage</li>
+              <li>indicates they have been the victim of domestic violence in this or previous relationships</li>
+            </ul>
+            <p class='govuk-body'>Select <strong>No</strong> if there are no self-reports or other evidence to suggest partner abuse or domestic violence.</p>
+        </div>
+        <div class="govuk-accordion__section ">
+          <div class="govuk-accordion__section-header">
+            <h2 class="govuk-accordion__section-heading">
+              <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                Is the person's current use of alcohol a problem?
+              </span>
+            </h2>
+          </div>
+          <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+            <p class='govuk-body'>Answer when official records show evidence of a problem, or when the individual says that they have had a problem with alcohol consumption in the last year.</p>            
+            <p class='govuk-body'>The question covers individuals for whom alcohol misuse has an obvious negative impact, and those whose level of consumption puts them or others at risk.</p>            
+            <p class='govuk-body'>Consider:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>how often and in what quantity alcohol is consumed</li>
+              <li>that the individual may not admit to or realise that they have an alcohol problem</li>       
+            </ul>
+            <p class='govuk-body'>For individuals in custody, consider:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>their drinking behaviour while serving the custodial element of their sentence. State specifically if any documented evidence was used to come to this conclusion, for example, ROTL</li>
+              <li>what their alcohol use was at the time of reception, and did they require detoxification?</li>       
+            </ul>
+            <p class='govuk-body'>For individuals in custody, consider:</p>
+            <ul class="govuk-list govuk-list--bullet">
+              <li>their drinking behaviour while serving the custodial element of their sentence. State specifically if any documented evidence was used to come to this conclusion, for example, ROTL</li>
+              <li>what their alcohol use was at the time of reception, and did they require detoxification?</li>       
+            </ul>
         </div>
         {# {% endif %} #}
     </div>
