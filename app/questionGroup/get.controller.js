@@ -5,6 +5,7 @@ const {
   grabAnswers,
 } = require('../../common/middleware/questionGroups/getHandlers')
 const { flattenCheckboxGroups } = require('../../common/middleware/questionGroups/checkboxGroups')
+const logger = require('../../common/logging/logger')
 
 const displayQuestionGroup = async (
   { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, user },
@@ -32,6 +33,7 @@ const displayQuestionGroup = async (
       questions,
       errors,
       errorSummary,
+      groupUuid: res.locals.questionGroup?.groupId,
     })
   } catch (error) {
     return res.render('app/error', { error })
