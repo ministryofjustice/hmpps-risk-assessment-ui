@@ -5,7 +5,6 @@ const {
   grabAnswers,
 } = require('../../common/middleware/questionGroups/getHandlers')
 const { flattenCheckboxGroups } = require('../../common/middleware/questionGroups/checkboxGroups')
-const logger = require('../../common/logging/logger')
 
 const displayQuestionGroup = async (
   { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, user },
