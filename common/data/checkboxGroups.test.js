@@ -101,5 +101,17 @@ describe('checkboxGroups', () => {
         'f988f76c-3d6c-4f45-aa29-7dc8d11198d7': ['YES'],
       })
     })
+
+    it('defaults to second answer value when unchecked', () => {
+      const answers = {
+        '91a60f48-89d4-4106-8f8a-fe797edca111': ['0941c5b2-f42d-4120-ad79-44954674fe00'],
+      }
+      const extractedAnswers = extractCheckboxGroupAnswers([checkboxGroup], answers)
+
+      expect(extractedAnswers).toEqual({
+        '0941c5b2-f42d-4120-ad79-44954674fe00': ['YES'],
+        'f988f76c-3d6c-4f45-aa29-7dc8d11198d7': ['NO'],
+      })
+    })
   })
 })

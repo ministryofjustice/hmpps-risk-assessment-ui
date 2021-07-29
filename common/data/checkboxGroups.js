@@ -31,9 +31,11 @@ const extractCheckboxGroupAnswers = (questions = [], answers = {}) => {
       const checkboxGroupQuestions = checkboxGroup.contents
       checkboxGroupQuestions.forEach(({ questionId, answerSchemas = [] }) => {
         const answersForThisGroup = updatedAnswers[checkboxGroup.checkboxGroupId] || []
-        const [firstAnswer] = answerSchemas
+        const [firstAnswer, secondAnswer] = answerSchemas
         if (answersForThisGroup.includes(questionId) && firstAnswer) {
           updatedAnswers[questionId] = [firstAnswer.value]
+        } else if (secondAnswer) {
+          updatedAnswers[questionId] = [secondAnswer.value]
         }
       })
       return updatedAnswers
