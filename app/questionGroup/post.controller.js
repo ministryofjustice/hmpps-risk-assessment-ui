@@ -2,7 +2,7 @@
 const { logger } = require('../../common/logging/logger')
 const { displayQuestionGroup } = require('./get.controller')
 const { postAnswers } = require('../../common/data/hmppsAssessmentApi')
-const { formatValidationErrors } = require('../../common/question-groups/post-question-groups')
+const { formatValidationErrors } = require('../../common/middleware/questionGroups/postHandlers')
 
 const getErrorMessage = reason => {
   if (reason === 'OASYS_PERMISSION') {

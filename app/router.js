@@ -8,7 +8,7 @@
 const passport = require('passport')
 
 const getOffenderDetails = require('../common/middleware/getOffenderDetails')
-const getQuestionGroup = require('../common/middleware/getQuestionGroup')
+const getQuestionGroup = require('../common/middleware/questionGroups/getQuestionGroup')
 const addUserToLocals = require('../common/middleware/add-user-information')
 
 // pages
@@ -33,7 +33,7 @@ const {
   questionGroupValidationRules,
   assembleDates,
   extractAnswers,
-} = require('../common/question-groups/post-question-groups')
+} = require('../common/middleware/questionGroups/postHandlers')
 const { fetchFilteredReferenceData } = require('./referenceData/post.controller')
 const { psrFromCourt } = require('./psrFromCourt/get.controller')
 const { startPsrFromCourt, startPsrFromForm } = require('./psrFromCourt/post.controller')

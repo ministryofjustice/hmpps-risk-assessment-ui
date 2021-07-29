@@ -1,6 +1,6 @@
 const { saveQuestionGroup } = require('./post.controller')
 const { displayQuestionGroup } = require('./get.controller')
-const { assembleDates } = require('../../common/question-groups/post-question-groups')
+const { assembleDates } = require('../../common/middleware/questionGroups/postHandlers')
 const { postAnswers } = require('../../common/data/hmppsAssessmentApi')
 const questionGroupPointer = require('../../wiremock/responses/questionGroups.json')[
   '22222222-2222-2222-2222-222222222203'

@@ -3,15 +3,15 @@ const {
   extractAnswers,
   formatValidationErrors,
   assembleDates,
-} = require('./post-question-groups')
-const { dynamicMiddleware } = require('../utils/util')
-const { logger } = require('../logging/logger')
+} = require('./postHandlers')
+const { dynamicMiddleware } = require('../../utils/util')
+const { logger } = require('../../logging/logger')
 
-jest.mock('../utils/util', () => ({
+jest.mock('../../utils/util', () => ({
   dynamicMiddleware: jest.fn(),
 }))
 
-jest.mock('../logging/logger', () => ({
+jest.mock('../../logging/logger', () => ({
   logger: {
     info: jest.fn(),
     error: jest.fn(),

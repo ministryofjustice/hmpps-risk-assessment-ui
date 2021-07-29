@@ -1,7 +1,7 @@
 // @ts-check
 const nunjucks = require('nunjucks')
-const { getAnswers } = require('../data/hmppsAssessmentApi')
-const { logger } = require('../logging/logger')
+const { getAnswers } = require('../../data/hmppsAssessmentApi')
+const { logger } = require('../../logging/logger')
 
 const whereAnswerSchemaValueIs = value => answerSchema => answerSchema.value === value
 const isMultipleChoiceAnswerFor = answerType => answerType === 'radio' || answerType === 'checkbox'

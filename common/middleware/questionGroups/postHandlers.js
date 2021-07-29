@@ -1,8 +1,8 @@
 const { body } = require('express-validator')
 const { isDate } = require('date-fns')
-const { dynamicMiddleware } = require('../utils/util')
-const { logger } = require('../logging/logger')
-const { extractCheckboxGroupAnswers } = require('../data/checkboxGroups')
+const { dynamicMiddleware } = require('../../utils/util')
+const { logger } = require('../../logging/logger')
+const { extractCheckboxGroupAnswers } = require('./checkboxGroups')
 
 function findDateAnswerKeys(postBody) {
   // find keys of all the dates in the body

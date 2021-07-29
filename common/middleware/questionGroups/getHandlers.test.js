@@ -3,14 +3,14 @@ const { configure } = require('nunjucks')
 
 const nunjucksEnvironment = configure({}, {})
 const dateFilter = require('nunjucks-date-filter')
-const { encodeHTML } = require('../utils/util')
-const { mojDate } = require('../../node_modules/@ministryofjustice/frontend/moj/filters/all')()
+const { mojDate } = require('@ministryofjustice/frontend/moj/filters/all')()
+const { encodeHTML } = require('../../utils/util')
 // add custom nunjucks filters
 nunjucksEnvironment.addFilter('date', dateFilter)
 nunjucksEnvironment.addFilter('mojDate', mojDate)
 nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
 
-const { compileInlineConditionalQuestions, annotateWithAnswers } = require('./get-question-groups')
+const { compileInlineConditionalQuestions, annotateWithAnswers } = require('./getHandlers')
 
 const questions = [
   {

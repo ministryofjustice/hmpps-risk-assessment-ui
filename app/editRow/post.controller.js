@@ -3,7 +3,7 @@ const { logger } = require('../../common/logging/logger')
 const { editTableRow } = require('./get.controller')
 const { updateEditedTableRow } = require('../../common/data/hmppsAssessmentApi')
 const { removeUrlLevels } = require('../../common/utils/util')
-const { formatValidationErrors } = require('../../common/question-groups/post-question-groups')
+const { formatValidationErrors } = require('../../common/middleware/questionGroups/postHandlers')
 
 const updateTableRow = async (req, res) => {
   const {

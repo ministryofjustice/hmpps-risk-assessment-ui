@@ -3,8 +3,8 @@ const {
   annotateWithAnswers,
   compileInlineConditionalQuestions,
   grabAnswers,
-} = require('../../common/question-groups/get-question-groups')
-const { flattenCheckboxGroups } = require('../../common/data/checkboxGroups')
+} = require('../../common/middleware/questionGroups/getHandlers')
+const { flattenCheckboxGroups } = require('../../common/middleware/questionGroups/checkboxGroups')
 
 const displayQuestionGroup = async (
   { params: { assessmentId, groupId, subgroup }, body, errors = {}, errorSummary = null, user },

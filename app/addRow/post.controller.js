@@ -3,7 +3,7 @@ const { logger } = require('../../common/logging/logger')
 const { displayAddRow } = require('./get.controller')
 const { postTableRow } = require('../../common/data/hmppsAssessmentApi')
 const { removeUrlLevels } = require('../../common/utils/util')
-const { formatValidationErrors } = require('../../common/question-groups/post-question-groups')
+const { formatValidationErrors } = require('../../common/middleware/questionGroups/postHandlers')
 
 const saveTableRow = async (req, res) => {
   const {
