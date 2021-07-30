@@ -1,10 +1,79 @@
 {% extends "common/templates/layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 
-{% block pageTitle %}    
+{% block pageTitle %}
+    {{ heading }}
 {% endblock %}
 
 {% block beforeContent %}
+    <div role="navigation" aria-label="back">
+        {{ govukBackLink({
+            href: navigation.previous.url,
+            text: "Back to " + navigation.previous.name
+        }) }}
+    </div>
 {% endblock %}
 
 {% block content %}
+    <span class="govuk-caption-xl">{{ assessmentType }}</span>
+    <h1 class="govuk-heading-xl">
+        {{ heading }}
+    </h1>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <h2 class="govuk-heading-l">RSR score</h2>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                About RSR scores
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            PLACEHOLDER
+                        </div>
+                    </details>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-one-half">
+                    <h2 class="govuk-heading-l">OSP/C score</h2>
+                </div>
+                <div class="govuk-grid-column-one-half">
+                    <h2 class="govuk-heading-l">OSP/I score</h2>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                About OSP/C scores
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            PLACEHOLDER
+                        </div>
+                    </details>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                About OSP/I scores
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            PLACEHOLDER
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-third">
+            <h2 class="govuk-heading-l">Scores history</h2>
+            <a href="#" class="govuk-link">Open all</a>
+        </div>
+    </div>
+
 {% endblock %}

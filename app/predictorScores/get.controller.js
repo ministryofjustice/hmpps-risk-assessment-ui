@@ -14,18 +14,53 @@ const formatPredictorScores = predictorScores => ({
 })
 
 const splitPredictorScores = predictorScores => {
-  const [currentScores, ...historicalScores] = predictorScores
+  const groupedScores = predictorScores
+    .flatMap(predictor =>
+      predictor.scores.map(predictorScore => ({
+        ...predictorScore,
+        type: predictor.type,
+      })),
+    )
+    .reduce((result, { level, score, type, date }) => {
+      const groups = { ...result }
+      groups[date] = {
+        date,
+        scores: [...(result[date]?.scores || []), { level, score, type }],
+      }
+      return groups
+    }, {})
+
+  const sortedScores = Object.values(groupedScores).sort((a, b) => (a.date > b.date ? -1 : 1))
+
+  const [currentScores, ...historicalScores] = sortedScores
+
+  const formattedScore = currentScores ? formatPredictorScores(currentScores) : null
+  const formattedHistoricalScores = historicalScores.map(formatPredictorScores)
   return {
-    currentScores: formatPredictorScores(currentScores),
-    historicalScores: historicalScores.map(formatPredictorScores),
+    currentScores: formattedScore,
+    historicalScores: formattedHistoricalScores,
   }
 }
 
-const displayPredictorScores = async ({ params: { episodeUuid } }, res) => {
+const displayPredictorScores = async (req, res) => {
   try {
+    const {
+      params: { episodeUuid },
+    } = req
     const predictorScores = await getPredictorScoresForEpisode(episodeUuid)
+
+    const { previousPage } = req.session.navigation
+
+    const offenderName = res.locals.offenderDetails?.name || 'Offender'
+    const assessmentType = 'PLACEHOLDER - Assessment Type'
+
     return res.render(`${__dirname}/index`, {
       predictorScores: splitPredictorScores(predictorScores),
+      heading: `${offenderName}'s scores`,
+      assessmentType,
+      navigation: {
+        previous: previousPage,
+      },
     })
   } catch (error) {
     return res.render('app/error', { error })

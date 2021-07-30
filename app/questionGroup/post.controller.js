@@ -12,10 +12,14 @@ const getErrorMessage = reason => {
 
   return 'Something went wrong'
 }
+const groupsThatRedirectToScores = [
+  '6d3a4377-2177-429e-a7fa-6aa2444d14dd', // RSR Needs
+]
+const redirectsToScores = groupUuid => groupsThatRedirectToScores.includes(groupUuid)
 
 const saveQuestionGroup = async (req, res) => {
   const {
-    params: { assessmentId },
+    params: { assessmentId, subIndex },
     user,
     errors,
     body: answers,
@@ -32,6 +36,17 @@ const saveQuestionGroup = async (req, res) => {
       logger.info(`Received ${predictorScores.length} predictor scores for episode: ${episodeUuid}`)
 
       await cachePredictorScoresForEpisode(episodeUuid, predictorScores)
+
+      if (redirectsToScores(res.locals.questionGroup?.groupId)) {
+        req.session.navigation = {
+          previousPage: {
+            url: req.originalUrl,
+            name: 'previous page',
+          },
+        }
+        req.session.save()
+        return res.redirect(`/episode/${episodeUuid}/scores`)
+      }
 
       return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)
     }

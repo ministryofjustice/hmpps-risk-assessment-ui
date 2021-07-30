@@ -7,35 +7,47 @@ jest.mock('../../common/data/predictorScores', () => ({
 
 const episodeUuid = '22222222-2222-2222-2222-222222222222'
 
-const currentPredictorScore = {
-  date: '2021-07-23T12:00',
-  scores: [{ type: 'RSR', score: 'LOW' }],
-}
-
-const historicalPredictorScores = [
+const predictorScores = [
   {
-    date: '2021-07-22T12:00',
-    scores: [{ type: 'RSR', score: 'MEDIUM' }],
+    type: 'RSR',
+    scores: [
+      { level: 'HIGH', score: 11.34, isValid: true, date: '2021-07-23T12:00' },
+      { level: 'HIGH', score: 11.34, isValid: true, date: '2021-07-22T12:00' },
+    ],
   },
   {
-    date: '2021-07-21T12:00',
-    scores: [{ type: 'RSR', score: 'HIGH' }],
+    type: 'OSP/C',
+    scores: [
+      { level: 'MEDIUM', score: 8.76, isValid: true, date: '2021-07-23T12:00' },
+      { level: 'MEDIUM', score: 8.76, isValid: true, date: '2021-07-22T12:00' },
+    ],
+  },
+  {
+    type: 'OSP/I',
+    scores: [
+      { level: 'LOW', score: 3.45, isValid: true, date: '2021-07-23T12:00' },
+      { level: 'LOW', score: 3.45, isValid: true, date: '2021-07-22T12:00' },
+    ],
   },
 ]
 
 const formattedCurrentPredictorScore = {
   date: '23 Jul 2021 at 12:00',
-  scores: [{ type: 'RSR', score: 'LOW' }],
+  scores: [
+    { type: 'RSR', level: 'HIGH', score: 11.34 },
+    { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
+    { type: 'OSP/I', level: 'LOW', score: 3.45 },
+  ],
 }
 
 const formattedHistoricalPredictorScores = [
   {
     date: '22 Jul 2021 at 12:00',
-    scores: [{ type: 'RSR', score: 'MEDIUM' }],
-  },
-  {
-    date: '21 Jul 2021 at 12:00',
-    scores: [{ type: 'RSR', score: 'HIGH' }],
+    scores: [
+      { type: 'RSR', level: 'HIGH', score: 11.34 },
+      { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
+      { type: 'OSP/I', level: 'LOW', score: 3.45 },
+    ],
   },
 ]
 
@@ -44,10 +56,23 @@ describe('display predictor scores', () => {
     params: {
       episodeUuid: '22222222-2222-2222-2222-222222222222',
     },
+    session: {
+      navigation: {
+        previousPage: {
+          url: '/foo/bar',
+          name: 'previous page',
+        },
+      },
+    },
   }
   const res = {
     render: jest.fn(),
     redirect: jest.fn(),
+    locals: {
+      offenderDetails: {
+        name: 'Bob Ross',
+      },
+    },
   }
 
   beforeEach(() => {
@@ -55,12 +80,20 @@ describe('display predictor scores', () => {
   })
 
   it('displays predictor scores', async () => {
-    getPredictorScoresForEpisode.mockResolvedValue([currentPredictorScore, ...historicalPredictorScores])
+    getPredictorScoresForEpisode.mockResolvedValue(predictorScores)
 
     await displayPredictorScores(req, res)
 
     expect(getPredictorScoresForEpisode).toHaveBeenCalledWith(episodeUuid)
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/index`, {
+      assessmentType: 'PLACEHOLDER - Assessment Type',
+      heading: "Bob Ross's scores",
+      navigation: {
+        previous: {
+          name: 'previous page',
+          url: '/foo/bar',
+        },
+      },
       predictorScores: {
         currentScores: formattedCurrentPredictorScore,
         historicalScores: formattedHistoricalPredictorScores,
