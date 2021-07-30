@@ -250,7 +250,10 @@ const stubAssessmentEpisodes = () => {
         'Content-Type': 'application/json;charset=UTF-8',
       },
       status: 200,
-      jsonBody: {},
+      jsonBody: {
+        episodeUuid: '22222222-2222-2222-2222-222222222222',
+        predictors: [],
+      },
     },
   })
 }
@@ -263,7 +266,7 @@ const stubQuestions = async () => {
   await stubQuestionGroup('ROSH')
   await stubQuestionGroup('pre_sentence_assessment')
   await stubQuestionGroup('12222222-2222-2222-2222-222222222203')
-  await stubQuestionGroup('rsr_only')
+  await stubQuestionGroup('RSR')
   // await stubAllInternalQuestionGroups(questionGroups['65a3924c-4130-4140-b7f4-cc39a52603bb'])
   // await stubAllInternalQuestionGroups(questionGroups['22222222-2222-2222-2222-222222222203'])
 }
@@ -278,6 +281,7 @@ const stubAssessmentTypeSummaries = async () => {
   await stubAssessmentTypeSummary('65a3924c-4130-4140-b7f4-cc39a52603bb') // short psr
   await stubAssessmentTypeSummary('22222222-2222-2222-2222-222222222203') // brief
   await stubAssessmentTypeSummary('ROSH') // brief
+  await stubAssessmentTypeSummary('RSR') // RSR Only
 }
 const stubAnswers = async () => {
   await stubAnswersGroup(1234)
