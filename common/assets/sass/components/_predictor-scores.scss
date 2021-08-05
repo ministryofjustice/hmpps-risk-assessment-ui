@@ -52,7 +52,7 @@ $predictor-score-background-colour: #f3f2f1;
     clear: both;
   }
 
-  & div > span {
+  & > div > span {
     height: 15px;
     display: block;
   }
@@ -208,15 +208,15 @@ $predictor-score-background-colour: #f3f2f1;
     box-sizing: border-box;
   }
 
-  & div:nth-child(4n + 1) > span:first-child {
+  & > div:nth-child(4n + 1) > span:first-child {
     background-color: $low-score-colour;
   }
 
-  & div:nth-child(4n + 2) > span:first-child {
+  & > div:nth-child(4n + 2) > span:first-child {
     background-color: $medium-score-colour;
   }
 
-  & div:nth-child(4n + 3) > span:first-child {
+  & > div:nth-child(4n + 3) > span:first-child {
     background-color: $high-score-colour;
   }
 }
@@ -226,7 +226,7 @@ $predictor-score-background-colour: #f3f2f1;
     width: percentage(math.div(1, 4));
   }
 
-  & div:nth-child(4n + 4) > span:first-child {
+  & > div:nth-child(4n + 4) > span:first-child {
     background-color: $very-high-score-colour;
   }
 }
@@ -249,7 +249,7 @@ $predictor-score-background-colour: #f3f2f1;
     border-left: 1px solid govuk-colour('black');
   }
 
-  & div:nth-child(4n + 1) {
+  & > div:nth-child(4n + 1) {
     &::before {
       @include govuk-font(16, 'bold');
       @include score-bar-label;
@@ -275,7 +275,7 @@ $predictor-score-background-colour: #f3f2f1;
     }
   }
 
-  & div:nth-child(4n + 2) {
+  & > div:nth-child(4n + 2) {
     &::after {
       @include govuk-font(16, 'bold');
       @include score-bar-label;
@@ -291,7 +291,7 @@ $predictor-score-background-colour: #f3f2f1;
     }
   }
 
-  & div:nth-child(4n + 3) {
+  & > div:nth-child(4n + 3) {
     &::after {
       @include govuk-font(16, 'bold');
       @include score-bar-label;
@@ -320,7 +320,7 @@ $predictor-score-background-colour: #f3f2f1;
     clear: both;
   }
 
-  & span {
+  & > span {
     padding: 3px 6px;
   }
 
@@ -357,7 +357,7 @@ $predictor-score-background-colour: #f3f2f1;
 }
 
 .predictor-timeline-section--hidden {
-  & div {
+  & > div {
     visibility: none;
     display: none;
   }
