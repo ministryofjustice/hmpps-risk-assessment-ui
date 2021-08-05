@@ -19,7 +19,7 @@ const redirectsToScores = groupUuid => groupsThatRedirectToScores.includes(group
 
 const saveQuestionGroup = async (req, res) => {
   const {
-    params: { assessmentId, subIndex },
+    params: { assessmentId, groupId },
     user,
     errors,
     body: answers,
@@ -45,7 +45,7 @@ const saveQuestionGroup = async (req, res) => {
           },
         }
         req.session.save()
-        return res.redirect(`/episode/${episodeUuid}/scores`)
+        return res.redirect(`/episode/${episodeUuid}/${groupId}/scores`)
       }
 
       return res.redirect(`/${assessmentId}/questiongroup/${res.locals.navigation.next.url}`)

@@ -8,6 +8,8 @@ const formatDate = dateString => {
   return `${datePart} at ${timePart}`
 }
 
+const removeSpecialCharactersFrom = string => string.replace(/[^a-zA-Z]/g, '')
+
 const formatPredictorScores = predictorScores => ({
   ...predictorScores,
   date: formatDate(predictorScores.date),
@@ -22,10 +24,18 @@ const splitPredictorScores = predictorScores => {
       })),
     )
     .reduce((result, { level, score, type, date }) => {
+      const scoreType = [removeSpecialCharactersFrom(type)]
       const groups = { ...result }
       groups[date] = {
         date,
-        scores: [...(result[date]?.scores || []), { level, score, type }],
+        scores: {
+          ...(result[date]?.scores || {}),
+          [scoreType]: {
+            level,
+            score,
+            type,
+          },
+        },
       }
       return groups
     }, {})
@@ -37,27 +47,31 @@ const splitPredictorScores = predictorScores => {
   const formattedScore = currentScores ? formatPredictorScores(currentScores) : null
   const formattedHistoricalScores = historicalScores.map(formatPredictorScores)
   return {
-    currentScores: formattedScore,
-    historicalScores: formattedHistoricalScores,
+    current: formattedScore,
+    historical: formattedHistoricalScores,
   }
+}
+
+const getSubheadingFor = assessmentType => {
+  const subheadings = { RSR: 'Risk of Serious Recidivism (RSR) assessment' }
+  return subheadings[assessmentType]
 }
 
 const displayPredictorScores = async (req, res) => {
   try {
     const {
-      params: { episodeUuid },
+      params: { episodeUuid, assessmentType },
     } = req
     const predictorScores = await getPredictorScoresForEpisode(episodeUuid)
 
     const { previousPage } = req.session.navigation
 
     const offenderName = res.locals.offenderDetails?.name || 'Offender'
-    const assessmentType = 'PLACEHOLDER - Assessment Type'
 
     return res.render(`${__dirname}/index`, {
       predictorScores: splitPredictorScores(predictorScores),
       heading: `${offenderName}'s scores`,
-      assessmentType,
+      subheading: getSubheadingFor(assessmentType),
       navigation: {
         previous: previousPage,
       },

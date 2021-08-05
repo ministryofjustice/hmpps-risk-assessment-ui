@@ -190,7 +190,7 @@ module.exports = app => {
   app.post('/assessment-from-delius', startAssessmentFromForm)
   app.post('/assessment-from-delius/:assessmentSchemaCode/crn/:crn/event/:deliusEventId', startAssessmentFromCrn)
 
-  app.get('/episode/:episodeUuid/scores', displayPredictorScores)
+  app.get('/episode/:episodeUuid/:assessmentType/scores', displayPredictorScores)
 
   app.use((error, req, res, next) =>
     res.render('app/error', {

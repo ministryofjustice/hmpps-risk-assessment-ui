@@ -33,21 +33,21 @@ const predictorScores = [
 
 const formattedCurrentPredictorScore = {
   date: '23 Jul 2021 at 12:00',
-  scores: [
-    { type: 'RSR', level: 'HIGH', score: 11.34 },
-    { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
-    { type: 'OSP/I', level: 'LOW', score: 3.45 },
-  ],
+  scores: {
+    RSR: { type: 'RSR', level: 'HIGH', score: 11.34 },
+    OSPC: { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
+    OSPI: { type: 'OSP/I', level: 'LOW', score: 3.45 },
+  },
 }
 
 const formattedHistoricalPredictorScores = [
   {
     date: '22 Jul 2021 at 12:00',
-    scores: [
-      { type: 'RSR', level: 'HIGH', score: 11.34 },
-      { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
-      { type: 'OSP/I', level: 'LOW', score: 3.45 },
-    ],
+    scores: {
+      RSR: { type: 'RSR', level: 'HIGH', score: 11.34 },
+      OSPC: { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
+      OSPI: { type: 'OSP/I', level: 'LOW', score: 3.45 },
+    },
   },
 ]
 
@@ -55,6 +55,7 @@ describe('display predictor scores', () => {
   const req = {
     params: {
       episodeUuid: '22222222-2222-2222-2222-222222222222',
+      assessmentType: 'RSR',
     },
     session: {
       navigation: {
@@ -86,7 +87,7 @@ describe('display predictor scores', () => {
 
     expect(getPredictorScoresForEpisode).toHaveBeenCalledWith(episodeUuid)
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/index`, {
-      assessmentType: 'PLACEHOLDER - Assessment Type',
+      subheading: 'Risk of Serious Recidivism (RSR) assessment',
       heading: "Bob Ross's scores",
       navigation: {
         previous: {
@@ -95,8 +96,8 @@ describe('display predictor scores', () => {
         },
       },
       predictorScores: {
-        currentScores: formattedCurrentPredictorScore,
-        historicalScores: formattedHistoricalPredictorScores,
+        current: formattedCurrentPredictorScore,
+        historical: formattedHistoricalPredictorScores,
       },
     })
   })

@@ -1,5 +1,6 @@
 {% extends "common/templates/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "common/templates/components/predictor-score/macro.njk" import predictorScore%}
 
 {% block pageTitle %}
     {{ heading }}
@@ -15,7 +16,9 @@
 {% endblock %}
 
 {% block content %}
-    <span class="govuk-caption-xl">{{ assessmentType }}</span>
+    {% if subheading %}
+    <span class="govuk-caption-xl">{{ subheading }}</span>
+    {% endif %}
     <h1 class="govuk-heading-xl">
         {{ heading }}
     </h1>
@@ -25,6 +28,7 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full">
                     <h2 class="govuk-heading-l">RSR score</h2>
+                    {{ predictorScore(predictorScores.current.scores.RSR) }}
                     <details class="govuk-details" data-module="govuk-details">
                         <summary class="govuk-details__summary">
                             <span class="govuk-details__summary-text">
@@ -40,9 +44,11 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-one-half">
                     <h2 class="govuk-heading-l">OSP/C score</h2>
+                    {{ predictorScore(predictorScores.current.scores.OSPC) }}
                 </div>
                 <div class="govuk-grid-column-one-half">
                     <h2 class="govuk-heading-l">OSP/I score</h2>
+                    {{ predictorScore(predictorScores.current.scores.OSPI) }}
                 </div>
             </div>
             <div class="govuk-grid-row">
