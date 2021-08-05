@@ -307,3 +307,51 @@ $predictor-score-background-colour: #f3f2f1;
     }
   }
 }
+
+@mixin predictor-timeline-item-base($primary-colour, $secondary-colour) {
+  outline: 2px solid $primary-colour;
+  padding: 0;
+  display: inline-block;
+
+  &::after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+
+  & span {
+    padding: 3px 6px;
+  }
+
+  & .predictor-timeline-item__level {
+    @include govuk-font(14, 'regular');
+
+    float: left;
+    color: $primary-colour;
+  }
+
+  & .predictor-timeline-item__score {
+    @include govuk-font(14, 'bold');
+
+    float: right;
+    color: govuk-colour('black');
+    background-color: $secondary-colour;
+  }
+}
+
+.predictor-timeline-item--very-high {
+  @include predictor-timeline-item-base($very-high-score-colour, $very-high-score-colour--light);
+}
+
+.predictor-timeline-item--high {
+  @include predictor-timeline-item-base($high-score-colour, $high-score-colour--light);
+}
+
+.predictor-timeline-item--medium {
+  @include predictor-timeline-item-base($medium-score-colour, $medium-score-colour--light);
+}
+
+.predictor-timeline-item--low {
+  @include predictor-timeline-item-base($low-score-colour, $low-score-colour--light);
+}

@@ -1,6 +1,7 @@
 {% extends "common/templates/layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
-{% from "common/templates/components/predictor-score/macro.njk" import predictorScore%}
+{% from "common/templates/components/predictor-score/macro.njk" import predictorScore %}
+{% from "common/templates/components/predictor-timeline/macro.njk" import predictorTimeline %}
 
 {% block pageTitle %}
     {{ heading }}
@@ -114,6 +115,7 @@
         <div class="govuk-grid-column-one-third">
             <h2 class="govuk-heading-l">Scores history</h2>
             <a href="#" class="govuk-link">Open all</a>
+            {{ predictorTimeline(predictorScores.historical) }}
         </div>
     </div>
 

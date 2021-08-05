@@ -1,0 +1,18 @@
+{% from "common/templates/components/predictor-timeline-item/macro.njk" import predictorTimelineItem %}
+
+<div class="moj-timeline">
+    {%for item in predictorScores %}    
+    <div class="moj-timeline__item">
+        <div class="moj-timeline__header">
+            <p class="moj-timeline__byline">{{ item.date }}</p>
+        </div>
+        <div class="moj-timeline__description">
+            <ul class="govuk-list">
+                <li>{{ predictorTimelineItem(item.scores.RSR) }}</li>
+                <li>{{ predictorTimelineItem(item.scores.OSPC) }}</li>
+                <li>{{ predictorTimelineItem(item.scores.OSPI) }}</li>
+            </ul>
+        </div>
+    </div>
+    {% endfor %}
+</div>
