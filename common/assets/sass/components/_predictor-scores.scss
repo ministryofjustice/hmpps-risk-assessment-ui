@@ -355,3 +355,17 @@ $predictor-score-background-colour: #f3f2f1;
 .predictor-timeline-item--low {
   @include predictor-timeline-item-base($low-score-colour, $low-score-colour--light);
 }
+
+.predictor-timeline-section--hidden {
+  & div {
+    visibility: none;
+    display: none;
+  }
+}
+
+.predictor-timeline__heading {
+  h2,
+  a {
+    display: inline;
+  }
+}

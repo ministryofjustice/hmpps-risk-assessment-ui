@@ -113,8 +113,10 @@
             </div>
         </div>
         <div class="govuk-grid-column-one-third">
-            <h2 class="govuk-heading-l">Scores history</h2>
-            <a href="#" class="govuk-link">Open all</a>
+            <div class="govuk-body predictor-timeline__heading">
+                <h2 class="govuk-heading-l">Scores history</h2>
+                <a id="predictor-timeline__toggle-all" href="#" class="govuk-link">Open all</a>
+            </div>
             {{ predictorTimeline(predictorScores.historical) }}
         </div>
     </div>
