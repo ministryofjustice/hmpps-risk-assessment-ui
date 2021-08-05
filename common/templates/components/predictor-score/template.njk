@@ -1,5 +1,7 @@
 {% from "common/templates/components/predictor-indicator/macro.njk" import predictorIndicator %}
 
+{% set scoreLabelClass = '' %}
+
 {% if predictorScore.level === 'LOW' and (predictorScore.type  === 'RSR' or predictorScore.type  === 'OSP/I')%}
     {% set scoreLabelClass = 'score-label-wrapper--low score-label-wrapper--position-one-of-three' %}
 {% elif predictorScore.level === 'MEDIUM' and (predictorScore.type  === 'RSR' or predictorScore.type  === 'OSP/I') %}
@@ -14,7 +16,7 @@
     {% set scoreLabelClass = 'score-label-wrapper--high score-label-wrapper--position-three-of-four' %}
 {% elif predictorScore.level === 'VERY_HIGH' and predictorScore.type  === 'OSP/C' %}
     {% set scoreLabelClass = 'score-label-wrapper--very-high score-label-wrapper--position-four-of-four' %}
-{% endif%}
+{% endif %}
 
 {% set barTypeClass = '' %}
 
@@ -42,8 +44,8 @@
         </div>
         <div>
             <span></span>
-        </div>
-        {% if predictorScore.type === 'OSP/I' %}
+        </div>        
+        {% if predictorScore.type === 'OSP/C' %}
         <div>
             <span></span>
         </div>
