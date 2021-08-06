@@ -94,6 +94,9 @@ describe('display predictor scores', () => {
           name: 'previous page',
           url: '/foo/bar',
         },
+        complete: {
+          url: '/episode/22222222-2222-2222-2222-222222222222/RSR/scores/complete',
+        },
       },
       predictorScores: {
         current: formattedCurrentPredictorScore,

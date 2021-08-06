@@ -1,5 +1,6 @@
 const { format, parseISO } = require('date-fns')
 const { getPredictorScoresForEpisode } = require('../../common/data/predictorScores')
+const logger = require('../../common/logging/logger')
 
 const formatDate = dateString => {
   const date = parseISO(dateString)
@@ -62,6 +63,9 @@ const displayPredictorScores = async (req, res) => {
     const {
       params: { episodeUuid, assessmentType },
     } = req
+
+    logger.info(`Displaying predictor scores for episode: ${episodeUuid} of type: ${assessmentType}`)
+
     const predictorScores = await getPredictorScoresForEpisode(episodeUuid)
 
     const { previousPage } = req.session.navigation
@@ -74,6 +78,7 @@ const displayPredictorScores = async (req, res) => {
       subheading: getSubheadingFor(assessmentType),
       navigation: {
         previous: previousPage,
+        complete: { url: `/episode/${episodeUuid}/${assessmentType}/scores/complete` },
       },
     })
   } catch (error) {

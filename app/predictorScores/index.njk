@@ -1,4 +1,5 @@
 {% extends "common/templates/layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "common/templates/components/predictor-score/macro.njk" import predictorScore %}
 {% from "common/templates/components/predictor-timeline/macro.njk" import predictorTimeline %}
@@ -109,6 +110,22 @@
                             <p>The OSP/I scale takes into account the overall number of current and previous convictions for IIOC offences.</p>
                         </div>
                     </details>
+                </div>
+            </div>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full">
+                    <div class="govuk-button-group">
+                        {{ govukButton({
+                            text: "Submit scores to OASys",
+                            href: navigation.complete.url
+                        }) }}
+
+                        {{ govukButton({
+                            text: "Return to questions",
+                            classes: "govuk-button--secondary",
+                            href: navigation.previous.url
+                        }) }}
+                    </div>
                 </div>
             </div>
         </div>

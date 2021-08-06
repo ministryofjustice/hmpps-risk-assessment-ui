@@ -56,6 +56,7 @@ const {
   dev: { devAssessmentId },
 } = require('../common/config')
 const { displayPredictorScores } = require('./predictorScores/get.controller')
+const { submitPredictorScores } = require('./submitPredictorScores/get.controller')
 
 const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 
@@ -191,6 +192,7 @@ module.exports = app => {
   app.post('/assessment-from-delius/:assessmentSchemaCode/crn/:crn/event/:deliusEventId', startAssessmentFromCrn)
 
   app.get('/episode/:episodeUuid/:assessmentType/scores', displayPredictorScores)
+  app.get('/episode/:episodeUuid/:assessmentType/scores/complete', submitPredictorScores)
 
   app.use((error, req, res, next) =>
     res.render('app/error', {
