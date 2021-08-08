@@ -51,7 +51,7 @@ function addPredictorTimelineListeners() {
       sections[i].classList.add('predictor-timeline-section--hidden')
     }
 
-    var openSectionButtons = sections[i].getElementsByClassName('predictor-timeline__toggle-section')
+    var openSectionButtons = sections[i].parentElement.getElementsByClassName('predictor-timeline__toggle-section')
     for (var j = 0; j < openSectionButtons.length; j++) {
       attachListenerForToggleSectionButton(openSectionButtons[j], sections[i], allHidden)
     }

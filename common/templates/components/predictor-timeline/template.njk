@@ -8,15 +8,13 @@
         </div>
         <div class="moj-timeline__description">
             <div class="predictor-timeline-section">
-                <div>
-                    <ul class="govuk-list">
-                        <li>{{ predictorTimelineItem(item.scores.RSR) }}</li>
-                        <li>{{ predictorTimelineItem(item.scores.OSPC) }}</li>
-                        <li>{{ predictorTimelineItem(item.scores.OSPI) }}</li>
-                    </ul>
-                </div>
-                <a href="#" class="govuk-link predictor-timeline__toggle-section">Open</a>
+                <ul class="govuk-list">
+                    <li>{{ predictorTimelineItem(item.scores.RSR) }}</li>
+                    <li>{{ predictorTimelineItem(item.scores.OSPC) }}</li>
+                    <li>{{ predictorTimelineItem(item.scores.OSPI) }}</li>
+                </ul>
             </div>
+            <a href="#" class="govuk-link predictor-timeline__toggle-section">Open</a>
         </div>
     </div>
     {% endfor %}
