@@ -107,10 +107,8 @@ $predictor-score-background-colour: #f3f2f1;
 }
 
 .predictor-timeline-section--hidden {
-  & {
-    visibility: none;
-    display: none;
-  }
+  visibility: none;
+  display: none;
 }
 
 .predictor-timeline__heading {
