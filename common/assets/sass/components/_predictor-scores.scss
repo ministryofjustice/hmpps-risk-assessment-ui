@@ -1,13 +1,13 @@
 @use 'sass:math';
 
 $very-high-score-colour: #761708;
-$very-high-score-colour--light: #a33322;
+$very-high-score-colour--light: desaturate(lighten($very-high-score-colour, 40%), 20%);
 $high-score-colour: #d4351c;
-$high-score-colour--light: #e97766;
-$medium-score-colour: #f47738;
-$medium-score-colour--light: #fc9c6b;
-$low-score-colour: #85994b;
-$low-score-colour--light: #dee9bd;
+$high-score-colour--light: desaturate(lighten($high-score-colour, 40%), 20%);
+$medium-score-colour: #bb5c00;
+$medium-score-colour--light: desaturate(lighten($medium-score-colour, 40%), 20%);
+$low-score-colour: #00703c;
+$low-score-colour--light: desaturate(lighten($low-score-colour, 40%), 20%);
 $predictor-score-background-colour: #f3f2f1;
 
 @mixin score-label-card-colour($primary-colour, $secondary-colour) {
@@ -107,7 +107,7 @@ $predictor-score-background-colour: #f3f2f1;
 }
 
 .predictor-timeline-section--hidden {
-  & > div {
+  & {
     visibility: none;
     display: none;
   }
