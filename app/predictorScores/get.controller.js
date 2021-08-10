@@ -1,5 +1,5 @@
 const { format, parseISO } = require('date-fns')
-const { getPredictorScoresForEpisode } = require('../../common/data/predictorScores')
+const { getDraftPredictorScores } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 
 const formatDate = dateString => {
@@ -61,27 +61,32 @@ const getSubheadingFor = assessmentType => {
 const displayPredictorScores = async (req, res) => {
   try {
     const {
-      params: { episodeUuid, assessmentType },
+      params: { episodeUuid, assessmentUuid, assessmentType },
+      user,
     } = req
 
-    logger.info(`Displaying predictor scores for episode: ${episodeUuid} of type: ${assessmentType}`)
+    const { predictors } = await getDraftPredictorScores(episodeUuid, user?.token, user?.id)
 
-    const predictorScores = await getPredictorScoresForEpisode(episodeUuid)
+    if (!predictors) {
+      return res.render('app/error', { error: new Error('Failed to get predictor scores') })
+    }
+
+    logger.info(`Received ${predictors.length} predictor scores for episode: ${episodeUuid}`)
 
     const { previousPage } = req.session.navigation
-
     const offenderName = res.locals.offenderDetails?.name || 'Offender'
 
     return res.render(`${__dirname}/index`, {
-      predictorScores: splitPredictorScores(predictorScores),
+      predictorScores: splitPredictorScores(predictors),
       heading: `${offenderName}'s scores`,
       subheading: getSubheadingFor(assessmentType),
       navigation: {
         previous: previousPage,
-        complete: { url: `/episode/${episodeUuid}/${assessmentType}/scores/complete` },
+        complete: { url: `/${assessmentUuid}/episode/${episodeUuid}/${assessmentType}/scores/complete` },
       },
     })
   } catch (error) {
+    logger.info(`Failed to display predictor scores - ${error.message} ${error.stack}`)
     return res.render('app/error', { error })
   }
 }

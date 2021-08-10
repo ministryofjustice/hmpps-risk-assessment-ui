@@ -1,11 +1,16 @@
 const { displayPredictorScores } = require('./get.controller')
-const { getPredictorScoresForEpisode } = require('../../common/data/predictorScores')
+const { getDraftPredictorScores } = require('../../common/data/hmppsAssessmentApi')
 
-jest.mock('../../common/data/predictorScores', () => ({
-  getPredictorScoresForEpisode: jest.fn(),
+jest.mock('../../common/data/hmppsAssessmentApi', () => ({
+  getDraftPredictorScores: jest.fn(),
 }))
 
+const assessmentUuid = '22222222-2222-2222-2222-222222222221'
 const episodeUuid = '22222222-2222-2222-2222-222222222222'
+const user = {
+  id: 'USER_ID',
+  token: 'USER_TOKEN',
+}
 
 const predictorScores = [
   {
@@ -54,7 +59,8 @@ const formattedHistoricalPredictorScores = [
 describe('display predictor scores', () => {
   const req = {
     params: {
-      episodeUuid: '22222222-2222-2222-2222-222222222222',
+      episodeUuid,
+      assessmentUuid,
       assessmentType: 'RSR',
     },
     session: {
@@ -65,6 +71,7 @@ describe('display predictor scores', () => {
         },
       },
     },
+    user,
   }
   const res = {
     render: jest.fn(),
@@ -77,15 +84,15 @@ describe('display predictor scores', () => {
   }
 
   beforeEach(() => {
-    getPredictorScoresForEpisode.mockReset()
+    getDraftPredictorScores.mockReset()
   })
 
   it('displays predictor scores', async () => {
-    getPredictorScoresForEpisode.mockResolvedValue(predictorScores)
+    getDraftPredictorScores.mockResolvedValue({ predictors: predictorScores })
 
     await displayPredictorScores(req, res)
 
-    expect(getPredictorScoresForEpisode).toHaveBeenCalledWith(episodeUuid)
+    expect(getDraftPredictorScores).toHaveBeenCalledWith(episodeUuid, user.token, user.id)
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/index`, {
       subheading: 'Risk of Serious Recidivism (RSR) assessment',
       heading: "Bob Ross's scores",
@@ -95,7 +102,7 @@ describe('display predictor scores', () => {
           url: '/foo/bar',
         },
         complete: {
-          url: '/episode/22222222-2222-2222-2222-222222222222/RSR/scores/complete',
+          url: '/22222222-2222-2222-2222-222222222221/episode/22222222-2222-2222-2222-222222222222/RSR/scores/complete',
         },
       },
       predictorScores: {
@@ -107,11 +114,11 @@ describe('display predictor scores', () => {
 
   it('catches exceptions and renders the error page', async () => {
     const theError = new Error('💥')
-    getPredictorScoresForEpisode.mockRejectedValue(theError)
+    getDraftPredictorScores.mockRejectedValue(theError)
 
     await displayPredictorScores(req, res)
 
-    expect(getPredictorScoresForEpisode).toHaveBeenCalled()
+    expect(getDraftPredictorScores).toHaveBeenCalled()
     expect(res.render).toHaveBeenCalledWith(`app/error`, { error: theError })
   })
 })

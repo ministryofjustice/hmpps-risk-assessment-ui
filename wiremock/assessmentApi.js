@@ -7,6 +7,7 @@ const assessmentEpisodes = require('./responses/assessmentEpisodes.json')
 const offenderDetails = require('./responses/offenderDetails.json')
 const assessmentSupervision = require('./responses/assessmentSupervision.json')
 const updateEpisode = require('./responses/updateEpisode.json')
+const predictors = require('./responses/predictors.json')
 
 const stubGetAssessments = () => {
   stubFor({
@@ -255,6 +256,23 @@ const stubAssessmentEpisodes = () => {
     },
   })
 }
+
+const stubPredictors = async () => {
+  await stubFor({
+    request: {
+      method: 'GET',
+      urlPattern: `/episode/.+?/risk/predictors/RSR.+?`,
+    },
+    response: {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+      },
+      status: 200,
+      jsonBody: predictors,
+    },
+  })
+}
+
 const stubQuestions = async () => {
   await stubQuestionGroup('1234')
   await stubQuestionGroup('22222222-2222-2222-2222-222222222203')
@@ -331,5 +349,6 @@ module.exports = {
   stubGetAssessments,
   stubGetQuestionGroup,
   stubRemoveTableRow,
+  stubPredictors,
   stubErrors,
 }
