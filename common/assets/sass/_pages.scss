@@ -26,12 +26,12 @@
 .govuk-fieldset[aria-describedby='id-c2b221b4-ee1f-41c8-8fc7-9d49998fab35-hint'],
 .govuk-fieldset[aria-describedby='id-e887bcea-91d1-4c50-a25e-4335fa1e6ae5-hint'],
 .govuk-fieldset[aria-describedby='id-9692659a-778a-436a-bf4e-fe1924638e37-hint'],
-.govuk-fieldset[aria-describedby='id-68e31f3a-5175-47e2-986b-d722ad78d893-hint'],
-{
+.govuk-fieldset[aria-describedby='id-68e31f3a-5175-47e2-986b-d722ad78d893-hint'] {
   .govuk-radios {
     @extend .govuk-radios--inline;
   }
 }
+
 #conditional-id-form-86da001c-a703-4ef2-9c0d-e5c90336055c {
   margin-top: govuk-spacing(8);
 }
