@@ -1,6 +1,6 @@
 const PredictorsPage = require('../../pages/predictors/predictorsPage')
 
-const scoreHistoryTimeline = () => cy.get('#predictor-scores-history').find('.predictor-timeline-section')
+// const scoreHistoryTimeline = () => cy.get('#predictor-scores-history').find('.predictor-timeline-section')
 
 const headingsIn = elementId => cy.get(`#${elementId}`).find('h2')
 
