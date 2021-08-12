@@ -11,45 +11,22 @@ const formatDate = dateString => {
 
 const removeSpecialCharactersFrom = string => string.replace(/[^a-zA-Z]/g, '')
 
-const formatPredictorScores = predictorScores => ({
-  ...predictorScores,
-  date: formatDate(predictorScores.date),
-})
-
 const splitPredictorScores = predictorScores => {
-  const groupedScores = predictorScores
-    .flatMap(predictor =>
-      predictor.scores.map(predictorScore => ({
-        ...predictorScore,
-        type: predictor.type,
-      })),
-    )
-    .reduce((result, { level, score, type, date }) => {
-      const scoreType = [removeSpecialCharactersFrom(type)]
-      const groups = { ...result }
-      groups[date] = {
-        date,
-        scores: {
-          ...(result[date]?.scores || {}),
-          [scoreType]: {
-            level,
-            score,
-            type,
-          },
-        },
-      }
-      return groups
-    }, {})
+  const formattedScores = Object.entries(predictorScores).reduce((previous, [type, { level, score, date }]) => {
+    const updated = { ...previous, date: formatDate(date) }
+    const key = removeSpecialCharactersFrom(type)
 
-  const sortedScores = Object.values(groupedScores).sort((a, b) => (a.date > b.date ? -1 : 1))
+    updated.scores = {
+      ...(updated.scores || {}),
+      [key]: { level, score, type },
+    } // 🤔
 
-  const [currentScores, ...historicalScores] = sortedScores
+    return updated
+  }, {})
 
-  const formattedScore = currentScores ? formatPredictorScores(currentScores) : null
-  const formattedHistoricalScores = historicalScores.map(formatPredictorScores)
   return {
-    current: formattedScore,
-    historical: formattedHistoricalScores,
+    current: formattedScores,
+    historical: [], // TODO: 👈 Add some code to do these
   }
 }
 

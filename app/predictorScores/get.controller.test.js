@@ -12,29 +12,11 @@ const user = {
   token: 'USER_TOKEN',
 }
 
-const predictorScores = [
-  {
-    type: 'RSR',
-    scores: [
-      { level: 'HIGH', score: 11.34, isValid: true, date: '2021-07-23T12:00' },
-      { level: 'HIGH', score: 11.34, isValid: true, date: '2021-07-22T12:00' },
-    ],
-  },
-  {
-    type: 'OSP/C',
-    scores: [
-      { level: 'MEDIUM', score: 8.76, isValid: true, date: '2021-07-23T12:00' },
-      { level: 'MEDIUM', score: 8.76, isValid: true, date: '2021-07-22T12:00' },
-    ],
-  },
-  {
-    type: 'OSP/I',
-    scores: [
-      { level: 'LOW', score: 3.45, isValid: true, date: '2021-07-23T12:00' },
-      { level: 'LOW', score: 3.45, isValid: true, date: '2021-07-22T12:00' },
-    ],
-  },
-]
+const predictorScores = {
+  RSR: { level: 'HIGH', score: 11.34, isValid: true, date: '2021-07-23T12:00' },
+  'OSP/C': { level: 'MEDIUM', score: 8.76, isValid: true, date: '2021-07-23T12:00' },
+  'OSP/I': { level: 'LOW', score: 3.45, isValid: true, date: '2021-07-23T12:00' },
+}
 
 const formattedCurrentPredictorScore = {
   date: '23 Jul 2021 at 12:00',
@@ -45,16 +27,7 @@ const formattedCurrentPredictorScore = {
   },
 }
 
-const formattedHistoricalPredictorScores = [
-  {
-    date: '22 Jul 2021 at 12:00',
-    scores: {
-      RSR: { type: 'RSR', level: 'HIGH', score: 11.34 },
-      OSPC: { type: 'OSP/C', level: 'MEDIUM', score: 8.76 },
-      OSPI: { type: 'OSP/I', level: 'LOW', score: 3.45 },
-    },
-  },
-]
+const formattedHistoricalPredictorScores = []
 
 describe('display predictor scores', () => {
   const req = {

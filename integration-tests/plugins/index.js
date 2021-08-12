@@ -12,7 +12,6 @@ const {
   stubGetQuestionGroup,
   stubAssessmentComplete,
   stubAssessmentTypeSummaries,
-  stubPredictors,
   stubErrors,
 } = require('../../wiremock/assessmentApi')
 const { stubReferenceData } = require('../../wiremock/referenceData')
@@ -44,7 +43,6 @@ module.exports = on => {
         stubGetQuestionGroup(),
         stubAssessmentComplete(),
         stubOasysUser(),
-        stubPredictors(),
       ]),
     stubGetUserProfileWithSingleArea: () => Promise.all([stubGetUserProfileWithSingleArea()]),
     stubGetUserProfileWithMultipleAreas: () => Promise.all([stubGetUserProfile()]),
