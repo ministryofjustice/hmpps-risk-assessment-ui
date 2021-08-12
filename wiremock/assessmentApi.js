@@ -7,7 +7,6 @@ const assessmentEpisodes = require('./responses/assessmentEpisodes.json')
 const offenderDetails = require('./responses/offenderDetails.json')
 const assessmentSupervision = require('./responses/assessmentSupervision.json')
 const updateEpisode = require('./responses/updateEpisode.json')
-const predictors = require('./responses/predictors.json')
 
 const stubGetAssessments = () => {
   stubFor({

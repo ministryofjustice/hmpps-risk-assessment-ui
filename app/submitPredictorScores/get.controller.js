@@ -3,8 +3,7 @@ const { logger } = require('../../common/logging/logger')
 const submitPredictorScores = async (req, res) => {
   try {
     const {
-      params: { episodeUuid, assessmentUuid, assessmentType },
-      user,
+      params: { episodeUuid, assessmentType },
     } = req
 
     const offenderName = res.locals.offenderDetails?.name || 'the offender'
