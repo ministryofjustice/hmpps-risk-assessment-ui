@@ -1,8 +1,8 @@
 const { displayPredictorScores } = require('./get.controller')
-const { getDraftPredictorScores } = require('../../common/data/hmppsAssessmentApi')
+const { postCompleteAssessment } = require('../../common/data/hmppsAssessmentApi')
 
 jest.mock('../../common/data/hmppsAssessmentApi', () => ({
-  getDraftPredictorScores: jest.fn(),
+  postCompleteAssessment: jest.fn(),
 }))
 
 const assessmentUuid = '22222222-2222-2222-2222-222222222221'
@@ -84,15 +84,15 @@ describe('display predictor scores', () => {
   }
 
   beforeEach(() => {
-    getDraftPredictorScores.mockReset()
+    postCompleteAssessment.mockReset()
   })
 
   it('displays predictor scores', async () => {
-    getDraftPredictorScores.mockResolvedValue({ predictors: predictorScores })
+    postCompleteAssessment.mockResolvedValue([true, { predictors: predictorScores }])
 
     await displayPredictorScores(req, res)
 
-    expect(getDraftPredictorScores).toHaveBeenCalledWith(episodeUuid, user.token, user.id)
+    expect(postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
     expect(res.render).toHaveBeenCalledWith(`${__dirname}/index`, {
       subheading: 'Risk of Serious Recidivism (RSR) assessment',
       heading: "Bob Ross's scores",
@@ -114,11 +114,11 @@ describe('display predictor scores', () => {
 
   it('catches exceptions and renders the error page', async () => {
     const theError = new Error('💥')
-    getDraftPredictorScores.mockRejectedValue(theError)
+    postCompleteAssessment.mockRejectedValue(theError)
 
     await displayPredictorScores(req, res)
 
-    expect(getDraftPredictorScores).toHaveBeenCalled()
+    expect(postCompleteAssessment).toHaveBeenCalled()
     expect(res.render).toHaveBeenCalledWith(`app/error`, { error: theError })
   })
 })

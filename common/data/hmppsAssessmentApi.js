@@ -80,19 +80,6 @@ const getFilteredReferenceData = (assessmentId, episodeId, questionUuid, parentL
   return postData(path, authorisationToken, userId, requestBody)
 }
 
-const getDraftPredictorScores = (episodeUuid, authorisationToken, userId) => {
-  const path = `${url}/episode/${episodeUuid}/risk/predictors/RSR?type=draft`
-  return getData(path, authorisationToken, userId)
-}
-
-const createFinalPredictorScores = (episodeUuid, authorisationToken, userId) => {
-  const path = `${url}/episode/${episodeUuid}/risk/predictors/RSR?type=final`
-
-  logger.info(`Calling hmppsAssessments API with GET: ${path}`)
-
-  return action(superagent.get(path), authorisationToken, userId)
-}
-
 const getData = (path, authorisationToken, userId) => {
   logger.info(`Calling hmppsAssessments API with GET: ${path}`)
 
@@ -167,6 +154,4 @@ module.exports = {
   postTableRow,
   deleteTableRow,
   updateEditedTableRow: updateTableRow,
-  getDraftPredictorScores,
-  createFinalPredictorScores,
 }
