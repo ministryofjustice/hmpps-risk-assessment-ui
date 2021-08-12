@@ -18,37 +18,39 @@ context('Predictors page', () => {
       .should('contain.text', 'OSP/I score')
   })
 
-  it('Allows the user to "Open all" timeline events', () => {
-    PredictorsPage.visit()
+  // 👇 uncomment these when we add history
 
-    headingsIn('predictor-scores-history').should('contain.text', 'Scores history')
+  // it('Allows the user to "Open all" timeline events', () => {
+  //   PredictorsPage.visit()
 
-    scoreHistoryTimeline().should('not.to.be.visible')
+  //   headingsIn('predictor-scores-history').should('contain.text', 'Scores history')
 
-    cy.contains('a', 'Open all').click()
+  //   scoreHistoryTimeline().should('not.to.be.visible')
 
-    scoreHistoryTimeline().should('to.be.visible')
+  //   cy.contains('a', 'Open all').click()
 
-    scoreHistoryTimeline().contains('RSR HIGH')
-    scoreHistoryTimeline().contains('OSP/C MEDIUM')
-    scoreHistoryTimeline().contains('OSP/I LOW')
-  })
+  //   scoreHistoryTimeline().should('to.be.visible')
 
-  it('Allows the user to "Open" a single timeline event', () => {
-    PredictorsPage.visit()
+  //   scoreHistoryTimeline().contains('RSR HIGH')
+  //   scoreHistoryTimeline().contains('OSP/C MEDIUM')
+  //   scoreHistoryTimeline().contains('OSP/I LOW')
+  // })
 
-    scoreHistoryTimeline()
-      .first()
-      .should('not.to.be.visible')
+  // it('Allows the user to "Open" a single timeline event', () => {
+  //   PredictorsPage.visit()
 
-    scoreHistoryTimeline()
-      .first()
-      .parent()
-      .contains('a', 'Open')
-      .click()
+  //   scoreHistoryTimeline()
+  //     .first()
+  //     .should('not.to.be.visible')
 
-    scoreHistoryTimeline()
-      .first()
-      .should('to.be.visible')
-  })
+  //   scoreHistoryTimeline()
+  //     .first()
+  //     .parent()
+  //     .contains('a', 'Open')
+  //     .click()
+
+  //   scoreHistoryTimeline()
+  //     .first()
+  //     .should('to.be.visible')
+  // })
 })
