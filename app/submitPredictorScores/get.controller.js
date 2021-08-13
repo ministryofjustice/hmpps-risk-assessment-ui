@@ -3,14 +3,14 @@ const { logger } = require('../../common/logging/logger')
 const submitPredictorScores = async (req, res) => {
   try {
     const {
-      params: { episodeUuid, assessmentType },
+      params: { assessmentId, assessmentType },
     } = req
 
     const offenderName = res.locals.offenderDetails?.name || 'the offender'
 
-    logger.info(`Creating final predictor scores for episode: ${episodeUuid} of type: ${assessmentType}`)
+    logger.info(`Creating final predictor scores for episode: ${assessmentId} of type: ${assessmentType}`)
 
-    // TODO: Call assessments API to finalise the predictor scores
+    // TODO: create final predictor scores
 
     return res.render(`${__dirname}/index`, {
       panelText: `Your answers and scores for ${offenderName} have been uploaded to OASys`,
