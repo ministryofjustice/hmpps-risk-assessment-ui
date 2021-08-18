@@ -61,16 +61,21 @@
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-one-half">
+                    {% if predictorScores.current.scores.OSPC.level !== 'NOT_AVAILABLE' %}
                     <h2 class="govuk-heading-l">OSP/C score</h2>
                     {{ predictorScore(predictorScores.current.scores.OSPC) }}
+                    {% endif %}
                 </div>
                 <div class="govuk-grid-column-one-half">
+                    {% if predictorScores.current.scores.OSPI.level !== 'NOT_AVAILABLE' %}
                     <h2 class="govuk-heading-l">OSP/I score</h2>
                     {{ predictorScore(predictorScores.current.scores.OSPI) }}
+                    {% endif %}
                 </div>
             </div>
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full">
+                    {% if predictorScores.current.scores.OSPC.level !== 'NOT_AVAILABLE' %}
                     <details class="govuk-details" data-module="govuk-details">
                         <summary class="govuk-details__summary">
                             <span class="govuk-details__summary-text">
@@ -91,6 +96,8 @@
                             <p>OSP/C takes into account information about the individual such as age, number of sexual or sexually motivated offences, previous offending and if they have committed a contact or attempted contact offence against a stranger victim.</p>
                         </div>
                     </details>
+                    {% endif %}
+                    {% if predictorScores.current.scores.OSPI.level !== 'NOT_AVAILABLE' %}
                     <details class="govuk-details" data-module="govuk-details">
                         <summary class="govuk-details__summary">
                             <span class="govuk-details__summary-text">
@@ -110,6 +117,7 @@
                             <p>The OSP/I scale takes into account the overall number of current and previous convictions for IIOC offences.</p>
                         </div>
                     </details>
+                    {% endif %}
                 </div>
             </div>
             <div class="govuk-grid-row">
