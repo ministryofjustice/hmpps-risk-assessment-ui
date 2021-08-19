@@ -62,15 +62,15 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
 
       var radioInput = document.createElement('input')
       radioInput.type = 'radio'
-      radioInput.id = 'id-' + radioGroup.dataset.questionUuid + '-' + (1 + i)
+      radioInput.id = radioGroup.dataset.questionUuid + '-' + (1 + i)
       radioInput.className = 'govuk-radios__input'
-      radioInput.name = 'id-' + radioGroup.dataset.questionUuid
+      radioInput.name = radioGroup.dataset.questionUuid
       radioInput.value = option.value
 
       var label = document.createElement('label')
       label.className = 'govuk-label govuk-radios__label'
       label.innerHTML = option.text
-      label.setAttribute('for', 'id-' + radioGroup.dataset.questionUuid + '-' + (1 + i))
+      label.setAttribute('for', radioGroup.dataset.questionUuid + '-' + (1 + i))
 
       radioItem.appendChild(radioInput)
       radioItem.appendChild(label)
@@ -107,14 +107,14 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
       req.withCredentials = true
       req.send(JSON.stringify(state))
 
-      req.onload = function() {
+      req.onload = function () {
         if (this.status !== 200) {
           return removeExistingOptions(element)
         }
         updateOptions(element, JSON.parse(this.responseText))
       }
 
-      req.onerror = function() {
+      req.onerror = function () {
         removeExistingOptions(element)
       }
     }
@@ -122,7 +122,7 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
 
   function addListenerToTarget(targetElement, element, state) {
     var questionUuid = targetElement.dataset.questionUuid
-    targetElement.addEventListener('change', function(event) {
+    targetElement.addEventListener('change', function (event) {
       state.targetValues[questionUuid] = event.target.value
 
       fetchReferenceData(state, element)
@@ -146,7 +146,7 @@ function addFilteredReferenceDataListeners(assessmentUuid, episodeUuid) {
       state[questionUuid].targetValues[target.uuid] = null
       state[questionUuid].requiredValues[target.uuid] = target.isRequired
 
-      var targetElements = document.querySelectorAll('[data-question-uuid="' + target.uuid + '"]')
+      var targetElements = document.querySelectorAll('[data-question-code="' + target.uuid + '"]')
 
       for (var k = 0; k < targetElements.length; k++) {
         var targetElement = targetElements[k]

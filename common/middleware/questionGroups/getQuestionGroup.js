@@ -132,7 +132,7 @@ module.exports = async ({ params: { groupId, subgroup = 0, page = 0 }, user }, r
     thisQuestionGroup.contents = thisQuestionGroup.contents?.map(questionSchema => {
       const attributes = {
         ...questionSchema.attributes,
-        'data-question-uuid': questionSchema.questionId,
+        'data-question-code': questionSchema.questionCode,
         'data-question-type': questionSchema.answerType,
       }
 

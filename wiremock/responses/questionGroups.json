@@ -291,7 +291,7 @@
                     "text": "Yes",
                     "conditionals": [
                       {
-                        "conditional": "conditional-question-id-1111111",
+                        "conditional": "further_information",
                         "displayInline": true
                       }
                     ]
@@ -307,7 +307,7 @@
               {
                 "type": "question",
                 "questionId": "conditional-question-id-1111111",
-                "questionCode": "Further information",
+                "questionCode": "further_information",
                 "answerType": "textarea",
                 "questionText": "Further information",
                 "displayOrder": "1",
@@ -333,7 +333,7 @@
                     "text": "Yes",
                     "conditionals": [
                       {
-                        "conditional": "conditional-question-id-9911111",
+                        "conditional": "accommodation_type",
                         "displayInline": false
                       }
                     ]
@@ -349,7 +349,7 @@
               {
                 "type": "question",
                 "questionId": "conditional-question-id-9911111",
-                "questionCode": "78.1",
+                "questionCode": "accommodation_type",
                 "answerType": "radio",
                 "questionText": "Accommodation type",
                 "displayOrder": 4,
@@ -446,15 +446,15 @@
                     "text": "Yes",
                     "conditionals": [
                       {
-                        "conditional": "ef018645-b846-4022-b290-1e7d3d380b4d",
+                        "conditional": "drug_misuse_details",
                         "displayInline": true
                       },
                       {
-                        "conditional": "0419944f-ad54-4035-bef0-dca3bda4ff64",
+                        "conditional": "drug_misuse_frequency",
                         "displayInline": false
                       },
                       {
-                        "conditional": "db85cfb1-bf5e-4852-bfe8-137f44570cab",
+                        "conditional": "drug_misuse_motivation",
                         "displayInline": false
                       }
                     ]
@@ -470,7 +470,7 @@
               {
                 "type": "question",
                 "questionId": "ef018645-b846-4022-b290-1e7d3d380b4d",
-                "questionCode": "97.1",
+                "questionCode": "drug_misuse_details",
                 "answerType": "textarea",
                 "questionText": "Give details",
                 "displayOrder": 24,
@@ -481,7 +481,7 @@
               {
                 "type": "question",
                 "questionId": "0419944f-ad54-4035-bef0-dca3bda4ff64",
-                "questionCode": "98.1",
+                "questionCode": "drug_misuse_frequency",
                 "answerType": "radio",
                 "questionText": "Is there current or recent drug misuse on a daily or weekly basis?",
                 "displayOrder": 25,
@@ -522,7 +522,7 @@
               {
                 "type": "question",
                 "questionId": "db85cfb1-bf5e-4852-bfe8-137f44570cab",
-                "questionCode": "100.1",
+                "questionCode": "drug_misuse_motivation",
                 "answerType": "freetext",
                 "questionText": "Is the individual motivated to tackle drugs misuse?",
                 "displayOrder": 27,
@@ -7253,7 +7253,7 @@
                         "displayInline": false
                       },
                       {
-                        "conditional": "db85cfb1-bf5e-4852-bfe8-137f44570cab",
+                        "conditional": "drug_misuse_motivation",
                         "displayInline": false
                       }
                     ]
@@ -7321,7 +7321,7 @@
               {
                 "type": "question",
                 "questionId": "db85cfb1-bf5e-4852-bfe8-137f44570cab",
-                "questionCode": "100.1",
+                "questionCode": "drug_misuse_motivation",
                 "answerType": "freetext",
                 "questionText": "Is the individual motivated to tackle drugs misuse?",
                 "displayOrder": 27,

@@ -60,8 +60,8 @@ const annotateWithAnswers = (questions, answers, body) => {
     }
 
     let answerValues
-    const answerInBody = body[questionSchema.questionId]
-    const storedAnswer = answers[questionSchema.questionId]
+    const answerInBody = body[questionSchema.questionCode]
+    const storedAnswer = answers[questionSchema.questionCode]
     const preferredAnswer = answerInBody || storedAnswer
     const answer = asArray(preferredAnswer)
 
@@ -104,7 +104,7 @@ const compileInlineConditionalQuestions = (questions, errors) => {
   const conditionalQuestions = {}
   questions.forEach(question => {
     if (question.conditional) {
-      const key = question.questionId
+      const key = question.questionCode
       conditionalQuestions[key] = question
     }
   })
@@ -140,8 +140,8 @@ const compileInlineConditionalQuestions = (questions, errors) => {
     .filter(question => {
       // remove questions that have been rendered inline
       return (
-        !conditionalQuestionsToRemove.includes(question.questionId) ||
-        outOfLineConditionalQuestions.includes(question.questionId)
+        !conditionalQuestionsToRemove.includes(question.questionCode) ||
+        outOfLineConditionalQuestions.includes(question.questionCode)
       )
     })
     .map(question => {
@@ -156,7 +156,7 @@ const compileInlineConditionalQuestions = (questions, errors) => {
         questionObject.isConditional = true
         questionObject.attributes = [
           ['data-outofline', 'true'],
-          ['data-base-id', `${questionObject.questionId}`],
+          ['data-base-question-code', `${questionObject.questionCode}`],
         ]
       }
       return questionObject
@@ -177,11 +177,11 @@ const updateAnswerSchemasWithInlineConditionals = ({
     const updatedSchemaLine = schemaLine
 
     schemaLine.conditionals?.forEach(conditionalDisplay => {
-      const subjectId = conditionalDisplay.conditional
+      const subjectCode = conditionalDisplay.conditional
       if (conditionalDisplay.displayInline) {
         let thisError
 
-        const errorString = errors[`id-${conditionalQuestions[subjectId].questionId}`]?.text
+        const errorString = errors[`${conditionalQuestions[subjectCode].questionCode}`]?.text
 
         if (errorString) {
           thisError = `{text:'${errorString}'}`
@@ -189,7 +189,7 @@ const updateAnswerSchemasWithInlineConditionals = ({
         let conditionalQuestionString =
           '{% from "./common/templates/components/question/macro.njk" import renderQuestion %} \n'
 
-        const conditionalQuestion = conditionalQuestions[subjectId]
+        const conditionalQuestion = conditionalQuestions[subjectCode]
 
         // do a recursive call to compile inline conditionals for this target question if needed
         const { updatedSchemas: newSchemas, removeQuestions: newRemove } = updateAnswerSchemasWithInlineConditionals({
@@ -205,12 +205,12 @@ const updateAnswerSchemasWithInlineConditionals = ({
           removeQuestions = [...new Set(removeQuestions.concat(removeQuestions))]
         }
 
-        const attributesString = JSON.stringify(conditionalQuestion.attributes)
+        const questionString = JSON.stringify({
+          ...(conditionalQuestion || {}),
+          attributes: '',
+        })
 
-        conditionalQuestionString += `{{ renderQuestion(${JSON.stringify({
-          ...conditionalQuestion,
-          attributes: attributesString,
-        })},'','',${thisError}) }}`
+        conditionalQuestionString += `{{ renderQuestion(${questionString},'','',${thisError}) }}`
 
         // this replace seems superfluous but avoids triggering a bug in the nunjucks rendering engine:
         // '(unknown path) [Line 2, Column 668] parseAggregate: expected comma after expression'
@@ -245,9 +245,9 @@ const updateOutOfLineConditionals = (question = []) => {
     const outOfLineConditionalsForThisAnswer = []
 
     schemaLine.conditionals?.forEach(conditionalDisplay => {
-      const subjectId = conditionalDisplay.conditional
+      const subjectCode = conditionalDisplay.conditional
       if (!conditionalDisplay.displayInline) {
-        outOfLineConditionalsForThisAnswer.push(subjectId)
+        outOfLineConditionalsForThisAnswer.push(subjectCode)
       }
 
       if (outOfLineConditionalsForThisAnswer?.length) {

@@ -361,6 +361,7 @@ describe('getQuestionGroup middleware', () => {
                   type: 'question',
                   answerType: 'radio',
                   questionId: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+                  questionCode: 'test_question',
                   questionText: 'Test Question',
                   referenceDataCategory: 'FILTERED_REFERENCE_DATA',
                   referenceDataTargets: [
@@ -385,7 +386,7 @@ describe('getQuestionGroup middleware', () => {
       expect(res.locals.questionGroup.contents[0]).toMatchObject({
         type: 'question',
         questionText: 'Test Question',
-        attributes: { 'data-question-uuid': 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee' },
+        attributes: { 'data-question-code': 'test_question' },
       })
     })
 
