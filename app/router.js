@@ -57,6 +57,9 @@ const {
 } = require('../common/config')
 const { displayPredictorScores } = require('./predictorScores/get.controller')
 const { submitPredictorScores } = require('./submitPredictorScores/get.controller')
+
+const rsrWorkflow = require('./rsr')
+
 const logger = require('../common/logging/logger')
 
 const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
@@ -198,6 +201,8 @@ module.exports = app => {
     getOffenderDetails,
     submitPredictorScores,
   )
+
+  app.use('/rsr', rsrWorkflow)
 
   app.use((error, req, res, next) => {
     logger.info(`Unhandled exception received - ${error.message} ${error.stack}`)
