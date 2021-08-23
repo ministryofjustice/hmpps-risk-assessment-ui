@@ -495,7 +495,7 @@
                     "text": "Yes",
                     "conditionals": [
                       {
-                        "conditional": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
+                        "conditional": "give_details",
                         "displayInline": true
                       }
                     ]
@@ -511,7 +511,7 @@
               {
                 "type": "question",
                 "questionId": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
-                "questionCode": "99.1",
+                "questionCode": "give_details",
                 "answerType": "textarea",
                 "questionText": "Give details",
                 "displayOrder": 26,
@@ -1928,7 +1928,7 @@
               {
                 "type": "question",
                 "questionId": "d9846a60-5ba6-450f-9934-2c9646771f9d",
-                "questionCode": "299.1",
+                "questionCode": "2give_details",
                 "answerType": "textarea",
                 "questionText": "Give details",
                 "displayOrder": 2,
@@ -4590,7 +4590,7 @@
               {
                 "type": "question",
                 "questionId": "bd694469-173a-4388-b1c3-eadea9aa1a75",
-                "questionCode": "199.1",
+                "questionCode": "1give_details",
                 "answerType": "radio",
                 "questionText": "Give details of relevant factors and situations, if not covered previously",
                 "displayOrder": 4,
@@ -7294,7 +7294,7 @@
                     "text": "Yes",
                     "conditionals": [
                       {
-                        "conditional": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
+                        "conditional": "give_details",
                         "displayInline": true
                       }
                     ]
@@ -7310,7 +7310,7 @@
               {
                 "type": "question",
                 "questionId": "36b63eb5-eb30-4f91-9b7f-91b0b70771ec",
-                "questionCode": "99.1",
+                "questionCode": "give_details",
                 "answerType": "textarea",
                 "questionText": "Give details",
                 "displayOrder": 26,

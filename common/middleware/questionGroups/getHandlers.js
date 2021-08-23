@@ -111,6 +111,10 @@ const compileInlineConditionalQuestions = (questions, errors) => {
 
   // add in rendered conditional question strings to each answer when displayed inline
   const compiledQuestions = questions.map(question => {
+    if (!isMultipleChoiceAnswerFor(question.answerType)) {
+      return question
+    }
+
     if (question.type === 'group') {
       // eslint-disable-next-line no-param-reassign
       question.contents = compileInlineConditionalQuestions(question.contents, errors)
@@ -119,13 +123,15 @@ const compileInlineConditionalQuestions = (questions, errors) => {
     let currentQuestion = question
 
     const { updatedSchemas, removeQuestions } = updateAnswerSchemasWithInlineConditionals({
-      schemas: question.answerSchemas,
+      answerSchemas: question.answerSchemas,
       conditionalQuestionsToRemove,
       questions,
       errors,
       conditionalQuestions,
     })
+
     currentQuestion.answerSchemas = updatedSchemas
+
     if (removeQuestions.length) {
       // @ts-ignore
       conditionalQuestionsToRemove = [...new Set(conditionalQuestionsToRemove.concat(removeQuestions))]
@@ -156,7 +162,7 @@ const compileInlineConditionalQuestions = (questions, errors) => {
         questionObject.isConditional = true
         questionObject.attributes = [
           ['data-outofline', 'true'],
-          ['data-base-question-code', `${questionObject.questionCode}`],
+          ['data-base-question-code', questionObject.questionCode],
         ]
       }
       return questionObject
@@ -166,14 +172,14 @@ const compileInlineConditionalQuestions = (questions, errors) => {
 // for inline conditional questions, compile their HTML and add to parent question answer schema,
 // then mark the original question for deletion
 const updateAnswerSchemasWithInlineConditionals = ({
-  schemas,
+  answerSchemas,
   conditionalQuestionsToRemove: questionsToRemove = [],
   questions,
   errors,
   conditionalQuestions,
 }) => {
   let removeQuestions = questionsToRemove
-  const updatedSchemas = schemas?.map(schemaLine => {
+  const updatedSchemas = answerSchemas?.map(schemaLine => {
     const updatedSchemaLine = schemaLine
 
     schemaLine.conditionals?.forEach(conditionalDisplay => {
@@ -193,7 +199,7 @@ const updateAnswerSchemasWithInlineConditionals = ({
 
         // do a recursive call to compile inline conditionals for this target question if needed
         const { updatedSchemas: newSchemas, removeQuestions: newRemove } = updateAnswerSchemasWithInlineConditionals({
-          schemas: conditionalQuestion.answerSchemas,
+          answerSchemas: conditionalQuestion.answerSchemas,
           conditionalQuestionsToRemove: removeQuestions,
           questions,
           errors,
@@ -227,7 +233,7 @@ const updateAnswerSchemasWithInlineConditionals = ({
         updatedSchemaLine.conditional = { html: existingHTML }
 
         // mark the target question to be deleted later
-        removeQuestions.push(subjectId)
+        removeQuestions.push(subjectCode)
       }
       return updatedSchemaLine
     })
