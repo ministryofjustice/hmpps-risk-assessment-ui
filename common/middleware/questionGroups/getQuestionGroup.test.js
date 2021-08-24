@@ -366,7 +366,7 @@ describe('getQuestionGroup middleware', () => {
                   referenceDataCategory: 'FILTERED_REFERENCE_DATA',
                   referenceDataTargets: [
                     {
-                      questionSchemaUuid: 'eeeeeeee-dddd-cccc-bbbb-aaaaaaaaaaaa',
+                      questionCode: 'test_question',
                       isRequired: false,
                     },
                   ],
@@ -411,7 +411,7 @@ describe('getQuestionGroup middleware', () => {
         type: 'question',
         questionText: 'Test Question',
         attributes: {
-          'data-reference-data-targets': '[{"uuid":"eeeeeeee-dddd-cccc-bbbb-aaaaaaaaaaaa","isRequired":false}]',
+          'data-reference-data-targets': '[{"questionCode":"test_question","isRequired":false}]',
         },
       })
     })

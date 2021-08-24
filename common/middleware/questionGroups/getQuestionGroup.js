@@ -137,8 +137,8 @@ module.exports = async ({ params: { groupId, subgroup = 0, page = 0 }, user }, r
       }
 
       if (usesDynamicReferenceData(questionSchema)) {
-        const referenceDataTargets = questionSchema.referenceDataTargets.map(({ questionSchemaUuid, isRequired }) => ({
-          uuid: questionSchemaUuid,
+        const referenceDataTargets = questionSchema.referenceDataTargets.map(({ questionCode, isRequired }) => ({
+          questionCode,
           isRequired,
         }))
         attributes['data-is-dynamic'] = true
