@@ -70,7 +70,7 @@ const updateTableRow = (assessmentId, episodeId, tableName, tableRow, answers, a
 }
 
 const getDraftPredictorScore = (episodeUuid, authorisationToken, userId) => {
-  const path = `${url}/risks/predictors/episodes/${episodeUuid}final=false`
+  const path = `${url}/risks/predictors/episodes/${episodeUuid}?final=false`
   logger.info(`Calling hmppsAssessments API with GET: ${path}`)
 
   return action(superagent.get(path), authorisationToken, userId)

@@ -261,7 +261,12 @@ const stubPredictors = () => {
   stubFor({
     request: {
       method: 'GET',
-      urlPattern: `/risks/predictors/episodes/.+??final=false`,
+      urlPattern: `/risks/predictors/episodes/.+?`,
+      queryParameters: {
+        final: {
+          equalTo: 'false',
+        },
+      },
     },
     response: {
       headers: {
