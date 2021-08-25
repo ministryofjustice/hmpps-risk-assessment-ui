@@ -1,5 +1,5 @@
 const { format, parseISO } = require('date-fns')
-const { postCompleteAssessment } = require('../../common/data/hmppsAssessmentApi')
+const { getDraftPredictorScore } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 
 const formatDate = dateString => {
@@ -50,20 +50,17 @@ const displayPredictorScores = async (req, res) => {
       user,
     } = req
 
-    const [ok, assessment] = await postCompleteAssessment(assessmentId, user?.token, user?.id)
+    const [ok, predictors] = await getDraftPredictorScore(episodeId, user?.token, user?.id)
     if (!ok) return res.render('app/error', { error: new Error('Failed to complete the assessment') })
 
-    if (!assessment.predictors) {
-      return res.render('app/error', { error: new Error('Failed to get predictor scores') })
-    }
-    logger.info(`Received ${assessment.predictors.length} predictor scores for episode: ${episodeId}`)
-    logger.info(JSON.stringify(assessment.predictors, null, 2))
+    logger.info(`Received ${predictors.length} predictor scores for episode: ${episodeId}`)
+    logger.info(JSON.stringify(predictors, null, 2))
 
     const { previousPage } = req.session.navigation
     const offenderName = res.locals.offenderDetails?.name || 'Offender'
 
     return res.render(`${__dirname}/index`, {
-      predictorScores: splitPredictorScores(assessment.predictors),
+      predictorScores: splitPredictorScores(predictors),
       heading: `${offenderName}'s scores`,
       subheading: getSubheadingFor(assessmentType),
       navigation: {
