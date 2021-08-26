@@ -284,7 +284,7 @@ const stubQuestions = async () => {
   await stubQuestionGroup('12222222-2222-2222-2222-222222222203')
   await stubQuestionGroup('RSR')
 
-  await stubAssessmentQuestions('rsr', 1)
+  await stubAssessmentQuestions('RSR', 1)
   // await stubAllInternalQuestionGroups(questionGroups['65a3924c-4130-4140-b7f4-cc39a52603bb'])
   // await stubAllInternalQuestionGroups(questionGroups['22222222-2222-2222-2222-222222222203'])
 }

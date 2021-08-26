@@ -25,7 +25,7 @@ module.exports = {
       },
       'needs', // else default to the needs page
     ],
-    template: `${__dirname}/templates/default`,
+    template: `${__dirname}/templates/offences`,
   },
   '/needs': {
     pageTitle: 'Needs',

@@ -43,6 +43,8 @@ const { startAssessmentFromCrn, startAssessmentFromForm } = require('./assessmen
 
 const { validate, localValidationRules } = require('../common/middleware/validator')
 
+const getAssessmentQuestions = require('../common/middleware/getAssessmentQuestions')
+
 const {
   checkUserIsAuthenticated,
   handleLoginCallback,
@@ -61,6 +63,7 @@ const { submitPredictorScores } = require('./submitPredictorScores/get.controlle
 const rsrWorkflow = require('./rsr')
 
 const logger = require('../common/logging/logger')
+const { getFlatAssessmentQuestions } = require('../common/data/hmppsAssessmentApi')
 
 const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 
@@ -202,7 +205,7 @@ module.exports = app => {
     submitPredictorScores,
   )
 
-  app.use('/rsr', rsrWorkflow)
+  app.use('/rsr', getOffenderDetails, getAssessmentQuestions, rsrWorkflow)
 
   app.use((error, req, res, next) => {
     logger.info(`Unhandled exception received - ${error.message} ${error.stack}`)
