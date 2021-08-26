@@ -15,12 +15,12 @@ module.exports = {
   '/offences-and-convictions': {
     pageTitle: 'Offences and convictions',
     controller: SaveAndContinue,
-    fields: ['conducted-an-interview'], // Fields omitted for brevity
+    fields: ['completed_interview'], // Fields omitted for brevity
     next: [
       {
         // Skip the needs section if an interview has not been conducted
-        field: 'conducted-an-interview',
-        value: 'no',
+        field: 'completed_interview',
+        value: 'NO',
         next: 'predictor-scores',
       },
       'needs', // else default to the needs page
