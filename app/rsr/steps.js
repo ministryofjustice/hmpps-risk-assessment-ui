@@ -32,7 +32,7 @@ module.exports = {
     controller: SaveAndContinue,
     fields: [], // Fields omitted for brevity
     next: 'predictor-scores',
-    template: `${__dirname}/templates/default`,
+    template: `${__dirname}/templates/needs`,
   },
   '/predictor-scores': {
     pageTitle: 'Scores',

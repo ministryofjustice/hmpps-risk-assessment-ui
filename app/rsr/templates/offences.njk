@@ -22,6 +22,8 @@
     {{ pageTitle }}
 </h1>
 
+<div class="body-link__container govuk-!-margin-bottom-8"><a href="#help-section" class="govuk-link body-link">Do you need help to answer the questions?</a></div>
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <form method="post" action="{{ action }}">
@@ -35,7 +37,6 @@
             {{ renderQuestion(questions['any_sexual_offences']) }}
             {{ renderQuestion(questions['total_non_contact_sexual_offences']) }}
             {{ renderQuestion(questions['earliest_release_date']) }}
-
             {{ renderQuestion(questions['completed_interview']) }}
 
             <div class="questiongroup-action-buttons">
