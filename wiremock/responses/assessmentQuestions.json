@@ -1,0 +1,45 @@
+{
+  "rsr": [
+    {
+      "type": "question",
+      "questionId": "5ca86a06-5472-4861-bd6a-a011780db49a",
+      "questionCode": "date_first_sanction",
+      "answerType": "date",
+      "questionText": "Date of first sanction",
+      "displayOrder": 6,
+      "mandatory": true,
+      "readOnly": false,
+      "conditional": false,
+      "referenceDataTargets": [],
+      "answerSchemas": []
+    },
+    {
+      "type": "question",
+      "questionId": "63099aab-f852-4dd9-9179-16ee2218d0c6",
+      "questionCode": "age_first_conviction",
+      "answerType": "numeric",
+      "questionText": "Age at first conviction, conditional or absolute discharge in years",
+      "helpText": "Record in years",
+      "displayOrder": 7,
+      "mandatory": true,
+      "readOnly": false,
+      "conditional": false,
+      "referenceDataTargets": [],
+      "answerSchemas": []
+    },
+    {
+      "type": "question",
+      "questionId": "8e83a0ad-2fcf-4afb-a0af-09d1e23d3c33",
+      "questionCode": "total_sanctions",
+      "answerType": "numeric",
+      "questionText": "Total number of sanctions for all offences",
+      "displayOrder": 8,
+      "mandatory": true,
+      "validation": "{\"mandatory\":{\"errorMessage\":\"Enter the total number of sanctions\",\"errorSummary\":\"Enter the total number of sanctions\"}}",
+      "readOnly": false,
+      "conditional": false,
+      "referenceDataTargets": [],
+      "answerSchemas": []
+    }
+  ]
+}
