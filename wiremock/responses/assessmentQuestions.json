@@ -1,15 +1,6 @@
 {
   "RSR": [
     {
-      "questionSchemaId": 225,
-      "questionSchemaUuid": "6e144a8e-e614-413a-8f73-a3a426f114a0",
-      "questionCode": "divider_rsr_needs_3",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: divider",
-      "referenceDataTargets": [],
-      "answerSchemas": []
-    },
-    {
       "questionSchemaId": 42,
       "questionSchemaUuid": "5ca86a06-5472-4861-bd6a-a011780db49a",
       "questionCode": "date_first_sanction",
@@ -527,44 +518,7 @@
         }
       ]
     },
-    {
-      "questionSchemaId": 219,
-      "questionSchemaUuid": "753c1687-c88c-4405-a274-5d77707924a8",
-      "questionCode": "divider_rsr_needs_1",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: divider",
-      "referenceDataTargets": [],
-      "answerSchemas": []
-    },
-    {
-      "questionSchemaId": 220,
-      "questionSchemaUuid": "ccc2ecba-c441-477a-9f79-d44f0cab1567",
-      "questionCode": "heading_current_offences",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: heading_large",
-      "questionText": "Current offences",
-      "referenceDataTargets": [],
-      "answerSchemas": []
-    },
-    {
-      "questionSchemaId": 221,
-      "questionSchemaUuid": "35e3e63b-6598-4db3-b5a3-1f902f33f22c",
-      "questionCode": "heading_convicted_1",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: body",
-      "questionText": "Has the individual been convicted of any of these offences?",
-      "referenceDataTargets": [],
-      "answerSchemas": []
-    },
-    {
-      "questionSchemaId": 222,
-      "questionSchemaUuid": "551df80b-5368-4551-8fda-85b1c7a5f01f",
-      "questionCode": "divider_rsr_needs_2",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: divider",
-      "referenceDataTargets": [],
-      "answerSchemas": []
-    },
+
     {
       "questionSchemaId": 81,
       "questionSchemaUuid": "97621b0d-5a64-42dd-9c8b-1484979e9145",
@@ -610,26 +564,6 @@
           "text": "No"
         }
       ]
-    },
-    {
-      "questionSchemaId": 223,
-      "questionSchemaUuid": "86da001c-a703-4ef2-9c0d-e5c90336055c",
-      "questionCode": "ui_rsr_needs_5",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: heading_large",
-      "questionText": "Previous offences",
-      "referenceDataTargets": [],
-      "answerSchemas": []
-    },
-    {
-      "questionSchemaId": 224,
-      "questionSchemaUuid": "47a94bc5-e71e-4327-9942-ad37d5163dee",
-      "questionCode": "heading_convicted_2",
-      "questionStart": "2020-11-30T14:50:00",
-      "answerType": "presentation: body",
-      "questionText": "Has the individual previously been convicted of any of these offences?",
-      "referenceDataTargets": [],
-      "answerSchemas": []
     },
     {
       "questionSchemaId": 72,

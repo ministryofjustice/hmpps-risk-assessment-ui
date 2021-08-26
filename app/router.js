@@ -63,7 +63,6 @@ const { submitPredictorScores } = require('./submitPredictorScores/get.controlle
 const rsrWorkflow = require('./rsr')
 
 const logger = require('../common/logging/logger')
-const { getFlatAssessmentQuestions } = require('../common/data/hmppsAssessmentApi')
 
 const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 

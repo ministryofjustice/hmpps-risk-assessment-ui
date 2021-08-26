@@ -4,7 +4,7 @@ const logger = require('../logging/logger')
 
 module.exports = async ({ params: { assessmentCode = 'RSR', assessmentVersion = 1 }, user }, res, next) => {
   try {
-    const questions = await getFlatAssessmentQuestions(assessmentCode, assessmentVersion, user?.token, user?.id)
+    let questions = await getFlatAssessmentQuestions(assessmentCode, assessmentVersion, user?.token, user?.id)
 
     // thisQuestionGroup.contents?.forEach(q => readOnlyToAttribute(q))
     // thisQuestionGroup.contents = thisQuestionGroup.contents?.map(questionSchema => {
@@ -19,6 +19,8 @@ module.exports = async ({ params: { assessmentCode = 'RSR', assessmentVersion = 
     //     attributes,
     //   }
     // })
+
+    questions = processReplacements(questions, res.locals.offenderDetails)
 
     const questionLookup = {}
     questions.forEach(q => {
