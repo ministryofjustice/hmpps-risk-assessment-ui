@@ -1,25 +1,13 @@
 const { getFlatAssessmentQuestions } = require('../data/hmppsAssessmentApi')
 const { processReplacements } = require('../utils/util')
 const logger = require('../logging/logger')
+const { compileInlineConditionalQuestions } = require('./questionGroups/getHandlers')
 
 module.exports = async ({ params: { assessmentCode = 'RSR', assessmentVersion = 1 }, user }, res, next) => {
   try {
     let questions = await getFlatAssessmentQuestions(assessmentCode, assessmentVersion, user?.token, user?.id)
 
-    // thisQuestionGroup.contents?.forEach(q => readOnlyToAttribute(q))
-    // thisQuestionGroup.contents = thisQuestionGroup.contents?.map(questionSchema => {
-    //   const attributes = {
-    //     ...questionSchema.attributes,
-    //     'data-question-code': questionSchema.questionCode,
-    //     'data-question-type': questionSchema.answerType,
-    //   }
-    //
-    //   return {
-    //     ...questionSchema,
-    //     attributes,
-    //   }
-    // })
-
+    questions = compileInlineConditionalQuestions(questions, {})
     questions = processReplacements(questions, res.locals.offenderDetails)
 
     const questionLookup = {}

@@ -278,7 +278,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -458,7 +458,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an option (suitability of accommodation)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -490,7 +490,7 @@
       "displayOrder": 3,
       "mandatory": false,
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -523,7 +523,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an option (current relationship with partner)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -556,7 +556,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no (perpetrator of domestic  abuse?)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -666,7 +666,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an option (evidence of binge drinking or excessive alcohol use)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -699,7 +699,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an option (impulsivity)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -732,7 +732,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an option (temper control)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -765,7 +765,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select an option\",\"errorSummary\":\"Select an option (pro-criminal attitudes)\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -798,7 +798,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -825,7 +825,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -852,7 +852,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -879,7 +879,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -906,7 +906,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -933,7 +933,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -960,7 +960,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -987,7 +987,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -1014,7 +1014,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
@@ -1041,7 +1041,7 @@
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\"}}",
       "readOnly": false,
-      "conditional": true,
+      "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
