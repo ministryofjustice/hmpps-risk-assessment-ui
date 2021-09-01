@@ -74,6 +74,13 @@ const updateTableRow = (assessmentId, episodeId, tableName, tableRow, answers, a
   return postData(path, authorisationToken, userId, answers)
 }
 
+const getDraftPredictorScore = (episodeUuid, authorisationToken, userId) => {
+  const path = `${url}/risks/predictors/episodes/${episodeUuid}?final=false`
+  logger.info(`Calling hmppsAssessments API with GET: ${path}`)
+
+  return action(superagent.get(path), authorisationToken, userId)
+}
+
 const getFilteredReferenceData = (assessmentId, episodeId, questionCode, parentList, authorisationToken, userId) => {
   const path = `${url}/referencedata/filtered`
   const requestBody = {
@@ -160,4 +167,5 @@ module.exports = {
   deleteTableRow,
   updateEditedTableRow: updateTableRow,
   getFlatAssessmentQuestions,
+  getDraftPredictorScore,
 }
