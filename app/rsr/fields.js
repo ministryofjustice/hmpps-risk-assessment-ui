@@ -1,16 +1,19 @@
 module.exports = {
-  'conducted-an-interview': {
-    text: 'Have you conducted an interview?',
-    helpText: 'A hint',
+  age_first_conviction: {
     validate: [
       {
         type: 'required',
+        message: 'this is a age_first_conviction message',
       },
     ],
-    type: 'radios',
-    items: [
-      { text: 'Yes', value: 'yes' },
-      { text: 'No', value: 'no' },
+  },
+  completed_interview: {
+    validate: [
+      {
+        type: 'required',
+        message: 'this is a completed_interview message',
+        headerMessage: 'this is a completed_interview headerMessage',
+      },
     ],
   },
 }

@@ -11,7 +11,29 @@ const getErrorMessage = reason => {
   return 'Something went wrong'
 }
 
+const formatWizardValidationErrors = validationErrors => {
+  console.log('in formatWizardValidationErrors')
+  const errors = {}
+  const errorSummary = []
+  if (validationErrors) {
+    for (let i = 0; i < Object.entries(validationErrors).length; i += 1) {
+      const { key, message, headerMessage } = Object.entries(validationErrors)[i][1]
+      errors[`${key}`] = { text: message }
+      errorSummary.push({
+        text: headerMessage || message,
+        href: `#${key}-error`,
+      })
+    }
+  }
+  return [errors, errorSummary]
+}
+
 class SaveAndContinue extends Controller {
+  validateFields(req, res, next) {
+    // at this point makes changes to sessionModel.options.fields to add in context specific validation information
+    super.validateFields(req, res, next)
+  }
+
   validate(req, res, next) {
     super.validate(req, res, next)
   }
@@ -19,6 +41,13 @@ class SaveAndContinue extends Controller {
   locals(req, res, next) {
     res.locals.csrfToken = res.locals['csrf-token']
     delete res.locals['csrf-token']
+
+    // format any errors that the validation steps created
+    const [validationErrors, errorSummary] = formatWizardValidationErrors(res.locals.errors)
+    res.locals.errors = validationErrors
+    req.errors = validationErrors
+    res.locals.errorSummary = errorSummary
+
     super.locals(req, res, next)
   }
 
