@@ -2,6 +2,7 @@ const { Controller } = require('hmpo-form-wizard')
 const { postAnswers } = require('../../../common/data/hmppsAssessmentApi')
 const { formatValidationErrors, assembleDates } = require('../../../common/middleware/questionGroups/postHandlers')
 const { logger } = require('../../../common/logging/logger')
+const { range, dateIsAfter, yearsBetween } = require('../../../common/middleware/form-wizard-validators/validators')
 
 const getErrorMessage = reason => {
   if (reason === 'OASYS_PERMISSION') {
@@ -12,7 +13,6 @@ const getErrorMessage = reason => {
 }
 
 const formatWizardValidationErrors = validationErrors => {
-  console.log('in formatWizardValidationErrors')
   const errors = {}
   const errorSummary = []
   if (validationErrors) {
@@ -29,8 +29,57 @@ const formatWizardValidationErrors = validationErrors => {
 }
 
 class SaveAndContinue extends Controller {
+  async configure(req, res, next) {
+    await assembleDates(req, res, () => {})
+    super.configure(req, res, next)
+  }
+
   validateFields(req, res, next) {
     // at this point makes changes to sessionModel.options.fields to add in context specific validation information
+    const offenderDob = '1987-03-14'
+    const dateFirstSanction = '1997-03-14'
+    const totalSanctions = 3
+    req.sessionModel.options.fields.date_first_sanction.validate.push({
+      fn: dateIsAfter,
+      arguments: [offenderDob],
+      message: 'Date must be later than the individual’s date of birth',
+    })
+    req.sessionModel.options.fields.date_first_sanction.validate.push({
+      fn: yearsBetween,
+      arguments: [offenderDob, 8],
+      message: 'The individual must be aged 8 or older on the date of first sanction',
+    })
+    req.sessionModel.options.fields.total_violent_offences.validate.push({
+      fn: range,
+      arguments: [0, totalSanctions],
+      message: 'Cannot be greater than the total number of sanctions for all offences',
+    })
+    req.sessionModel.options.fields.date_current_conviction.validate.push({
+      fn: dateIsAfter,
+      arguments: [offenderDob],
+      message: 'Date must be later than the individual’s date of birth',
+    })
+    req.sessionModel.options.fields.date_current_conviction.validate.push({
+      fn: dateIsAfter,
+      arguments: [dateFirstSanction],
+      message: 'Current conviction cannot be before the date of first conviction',
+    })
+    req.sessionModel.options.fields.most_recent_sexual_offence_date.validate.push({
+      fn: dateIsAfter,
+      arguments: [offenderDob],
+      message: 'Date must be later than the individual’s date of birth',
+    })
+    req.sessionModel.options.fields.earliest_release_date.validate.push({
+      fn: dateIsAfter,
+      arguments: [offenderDob],
+      message: 'Date must be later than the individual’s date of birth',
+    })
+    req.sessionModel.options.fields.earliest_release_date.validate.push({
+      fn: yearsBetween,
+      arguments: [offenderDob, 110],
+      message: 'The individual must be aged 110 or younger on commencement',
+    })
+
     super.validateFields(req, res, next)
   }
 

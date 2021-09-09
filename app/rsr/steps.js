@@ -15,7 +15,21 @@ module.exports = {
   '/offences-and-convictions': {
     pageTitle: 'Offences and convictions',
     controller: SaveAndContinue,
-    fields: ['age_first_conviction', 'completed_interview'], // Fields omitted for brevity
+    fields: [
+      'date_first_sanction',
+      'age_first_conviction',
+      'total_sanctions',
+      'total_violent_offences',
+      'date_current_conviction',
+      'any_sexual_offences',
+      'most_recent_sexual_offence_date',
+      'total_sexual_offences_adult',
+      'total_sexual_offences_child',
+      'total_sexual_offences_child_image',
+      'total_non_contact_sexual_offences',
+      'earliest_release_date',
+      'completed_interview',
+    ],
     next: [
       {
         // Skip the needs section if an interview has not been conducted

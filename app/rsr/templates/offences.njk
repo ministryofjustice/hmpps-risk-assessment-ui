@@ -23,7 +23,7 @@
     {{ pageTitle }}
 </h1>
 
-{% if errorSummary %}
+{% if errorSummary | length %}
   {% include "common/templates/partials/errorSummary.njk" %}
 {% endif %}
 
