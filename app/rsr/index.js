@@ -1,9 +1,8 @@
 const { Router } = require('express')
 const wizard = require('hmpo-form-wizard')
 const steps = require('./steps')
-const fields = require('./fields')
+const { fields } = require('./fields')
 const getOffenderDetails = require('../../common/middleware/getOffenderDetails')
-const getAssessmentQuestions = require('../../common/middleware/getAssessmentQuestions')
 
 const router = Router()
 
@@ -12,8 +11,8 @@ router.get('*', (req, res, next) => {
   next()
 })
 
-router.get('/offences-and-convictions', getOffenderDetails, getAssessmentQuestions)
-router.get('/needs', getOffenderDetails, getAssessmentQuestions)
+router.get('/offences-and-convictions', getOffenderDetails)
+router.get('/needs', getOffenderDetails)
 
 router.use(
   wizard(steps, fields, {

@@ -1,4 +1,4 @@
-const { range } = require('./validators')
+const { range, notInFuture, validDate, dateIsAfter, yearsBetween } = require('./validators')
 
 describe('checks numbers are in range', () => {
   it('is in the range', () => {
@@ -15,5 +15,55 @@ describe('checks numbers are in range', () => {
   })
   it('is at the top of the range', () => {
     expect(range(10, 1, 10)).toEqual(true)
+  })
+})
+
+describe('checks date is not in the future', () => {
+  it('checks a future date', () => {
+    expect(notInFuture('2050-03-26')).toEqual(false)
+  })
+  it('checks a past date', () => {
+    expect(notInFuture('2000-03-26')).toEqual(true)
+  })
+})
+
+describe('checks date is not in the future', () => {
+  it('checks a future date', () => {
+    expect(notInFuture('2050-03-26')).toEqual(false)
+  })
+  it('checks a past date', () => {
+    expect(notInFuture('2000-03-26')).toEqual(true)
+  })
+})
+
+describe('checks dates are valid', () => {
+  it('checks a valid date', () => {
+    expect(validDate('2020-03-26')).toEqual(true)
+  })
+  it('checks invalid dates', () => {
+    // this date never exists
+    expect(validDate('2020-02-30')).toEqual(false)
+
+    // this date didn't exist - not a leap year
+    expect(validDate('2021-02-29')).toEqual(false)
+
+    // this date is nonsensical
+    expect(validDate('xyz')).toEqual(false)
+    expect(validDate('Invalid Date')).toEqual(false)
+  })
+})
+
+describe('checks order of dates', () => {
+  it('checks dates', () => {
+    expect(dateIsAfter('2020-03-26', '2020-03-27')).toEqual(false)
+    expect(dateIsAfter('2020-03-28', '2020-03-27')).toEqual(true)
+  })
+})
+
+describe('calculates years between dates', () => {
+  it('checks duration', () => {
+    expect(yearsBetween('2020-03-26', '2020-03-27', 1)).toEqual(false)
+    expect(yearsBetween('2015-03-26', '2020-03-27', 5)).toEqual(true)
+    expect(yearsBetween('2020-03-28', '2015-03-27', 5)).toEqual(true)
   })
 })

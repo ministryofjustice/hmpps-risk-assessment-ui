@@ -2,7 +2,9 @@ const { Controller } = require('hmpo-form-wizard')
 const { postAnswers } = require('../../../common/data/hmppsAssessmentApi')
 const { formatValidationErrors, assembleDates } = require('../../../common/middleware/questionGroups/postHandlers')
 const { logger } = require('../../../common/logging/logger')
-const { range, dateIsAfter, yearsBetween } = require('../../../common/middleware/form-wizard-validators/validators')
+const { customValidations } = require('../fields')
+const getOffenderDetails = require('../../../common/middleware/getOffenderDetails')
+const getAssessmentQuestions = require('../../../common/middleware/getAssessmentQuestions')
 
 const getErrorMessage = reason => {
   if (reason === 'OASYS_PERMISSION') {
@@ -29,67 +31,13 @@ const formatWizardValidationErrors = validationErrors => {
 }
 
 class SaveAndContinue extends Controller {
-  async configure(req, res, next) {
-    await assembleDates(req, res, () => {})
-    super.configure(req, res, next)
-  }
-
-  validateFields(req, res, next) {
-    // at this point makes changes to sessionModel.options.fields to add in context specific validation information
-    const offenderDob = '1987-03-14'
-    const dateFirstSanction = '1997-03-14'
-    const totalSanctions = 3
-    req.sessionModel.options.fields.date_first_sanction.validate.push({
-      fn: dateIsAfter,
-      arguments: [offenderDob],
-      message: 'Date must be later than the individual’s date of birth',
-    })
-    req.sessionModel.options.fields.date_first_sanction.validate.push({
-      fn: yearsBetween,
-      arguments: [offenderDob, 8],
-      message: 'The individual must be aged 8 or older on the date of first sanction',
-    })
-    req.sessionModel.options.fields.total_violent_offences.validate.push({
-      fn: range,
-      arguments: [0, totalSanctions],
-      message: 'Cannot be greater than the total number of sanctions for all offences',
-    })
-    req.sessionModel.options.fields.date_current_conviction.validate.push({
-      fn: dateIsAfter,
-      arguments: [offenderDob],
-      message: 'Date must be later than the individual’s date of birth',
-    })
-    req.sessionModel.options.fields.date_current_conviction.validate.push({
-      fn: dateIsAfter,
-      arguments: [dateFirstSanction],
-      message: 'Current conviction cannot be before the date of first conviction',
-    })
-    req.sessionModel.options.fields.most_recent_sexual_offence_date.validate.push({
-      fn: dateIsAfter,
-      arguments: [offenderDob],
-      message: 'Date must be later than the individual’s date of birth',
-    })
-    req.sessionModel.options.fields.earliest_release_date.validate.push({
-      fn: dateIsAfter,
-      arguments: [offenderDob],
-      message: 'Date must be later than the individual’s date of birth',
-    })
-    req.sessionModel.options.fields.earliest_release_date.validate.push({
-      fn: yearsBetween,
-      arguments: [offenderDob, 110],
-      message: 'The individual must be aged 110 or younger on commencement',
-    })
-
-    super.validateFields(req, res, next)
-  }
-
-  validate(req, res, next) {
-    super.validate(req, res, next)
-  }
-
-  locals(req, res, next) {
+  // GET steps
+  async locals(req, res, next) {
     res.locals.csrfToken = res.locals['csrf-token']
     delete res.locals['csrf-token']
+
+    // get questions
+    await getAssessmentQuestions(req, res, next)
 
     // format any errors that the validation steps created
     const [validationErrors, errorSummary] = formatWizardValidationErrors(res.locals.errors)
@@ -98,6 +46,35 @@ class SaveAndContinue extends Controller {
     res.locals.errorSummary = errorSummary
 
     super.locals(req, res, next)
+  }
+
+  // POST steps
+  async configure(req, res, next) {
+    await assembleDates(req, res, () => {})
+    super.configure(req, res, next)
+  }
+
+  process(req, res, next) {
+    req.sessionModel.set('answers', req.form.values)
+    super.process(req, res, next)
+  }
+
+  async validateFields(req, res, next) {
+    // at this point makes changes to sessionModel fields to add in context specific validations
+    const { dateFirstSanction = '', totalSanctions = '' } = req.form.values
+    await getOffenderDetails(req, res, next)
+    const offenderDob = res.locals.offenderDetails.dob
+    req.sessionModel.options.fields = customValidations(
+      req.sessionModel.options.fields,
+      offenderDob,
+      dateFirstSanction,
+      totalSanctions,
+    )
+    super.validateFields(req, res, next)
+  }
+
+  validate(req, res, next) {
+    super.validate(req, res, next)
   }
 
   async saveValues(req, res, next) {

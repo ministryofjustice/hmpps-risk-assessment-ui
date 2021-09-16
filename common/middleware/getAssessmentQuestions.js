@@ -1,17 +1,21 @@
-const { getFlatAssessmentQuestions } = require('../data/hmppsAssessmentApi')
+const { getFlatAssessmentQuestions, getAnswers } = require('../data/hmppsAssessmentApi')
 const { processReplacements } = require('../utils/util')
 const logger = require('../logging/logger')
 const { compileInlineConditionalQuestions, annotateWithAnswers } = require('./questionGroups/getHandlers')
 
-module.exports = async (
-  { params: { assessmentCode = 'RSR', assessmentVersion = 1 }, user, errors = {}, body },
-  res,
-  next,
-) => {
+module.exports = async (req, res, next) => {
+  const {
+    params: { assessmentCode = 'RSR', assessmentVersion = 1 },
+    user,
+    errors = {},
+    sessionModel,
+  } = req
   try {
     let questions = await getFlatAssessmentQuestions(assessmentCode, assessmentVersion, user?.token, user?.id)
+    const userAnswers = sessionModel.get('answers')
 
-    questions = annotateWithAnswers(questions, {}, body)
+    const answers = await getAnswers(assessmentCode, 'current', user?.token, user?.id)
+    questions = annotateWithAnswers(questions, answers, userAnswers)
     questions = compileInlineConditionalQuestions(questions, errors)
     questions = processReplacements(questions, res.locals.offenderDetails)
 
@@ -21,7 +25,7 @@ module.exports = async (
     })
     res.locals.questions = questionLookup
 
-    return next()
+    return questionLookup
   } catch (error) {
     logger.error(
       `Could not retrieve questions for assessment ${assessmentCode} version ${assessmentVersion}, error: ${error}`,

@@ -9,7 +9,7 @@ const isPresentationOnlyFor = answerType => typeof answerType === 'string' && an
 let conditionalQuestionsToRemove = []
 const outOfLineConditionalQuestions = []
 
-const annotateWithAnswers = (questions, answers, body) => {
+const annotateWithAnswers = (questions, answers, body = {}) => {
   return questions.map(questionSchema => {
     if (questionSchema.type === 'group') {
       return {
