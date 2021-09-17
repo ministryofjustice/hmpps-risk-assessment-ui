@@ -206,7 +206,9 @@ const updateAnswerSchemasWithInlineConditionals = ({
       if (conditionalDisplay.displayInline) {
         let thisError
 
-        const errorString = errors[`${conditionalQuestions[subjectCode].questionCode}`]?.text
+        const errorString =
+          errors[`${conditionalQuestions[subjectCode].questionCode}`]?.text ||
+          errors[`${conditionalQuestions[subjectCode].questionCode}`]?.message
 
         if (errorString) {
           thisError = `{text:'${errorString}'}`

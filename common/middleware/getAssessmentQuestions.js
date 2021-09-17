@@ -16,7 +16,7 @@ module.exports = async (req, res, next) => {
 
     const answers = await getAnswers(assessmentCode, 'current', user?.token, user?.id)
     questions = annotateWithAnswers(questions, answers, userAnswers)
-    questions = compileInlineConditionalQuestions(questions, errors)
+    questions = compileInlineConditionalQuestions(questions, res.locals.errors)
     questions = processReplacements(questions, res.locals.offenderDetails)
 
     const questionLookup = {}
