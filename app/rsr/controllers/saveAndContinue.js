@@ -61,14 +61,14 @@ class SaveAndContinue extends Controller {
 
   async validateFields(req, res, next) {
     // at this point makes changes to sessionModel fields to add in context specific validations
-    const { dateFirstSanction = '', totalSanctions = '' } = req.form.values
+    const { date_first_sanction = '', total_sanctions = '' } = req.form.values
     await getOffenderDetails(req, res, next)
     const offenderDob = res.locals.offenderDetails.dob
     req.sessionModel.options.fields = customValidations(
       req.sessionModel.options.fields,
       offenderDob,
-      dateFirstSanction,
-      totalSanctions,
+      date_first_sanction,
+      total_sanctions,
     )
     super.validateFields(req, res, next)
   }

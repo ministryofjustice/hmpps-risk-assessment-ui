@@ -93,7 +93,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Select an option',
+        message: 'Select yes or no',
       },
     ],
   },
@@ -165,10 +165,165 @@ const fields = {
     validate: [
       {
         type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  suitable_accommodation: {
+    validate: [
+      {
+        type: 'required',
         message: 'Select an option',
+      },
+    ],
+  },
+  unemployed_on_release: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  current_relationship_with_partner: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select an option',
+      },
+    ],
+  },
+  evidence_domestic_violence: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  use_of_alcohol: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select an option',
+      },
+    ],
+  },
+  binge_drinking: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select an option',
+      },
+    ],
+  },
+  impulsivity_issues: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select an option',
+      },
+    ],
+  },
+  temper_control_issues: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select an option',
+      },
+    ],
+  },
+  pro_criminal_attitudes: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select an option',
+      },
+    ],
+  },
+  current_possession_firearm: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  current_offence_weapon: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_murder_attempt: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_wounding: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_aggravated_burglary: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_arson: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_criminal_damage: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_possession_firearm: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_robbery: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  previous_offence_weapon: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
       },
     ],
   },
 }
 
-module.exports = { fields, customValidations }
+module.exports = {
+  fields,
+  customValidations,
+}
