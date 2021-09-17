@@ -25,7 +25,7 @@ const transformTableEntries = tableEntries => {
   }, {})
 }
 
-const annotateWithAnswers = (questions, answers, body, tables = {}) => {
+const annotateWithAnswers = (questions, answers, body = {}, tables = {}) => {
   return questions.map(questionSchema => {
     if (questionSchema.type === 'group') {
       return {
