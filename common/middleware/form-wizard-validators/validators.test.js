@@ -1,4 +1,11 @@
-const { range, notInFuture, validDate, dateIsAfter, yearsBetween } = require('./validators')
+const {
+  range,
+  notInFuture,
+  validDate,
+  dateIsAfter,
+  yearsBetweenLessThan,
+  yearsBetweenGreaterThan,
+} = require('./validators')
 
 describe('checks numbers are in range', () => {
   it('is in the range', () => {
@@ -60,10 +67,17 @@ describe('checks order of dates', () => {
   })
 })
 
-describe('calculates years between dates', () => {
+describe('calculates years between dates greater than', () => {
   it('checks duration', () => {
-    expect(yearsBetween('2020-03-26', '2020-03-27', 1)).toEqual(false)
-    expect(yearsBetween('2015-03-26', '2020-03-27', 5)).toEqual(true)
-    expect(yearsBetween('2020-03-28', '2015-03-27', 5)).toEqual(true)
+    expect(yearsBetweenGreaterThan('2020-03-26', '2020-03-27', 1)).toEqual(false)
+    expect(yearsBetweenGreaterThan('2015-03-26', '2020-03-27', 5)).toEqual(true)
+    expect(yearsBetweenGreaterThan('2020-03-28', '2015-03-27', 5)).toEqual(true)
+  })
+})
+
+describe('calculates years between dates less than', () => {
+  it('checks duration', () => {
+    expect(yearsBetweenLessThan('2020-03-26', '2030-03-27', 100)).toEqual(true)
+    expect(yearsBetweenLessThan('2020-03-28', '2015-03-27', 5)).toEqual(true)
   })
 })

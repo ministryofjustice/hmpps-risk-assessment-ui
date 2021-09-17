@@ -1,6 +1,7 @@
 const {
   dateIsAfter,
-  yearsBetween,
+  yearsBetweenGreaterThan,
+  yearsBetweenLessThan,
   range,
   notInFuture,
   validDate,
@@ -13,7 +14,7 @@ const customValidations = (fields, offenderDob, dateFirstSanction, totalSanction
     message: 'Date must be later than the individual’s date of birth',
   })
   fields.date_first_sanction.validate.push({
-    fn: yearsBetween,
+    fn: yearsBetweenGreaterThan,
     arguments: [offenderDob, 8],
     message: 'The individual must be aged 8 or older on the date of first sanction',
   })
@@ -43,7 +44,7 @@ const customValidations = (fields, offenderDob, dateFirstSanction, totalSanction
     message: 'Date must be later than the individual’s date of birth',
   })
   fields.earliest_release_date.validate.push({
-    fn: yearsBetween,
+    fn: yearsBetweenLessThan,
     arguments: [offenderDob, 110],
     message: 'The individual must be aged 110 or younger on commencement',
   })
