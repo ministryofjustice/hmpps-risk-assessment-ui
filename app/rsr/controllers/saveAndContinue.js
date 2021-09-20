@@ -14,22 +14,6 @@ const getErrorMessage = reason => {
   return 'Something went wrong'
 }
 
-const formatWizardValidationErrors = validationErrors => {
-  const errors = {}
-  const errorSummary = []
-  if (validationErrors) {
-    for (let i = 0; i < Object.entries(validationErrors).length; i += 1) {
-      const { key, message, headerMessage } = Object.entries(validationErrors)[i][1]
-      errors[`${key}`] = { text: message }
-      errorSummary.push({
-        text: headerMessage || message,
-        href: `#${key}-error`,
-      })
-    }
-  }
-  return [errors, errorSummary]
-}
-
 class SaveAndContinue extends Controller {
   // GET steps
   async locals(req, res, next) {
@@ -38,12 +22,6 @@ class SaveAndContinue extends Controller {
 
     // get questions
     await getAssessmentQuestions(req, res, next)
-
-    // format any errors that the validation steps created
-    const [validationErrors, errorSummary] = formatWizardValidationErrors(res.locals.errors)
-    res.locals.errors = validationErrors
-    req.errors = validationErrors
-    res.locals.errorSummary = errorSummary
 
     super.locals(req, res, next)
   }

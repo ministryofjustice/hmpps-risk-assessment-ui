@@ -3,11 +3,26 @@ const { processReplacements } = require('../utils/util')
 const logger = require('../logging/logger')
 const { compileInlineConditionalQuestions, annotateWithAnswers } = require('./questionGroups/getHandlers')
 
+const formatWizardValidationErrors = validationErrors => {
+  const errors = {}
+  const errorSummary = []
+  if (validationErrors) {
+    for (let i = 0; i < Object.entries(validationErrors).length; i += 1) {
+      const { key, message, headerMessage } = Object.entries(validationErrors)[i][1]
+      errors[`${key}`] = { text: message }
+      errorSummary.push({
+        text: headerMessage || message,
+        href: `#${key}-error`,
+      })
+    }
+  }
+  return [errors, errorSummary]
+}
+
 module.exports = async (req, res, next) => {
   const {
     params: { assessmentCode = 'RSR', assessmentVersion = 1 },
     user,
-    errors = {},
     sessionModel,
   } = req
   try {
@@ -16,6 +31,13 @@ module.exports = async (req, res, next) => {
 
     const answers = await getAnswers(assessmentCode, 'current', user?.token, user?.id)
     questions = annotateWithAnswers(questions, answers, userAnswers)
+
+    const errors = sessionModel.get('errors')
+
+    const [validationErrors, errorSummary] = formatWizardValidationErrors(errors)
+    res.locals.errors = validationErrors
+    res.locals.errorSummary = errorSummary
+
     questions = compileInlineConditionalQuestions(questions, res.locals.errors)
     questions = processReplacements(questions, res.locals.offenderDetails)
 

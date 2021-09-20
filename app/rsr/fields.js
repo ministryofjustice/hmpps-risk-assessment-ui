@@ -99,6 +99,7 @@ const fields = {
     ],
   },
   current_sexual_offence: {
+    dependent: { field: 'any_sexual_offences', value: 'YES' },
     validate: [
       {
         type: 'required',
@@ -107,6 +108,7 @@ const fields = {
     ],
   },
   most_recent_sexual_offence_date: {
+    dependent: { field: 'any_sexual_offences', value: 'YES' },
     validate: [
       {
         fn: validDate,
@@ -119,6 +121,7 @@ const fields = {
     ],
   },
   total_sexual_offences_adult: {
+    dependent: { field: 'any_sexual_offences', value: 'YES' },
     validate: [
       { type: 'required', message: 'Enter a number' },
       {
@@ -129,6 +132,7 @@ const fields = {
     ],
   },
   total_sexual_offences_child: {
+    dependent: { field: 'any_sexual_offences', value: 'YES' },
     validate: [
       { type: 'required', message: 'Enter a number' },
       {
@@ -139,6 +143,7 @@ const fields = {
     ],
   },
   total_sexual_offences_child_image: {
+    dependent: { field: 'any_sexual_offences', value: 'YES' },
     validate: [
       { type: 'required', message: 'Enter a number' },
       {
@@ -149,6 +154,7 @@ const fields = {
     ],
   },
   total_non_contact_sexual_offences: {
+    dependent: { field: 'any_sexual_offences', value: 'YES' },
     validate: [
       { type: 'required', message: 'Enter a number' },
       {
