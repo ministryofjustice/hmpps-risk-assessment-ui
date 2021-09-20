@@ -55,7 +55,7 @@ const getSubjectDetailsFor = assessment => ({
   subjectUuid: assessment?.subject?.subjectUuid,
 })
 
-const createAssessmentFromCrn = async (req, res, next) => {
+const startAssessment = async (req, res, next) => {
   const { crn, eventId = 1, assessmentType } = req.query
 
   try {
@@ -81,5 +81,5 @@ const createAssessmentFromCrn = async (req, res, next) => {
 }
 
 module.exports = {
-  createAssessmentFromCrn,
+  startAssessment,
 }

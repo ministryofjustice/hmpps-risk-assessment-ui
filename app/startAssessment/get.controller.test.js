@@ -1,12 +1,12 @@
 const { assessmentSupervision, getCurrentEpisode } = require('../../common/data/hmppsAssessmentApi')
-const { createAssessmentFromCrn } = require('./get.controller')
+const { startAssessment } = require('./get.controller')
 
 jest.mock('../../common/data/hmppsAssessmentApi', () => ({
   assessmentSupervision: jest.fn(),
   getCurrentEpisode: jest.fn(),
 }))
 
-describe('createAssessmentFromCrn', () => {
+describe('startAssessment', () => {
   const baseReq = {
     user: {
       id: 1,
@@ -46,7 +46,7 @@ describe('createAssessmentFromCrn', () => {
       },
     }
 
-    await createAssessmentFromCrn(req, res, next)
+    await startAssessment(req, res, next)
 
     expect(res.redirect).toHaveBeenCalledWith(`/${req.query.assessmentType}/start`)
   })
@@ -79,7 +79,7 @@ describe('createAssessmentFromCrn', () => {
       },
     }
 
-    await createAssessmentFromCrn(req, res, next)
+    await startAssessment(req, res, next)
 
     expect(req.session).toEqual({
       ...baseSession,
@@ -110,7 +110,7 @@ describe('createAssessmentFromCrn', () => {
       },
     }
 
-    await createAssessmentFromCrn(req, res, next)
+    await startAssessment(req, res, next)
 
     expect(next).toHaveBeenCalledWith(new Error('CRN is mandatory'))
   })
@@ -125,7 +125,7 @@ describe('createAssessmentFromCrn', () => {
       },
     }
 
-    await createAssessmentFromCrn(req, res, next)
+    await startAssessment(req, res, next)
 
     expect(next).toHaveBeenCalledWith(new Error('Assessment type not valid'))
   })
@@ -142,7 +142,7 @@ describe('createAssessmentFromCrn', () => {
       },
     }
 
-    await createAssessmentFromCrn(req, res, next)
+    await startAssessment(req, res, next)
 
     expect(next).toHaveBeenCalledWith(new Error('Something went wrong'))
   })

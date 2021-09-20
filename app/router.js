@@ -61,6 +61,7 @@ const { submitPredictorScores } = require('./submitPredictorScores/get.controlle
 const rsrWorkflow = require('./rsr')
 
 const logger = require('../common/logging/logger')
+const { startAssessment } = require('./startAssessment/get.controller')
 
 const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 
@@ -202,6 +203,7 @@ module.exports = app => {
     submitPredictorScores,
   )
 
+  app.get('/start-assessment', startAssessment)
   app.use('/rsr', rsrWorkflow)
 
   app.use((error, req, res, next) => {
