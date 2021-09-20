@@ -3,7 +3,6 @@ const { postAnswers } = require('../../../common/data/hmppsAssessmentApi')
 const { formatValidationErrors, assembleDates } = require('../../../common/middleware/questionGroups/postHandlers')
 const { logger } = require('../../../common/logging/logger')
 const { customValidations } = require('../fields')
-const getOffenderDetails = require('../../../common/middleware/getOffenderDetails')
 const getAssessmentQuestions = require('../../../common/middleware/getAssessmentQuestions')
 
 const getErrorMessage = reason => {
