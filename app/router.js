@@ -202,8 +202,7 @@ module.exports = app => {
     submitPredictorScores,
   )
 
-  // app.use('/:assessmentId/rsr', saveAssessmentId, rsrWorkflow)
-  app.use('/:assessmentId/rsr', rsrWorkflow)
+  app.use('/rsr', rsrWorkflow)
 
   app.use((error, req, res, next) => {
     logger.info(`Unhandled exception received - ${error.message} ${error.stack}`)
