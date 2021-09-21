@@ -124,5 +124,7 @@
         }
       }
     }
-  ]
+  ],
+  "offenceCode": "OFFENCE_CODE",
+  "offenceSubCode": "OFFENCE_SUB_CODE"
 }

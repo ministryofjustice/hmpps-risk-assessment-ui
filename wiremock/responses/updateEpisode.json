@@ -41,5 +41,7 @@
         "pre_sentence_previous_child_protection_registration": ["neglect", "physical", "sexual", "emotional"]
       }
     ]
-  }
+  },
+  "offenceCode": "OFFENCE_CODE",
+  "offenceSubCode": "OFFENCE_SUB_CODE"
 }
