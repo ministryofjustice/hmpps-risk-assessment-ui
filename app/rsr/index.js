@@ -11,9 +11,6 @@ router.get('*', (req, res, next) => {
   next()
 })
 
-router.get('/offences-and-convictions', getOffenderDetails)
-router.get('/needs', getOffenderDetails)
-
 router.use(
   wizard(steps, fields, {
     journeyName: 'rsr',

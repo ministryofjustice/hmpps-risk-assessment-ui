@@ -21,6 +21,7 @@ class SaveAndContinue extends Controller {
 
     // get questions
     await getAssessmentQuestions(req, res, next)
+    res.locals.assessment = req.session.assessment || {}
 
     super.locals(req, res, next)
   }

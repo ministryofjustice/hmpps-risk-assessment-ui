@@ -79,6 +79,8 @@ describe('startAssessment', () => {
       },
     }
 
+    jest.useFakeTimers('modern').setSystemTime(new Date('2020-01-01').getTime())
+
     await startAssessment(req, res, next)
 
     expect(req.session).toEqual({
@@ -93,12 +95,15 @@ describe('startAssessment', () => {
         subject: {
           crn: subject.crn,
           dob: subject.dateOfBirth,
+          age: 40,
           name: subject.name,
           pnc: subject.pnc,
           subjectUuid: subject.subjectUuid,
         },
       },
     })
+
+    jest.useRealTimers()
   })
 
   it('returns an error when passed an invalid CRN', async () => {

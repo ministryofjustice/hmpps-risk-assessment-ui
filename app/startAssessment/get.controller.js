@@ -1,3 +1,4 @@
+const { differenceInYears, parseISO } = require('date-fns')
 const { assessmentSupervision, getCurrentEpisode } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 
@@ -47,12 +48,13 @@ const getOffenceDetailsFor = episode => ({
   subCode: episode?.offenceSubCode,
 })
 
-const getSubjectDetailsFor = assessment => ({
+const getSubjectDetailsFor = (assessment, today = new Date()) => ({
   name: assessment?.subject?.name,
   dob: assessment?.subject?.dateOfBirth,
   pnc: assessment?.subject?.pnc,
   crn: assessment?.subject?.crn,
   subjectUuid: assessment?.subject?.subjectUuid,
+  age: differenceInYears(today, new Date(assessment?.subject?.dateOfBirth)),
 })
 
 const startAssessment = async (req, res, next) => {
