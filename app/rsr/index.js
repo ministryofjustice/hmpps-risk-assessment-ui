@@ -2,7 +2,6 @@ const { Router } = require('express')
 const wizard = require('hmpo-form-wizard')
 const steps = require('./steps')
 const { fields } = require('./fields')
-const getOffenderDetails = require('../../common/middleware/getOffenderDetails')
 
 const router = Router()
 

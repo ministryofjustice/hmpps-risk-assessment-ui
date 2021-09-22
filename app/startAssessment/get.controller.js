@@ -1,4 +1,4 @@
-const { differenceInYears, parseISO } = require('date-fns')
+const { differenceInYears } = require('date-fns')
 const { assessmentSupervision, getCurrentEpisode } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 
