@@ -5,13 +5,16 @@
         {% set subjectPnc = assessment.subject.pnc %}
         {% set subjectDob = assessment.subject.dob %}
         {% set subjectAge = assessment.subject.age %}
+        {% set offenderDetailsExists = true %}
   {% elif offenderDetails %}
         {% set subjectName = offenderDetails.name %}
         {% set subjectCrn = offenderDetails.crn %}
         {% set subjectPnc = offenderDetails.pnc %}
         {% set subjectDob = offenderDetails.dob %}
         {% set subjectAge = offenderDetails.age %}
+        {% set offenderDetailsExists = true %}
   {% endif %}
+  {% if offenderDetailsExists %}
   <section class="key-details-bar" aria-label="Key details">
     <div class="moj-primary-navigation__container govuk-width-container--app-extra-wide">
       <div class="key-details-bar__top-block moj-context-header">
@@ -35,4 +38,5 @@
       </div>
     </div>
   </section>
+  {% endif %}
 {% endif %}
