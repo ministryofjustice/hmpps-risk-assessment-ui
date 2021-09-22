@@ -58,7 +58,7 @@ describe('startAssessment', () => {
     const offenceSubCode = 'OFFENCE_SUB_CODE'
     const subject = {
       name: 'Test Offender',
-      dateOfBirth: '01/01/1980',
+      dateOfBirth: '1980-01-01',
       pnc: '1234567',
       crn: '1234567',
       subjectUuid: 'SUBJECT_UUID',
@@ -66,8 +66,11 @@ describe('startAssessment', () => {
     assessmentSupervision.mockResolvedValue([true, { assessmentUuid, subject }])
     getCurrentEpisode.mockResolvedValue({
       episodeUuid,
-      offenceCode,
-      offenceSubCode,
+      offence: {
+        offenceCode,
+        offenceSubCode,
+        sentenceDate: '2020-01-01',
+      },
     })
 
     const req = {
@@ -91,6 +94,7 @@ describe('startAssessment', () => {
         offence: {
           offence: offenceCode,
           subCode: offenceSubCode,
+          sentenceDate: '1st January 2020',
         },
         subject: {
           crn: subject.crn,
@@ -106,7 +110,7 @@ describe('startAssessment', () => {
     jest.useRealTimers()
   })
 
-  it('returns an error when passed an invalid CRN', async () => {
+  it('returns an error when passed no CRN', async () => {
     const req = {
       ...baseReq,
       query: {
@@ -120,19 +124,18 @@ describe('startAssessment', () => {
     expect(next).toHaveBeenCalledWith(new Error('CRN is mandatory'))
   })
 
-  it('returns an error when passed an invalid assessment type', async () => {
+  it('returns an error when passed no assessment type', async () => {
     const req = {
       ...baseReq,
       query: {
         crn: '123456',
         eventId: 1,
-        assessmentType: 'SOME_INVALID_TYPE',
       },
     }
 
     await startAssessment(req, res, next)
 
-    expect(next).toHaveBeenCalledWith(new Error('Assessment type not valid'))
+    expect(next).toHaveBeenCalledWith(new Error('Assessment type is mandatory'))
   })
 
   it('returns an error when unable to create an assessment', async () => {

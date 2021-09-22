@@ -1,4 +1,4 @@
-const { differenceInYears } = require('date-fns')
+const { differenceInYears, format } = require('date-fns')
 const { assessmentSupervision, getCurrentEpisode } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 
@@ -12,12 +12,9 @@ const getErrorMessageFor = (user, reason) => {
 
   return 'Something went wrong' // Unhandled exception
 }
-
-const validAssessmentTypes = ['RSR']
-
 const validateAssessmentType = assessmentType => {
-  if (!validAssessmentTypes.includes(assessmentType)) {
-    throw new Error('Assessment type not valid')
+  if (!assessmentType) {
+    throw new Error('Assessment type is mandatory')
   }
 }
 
@@ -43,10 +40,15 @@ const createAssessment = async (user, crn, deliusEventId = '0', assessmentSchema
   return response
 }
 
-const getOffenceDetailsFor = episode => ({
-  offence: episode?.offenceCode,
-  subCode: episode?.offenceSubCode,
-})
+const getOffenceDetailsFor = episode => {
+  const sentenceDate = episode?.offence?.sentenceDate
+
+  return {
+    offence: episode?.offence?.offenceCode,
+    subCode: episode?.offence?.offenceSubCode,
+    sentenceDate: sentenceDate && format(new Date(sentenceDate), 'do MMMM y'),
+  }
+}
 
 const getSubjectDetailsFor = (assessment, today = new Date()) => ({
   name: assessment?.subject?.name,
