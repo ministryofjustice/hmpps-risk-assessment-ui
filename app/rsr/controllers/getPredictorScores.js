@@ -7,7 +7,11 @@ class GetPredictorScores extends Controller {
   // eslint-disable-next-line consistent-return
   async locals(req, res, next) {
     const { user } = req
-    const episodeId = 'fb6b7c33-07fc-4c4c-a009-8d60f66952c4' // todo: link to ID saved in req after ARN-562 has merged
+    const episodeId = req.session.assessment?.episodeUuid
+    if (!episodeId)
+      return res.render('app/error', {
+        error: new Error('Could not find episode identifier when getting draft predictor scores'),
+      })
     const [ok, predictors] = await getDraftPredictorScore(episodeId, user?.token, user?.id)
     if (!ok) return res.render('app/error', { error: new Error('Failed to get draft predictor scores') })
 
