@@ -29,8 +29,8 @@ const getQuestionGroupSummary = (groupId, authorisationToken, userId) => {
   return getData(path, authorisationToken, userId)
 }
 
-const getFlatAssessmentQuestions = (assessmentCode, version = 1, authorisationToken, userId) => {
-  const path = `${url}/reference/assessment/${assessmentCode}/${version}/questions`
+const getFlatAssessmentQuestions = (assessmentCode, authorisationToken, userId) => {
+  const path = `${url}/assessments/schema/${assessmentCode}/questions`
   return getData(path, authorisationToken, userId)
 }
 
@@ -41,6 +41,16 @@ const getAssessmentSummary = (assessmentSchemaCode, authorisationToken, userId) 
 
 const getAnswers = (assessmentId, episodeId, authorisationToken, userId) => {
   const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
+  return getData(path, authorisationToken, userId)
+}
+
+const getEpisode = (assessmentId, episodeId, authorisationToken, userId) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
+  return getData(path, authorisationToken, userId)
+}
+
+const getCurrentEpisode = (assessmentId, authorisationToken, userId) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/current`
   return getData(path, authorisationToken, userId)
 }
 
@@ -174,4 +184,6 @@ module.exports = {
   updateEditedTableRow: updateTableRow,
   getFlatAssessmentQuestions,
   getDraftPredictorScore,
+  getEpisode,
+  getCurrentEpisode,
 }

@@ -21,15 +21,15 @@ const formatWizardValidationErrors = validationErrors => {
 
 module.exports = async (req, res, next) => {
   const {
-    params: { assessmentCode = 'RSR', assessmentVersion = 1 },
+    params: { assessmentCode = 'RSR' },
     user,
     sessionModel,
   } = req
   try {
-    let questions = await getFlatAssessmentQuestions(assessmentCode, assessmentVersion, user?.token, user?.id)
+    let questions = await getFlatAssessmentQuestions(assessmentCode, user?.token, user?.id)
     const userAnswers = sessionModel.get('answers')
 
-    const answers = await getAnswers(assessmentCode, 'current', user?.token, user?.id)
+    const answers = await getAnswers(req.session?.assessment?.uuid, 'current', user?.token, user?.id)
     questions = annotateWithAnswers(questions, answers, userAnswers)
 
     const errors = sessionModel.get('errors')
@@ -39,19 +39,15 @@ module.exports = async (req, res, next) => {
     res.locals.errorSummary = errorSummary
 
     questions = compileInlineConditionalQuestions(questions, res.locals.errors)
-    questions = processReplacements(questions, res.locals.offenderDetails)
+    questions = processReplacements(questions, req.session?.assessment?.subject)
 
-    const questionLookup = {}
-    questions.forEach(q => {
-      questionLookup[q.questionCode] = q
-    })
+    const byQuestionCode = (a, q) => ({ ...a, [q.questionCode]: q })
+    const questionLookup = questions.reduce(byQuestionCode, {})
     res.locals.questions = questionLookup
 
     return questionLookup
   } catch (error) {
-    logger.error(
-      `Could not retrieve questions for assessment ${assessmentCode} version ${assessmentVersion}, error: ${error}`,
-    )
+    logger.error(`Could not retrieve questions for assessment ${assessmentCode}, error: ${error}`)
     return res.render('app/error', { error })
   }
 }
