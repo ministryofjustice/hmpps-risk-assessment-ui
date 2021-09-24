@@ -1,7 +1,7 @@
 const { Controller } = require('hmpo-form-wizard')
 const { getDraftPredictorScore } = require('../../../common/data/hmppsAssessmentApi')
 const logger = require('../../../common/logging/logger')
-const { splitPredictorScores } = require('../../predictorScores/get.controller')
+const { splitPredictorScores } = require('../../../common/utils/predictors')
 
 class GetPredictorScores extends Controller {
   // eslint-disable-next-line consistent-return
@@ -14,6 +14,7 @@ class GetPredictorScores extends Controller {
     logger.info(`Received ${predictors.length} predictor scores for episode: ${episodeId}`)
 
     res.locals.predictorScores = splitPredictorScores(predictors)
+    res.locals.scoreType = predictors[0].scoreType
 
     res.locals.heading = `Scores for ${req.session.assessment?.subject?.name || ' the offender'}`
     super.locals(req, res, next)

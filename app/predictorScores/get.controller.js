@@ -37,3 +37,4 @@ const displayPredictorScores = async (req, res) => {
   }
 }
 
+module.exports = { displayPredictorScores }

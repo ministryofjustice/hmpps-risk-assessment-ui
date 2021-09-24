@@ -2,6 +2,7 @@
   "default": [
     {
       "type": "RSR",
+      "scoreType": "DYNAMIC",
       "scores": {
         "RSR": {
           "level": "HIGH",
