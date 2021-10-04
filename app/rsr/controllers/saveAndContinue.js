@@ -119,7 +119,13 @@ const combineDateFields = (formValues = {}) => {
   const combinedDateFieldsFor = answers => (otherFields, fieldName) => {
     const dateKey = fieldName.replace(dateFieldPattern, '')
 
-    if (answers[`${dateKey}-year`] === '' || answers[`${dateKey}-month`] === '' || answers[`${dateKey}-day`] === '') {
+    const nullOrEmpty = s => !s || s === ''
+
+    if (
+      nullOrEmpty(answers[`${dateKey}-year`]) ||
+      nullOrEmpty(answers[`${dateKey}-month`]) ||
+      nullOrEmpty(answers[`${dateKey}-day`])
+    ) {
       return { ...otherFields, [dateKey]: '' }
     }
 
@@ -295,7 +301,7 @@ class SaveAndContinue extends Controller {
     super.configure(req, res, next)
   }
 
-  process(req, res, next) {
+  async process(req, res, next) {
     const withValuesFrom = answers => (otherAnswers, currentField) => ({
       ...otherAnswers,
       [currentField]: answers[currentField] || '',
