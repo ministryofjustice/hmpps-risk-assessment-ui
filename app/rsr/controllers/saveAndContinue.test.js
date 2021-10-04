@@ -53,37 +53,8 @@ describe('SaveAndContinueController', () => {
       },
       form: {
         options: {
-          allFields: {
-            age_first_conviction: { questionCode: 'age_first_conviction', type: 'numeric', validate: [] },
-            total_sanctions: {
-              questionCode: 'total_sanctions',
-              type: 'numeric',
-              validate: [],
-            },
-            date_first_sanction: {
-              questionCode: 'date_first_sanction',
-              type: 'date',
-              validate: [],
-            },
-            total_violent_offences: {
-              questionCode: 'total_violent_offences',
-              type: 'numeric',
-              validate: [],
-            },
-          },
-          fields: {
-            age_first_conviction: { questionCode: 'age_first_conviction', type: 'numeric', validate: [] },
-            total_sanctions: {
-              questionCode: 'total_sanctions',
-              type: 'numeric',
-              validate: [],
-            },
-            date_first_sanction: {
-              questionCode: 'date_first_sanction',
-              type: 'date',
-              validate: [],
-            },
-          },
+          allFields: {},
+          fields: {},
         },
         values: {},
       },
