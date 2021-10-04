@@ -155,17 +155,17 @@ const renderConditionalQuestion = (
   _nunjucks = nunjucks,
 ) => {
   const conditionalQuestions = conditionalQuestionCodes.map(({ code, deps }) => {
-    const [schema] = questions.filter(q => q.questionCode === code)
+    const [schema] = questions.filter(question => question.questionCode === code)
     return { schema, deps }
   })
 
-  const answerSchemas = questionSchema.answerSchemas.map(answerSchema => {
+  const answerSchemas = questionSchema.answerSchemas.map(answer => {
     const questionsDependentOnThisAnswer = conditionalQuestions.filter(
-      question => question.schema.dependent.value === answerSchema.value,
+      question => question.schema.dependent.value === answer.value,
     )
 
     if (questionsDependentOnThisAnswer.length === 0) {
-      return answerSchema
+      return answer
     }
 
     const rendered = questionsDependentOnThisAnswer.reduce((previouslyRendered, conditionalQuestion) => {
@@ -195,7 +195,7 @@ const renderConditionalQuestion = (
 
       return [previouslyRendered, renderedQuestion].join('')
     }, '')
-    return { ...answerSchema, conditional: { html: rendered } }
+    return { ...answer, conditional: { html: rendered } }
   })
 
   return { ...questionSchema, answerSchemas }
@@ -206,30 +206,38 @@ const compileConditionalQuestions = (questions, errors) => {
     question => question.dependent && !question.dependent.displayOutOfLine,
   )
 
-  const questionCodes = inlineConditionalQuestions.map(q => q.questionCode)
+  const questionCodes = inlineConditionalQuestions.map(question => question.questionCode)
 
-  const rootNodes = inlineConditionalQuestions
-    .filter(q => !questionCodes.includes(q.dependent.field))
-    .reduce((a, b) => [...a, ...(a.includes(b.dependent.field) ? [] : [b.dependent.field])], [])
+  const rootConditionalQuestions = inlineConditionalQuestions
+    .filter(question => !questionCodes.includes(question.dependent.field))
+    .reduce(
+      (otherQuestions, currentQuestion) => [
+        ...otherQuestions,
+        ...(otherQuestions.includes(currentQuestion.dependent.field) ? [] : [currentQuestion.dependent.field]),
+      ],
+      [],
+    )
 
-  const buildNode = n =>
+  const buildNode = parentQuestionCode =>
     inlineConditionalQuestions
-      .filter(q => q.dependent.field === n)
-      .map(q => {
-        const dependents = inlineConditionalQuestions.filter(q2 => q.questionCode === q2.dependent.field)
+      .filter(question => question.dependent.field === parentQuestionCode)
+      .map(question => {
+        const dependents = inlineConditionalQuestions.filter(
+          otherQuestion => question.questionCode === otherQuestion.dependent.field,
+        )
         if (dependents.length > 0) {
-          return { code: q.questionCode, deps: buildNode(q.questionCode) }
+          return { code: question.questionCode, deps: buildNode(question.questionCode) }
         }
-        return { code: q.questionCode }
+        return { code: question.questionCode }
       })
 
-  const dependencyTree = rootNodes.map(n => {
-    return { code: n, deps: buildNode(n) }
+  const dependencyTree = rootConditionalQuestions.map(questionCode => {
+    return { code: questionCode, deps: buildNode(questionCode) }
   })
 
   return dependencyTree.reduce(
     (otherQuestions, { code: questionCode, deps: conditionalQuestionCodes }) => {
-      const [questionSchema] = otherQuestions.filter(q => q.questionCode === questionCode)
+      const [questionSchema] = otherQuestions.filter(question => question.questionCode === questionCode)
 
       const updatedQuestionSchema = renderConditionalQuestion(
         otherQuestions,
@@ -263,7 +271,7 @@ class SaveAndContinue extends Controller {
       questionsWithMappedAnswers,
       validationErrors,
     )
-    // const questionsWithCompiledConditionals = compileInlineConditionalQuestions(questionsWithMappedAnswers, res.locals.errors)
+
     const questionsWithReplacements = processReplacements(
       questionWithPreCompiledConditionals,
       req.session?.assessment?.subject,
