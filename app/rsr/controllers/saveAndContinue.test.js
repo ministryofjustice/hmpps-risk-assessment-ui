@@ -1,5 +1,5 @@
 const SaveAndContinueController = require('./saveAndContinue')
-const { postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
+const { getAnswers, postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
 const { customValidations } = require('../fields')
 const { processReplacements } = require('../../../common/utils/util')
 
@@ -66,12 +66,14 @@ describe('SaveAndContinueController', () => {
     req.form.options.fields = {}
     req.form.options.allFields = {}
 
+    getAnswers.mockReset()
     postAnswers.mockReset()
     getFlatAssessmentQuestions.mockReset()
     customValidations.mockReset()
     processReplacements.mockReset()
 
     processReplacements.mockImplementation(questions => questions)
+    getAnswers.mockResolvedValue({})
   })
 
   describe('locals', () => {
@@ -152,7 +154,55 @@ describe('SaveAndContinueController', () => {
       })
     })
 
-    it('prefers local answers to remote when mapping on to questions', async () => {})
+    it('prefers local answers to remote when mapping on to questions', async () => {
+      req.form.options.fields = {
+        first_question: {
+          questionCode: 'first_question',
+          type: 'numeric',
+        },
+        second_question: {
+          questionCode: 'second_question',
+          type: 'radio',
+        },
+        third_question: {
+          questionCode: 'third_question',
+          type: 'checkbox',
+        },
+      }
+
+      mockSessionModel({
+        answers: {
+          first_question: 'SUBMITTED_FOO',
+          second_question: 'SUBMITTED_BAR',
+        },
+      })
+
+      getAnswers.mockResolvedValue({
+        first_question: ['PREVIOUS_FOO'],
+        second_question: ['PREVIOUS_BAR'],
+        third_question: ['PREVIOUS_BAZ'],
+      })
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.questions).toEqual({
+        first_question: {
+          questionCode: 'first_question',
+          type: 'numeric',
+          answer: 'SUBMITTED_FOO',
+        },
+        second_question: {
+          questionCode: 'second_question',
+          type: 'radio',
+          answer: 'SUBMITTED_BAR',
+        },
+        third_question: {
+          questionCode: 'third_question',
+          type: 'checkbox',
+          answer: 'PREVIOUS_BAZ',
+        },
+      })
+    })
 
     it('applies processReplacements for questions', async () => {
       await controller.locals(req, res, () => {})

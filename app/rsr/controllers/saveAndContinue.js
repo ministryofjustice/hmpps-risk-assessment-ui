@@ -1,9 +1,11 @@
 const { Controller } = require('hmpo-form-wizard')
 const nunjucks = require('nunjucks')
-const { postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
+const { getAnswers, postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
 const { logger } = require('../../../common/logging/logger')
 const { customValidations } = require('../fields')
 const { processReplacements } = require('../../../common/utils/util')
+
+const nullOrEmpty = s => !s || s === ''
 
 const getErrorMessage = reason => {
   if (reason === 'OASYS_PERMISSION') {
@@ -39,9 +41,26 @@ const pageValidationErrorsFrom = (validationErrors, serverErrors = []) => {
   }
 }
 
-const withAnswersFrom = answers => ([fieldName, fieldProperties]) => {
+const withAnswersFrom = (previousAnswers, submittedAnswers) => ([fieldName, fieldProperties]) => {
+  const someValueFrom = x => (!nullOrEmpty(x) ? x : undefined)
+  const answerFor = f => {
+    let answer = ''
+
+    const submittedAnswer = someValueFrom(submittedAnswers[f])
+    const previousAnswer = someValueFrom(previousAnswers[f])
+
+    if (submittedAnswer) {
+      answer = submittedAnswer
+    } else if (Array.isArray(previousAnswer) && previousAnswer.length > 0) {
+      const [firstAnswer] = previousAnswer
+      answer = firstAnswer
+    }
+
+    return answer
+  }
+
   if (fieldProperties.answerType === 'radio') {
-    const checkedAnswer = answers[fieldName]
+    const checkedAnswer = answerFor(fieldName)
     return {
       ...fieldProperties,
       answerSchemas: fieldProperties.answerSchemas.map(answerSchema => ({
@@ -52,7 +71,7 @@ const withAnswersFrom = answers => ([fieldName, fieldProperties]) => {
   }
 
   if (fieldProperties.answerType === 'checkbox') {
-    const selected = answers[fieldName] || []
+    const selected = submittedAnswers[fieldName] || previousAnswers[fieldName] || []
     return {
       ...fieldProperties,
       answerSchemas: fieldProperties.answerSchemas.map(answerSchema => ({
@@ -62,7 +81,7 @@ const withAnswersFrom = answers => ([fieldName, fieldProperties]) => {
     }
   }
 
-  const answer = answers[fieldName] || ''
+  const answer = answerFor(fieldName)
 
   return {
     ...fieldProperties,
@@ -118,8 +137,6 @@ const combineDateFields = (formValues = {}) => {
 
   const combinedDateFieldsFor = answers => (otherFields, fieldName) => {
     const dateKey = fieldName.replace(dateFieldPattern, '')
-
-    const nullOrEmpty = s => !s || s === ''
 
     if (
       nullOrEmpty(answers[`${dateKey}-year`]) ||
@@ -270,9 +287,16 @@ class SaveAndContinue extends Controller {
     res.locals.errors = validationErrors
     res.locals.errorSummary = errorSummary
 
+    const previousAnswers = await getAnswers(
+      req.assessment?.uuid,
+      req.assessment?.episodeUuid,
+      req.user?.token,
+      req.user?.id,
+    )
     const submittedAnswers = req.sessionModel.get('answers') || {}
+
     const questions = Object.entries(req.form.options.fields)
-    const questionsWithMappedAnswers = questions.map(withAnswersFrom(submittedAnswers))
+    const questionsWithMappedAnswers = questions.map(withAnswersFrom(previousAnswers, submittedAnswers))
     const questionWithPreCompiledConditionals = compileConditionalQuestions(
       questionsWithMappedAnswers,
       validationErrors,
