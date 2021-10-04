@@ -1,11 +1,11 @@
 const SaveAndContinueController = require('./saveAndContinue')
-const { postAnswers } = require('../../../common/data/hmppsAssessmentApi')
+const { postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
 const { customValidations } = require('../fields')
+const { processReplacements } = require('../../../common/utils/util')
 
 jest.mock('../../../common/data/hmppsAssessmentApi')
-jest.mock('../fields', () => ({
-  customValidations: jest.fn(),
-}))
+jest.mock('../../../common/utils/util')
+jest.mock('../fields')
 
 let req
 const user = { token: 'mytoken', id: '1' }
@@ -16,9 +16,25 @@ const controller = new SaveAndContinueController({
 })
 
 describe('SaveAndContinueController', () => {
+  const mockSessionModel = (values = {}) => {
+    req.sessionModel.get.mockImplementation(key => {
+      switch (key) {
+        case 'errors':
+          return values.errors || []
+        case 'answers':
+          return values.answers || {}
+        default:
+          return undefined
+      }
+    })
+  }
+
   const res = {
     redirect: jest.fn(),
     render: jest.fn(),
+    locals: {
+      'csrf-token': 'CSRF_TOKEN',
+    },
   }
 
   beforeEach(() => {
@@ -37,10 +53,36 @@ describe('SaveAndContinueController', () => {
       },
       form: {
         options: {
+          allFields: {
+            age_first_conviction: { questionCode: 'age_first_conviction', type: 'numeric', validate: [] },
+            total_sanctions: {
+              questionCode: 'total_sanctions',
+              type: 'numeric',
+              validate: [],
+            },
+            date_first_sanction: {
+              questionCode: 'date_first_sanction',
+              type: 'date',
+              validate: [],
+            },
+            total_violent_offences: {
+              questionCode: 'total_violent_offences',
+              type: 'numeric',
+              validate: [],
+            },
+          },
           fields: {
-            age_first_conviction: { type: 'numeric' },
-            total_sanctions: { type: 'numeric' },
-            date_first_sanction: { type: 'date' },
+            age_first_conviction: { questionCode: 'age_first_conviction', type: 'numeric', validate: [] },
+            total_sanctions: {
+              questionCode: 'total_sanctions',
+              type: 'numeric',
+              validate: [],
+            },
+            date_first_sanction: {
+              questionCode: 'date_first_sanction',
+              type: 'date',
+              validate: [],
+            },
           },
         },
         values: {},
@@ -50,84 +92,233 @@ describe('SaveAndContinueController', () => {
     res.render.mockReset()
     req.sessionModel.get.mockReset()
     req.sessionModel.set.mockReset()
+    req.form.options.fields = {}
+    req.form.options.allFields = {}
+
     postAnswers.mockReset()
+    getFlatAssessmentQuestions.mockReset()
     customValidations.mockReset()
+    processReplacements.mockReset()
+
+    processReplacements.mockImplementation(questions => questions)
+  })
+
+  describe('locals', () => {
+    it('puts the CSRF token in to locals', async () => {
+      mockSessionModel()
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.csrfToken).toEqual('CSRF_TOKEN')
+    })
+
+    it('puts the assessment in to locals', async () => {
+      mockSessionModel()
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.assessment).toEqual(req.session.assessment)
+    })
+
+    it('puts form errors in to locals', async () => {
+      mockSessionModel({ errors: [{ message: 'field error', key: 'some_field' }] })
+      await controller.locals(req, res, () => {})
+
+      expect(req.sessionModel.get).toHaveBeenCalledWith('errors')
+      expect(res.locals.errors).toEqual({
+        some_field: {
+          text: 'field error',
+        },
+      })
+      expect(res.locals.errorSummary).toEqual([{ href: '#some_field-error', text: 'field error' }])
+    })
+
+    it('pre-renders conditional questions', async () => {})
+
+    it('pre-renders nested conditional questions', async () => {})
+
+    it('maps answers on to questions', async () => {
+      req.form.options.fields = {
+        first_question: {
+          questionCode: 'first_question',
+          type: 'numeric',
+        },
+        second_question: {
+          questionCode: 'second_question',
+          type: 'numeric',
+        },
+        third_question: {
+          questionCode: 'third_question',
+          type: 'numeric',
+        },
+      }
+
+      mockSessionModel({
+        answers: {
+          first_question: 'FOO',
+          second_question: 'BAR',
+        },
+      })
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.questions).toEqual({
+        first_question: {
+          questionCode: 'first_question',
+          type: 'numeric',
+          answer: 'FOO',
+        },
+        second_question: {
+          questionCode: 'second_question',
+          type: 'numeric',
+          answer: 'BAR',
+        },
+        third_question: {
+          questionCode: 'third_question',
+          type: 'numeric',
+          answer: '',
+        },
+      })
+    })
+
+    it('prefers local answers to remote when mapping on to questions', async () => {})
+
+    it('applies processReplacements for questions', async () => {
+      await controller.locals(req, res, () => {})
+
+      expect(processReplacements).toHaveBeenCalledWith(expect.anything(), req.session.assessment.subject)
+    })
+
+    it('stores questions in locals', async () => {
+      req.form.options.fields = {
+        date_first_sanction: {
+          questionCode: 'date_first_sanction',
+          type: 'date',
+        },
+      }
+
+      mockSessionModel()
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.questions).toEqual({
+        date_first_sanction: {
+          questionCode: 'date_first_sanction',
+          type: 'date',
+          answer: '',
+        },
+      })
+    })
+  })
+
+  describe('configure', () => {
+    it('combines remote and local field configurations', async () => {
+      getFlatAssessmentQuestions.mockResolvedValue([
+        { questionCode: 'age_first_conviction', questionText: 'Age at first sanction' },
+      ])
+
+      await controller.configure(req, res, () => {})
+
+      expect(getFlatAssessmentQuestions).toHaveBeenCalledWith('RSR', user.token, user.id)
+    })
+
+    it('adds validation for mandatory questions if missing', async () => {
+      getFlatAssessmentQuestions.mockResolvedValue([
+        { questionCode: 'age_first_conviction', questionText: 'Age at first sanction' },
+      ])
+
+      await controller.configure(req, res, () => {})
+
+      expect(getFlatAssessmentQuestions).toHaveBeenCalledWith('RSR', user.token, user.id)
+    })
   })
 
   describe('process', () => {
     it('combines date fields', async () => {
+      req.form.options.fields = {
+        date_field: {
+          questionCode: 'date_field',
+          type: 'date',
+        },
+      }
+
       req.body = {
-        'date_first_sanction-day': '2',
-        'date_first_sanction-month': '9',
-        'date_first_sanction-year': '2018',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        'date_field-day': '2',
+        'date_field-month': '9',
+        'date_field-year': '2018',
       }
 
       await controller.process(req, res, () => {})
 
       expect(req.form.values).toEqual({
-        date_first_sanction: '2018-09-02',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        date_field: '2018-09-02',
       })
     })
 
     it('returns empty when the date has no day component', async () => {
+      req.form.options.fields = {
+        date_field: {
+          questionCode: 'date_field',
+          type: 'date',
+        },
+      }
+
       req.body = {
-        'date_first_sanction-day': '',
-        'date_first_sanction-month': '9',
-        'date_first_sanction-year': '2018',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        'date_field-day': '',
+        'date_field-month': '9',
+        'date_field-year': '2018',
       }
 
       await controller.process(req, res, () => {})
 
       expect(req.form.values).toEqual({
-        date_first_sanction: '',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        date_field: '',
       })
 
       expect(req.sessionModel.set).toHaveBeenCalledWith('answers', req.form.values)
     })
 
     it('returns empty when the date has no month component', async () => {
+      req.form.options.fields = {
+        date_field: {
+          questionCode: 'date_field',
+          type: 'date',
+        },
+      }
+
       req.body = {
-        'date_first_sanction-day': '2',
-        'date_first_sanction-month': '',
-        'date_first_sanction-year': '2018',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        'date_field-day': '2',
+        'date_field-month': '',
+        'date_field-year': '2018',
       }
 
       await controller.process(req, res, () => {})
 
       expect(req.form.values).toEqual({
-        date_first_sanction: '',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        date_field: '',
       })
 
       expect(req.sessionModel.set).toHaveBeenCalledWith('answers', req.form.values)
     })
 
     it('returns empty when the date has no year component', async () => {
+      req.form.options.fields = {
+        date_field: {
+          questionCode: 'date_field',
+          type: 'date',
+        },
+      }
+
       req.body = {
-        'date_first_sanction-day': '2',
-        'date_first_sanction-month': '9',
-        'date_first_sanction-year': '',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        'date_field-day': '2',
+        'date_field-month': '9',
+        'date_field-year': '',
       }
 
       await controller.process(req, res, () => {})
 
       expect(req.form.values).toEqual({
-        date_first_sanction: '',
-        age_first_conviction: '3',
-        total_sanctions: '2',
+        date_field: '',
       })
 
       expect(req.sessionModel.set).toHaveBeenCalledWith('answers', req.form.values)
@@ -136,18 +327,27 @@ describe('SaveAndContinueController', () => {
 
   describe('validateFields', () => {
     it('applies customValidations', async () => {
-      const answers = {
-        date_first_sanction: '2018-09-02',
-        age_first_conviction: '3',
-        total_sanctions: '2',
-      }
-      const modifiedFields = {
-        age_first_conviction: { type: 'numeric', validation: 'test' },
-        total_sanctions: { type: 'numeric', validation: 'test' },
-        date_first_sanction: { type: 'date', validation: 'test' },
+      req.form.options.fields = {
+        first_field: { type: 'numeric', questionCode: 'first_field', validation: [] },
+        second_field: { type: 'numeric', questionCode: 'second_field', validation: [] },
+        third_field: { type: 'date', questionCode: 'third_field', validation: [] },
       }
 
-      req.sessionModel.get.mockReturnValue(answers)
+      const answers = {
+        first_field: '2018-09-02',
+        second_field: '3',
+        third_field: '2',
+        date_first_sanction: '17',
+        total_sanctions: '1',
+      }
+
+      const modifiedFields = {
+        first_field: { type: 'numeric', questionCode: 'first_field', validation: ['test'] },
+        second_field: { type: 'numeric', questionCode: 'second_field', validation: ['test'] },
+        third_field: { type: 'date', questionCode: 'third_field', validation: ['test'] },
+      }
+
+      mockSessionModel({ answers })
       customValidations.mockReturnValue(modifiedFields)
 
       const originalFieldConfiguration = JSON.parse(JSON.stringify(req.form.options.fields))
@@ -168,11 +368,11 @@ describe('SaveAndContinueController', () => {
   describe('saveValues', () => {
     it('saves the answers', async () => {
       postAnswers.mockResolvedValue([true, { episodeUuid }])
-      req.sessionModel.get.mockReturnValue({
-        date_first_sanction: '2018-09-02',
-        age_first_conviction: '3',
-        total_sanctions: '2',
-        some_selection_field: ['test'],
+      mockSessionModel({
+        answers: {
+          some_field: 'foo',
+          some_selection_field: ['bar'],
+        },
       })
 
       await controller.saveValues(req, res, () => {})
@@ -183,10 +383,8 @@ describe('SaveAndContinueController', () => {
         'current',
         {
           answers: {
-            date_first_sanction: ['2018-09-02'],
-            age_first_conviction: ['3'],
-            total_sanctions: ['2'],
-            some_selection_field: ['test'],
+            some_field: ['foo'],
+            some_selection_field: ['bar'],
           },
         },
         user.token,
@@ -204,7 +402,7 @@ describe('SaveAndContinueController', () => {
           pageErrors: ['server error'],
         },
       ])
-      req.sessionModel.get.mockReturnValue({})
+      mockSessionModel()
 
       await controller.saveValues(req, res, () => {})
 
@@ -223,7 +421,7 @@ describe('SaveAndContinueController', () => {
 
     it('renders an error when the user does not have permission to update the assessment', async () => {
       postAnswers.mockResolvedValue([false, { status: 403, reason: 'OASYS_PERMISSION' }])
-      req.sessionModel.get.mockReturnValue({})
+      mockSessionModel()
 
       await controller.saveValues(req, res, () => {})
 
@@ -237,7 +435,7 @@ describe('SaveAndContinueController', () => {
     it('displays an error if answer saving fails', async () => {
       const theError = new Error('Error message')
       postAnswers.mockRejectedValue(theError)
-      req.sessionModel.get.mockReturnValue({})
+      mockSessionModel()
 
       await controller.saveValues(req, res, () => {})
 
