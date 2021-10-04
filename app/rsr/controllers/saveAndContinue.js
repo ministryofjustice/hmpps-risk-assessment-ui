@@ -147,28 +147,58 @@ const answerDtoFrom = formValues =>
       {},
     )
 
-const renderConditionalQuestion = (conditionalQuestions, errors, _nunjucks = nunjucks) => answerSchema => {
-  const questionsDependentOnThisAnswer = conditionalQuestions.filter(
-    question => question.dependent.value === answerSchema.value,
-  )
+const renderConditionalQuestion = (
+  questions,
+  questionSchema,
+  conditionalQuestionCodes,
+  errors,
+  _nunjucks = nunjucks,
+) => {
+  const conditionalQuestions = conditionalQuestionCodes.map(({ code, deps }) => {
+    const [schema] = questions.filter(q => q.questionCode === code)
+    return { schema, deps }
+  })
 
-  const rendered = questionsDependentOnThisAnswer.reduce((previouslyRendered, conditionalQuestion) => {
-    const validationError = errors[conditionalQuestion.questionCode]
+  const answerSchemas = questionSchema.answerSchemas.map(answerSchema => {
+    const questionsDependentOnThisAnswer = conditionalQuestions.filter(
+      question => question.schema.dependent.value === answerSchema.value,
+    )
 
-    const questionString = JSON.stringify(conditionalQuestion)
+    if (questionsDependentOnThisAnswer.length === 0) {
+      return answerSchema
+    }
 
-    const errorString = validationError ? `, ${JSON.stringify(validationError)}` : ''
+    const rendered = questionsDependentOnThisAnswer.reduce((previouslyRendered, conditionalQuestion) => {
+      let conditionalQuestionSchema = conditionalQuestion.schema
+      if (Array.isArray(conditionalQuestion.deps) && conditionalQuestion.deps.length > 0) {
+        conditionalQuestionSchema = renderConditionalQuestion(
+          questions,
+          conditionalQuestionSchema,
+          conditionalQuestion.deps,
+          errors,
+        )
+      }
 
-    const conditionalQuestionString = `
-          {% from "common/templates/components/question/macro.njk" import renderQuestion %}
-          {{ renderQuestion(${questionString},'',''${errorString}) }}
-        `
+      const validationError = errors[conditionalQuestionSchema.questionCode]
 
-    const renderedQuestion = _nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, '')
+      const questionString = JSON.stringify(conditionalQuestionSchema)
+        .replace('{{', '{ {') // Prevent nunjucks mistaking the braces when rendering the template
+        .replace('}}', '} }')
 
-    return [previouslyRendered, renderedQuestion].join('')
-  }, '')
-  return { ...answerSchema, conditional: { html: rendered } }
+      const errorString = validationError ? `, ${JSON.stringify(validationError)}` : ''
+
+      const conditionalQuestionString =
+        '{% from "common/templates/components/question/macro.njk" import renderQuestion %} \n' +
+        `{{ renderQuestion(${questionString}, "", ""${errorString}) }}`
+
+      const renderedQuestion = _nunjucks.renderString(conditionalQuestionString).replace(/(\r\n|\n|\r)\s+/gm, '')
+
+      return [previouslyRendered, renderedQuestion].join('')
+    }, '')
+    return { ...answerSchema, conditional: { html: rendered } }
+  })
+
+  return { ...questionSchema, answerSchemas }
 }
 
 const compileConditionalQuestions = (questions, errors) => {
@@ -176,27 +206,39 @@ const compileConditionalQuestions = (questions, errors) => {
     question => question.dependent && !question.dependent.displayOutOfLine,
   )
 
-  const groupedConditionalQuestions = inlineConditionalQuestions.reduce(
-    (groups, currentQuestion) => ({
-      ...groups,
-      [currentQuestion.dependent.field]: [
-        ...(groups[currentQuestion.dependent.field] || []),
-        currentQuestion.questionCode,
-      ],
-    }),
-    {},
-  )
+  const questionCodes = inlineConditionalQuestions.map(q => q.questionCode)
 
-  return Object.entries(groupedConditionalQuestions).reduce(
-    (otherQuestions, [questionCode, conditionalQuestionCodes]) => {
+  const rootNodes = inlineConditionalQuestions
+    .filter(q => !questionCodes.includes(q.dependent.field))
+    .reduce((a, b) => [...a, ...(a.includes(b.dependent.field) ? [] : [b.dependent.field])], [])
+
+  const buildNode = n =>
+    inlineConditionalQuestions
+      .filter(q => q.dependent.field === n)
+      .map(q => {
+        const dependents = inlineConditionalQuestions.filter(q2 => q.questionCode === q2.dependent.field)
+        if (dependents.length > 0) {
+          return { code: q.questionCode, deps: buildNode(q.questionCode) }
+        }
+        return { code: q.questionCode }
+      })
+
+  const dependencyTree = rootNodes.map(n => {
+    return { code: n, deps: buildNode(n) }
+  })
+
+  return dependencyTree.reduce(
+    (otherQuestions, { code: questionCode, deps: conditionalQuestionCodes }) => {
       const [questionSchema] = otherQuestions.filter(q => q.questionCode === questionCode)
-      const conditionalQuestionSchemas = otherQuestions.filter(q => conditionalQuestionCodes.includes(q.questionCode))
 
-      const updatedAnswerSchemas = questionSchema.answerSchemas.map(
-        renderConditionalQuestion(conditionalQuestionSchemas, errors),
+      const updatedQuestionSchema = renderConditionalQuestion(
+        otherQuestions,
+        questionSchema,
+        conditionalQuestionCodes,
+        errors,
       )
 
-      return [...otherQuestions, { ...questionSchema, answerSchemas: updatedAnswerSchemas }]
+      return [...otherQuestions, updatedQuestionSchema]
     },
     [...questions],
   )
