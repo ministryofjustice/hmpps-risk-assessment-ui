@@ -321,8 +321,8 @@ class SaveAndContinue extends Controller {
     const { date_first_sanction = '', total_sanctions = '' } = answers
     const offenderDob = req.session?.assessment?.subject?.dob
 
-    req.sessionModel.options.fields = customValidations(
-      req.sessionModel.options.fields,
+    req.form.options.fields = customValidations(
+      req.form.options.fields,
       offenderDob,
       date_first_sanction,
       total_sanctions,
