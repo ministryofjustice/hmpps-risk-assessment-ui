@@ -160,15 +160,13 @@ const combineDateFields = (formValues = {}) => {
 }
 
 const answerDtoFrom = formValues =>
-  Object.keys(formValues)
-    .filter(fieldName => formValues[fieldName] && formValues[fieldName] !== '')
-    .reduce(
-      (otherFields, fieldName) => ({
-        ...otherFields,
-        [fieldName]: Array.isArray(formValues[fieldName]) ? formValues[fieldName] : [formValues[fieldName]],
-      }),
-      {},
-    )
+  Object.keys(formValues).reduce(
+    (otherFields, fieldName) => ({
+      ...otherFields,
+      [fieldName]: Array.isArray(formValues[fieldName]) ? formValues[fieldName] : [formValues[fieldName]],
+    }),
+    {},
+  )
 
 const renderConditionalQuestion = (
   questions,
@@ -327,15 +325,24 @@ class SaveAndContinue extends Controller {
   }
 
   async process(req, res, next) {
-    const withValuesFrom = answers => (otherAnswers, currentField) => ({
-      ...otherAnswers,
-      [currentField]: answers[currentField] || '',
-    })
-    const filterAnswersForFields = (fields, answers) => Object.keys(fields).reduce(withValuesFrom(answers), {})
+    const withValuesFrom = (answers, fields) => (otherAnswers, currentField) => {
+      const dependency = fields[currentField]?.dependent
+      let answer = answers[currentField] || ''
+
+      if (dependency && otherAnswers[dependency.field] !== dependency.value) {
+        answer = ''
+      }
+
+      return {
+        ...otherAnswers,
+        [currentField]: answer,
+      }
+    }
+    const filterAnswersByFields = (fields, answers) => Object.keys(fields).reduce(withValuesFrom(answers, fields), {})
 
     const requestBody = req.body || {}
     const answersWithFormattedDates = combineDateFields(requestBody)
-    req.form.values = filterAnswersForFields(req.form?.options?.fields, answersWithFormattedDates)
+    req.form.values = filterAnswersByFields(req.form?.options?.fields, answersWithFormattedDates)
     req.sessionModel.set('answers', req.form?.values || {})
     super.process(req, res, next)
   }
