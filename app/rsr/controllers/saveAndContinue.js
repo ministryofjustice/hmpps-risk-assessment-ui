@@ -262,14 +262,15 @@ const compileConditionalQuestions = (questions, errors) => {
     (otherQuestions, { code: questionCode, deps: conditionalQuestionCodes }) => {
       const [questionSchema] = otherQuestions.filter(question => question.questionCode === questionCode)
 
-      const updatedQuestionSchema = renderConditionalQuestion(
+      const updatedQuestion = renderConditionalQuestion(
         otherQuestions,
         questionSchema,
         conditionalQuestionCodes,
         errors,
       )
-
-      return [...otherQuestions, updatedQuestionSchema]
+      return otherQuestions.map(question =>
+        question.questionCode === updatedQuestion.questionCode ? updatedQuestion : question,
+      )
     },
     [...questions],
   )
