@@ -1,7 +1,11 @@
+const { configure } = require('nunjucks')
 const SaveAndContinueController = require('./saveAndContinue')
 const { getAnswers, postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
 const { customValidations } = require('../fields')
-const { processReplacements } = require('../../../common/utils/util')
+const { processReplacements, encodeHTML } = require('../../../common/utils/util')
+
+const nunjucksEnvironment = configure({}, {})
+nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
 
 jest.mock('../../../common/data/hmppsAssessmentApi')
 jest.mock('../../../common/utils/util')
@@ -106,23 +110,101 @@ describe('SaveAndContinueController', () => {
       expect(res.locals.errorSummary).toEqual([{ href: '#some_field-error', text: 'field error' }])
     })
 
-    it('pre-renders conditional questions', async () => {})
+    it('pre-renders conditional questions', async () => {
+      req.form.options.fields = {
+        first_question: {
+          questionCode: 'first_question',
+          questionText: 'First Question',
+          answerType: 'radio',
+          answerSchemas: [
+            { value: 'YES', text: 'Yes' },
+            { value: 'NO', text: 'No' },
+          ],
+          validate: [],
+        },
+        second_question: {
+          questionCode: 'second_question',
+          questionText: 'Second Question',
+          answerType: 'numeric',
+          answer: '',
+          dependent: { field: 'first_question', value: 'YES' },
+          validate: [],
+        },
+      }
 
-    it('pre-renders nested conditional questions', async () => {})
+      mockSessionModel({
+        answers: {
+          first_question: 'YES',
+        },
+      })
+
+      await controller.locals(req, res, () => {})
+
+      const [yesAnswer] = res.locals.questions.first_question.answerSchemas
+      expect(yesAnswer.conditional?.html).toBeDefined()
+      // TODO: additional assertions
+    })
+
+    it('pre-renders nested conditional questions', async () => {
+      req.form.options.fields = {
+        first_question: {
+          questionCode: 'first_question',
+          questionText: 'First Question',
+          answerType: 'radio',
+          answerSchemas: [
+            { value: 'YES', text: 'Yes' },
+            { value: 'NO', text: 'No' },
+          ],
+          validate: [],
+        },
+        second_question: {
+          questionCode: 'second_question',
+          questionText: 'Second Question',
+          answerType: 'radio',
+          answerSchemas: [
+            { value: 'YES', text: 'Yes' },
+            { value: 'NO', text: 'No' },
+          ],
+          dependent: { field: 'first_question', value: 'YES' },
+          validate: [],
+        },
+        third_question: {
+          questionCode: 'third_question',
+          questionText: 'Third Question',
+          answerType: 'numeric',
+          answer: '',
+          dependent: { field: 'second_question', value: 'NO' },
+          validate: [],
+        },
+      }
+
+      mockSessionModel({
+        answers: {
+          first_question: 'YES',
+          second_question: 'NO',
+        },
+      })
+
+      await controller.locals(req, res, () => {})
+
+      const [yesAnswer] = res.locals.questions.first_question.answerSchemas
+      expect(yesAnswer.conditional?.html).toBeDefined()
+      // TODO: additional assertions
+    })
 
     it('maps answers on to questions', async () => {
       req.form.options.fields = {
         first_question: {
           questionCode: 'first_question',
-          type: 'numeric',
+          answerType: 'numeric',
         },
         second_question: {
           questionCode: 'second_question',
-          type: 'numeric',
+          answerType: 'numeric',
         },
         third_question: {
           questionCode: 'third_question',
-          type: 'numeric',
+          answerType: 'numeric',
         },
       }
 
@@ -138,17 +220,17 @@ describe('SaveAndContinueController', () => {
       expect(res.locals.questions).toEqual({
         first_question: {
           questionCode: 'first_question',
-          type: 'numeric',
+          answerType: 'numeric',
           answer: 'FOO',
         },
         second_question: {
           questionCode: 'second_question',
-          type: 'numeric',
+          answerType: 'numeric',
           answer: 'BAR',
         },
         third_question: {
           questionCode: 'third_question',
-          type: 'numeric',
+          answerType: 'numeric',
           answer: '',
         },
       })
@@ -158,15 +240,15 @@ describe('SaveAndContinueController', () => {
       req.form.options.fields = {
         first_question: {
           questionCode: 'first_question',
-          type: 'numeric',
+          answerType: 'numeric',
         },
         second_question: {
           questionCode: 'second_question',
-          type: 'radio',
+          answerType: 'numeric',
         },
         third_question: {
           questionCode: 'third_question',
-          type: 'checkbox',
+          answerType: 'numeric',
         },
       }
 
@@ -188,17 +270,17 @@ describe('SaveAndContinueController', () => {
       expect(res.locals.questions).toEqual({
         first_question: {
           questionCode: 'first_question',
-          type: 'numeric',
+          answerType: 'numeric',
           answer: 'SUBMITTED_FOO',
         },
         second_question: {
           questionCode: 'second_question',
-          type: 'radio',
+          answerType: 'numeric',
           answer: 'SUBMITTED_BAR',
         },
         third_question: {
           questionCode: 'third_question',
-          type: 'checkbox',
+          answerType: 'numeric',
           answer: 'PREVIOUS_BAZ',
         },
       })
@@ -214,7 +296,7 @@ describe('SaveAndContinueController', () => {
       req.form.options.fields = {
         date_first_sanction: {
           questionCode: 'date_first_sanction',
-          type: 'date',
+          answerType: 'date',
         },
       }
 
@@ -225,7 +307,7 @@ describe('SaveAndContinueController', () => {
       expect(res.locals.questions).toEqual({
         date_first_sanction: {
           questionCode: 'date_first_sanction',
-          type: 'date',
+          answerType: 'date',
           answer: '',
         },
       })
@@ -259,7 +341,7 @@ describe('SaveAndContinueController', () => {
       req.form.options.fields = {
         date_field: {
           questionCode: 'date_field',
-          type: 'date',
+          answerType: 'date',
         },
       }
 
@@ -280,7 +362,7 @@ describe('SaveAndContinueController', () => {
       req.form.options.fields = {
         date_field: {
           questionCode: 'date_field',
-          type: 'date',
+          answerType: 'date',
         },
       }
 
@@ -303,7 +385,7 @@ describe('SaveAndContinueController', () => {
       req.form.options.fields = {
         date_field: {
           questionCode: 'date_field',
-          type: 'date',
+          answerType: 'date',
         },
       }
 
@@ -326,7 +408,7 @@ describe('SaveAndContinueController', () => {
       req.form.options.fields = {
         date_field: {
           questionCode: 'date_field',
-          type: 'date',
+          answerType: 'date',
         },
       }
 
@@ -349,9 +431,9 @@ describe('SaveAndContinueController', () => {
   describe('validateFields', () => {
     it('applies customValidations', async () => {
       req.form.options.fields = {
-        first_field: { type: 'numeric', questionCode: 'first_field', validation: [] },
-        second_field: { type: 'numeric', questionCode: 'second_field', validation: [] },
-        third_field: { type: 'date', questionCode: 'third_field', validation: [] },
+        first_field: { answerType: 'numeric', questionCode: 'first_field', validation: [] },
+        second_field: { answerType: 'numeric', questionCode: 'second_field', validation: [] },
+        third_field: { answerType: 'date', questionCode: 'third_field', validation: [] },
       }
 
       const answers = {
@@ -363,9 +445,9 @@ describe('SaveAndContinueController', () => {
       }
 
       const modifiedFields = {
-        first_field: { type: 'numeric', questionCode: 'first_field', validation: ['test'] },
-        second_field: { type: 'numeric', questionCode: 'second_field', validation: ['test'] },
-        third_field: { type: 'date', questionCode: 'third_field', validation: ['test'] },
+        first_field: { answerType: 'numeric', questionCode: 'first_field', validation: ['test'] },
+        second_field: { answerType: 'numeric', questionCode: 'second_field', validation: ['test'] },
+        third_field: { answerType: 'date', questionCode: 'third_field', validation: ['test'] },
       }
 
       mockSessionModel({ answers })
