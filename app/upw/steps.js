@@ -4,7 +4,7 @@ const StubSaveAndContinue = require('./controllers/stubSaveAndContinue')
 
 module.exports = {
   '/start': {
-    pageTitle: 'Start',
+    pageTitle: 'Community payback assessment start',
     controller: StartRsrAssessment,
     reset: true,
     entryPoint: true,

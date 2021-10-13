@@ -5,7 +5,8 @@ class StartRsr extends Controller {
     res.locals.csrfToken = res.locals['csrf-token'] // TODO: move this to a BaseController class
     res.locals.assessment = req.session.assessment
 
-    res.locals.pageDescription = 'Your answers will be combined with OASys and nDelius information. A full PDF version will then be created.'
+    res.locals.pageDescription =
+      'Your answers will be combined with OASys and nDelius information. A full PDF version will then be created.'
 
     super.locals(req, res, next)
   }
