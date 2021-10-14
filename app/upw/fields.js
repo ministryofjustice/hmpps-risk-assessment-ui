@@ -1,14 +1,12 @@
-const { addSectionCompleteField } = require("./utils")
+const { addSectionCompleteField } = require('./utils')
 
 let fields = {
   declaration: {
     questionText: '[PLACEHOLDER]',
-    questionCode: 'Declaration',
+    questionCode: 'declaration',
     answerType: 'checkbox',
-    answerSchemas: [
-      { text: 'Complete', value: 'COMPLETE' },
-    ]
-  }
+    answerSchemas: [{ text: 'Complete', value: 'COMPLETE' }],
+  },
 }
 
 Array.from([
@@ -26,7 +24,9 @@ Array.from([
   'availability',
   'intensive-working',
   'equipment',
-]).forEach(sectionName => fields = addSectionCompleteField(fields, sectionName))
+]).forEach(sectionName => {
+  fields = addSectionCompleteField(fields, sectionName)
+})
 
 // const customValidations = (fields, answers) => {
 //   return fields

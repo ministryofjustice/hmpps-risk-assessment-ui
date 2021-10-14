@@ -8,8 +8,8 @@ const addSectionCompleteField = (fields, section) => ({
     answerSchemas: [
       { text: 'Yes', value: 'YES' },
       { text: 'No', value: 'NO' },
-    ]
-  }
+    ],
+  },
 })
 
 module.exports = {
