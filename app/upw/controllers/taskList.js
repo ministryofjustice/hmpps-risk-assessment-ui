@@ -6,7 +6,8 @@ class TaskList extends Controller {
     res.locals.csrfToken = res.locals['csrf-token'] // TODO: move this to a BaseController class
     res.locals.assessment = req.session.assessment
 
-    res.locals.pageDescription = 'Most of the questions in this assessment must be answered, but some are optional and are marked as such.'
+    res.locals.pageDescription =
+      'Most of the questions in this assessment must be answered, but some are optional and are marked as such.'
 
     const journeyName = req.form?.options?.journeyName || ''
     const steps = req.form?.options?.steps || {}
