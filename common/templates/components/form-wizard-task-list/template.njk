@@ -9,9 +9,13 @@
       {%- for item in section.items %}
       <li class="task-list__item">
         <span class="task-list__task-name">
+          {% if item.status != 'CANNOT_START' %}
           <a class="govuk-link" href="{{ item.href }}">
             {{- item.html | safe if item.html else item.text -}}
           </a>
+          {% else %}
+          {{- item.html | safe if item.html else item.text -}}
+          {% endif %}
         </span>
         {%- if item.status == 'COMPLETE' %}
         {{ govukTag({
