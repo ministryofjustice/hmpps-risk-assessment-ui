@@ -110,9 +110,6 @@ jobs:
           keys:
             - dependency-cache-${CACHE_VERSION}-{{ checksum "package.json" }}
       - run:
-          name: Install cypress
-          command: npx cypress install
-      - run:
           name: Run the node app
           command: npm run start:cypress
           background: true
