@@ -1,10 +1,7 @@
-const { Controller } = require('hmpo-form-wizard')
+const BaseController = require('../../common/controllers/baseController')
 
-class StartRsr extends Controller {
+class StartUnpaidWork extends BaseController {
   locals(req, res, next) {
-    res.locals.csrfToken = res.locals['csrf-token'] // TODO: move this to a BaseController class
-    res.locals.assessment = req.session.assessment
-
     res.locals.pageDescription =
       'Your answers will be combined with OASys and nDelius information. A full PDF version will then be created.'
 
@@ -12,4 +9,4 @@ class StartRsr extends Controller {
   }
 }
 
-module.exports = StartRsr
+module.exports = StartUnpaidWork

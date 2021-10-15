@@ -22,8 +22,8 @@
         <form method="post" action="{{ action }}">
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
             
-            {% for field, fieldOptions in options.fields %}
-            {{ renderQuestion(fieldOptions, {}) }}
+            {% for questionCode, questionSchema in questions %}
+            {{ renderQuestion(questionSchema, errors) }}
             {% endfor %}
             
             <div class="questiongroup-action-buttons">

@@ -1,39 +1,39 @@
-const checkAllSectionsAreComplete = sections => {
+const checkAllTasksAreComplete = sections => {
   return sections.every(section => {
     const tasks = section.items || []
     return tasks.every(task => task.status === 'COMPLETE')
   })
 }
 
-const checkDeclarationIsSigned = (answers, declarationField, condition) => {
-  if (!answers || !declarationField || !condition) {
+const checkDeclarationIsSigned = (answers, fieldName, valueWhenSigned) => {
+  if (!answers || !fieldName || !valueWhenSigned) {
     return false
   }
 
-  return answers[declarationField] === condition
+  return answers[fieldName] === valueWhenSigned
 }
 
-const getDeclarationStatus = (answers, otherSections, declarationField) => {
-  if (!checkAllSectionsAreComplete(otherSections)) {
+const getDeclarationStatus = (answers, tasks, fieldName) => {
+  if (!checkAllTasksAreComplete(tasks)) {
     return 'CANNOT_START'
   }
 
-  return checkDeclarationIsSigned(answers, declarationField, 'COMPLETE') ? 'COMPLETE' : 'INCOMPLETE'
+  return checkDeclarationIsSigned(answers, fieldName, 'COMPLETE') ? 'COMPLETE' : 'INCOMPLETE'
 }
 
-const getDeclarationTask = (answers, baseUrl, steps, sectionName, otherSections, declarationField) => {
+const getDeclarationTask = (answers, baseUrl, steps, taskName, otherSections, declarationFieldName) => {
   return {
-    text: steps[`/${sectionName}`]?.pageTitle || 'Unknown Task',
-    href: `${baseUrl}/${sectionName}` || '#',
-    status: getDeclarationStatus(answers, otherSections, declarationField),
+    text: steps[`/${taskName}`]?.pageTitle || 'Unknown Task',
+    href: `${baseUrl}/${taskName}`,
+    status: getDeclarationStatus(answers, otherSections, declarationFieldName),
   }
 }
 
-const getTask = (answers, baseUrl, steps, sectionName) => {
+const getTask = (answers, baseUrl, steps, taskName) => {
   return {
-    text: steps[`/${sectionName}`]?.pageTitle || 'Unknown Task',
-    href: `${baseUrl}/${sectionName}` || '#',
-    status: answers[`section-complete-${sectionName}`] === 'YES' ? 'COMPLETE' : 'INCOMPLETE',
+    text: steps[`/${taskName}`]?.pageTitle || 'Unknown Task',
+    href: `${baseUrl}/${taskName}` || '#',
+    status: answers[`section-complete-${taskName}`] === 'YES' ? 'COMPLETE' : 'INCOMPLETE',
   }
 }
 
@@ -105,4 +105,8 @@ const getTaskList = (baseUrl = '', steps = {}, answers = {}) => {
   return { sections: [...tasks, declaration] }
 }
 
-module.exports = { getTaskList }
+module.exports = {
+  getDeclarationTask,
+  getTask,
+  getTaskList,
+}
