@@ -1,14 +1,9 @@
 version: 2.1
 
 orbs:
-  hmpps: ministryofjustice/hmpps@3.0.0
-  snyk: snyk/snyk@0.0.10
+  hmpps: ministryofjustice/hmpps@3.11
 
 executors:
-  image-scan:
-    docker:
-      - image: circleci/python:3
-    working_directory: ~/app
   builder:
     docker:
       - image: circleci/node:14-buster-browsers
@@ -101,30 +96,6 @@ jobs:
       - store_artifacts:
           path: integration-tests/screenshots
 
-  app-scan:
-    executor: builder
-    steps:
-      - checkout
-      - snyk/scan:
-          fail-on-issues: false
-          monitor-on-build: true
-          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}'
-          organization: 'digital-probation-services'
-
-  image-scan:
-    executor: image-scan
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - snyk/scan:
-          docker-image-name: 'quay.io/hmpps/risk-assessment-ui:latest'
-          target-file: 'Dockerfile'
-          fail-on-issues: false
-          monitor-on-build: true
-          project: '${CIRCLE_PROJECT_REPONAME}/latest'
-          organization: 'digital-probation-services'
-
 workflows:
   version: 2
   build-test-and-deploy:
@@ -184,3 +155,36 @@ workflows:
 #          requires:
 #            - request-prod-approval
 
+  security:
+    triggers:
+      - schedule:
+          cron: "7 6 * * 1-5"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - check_outdated
+      - hmpps/npm_security_audit:
+          context:
+            - hmpps-common-vars
+      - hmpps/trivy_latest_scan:
+          context:
+            - hmpps-common-vars
+      - hmpps/veracode_pipeline_scan:
+          context:
+            - veracode-credentials
+            - hmpps-common-vars
+  security-weekly:
+    triggers:
+      - schedule:
+          cron: "50 5 * * 1"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - hmpps/veracode_policy_scan:
+          context:
+            - veracode-credentials
+            - hmpps-common-vars
