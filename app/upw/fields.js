@@ -8,6 +8,23 @@ let fields = {
     answerType: 'checkbox',
     answerSchemas: [{ text: 'Complete', value: 'COMPLETE' }],
   },
+  upw_cultural_religious_adjustment: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_cultural_religious_adjustment_details: {
+    dependent: { field: 'upw_cultural_religious_adjustment', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
 }
 
 Array.from([
@@ -35,22 +52,4 @@ Array.from([
 
 module.exports = {
   fields,
-  upw_cultural_religious_adjustment: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
-  upw_cultural_religious_adjustment_details: {
-    dependent: { field: 'upw_cultural_religious_adjustment', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
-  // customValidations,
 }

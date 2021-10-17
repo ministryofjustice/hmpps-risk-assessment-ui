@@ -2175,7 +2175,7 @@
       "questionId": "63099aab-f852-4dd9-9179-16ee2218d0c6",
       "questionCode": "age_first_conviction",
       "answerType": "numeric",
-      "questionText": "Age at first conviction, conditional or absolute discharge in years",
+      "questionText": "Age at first sanction",
       "helpText": "Record in years",
       "displayOrder": 7,
       "mandatory": true,
@@ -2231,7 +2231,7 @@
       "questionId": "58d3efd1-65a1-439b-952f-b2826ffa5e71",
       "questionCode": "any_sexual_offences",
       "answerType": "radio",
-      "questionText": "Have they ever committed a sexual offence?",
+      "questionText": "Have they ever committed a sexual or sexually motivated offence?",
       "displayOrder": 11,
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no (sexual or sexually-motivated offence)\"}}",
@@ -2317,7 +2317,7 @@
       "questionId": "86ee742c-4bfb-4e29-afca-04ad35a3abda",
       "questionCode": "current_offence_victim_stranger",
       "answerType": "radio",
-      "questionText": "Does the current offence involve a victim who was a stranger?",
+      "questionText": "Does the current offence involve actual/attempted contact against a victim who was a stranger?",
       "displayOrder": 13,
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no (contact against a stranger victim)\"}}",
@@ -2469,133 +2469,7 @@
           "answerSchemaUuid": "0d4682ab-7b24-4527-b0b3-b4d520e7c2d8",
           "answerSchemaCode": "yes",
           "value": "YES",
-          "text": "Yes",
-          "conditionals": [
-            {
-              "conditional": "suitable_accommodation",
-              "displayInline": false
-            },
-            {
-              "conditional": "unemployed_on_release",
-              "displayInline": false
-            },
-            {
-              "conditional": "current_relationship_with_partner",
-              "displayInline": false
-            },
-            {
-              "conditional": "evidence_domestic_violence",
-              "displayInline": false
-            },
-            {
-              "conditional": "victim_domestic_violence",
-              "displayInline": false
-            },
-            {
-              "conditional": "perpetrator_domestic_violence",
-              "displayInline": false
-            },
-            {
-              "conditional": "use_of_alcohol",
-              "displayInline": false
-            },
-            {
-              "conditional": "binge_drinking",
-              "displayInline": false
-            },
-            {
-              "conditional": "impulsivity_issues",
-              "displayInline": false
-            },
-            {
-              "conditional": "temper_control_issues",
-              "displayInline": false
-            },
-            {
-              "conditional": "pro_criminal_attitudes",
-              "displayInline": false
-            },
-            {
-              "conditional": "divider_rsr_needs_2",
-              "displayInline": false
-            },
-            {
-              "conditional": "ui_rsr_needs_5",
-              "displayInline": false
-            },
-            {
-              "conditional": "heading_current_offences",
-              "displayInline": false
-            },
-            {
-              "conditional": "heading_convicted_2",
-              "displayInline": false
-            },
-            {
-              "conditional": "heading_convicted_1",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_murder_attempt",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_wounding",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_aggravated_burglary",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_arson",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_criminal_damage",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_sexual_offence_child",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_sexual_offence_Adult",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_offence_child",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_kidnapping",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_possession_firearm",
-              "displayInline": false
-            },
-            {
-              "conditional": "current_possession_firearm",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_robbery",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_racial_offence",
-              "displayInline": false
-            },
-            {
-              "conditional": "current_offence_weapon",
-              "displayInline": false
-            },
-            {
-              "conditional": "previous_offence_weapon",
-              "displayInline": false
-            }
-          ]
+          "text": "Yes"
         },
         {
           "answerSchemaUuid": "2a6011b2-4973-4249-99fd-9f84dbb2c88e",
@@ -2621,19 +2495,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]
@@ -2653,19 +2527,19 @@
         {
           "answerSchemaUuid": "d4c6ed05-73b4-4064-8255-7ccb96038988",
           "answerSchemaCode": "no",
-          "value": "no",
+          "value": "NO",
           "text": "No"
         },
         {
           "answerSchemaUuid": "02c77c0c-f9fa-4c4c-a5dc-169aa33f5c86",
           "answerSchemaCode": "not_available_for_work",
-          "value": "not available for work",
+          "value": "NOT_AVAILABLE_FOR_WORK",
           "text": "Not available for work"
         },
         {
           "answerSchemaUuid": "f2619d17-2bda-40ce-9658-f6a7a371b3f2",
           "answerSchemaCode": "yes",
-          "value": "yes",
+          "value": "YES",
           "text": "Yes"
         }
       ]
@@ -2686,19 +2560,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]
@@ -2708,7 +2582,7 @@
       "questionId": "f04dd882-0a0d-49f5-9736-91eeadbff9e7",
       "questionCode": "evidence_domestic_violence",
       "answerType": "radio",
-      "questionText": "Is there evidence that the individual is a perpetrator of domestic abuse?",
+      "questionText": "Is there evidence of current/previous partner abuse?",
       "displayOrder": 5,
       "mandatory": true,
       "validation": "{\"mandatory\":{\"errorMessage\":\"Select yes or no\",\"errorSummary\":\"Select yes or no (perpetrator of domestic  abuse?)\"}}",
@@ -2796,19 +2670,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]
@@ -2829,19 +2703,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]
@@ -2862,19 +2736,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]
@@ -2895,19 +2769,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]
@@ -2928,19 +2802,19 @@
         {
           "answerSchemaUuid": "2dbde741-36ef-44b7-af79-fabdbf3e62c3",
           "answerSchemaCode": "no_problems",
-          "value": "no problems",
+          "value": "NO_PROBLEMS",
           "text": "No problems"
         },
         {
           "answerSchemaUuid": "80cbb013-5633-44ca-b407-87fdde95652d",
           "answerSchemaCode": "some_problems",
-          "value": "some problems",
+          "value": "SOME_PROBLEMS",
           "text": "Some problems"
         },
         {
           "answerSchemaUuid": "2df8f5e2-7d04-41a4-a13f-f9df7479c775",
           "answerSchemaCode": "significant_problems",
-          "value": "significant problems",
+          "value": "SIGNIFICANT_PROBLEMS",
           "text": "Significant problems"
         }
       ]

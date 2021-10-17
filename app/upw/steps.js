@@ -1,4 +1,4 @@
-const StartRsrAssessment = require('./controllers/start')
+const StartUpwAssessment = require('./controllers/start')
 const TaskList = require('./controllers/taskList')
 const BaseSaveAndContinue = require('../common/controllers/saveAndContinue')
 const SaveAndContinue = require('./controllers/saveAndContinue')
@@ -6,7 +6,7 @@ const SaveAndContinue = require('./controllers/saveAndContinue')
 module.exports = {
   '/start': {
     pageTitle: 'Community payback assessment start',
-    controller: StartRsrAssessment,
+    controller: StartUpwAssessment,
     reset: true,
     entryPoint: true,
     template: `${__dirname}/templates/start`,
