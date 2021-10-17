@@ -88,7 +88,13 @@
           "answerSchemaUuid": "0d4682ab-7b24-4527-b0b3-b4d520e7c2d8",
           "answerSchemaCode": "yes",
           "value": "YES",
-          "text": "Yes"
+          "text": "Yes",
+          "conditionals": [
+            {
+              "conditional": "upw_placement_preferences",
+              "displayInline": true
+            }
+          ]
         },
         {
           "answerSchemaUuid": "2a6011b2-4973-4249-99fd-9f84dbb2c88e",
@@ -106,7 +112,7 @@
       "displayOrder": 2,
       "mandatory": true,
       "readOnly": false,
-      "conditional": false,
+      "conditional": true,
       "referenceDataCategory": "PLACEMENT_PREFERENCES",
       "referenceDataTargets": [],
       "answerSchemas": [

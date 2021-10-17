@@ -7,7 +7,7 @@ const addSectionCompleteField = (fields, section) => ({
     validate: ['required'],
     answerSchemas: [
       { text: 'Yes', value: 'YES' },
-      { text: 'No', value: 'NO' },
+      { text: "No, I'll come back later", value: 'NO', checked: true },
     ],
   },
 })

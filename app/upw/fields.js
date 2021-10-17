@@ -1,5 +1,4 @@
 const { addSectionCompleteField } = require('./utils')
-const { validDate, notInFuture } = require('../../common/middleware/form-wizard-validators/validators')
 
 let fields = {
   declaration: {
@@ -21,7 +20,32 @@ let fields = {
     validate: [
       {
         type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_placement_preference: {
+    validate: [
+      {
+        type: 'required',
         message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_placement_preferences: {
+    dependent: { field: 'upw_placement_preference', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_placement_preference_by_gender_details: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
       },
     ],
   },
@@ -31,6 +55,7 @@ Array.from([
   'individuals-details',
   'cultural-and-religious-adjustments',
   'placement-preferences',
+  'options-gender-identity',
   'risk-of-harm-in-the-community',
   'managing-risk',
   'disabilities-and-mental-health',

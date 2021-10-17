@@ -3,6 +3,8 @@
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "common/templates/components/question/macro.njk" import renderQuestion %}
 
+{% set backLink = 'task-list' %}
+
 {% block pageTitle %}
 {{ pageTitle }}
 {% endblock %}
@@ -12,10 +14,13 @@
 {% endblock %}
 
 {% block content %}
+{# include errorSummary partial #}
+{{ super() }}
+
 <span class="govuk-caption-xl">Diversity information</span>
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
+    <div class="govuk-grid-column-two-thirds">
         <form method="post" action="{{ action }}">
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
             {{ renderQuestion(questions['upw_cultural_religious_adjustment'], errors) }}
@@ -23,6 +28,8 @@
 {#            {% for questionCode, questionSchema in questions %}#}
 {#                {{ renderQuestion(questionSchema, errors) }}#}
 {#            {% endfor %}#}
+
+            <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible upw-complete-break">
 
             {{ renderQuestion(questions['section-complete-cultural-and-religious-adjustments'], errors) }}
 

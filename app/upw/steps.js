@@ -27,7 +27,7 @@ module.exports = {
   '/cultural-and-religious-adjustments': {
     pageTitle: 'Cultural and religious adjustments',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/cultural-and-religious-adjustments.njk`,
+    template: `${__dirname}/templates/diversity-information/cultural-and-religious-adjustments.njk`,
     next: 'task-list',
     fields: [
       'upw_cultural_religious_adjustment',
@@ -38,9 +38,16 @@ module.exports = {
   '/placement-preferences': {
     pageTitle: 'Placement preferences',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/default`,
+    template: `${__dirname}/templates/diversity-information/placement-preferences.njk`,
     next: 'task-list',
-    fields: ['section-complete-placement-preferences'],
+    fields: ['upw_placement_preference', 'upw_placement_preferences', 'section-complete-placement-preferences'],
+  },
+  '/options-gender-identity': {
+    pageTitle: 'Discuss options based on gender identity',
+    controller: SaveAndContinue,
+    template: `${__dirname}/templates/diversity-information/options-gender-identity.njk`,
+    next: 'task-list',
+    fields: ['upw_placement_preference_by_gender_details', 'section-complete-options-gender-identity'],
   },
   '/risk-of-harm-in-the-community': {
     pageTitle: 'Risk of harm in the community',
