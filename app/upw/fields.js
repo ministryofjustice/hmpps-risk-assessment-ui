@@ -1,4 +1,5 @@
 const { addSectionCompleteField } = require('./utils')
+const { validDate, notInFuture } = require('../../common/middleware/form-wizard-validators/validators')
 
 let fields = {
   declaration: {
@@ -34,5 +35,22 @@ Array.from([
 
 module.exports = {
   fields,
+  upw_cultural_religious_adjustment: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_cultural_religious_adjustment_details: {
+    dependent: { field: 'upw_cultural_religious_adjustment', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
   // customValidations,
 }

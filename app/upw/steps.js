@@ -27,9 +27,13 @@ module.exports = {
   '/cultural-and-religious-adjustments': {
     pageTitle: 'Cultural and religious adjustments',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/default`,
+    template: `${__dirname}/templates/cultural-and-religious-adjustments.njk`,
     next: 'task-list',
-    fields: ['section-complete-cultural-and-religious-adjustments'],
+    fields: [
+      'upw_cultural_religious_adjustment',
+      'upw_cultural_religious_adjustment_details',
+      'section-complete-cultural-and-religious-adjustments',
+    ],
   },
   '/placement-preferences': {
     pageTitle: 'Placement preferences',

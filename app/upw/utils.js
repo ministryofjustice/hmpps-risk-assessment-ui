@@ -1,7 +1,7 @@
 const addSectionCompleteField = (fields, section) => ({
   ...fields,
   [`section-complete-${section}`]: {
-    questionText: 'Mark this sections as complete?',
+    questionText: 'Mark this section as complete?',
     questionCode: `section-complete-${section}`,
     answerType: 'radio',
     validate: ['required'],
