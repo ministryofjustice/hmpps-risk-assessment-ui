@@ -25,10 +25,6 @@
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
             {{ renderQuestion(questions['upw_cultural_religious_adjustment'], errors) }}
 
-{#            {% for questionCode, questionSchema in questions %}#}
-{#                {{ renderQuestion(questionSchema, errors) }}#}
-{#            {% endfor %}#}
-
             <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible upw-complete-break">
 
             {{ renderQuestion(questions['section-complete-cultural-and-religious-adjustments'], errors) }}
