@@ -123,6 +123,169 @@ let fields = {
     dependent: { field: 'upw_alcohol_drug_issues', value: 'YES' },
     ...requireEnterDetails,
   },
+  upw_disabilities: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_disabilities_details: {
+    dependent: { field: 'upw_disabilities', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_allergies: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_allergies_details: {
+    dependent: { field: 'upw_allergies', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_loss_consciousness: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_loss_consciousness_details: {
+    dependent: { field: 'upw_loss_consciousness', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_epilepsy: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_epilepsy_details: {
+    dependent: { field: 'upw_epilepsy', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_other_health_issues: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_other_health_issues_details: {
+    dependent: { field: 'upw_other_health_issues', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_pregnancy: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_pregnancy_details: {
+    dependent: { field: 'upw_pregnancy', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_travel_information: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_travel_information_details: {
+    dependent: { field: 'upw_travel_information', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
+  upw_driving_licence: {
+    dependent: { field: 'upw_travel_information', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_vehicle: {
+    dependent: { field: 'upw_travel_information', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_public_transport: {
+    dependent: { field: 'upw_travel_information', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_caring_commitments: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select yes or no',
+      },
+    ],
+  },
+  upw_caring_commitments_details: {
+    dependent: { field: 'upw_caring_commitments', value: 'YES' },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details',
+      },
+    ],
+  },
 }
 
 Array.from([
@@ -134,7 +297,7 @@ Array.from([
   'managing-risk',
   'disabilities-and-mental-health',
   'health-issues',
-  'travel',
+  'travel-information',
   'caring-commitments',
   'employment-education-and-skills',
   'training-and-employment-opportunities',
