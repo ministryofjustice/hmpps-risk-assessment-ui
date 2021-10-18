@@ -123,6 +123,20 @@ let fields = {
     dependent: { field: 'upw_alcohol_drug_issues', value: 'YES' },
     ...requireEnterDetails,
   },
+  upw_reading_writing_difficulties: requireYesOrNo,
+  upw_reading_writing_difficulties_details: {
+    ...requireEnterDetails,
+  },
+  upw_work_skills: requireYesOrNo,
+  upw_work_skills_details: {
+    dependent: { field: 'upw_work_skills', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_future_work_plans: requireYesOrNo,
+  upw_future_work_plans_details: {
+    dependent: { field: 'upw_future_work_plans', value: 'YES' },
+    ...requireEnterDetails,
+  },
 }
 
 Array.from([
