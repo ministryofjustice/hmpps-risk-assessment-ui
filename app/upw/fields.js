@@ -83,6 +83,46 @@ let fields = {
     dependent: { field: 'upw_additional_rosh_info', value: 'YES' },
     ...requireEnterDetails,
   },
+  upw_location_exclusion_criteria: requireYesOrNo,
+  upw_location_exclusion_criteria_details: {
+    dependent: { field: 'upw_location_exclusion_criteria', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_restricted_placement: requireYesOrNo,
+  upw_restricted_placement_details: {
+    dependent: { field: 'upw_restricted_placement', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_no_female_supervisor: requireYesOrNo,
+  upw_no_female_supervisor_details: {
+    dependent: { field: 'upw_no_female_supervisor', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_no_male_supervisor: requireYesOrNo,
+  upw_no_male_supervisor_details: {
+    dependent: { field: 'upw_no_male_supervisor', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_restrictive_orders: requireYesOrNo,
+  upw_restrictive_orders_details: {
+    dependent: { field: 'upw_restrictive_orders', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_risk_management_issues_individual: requireYesOrNo,
+  upw_risk_management_issues_individual_details: {
+    dependent: { field: 'upw_risk_management_issues_individual', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_risk_management_issues_supervised_group: requireYesOrNo,
+  upw_risk_management_issues_supervised_group_details: {
+    dependent: { field: 'upw_risk_management_issues_supervised_group', value: 'YES' },
+    ...requireEnterDetails,
+  },
+  upw_alcohol_drug_issues: requireYesOrNo,
+  upw_alcohol_drug_issues_details: {
+    dependent: { field: 'upw_alcohol_drug_issues', value: 'YES' },
+    ...requireEnterDetails,
+  },
 }
 
 Array.from([
