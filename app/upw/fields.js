@@ -123,168 +123,57 @@ let fields = {
     dependent: { field: 'upw_alcohol_drug_issues', value: 'YES' },
     ...requireEnterDetails,
   },
-  upw_disabilities: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_disabilities: requireYesOrNo,
   upw_disabilities_details: {
     dependent: { field: 'upw_disabilities', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
-  upw_allergies: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_allergies: requireYesOrNo,
   upw_allergies_details: {
     dependent: { field: 'upw_allergies', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
-  upw_loss_consciousness: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_loss_consciousness: requireYesOrNo,
   upw_loss_consciousness_details: {
     dependent: { field: 'upw_loss_consciousness', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
-  upw_epilepsy: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_epilepsy: requireYesOrNo,
   upw_epilepsy_details: {
     dependent: { field: 'upw_epilepsy', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
-  upw_other_health_issues: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_other_health_issues: requireYesOrNo,
   upw_other_health_issues_details: {
     dependent: { field: 'upw_other_health_issues', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
-  upw_pregnancy: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_pregnancy: requireYesOrNo,
   upw_pregnancy_details: {
     dependent: { field: 'upw_pregnancy', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
-  upw_travel_information: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_travel_information: requireYesOrNo,
   upw_travel_information_details: {
     dependent: { field: 'upw_travel_information', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
   upw_driving_licence: {
     dependent: { field: 'upw_travel_information', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
+    ...requireYesOrNo,
   },
   upw_vehicle: {
     dependent: { field: 'upw_travel_information', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
+    ...requireYesOrNo,
   },
   upw_public_transport: {
     dependent: { field: 'upw_travel_information', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
+    ...requireYesOrNo,
   },
-  upw_caring_commitments: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select yes or no',
-      },
-    ],
-  },
+  upw_caring_commitments: requireYesOrNo,
   upw_caring_commitments_details: {
     dependent: { field: 'upw_caring_commitments', value: 'YES' },
-    validate: [
-      {
-        type: 'required',
-        message: 'Enter details',
-      },
-    ],
+    ...requireEnterDetails,
   },
 }
 
