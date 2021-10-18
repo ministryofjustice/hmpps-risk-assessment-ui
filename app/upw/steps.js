@@ -52,7 +52,7 @@ module.exports = {
   '/risk-of-harm-in-the-community': {
     pageTitle: 'Risk of harm in the community',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/default`,
+    template: `${__dirname}/templates/diversity-information/risk-of-harm-in-the-community.njk`,
     next: 'task-list',
     fields: ['section-complete-risk-of-harm-in-the-community'],
   },
