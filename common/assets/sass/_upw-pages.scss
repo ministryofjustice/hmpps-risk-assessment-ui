@@ -11,3 +11,17 @@
 .upw-complete-break {
   margin-top: 50px;
 }
+
+.upw-read-only__header {
+  @include govuk-clearfix;
+}
+
+.upw-read-only__heading {
+  float: left;
+}
+
+.upw-read-only__link {
+  font-size: 1.25rem;
+  float: right;
+  margin-bottom: govuk-spacing(4);
+}
