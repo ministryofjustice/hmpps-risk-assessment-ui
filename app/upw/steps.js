@@ -154,6 +154,9 @@ module.exports = {
     template: `${__dirname}/templates/employment-education-skills/employment-education-skills`,
     next: 'task-list',
     fields: [
+      'upw_employment_education',
+      'upw_employment_education_details_fulltime',
+      'upw_employment_education_details_parttime',
       'upw_reading_writing_difficulties',
       'upw_reading_writing_difficulties_details',
       'upw_work_skills',
@@ -165,11 +168,17 @@ module.exports = {
     ],
   },
   '/training-and-employment-opportunities': {
-    pageTitle: 'Training and employment opportunities',
+    pageTitle: 'Training & employment opportunities',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/employment-education-skills/training-employment-opportunities`,
     next: 'task-list',
-    fields: ['section-complete-training-and-employment-opportunities'],
+    fields: [
+      'upw_education_training_need',
+      'upw_education_training_need_details',
+      'upw_individual_commitment',
+      'upw_individual_commitment_details',
+      'section-complete-training-and-employment-opportunities',
+    ],
   },
   '/availability': {
     pageTitle: 'Availability',

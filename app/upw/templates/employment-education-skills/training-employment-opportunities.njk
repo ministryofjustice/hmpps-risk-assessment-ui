@@ -20,21 +20,19 @@
 {{ super() }}
 
 <span class="govuk-caption-xl">Employment, education and skills information</span>
-<h1 class="govuk-heading-xl">
+<h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
     {{ pageTitle }}
 </h1>
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+        <p class="govuk-body govuk-!-margin-bottom-6">Supervised individuals who are unemployed, at risk of unemployment or whose offending reflects employment related needs are eligible to use up to 20% of their Community Payback hours on education, training and pre-employment activity.</p>
         <form method="post" action="{{ action }}">
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
 
-            {{ renderQuestion(questions['upw_employment_education'], errors) }}
-            {{ renderQuestion(questions['upw_reading_writing_difficulties'], errors) }}
-            {{ renderQuestion(questions['upw_work_skills'], errors) }}
-            {{ renderQuestion(questions['upw_future_work_plans'], errors) }}
+            {{ renderQuestion(questions['upw_education_training_need'], errors) }}
 
             <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible upw-complete-break">
-            {{ renderQuestion(questions['section-complete-employment-education-and-skills'], errors) }}
+            {{ renderQuestion(questions['section-complete-training-and-employment-opportunities'], errors) }}
 
             <div class="questiongroup-action-buttons">
                 {{ govukButton({
