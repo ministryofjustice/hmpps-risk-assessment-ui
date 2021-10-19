@@ -13,7 +13,7 @@
     {% if params.answers[params.field.key] %}{% set fieldValue = params.answers[params.field.key] %}{% endif %}
     {% if params.conditional.key and fieldValue == params.conditional.value %}
         {% set conditionalFieldValue = 'No details' %}
-        {% if answers[params.conditional.key] %}{% set conditionalFieldValue = params.answers[params.conditional.key] %}{% endif %}
+        {% if params.answers[params.conditional.key] %}{% set conditionalFieldValue = params.answers[params.conditional.key] %}{% endif %}
         {{ govukSummaryList({
             classes: 'upw-summary-list--top-border upw-summary-list--bottom-margin',
             rows: [
@@ -21,7 +21,7 @@
                     key: {
                         text: params.field.text
                     },
-                        value: {
+                    value: {
                         html: fieldValue
                     }
                 },
@@ -29,7 +29,7 @@
                     key: {
                         text: params.conditional.text
                     },
-                        value: {
+                    value: {
                         html: conditionalFieldValue
                     }
                 }
@@ -43,7 +43,7 @@
                     key: {
                         text: params.field.text
                     },
-                        value: {
+                    value: {
                         html: fieldValue
                     }
                 }

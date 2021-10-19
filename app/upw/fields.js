@@ -185,6 +185,7 @@ Array.from([
   'risk-of-harm-in-the-community',
   'managing-risk',
   'disabilities-and-mental-health',
+  'gp-details',
   'health-issues',
   'travel-information',
   'caring-commitments',

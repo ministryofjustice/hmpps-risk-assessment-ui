@@ -102,7 +102,11 @@
     "upw_physical_disability": ["YES"],
     "upw_physical_disability_details": ["Some further information about this"],
     "upw_learning_disability": ["NO"],
-    "upw_learning_disability_details": ["Some further information about this"]
+    "upw_learning_disability_details": ["Some further information about this"],
+    "upw_gp_address_house_number": ["123"],
+    "upw_gp_address_street_name": ["Some street"],
+    "upw_gp_address_district": ["In a district"],
+    "upw_gp_address_postcode": ["ABC 123"]
   },
   "predictors": [
     {
