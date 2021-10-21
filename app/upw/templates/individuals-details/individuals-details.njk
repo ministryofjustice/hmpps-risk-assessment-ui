@@ -19,10 +19,13 @@
 {# include errorSummary partial #}
 {{ super() }}
 
+<<<<<<< HEAD
 {%- macro replaceLineBreaks(string) -%}
     {{ string | striptags(true) | escape | nl2br }}
 {%- endmacro -%}
 
+=======
+>>>>>>> Create UPW Individuals details page
 <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
 
 <div class="govuk-grid-row">
@@ -38,7 +41,11 @@
                             text: 'First name aliases'
                         },
                         value: {
+<<<<<<< HEAD
                             html: replaceLineBreaks(answers['first_name_aliases'])
+=======
+                            text: answers['first_name_aliases']
+>>>>>>> Create UPW Individuals details page
                         }
                     },
                     {
@@ -46,7 +53,11 @@
                             text: 'Family name aliases'
                         },
                         value: {
+<<<<<<< HEAD
                             html: replaceLineBreaks(answers['family_name_aliases'])
+=======
+                            text: answers['family_name_aliases']
+>>>>>>> Create UPW Individuals details page
                         }
                     }
                 ]
@@ -76,21 +87,33 @@
                             text: 'Mobile number'
                         },
                         value: {
+<<<<<<< HEAD
                             html: answers['contact_mobile_phone_number']
+=======
+                            text: answers['contact_mobile_phone_number']
+>>>>>>> Create UPW Individuals details page
                         }
                     }, {
                         key: {
                             text: 'Phone number'
                         },
                         value: {
+<<<<<<< HEAD
                             html: answers['contact_phone_number']
+=======
+                            text: answers['contact_phone_number']
+>>>>>>> Create UPW Individuals details page
                         }
                     }, {
                         key: {
                             text: 'Email'
                         },
                         value: {
+<<<<<<< HEAD
                             html: answers['contact_phone_number']
+=======
+                            text: answers['contact_phone_number']
+>>>>>>> Create UPW Individuals details page
                         }
                     }
                 ]
@@ -134,14 +157,22 @@
                             text: 'Mobile number'
                         },
                         value: {
+<<<<<<< HEAD
                             html: answers['emergency_contact_phone_number']
+=======
+                            text: answers['emergency_contact_phone_number']
+>>>>>>> Create UPW Individuals details page
                         }
                     }, {
                         key: {
                             text: 'Phone number'
                         },
                         value: {
+<<<<<<< HEAD
                             html: answers['emergency_contact_mobile_phone_number']
+=======
+                            text: answers['emergency_contact_mobile_phone_number']
+>>>>>>> Create UPW Individuals details page
                         }
                     }
                 ]
