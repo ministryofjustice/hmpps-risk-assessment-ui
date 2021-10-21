@@ -282,14 +282,7 @@ let fields = {
     dependent: { field: 'upw_eligibility_intensive_working', value: 'YES' },
     ...requireEnterDetails,
   },
-  upw_individual_availability: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select an option',
-      },
-    ],
-  },
+  upw_individual_availability: requireSelectOption,
   upw_individual_availability_details: {},
   upw_male_female_clothing: requireSelectOption,
   upw_waterproof_clothing: requireSelectOption,
