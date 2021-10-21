@@ -206,36 +206,11 @@
     },
     {
       "type": "question",
-      "questionId": "816fc7fe-030b-47cf-9fae-a56a6216a162",
-      "questionCode": "upw_history_sexual_offending",
-      "answerType": "radio",
-      "questionText": "History of sexual offending?",
-      "displayOrder": 1,
-      "mandatory": true,
-      "readOnly": false,
-      "conditional": false,
-      "referenceDataTargets": [],
-      "answerSchemas": [
-        {
-          "answerSchemaUuid": "0d4682ab-7b24-4527-b0b3-b4d520e7c2d8",
-          "answerSchemaCode": "yes",
-          "value": "YES",
-          "text": "Yes"
-        },
-        {
-          "answerSchemaUuid": "2a6011b2-4973-4249-99fd-9f84dbb2c88e",
-          "answerSchemaCode": "no",
-          "value": "NO",
-          "text": "No"
-        }
-      ]
-    },
-    {
-      "type": "question",
-      "questionId": "a80651d6-1ae1-4fd4-95c6-8104f194d756",
-      "questionCode": "upw_history_sexual_offending_details",
+      "questionId": "3fb1a17b-6657-4239-b020-512fa8f57a52",
+      "questionCode": "upw_maturity_assessment_details",
       "answerType": "textarea",
-      "questionText": "Give details",
+      "questionText": "Maturity assessment",
+      "helpText": "What action needs to be taken to support engagement or compliance with the community payback requirement?",
       "displayOrder": 1,
       "mandatory": true,
       "readOnly": false,
@@ -245,42 +220,30 @@
     },
     {
       "type": "question",
-      "questionId": "08b35618-f0b6-466e-93e1-712e5e5c3f58",
-      "questionCode": "upw_poses_risk_to_children",
+      "questionId": "7f4435a1-3d39-4758-aa56-67989e54d7d2",
+      "questionCode": "upw_maturity_assessment_details_complete",
       "answerType": "radio",
-      "questionText": "Individual poses a risk to children?",
-      "displayOrder": 1,
+      "questionText": "Mark this section as complete?",
+      "helpText": "",
+      "displayOrder": 2,
       "mandatory": true,
       "readOnly": false,
       "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": [
         {
-          "answerSchemaUuid": "0d4682ab-7b24-4527-b0b3-b4d520e7c2d8",
+          "answerSchemaUuid": "51c9db72-9c69-4377-818c-b107572eab33",
           "answerSchemaCode": "yes",
           "value": "YES",
           "text": "Yes"
         },
         {
-          "answerSchemaUuid": "2a6011b2-4973-4249-99fd-9f84dbb2c88e",
-          "answerSchemaCode": "no",
-          "value": "NO",
-          "text": "No"
+          "answerSchemaUuid": "70ca6d84-730d-45b2-b531-1d8d13fefadc",
+          "answerSchemaCode": "no_ill_come_back_later",
+          "value": "NO_ILL_COME_BACK_LATER",
+          "text": "No, I’ll come back later"
         }
       ]
-    },
-    {
-      "type": "question",
-      "questionId": "a342a2fb-b5d8-410b-a6ef-f99bfe3da532",
-      "questionCode": "upw_poses_risk_to_children_details",
-      "answerType": "textarea",
-      "questionText": "Give details",
-      "displayOrder": 1,
-      "mandatory": true,
-      "readOnly": false,
-      "conditional": false,
-      "referenceDataTargets": [],
-      "answerSchemas": []
     },
     {
       "type": "question",
@@ -324,9 +287,9 @@
     {
       "type": "question",
       "questionId": "6d18c3e9-a921-4b3b-aad3-a1c1f68d51c9",
-      "questionCode": "upw_acquisitive_offending",
+      "questionCode": "upw_frequent_dishonesty",
       "answerType": "radio",
-      "questionText": "History of acquisitive offending?",
+      "questionText": "Frequent Dishonesty?",
       "displayOrder": 3,
       "mandatory": true,
       "readOnly": false,
@@ -350,7 +313,7 @@
     {
       "type": "question",
       "questionId": "34db66d2-e95b-4ff5-b82d-d1c99fd8b80b",
-      "questionCode": "upw_acquisitive_offending_details",
+      "questionCode": "upw_frequent_dishonesty_details",
       "answerType": "textarea",
       "questionText": "Give details",
       "displayOrder": 4,
@@ -443,7 +406,7 @@
       "questionId": "b446b9db-d57a-4a29-9674-37099bdf1a00",
       "questionCode": "upw_hate_based_behaviour",
       "answerType": "radio",
-      "questionText": "History of hate-based attitudes or behaviours?",
+      "questionText": "Hate-based behaviour?",
       "helpText": "For example, homophobic or racially motivated",
       "displayOrder": 9,
       "mandatory": true,
@@ -523,7 +486,7 @@
       "questionId": "1f72a9d5-da65-4d9e-a49e-5e1150198ee6",
       "questionCode": "upw_additional_rosh_info",
       "answerType": "radio",
-      "questionText": "Additional risk assessment information relevant to Community Payback?",
+      "questionText": "Additional risk of harm assessment information?",
       "helpText": "",
       "displayOrder": 13,
       "mandatory": true,
@@ -566,33 +529,6 @@
       "questionText": "Mark this section as complete?",
       "helpText": "",
       "displayOrder": 15,
-      "mandatory": true,
-      "readOnly": false,
-      "conditional": false,
-      "referenceDataTargets": [],
-      "answerSchemas": [
-        {
-          "answerSchemaUuid": "51c9db72-9c69-4377-818c-b107572eab33",
-          "answerSchemaCode": "yes",
-          "value": "YES",
-          "text": "Yes"
-        },
-        {
-          "answerSchemaUuid": "70ca6d84-730d-45b2-b531-1d8d13fefadc",
-          "answerSchemaCode": "no_ill_come_back_later",
-          "value": "NO_ILL_COME_BACK_LATER",
-          "text": "No, I’ll come back later"
-        }
-      ]
-    },
-    {
-      "type": "question",
-      "questionId": "e8cc7779-498e-494b-8280-8cb088b3c6e9",
-      "questionCode": "upw_managing_risk_complete",
-      "answerType": "radio",
-      "questionText": "Mark this section as complete?",
-      "helpText": "",
-      "displayOrder": 17,
       "mandatory": true,
       "readOnly": false,
       "conditional": false,
@@ -931,6 +867,33 @@
       "conditional": false,
       "referenceDataTargets": [],
       "answerSchemas": []
+    },
+    {
+      "type": "question",
+      "questionId": "e8cc7779-498e-494b-8280-8cb088b3c6e9",
+      "questionCode": "upw_managing_risk_complete",
+      "answerType": "radio",
+      "questionText": "Mark this section as complete?",
+      "helpText": "",
+      "displayOrder": 17,
+      "mandatory": true,
+      "readOnly": false,
+      "conditional": false,
+      "referenceDataTargets": [],
+      "answerSchemas": [
+        {
+          "answerSchemaUuid": "51c9db72-9c69-4377-818c-b107572eab33",
+          "answerSchemaCode": "yes",
+          "value": "YES",
+          "text": "Yes"
+        },
+        {
+          "answerSchemaUuid": "70ca6d84-730d-45b2-b531-1d8d13fefadc",
+          "answerSchemaCode": "no_ill_come_back_later",
+          "value": "NO_ILL_COME_BACK_LATER",
+          "text": "No, I’ll come back later"
+        }
+      ]
     },
     {
       "type": "question",
@@ -1761,6 +1724,7 @@
       "mandatory": true,
       "readOnly": false,
       "conditional": false,
+      "referenceDataCategory": "true",
       "referenceDataTargets": [],
       "answerSchemas": []
     },
@@ -1774,6 +1738,7 @@
       "mandatory": true,
       "readOnly": false,
       "conditional": false,
+      "referenceDataCategory": "true",
       "referenceDataTargets": [],
       "answerSchemas": []
     },
@@ -1814,6 +1779,7 @@
       "mandatory": true,
       "readOnly": false,
       "conditional": false,
+      "referenceDataCategory": "true",
       "referenceDataTargets": [],
       "answerSchemas": []
     },
@@ -2157,127 +2123,127 @@
           "answerSchemaUuid": "034a8964-7a54-4773-8224-87bb6c6a5ed8",
           "answerSchemaCode": "monday_morning",
           "value": "MONDAY_MORNING",
-          "text": "Monday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "78384548-62df-403f-99bb-4dd267ee0cc2",
           "answerSchemaCode": "monday_afternoon",
           "value": "MONDAY_AFTERNOON",
-          "text": "Monday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "74103423-a881-4572-810b-6993d58ff443",
           "answerSchemaCode": "monday_evening",
           "value": "MONDAY_EVENING",
-          "text": "Monday evening"
+          "text": ""
         },
         {
           "answerSchemaUuid": "53acdc58-94ab-4049-8ebf-c4b2ba08f4f5",
           "answerSchemaCode": "tuesday_morning",
           "value": "TUESDAY_MORNING",
-          "text": "Tuesday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "bb7226bc-a231-43a7-a272-2d4d9a9d3d0b",
           "answerSchemaCode": "tuesday_afternoon",
           "value": "TUESDAY_AFTERNOON",
-          "text": "Tuesday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "5ed93e3e-67d6-402f-8de9-3b86d94d4f24",
           "answerSchemaCode": "tuesday_evening",
           "value": "TUESDAY_EVENING",
-          "text": "Tuesday evening"
+          "text": ""
         },
         {
           "answerSchemaUuid": "4ab83101-e739-4618-b010-6983652585ae",
           "answerSchemaCode": "wednesday_morning",
           "value": "WEDNESDAY_MORNING",
-          "text": "Wednesday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "2d2fd1e4-2998-45ad-a7cf-e88f8570b4c2",
           "answerSchemaCode": "wednesday_afternoon",
           "value": "WEDNESDAY_AFTERNOON",
-          "text": "Wednesday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "f2147823-0211-4f05-bff7-84b445145d51",
           "answerSchemaCode": "wednesday_evening",
           "value": "WEDNESDAY_EVENING",
-          "text": "Wednesday evening"
+          "text": ""
         },
         {
           "answerSchemaUuid": "4479a057-3159-49c5-9599-180f36428a78",
           "answerSchemaCode": "thursday_morning",
           "value": "THURSDAY_MORNING",
-          "text": "Thursday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "1893becf-bf31-4697-b15e-d992dbf1812a",
           "answerSchemaCode": "thursday_afternoon",
           "value": "THURSDAY_AFTERNOON",
-          "text": "Thursday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "a87c0229-1a9e-48a1-a319-d7a5101b0f43",
           "answerSchemaCode": "thursday_evening",
           "value": "THURSDAY_EVENING",
-          "text": "Thursdy evening"
+          "text": ""
         },
         {
           "answerSchemaUuid": "29fdfd16-700c-4196-9c6e-58bf695e55f0",
           "answerSchemaCode": "friday_morning",
           "value": "FRIDAY_MORNING",
-          "text": "Friday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "d7ac7df6-d922-41a5-8b5d-379dca5250c7",
           "answerSchemaCode": "friday_afternoon",
           "value": "FRIDAY_AFTERNOON",
-          "text": "Friday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "d202e29b-ec9e-4192-98a4-345b07c653f1",
           "answerSchemaCode": "friday_evening",
           "value": "FRIDAY_EVENING",
-          "text": "Friday evening"
+          "text": ""
         },
         {
           "answerSchemaUuid": "c3b508b5-0241-4c67-8d87-9fe364290c2d",
           "answerSchemaCode": "saturday_morning",
           "value": "SATURDAY_MORNING",
-          "text": "Saturday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "59bb90b0-6216-4920-bc3b-b47a62bda837",
           "answerSchemaCode": "saturday_afternoon",
           "value": "SATURDAY_AFTERNOON",
-          "text": "Saturday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "c072a9ff-fbda-42ae-a5e6-b79616b3bc55",
           "answerSchemaCode": "saturday_evening",
           "value": "SATURDAY_EVENING",
-          "text": "Saturday evening"
+          "text": ""
         },
         {
           "answerSchemaUuid": "6398406e-f323-474a-a5aa-cb65a1da75c7",
           "answerSchemaCode": "sunday_morning",
           "value": "SUNDAY_MORNING",
-          "text": "Sunday morning"
+          "text": ""
         },
         {
           "answerSchemaUuid": "0acb7955-6e01-4bd6-b47f-438b87db4cc0",
           "answerSchemaCode": "sunday_afternoon",
           "value": "SUNDAY_AFTERNOON",
-          "text": "Sunday afternoon"
+          "text": ""
         },
         {
           "answerSchemaUuid": "976e41ce-ef5b-431f-8cc7-cd5ea2d8c619",
           "answerSchemaCode": "sunday_evening",
           "value": "SUNDAY_EVENING",
-          "text": "Sunday evening"
+          "text": ""
         }
       ]
     },
