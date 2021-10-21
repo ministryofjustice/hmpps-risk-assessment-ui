@@ -19,19 +19,10 @@
 {# include errorSummary partial #}
 {{ super() }}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Update template to handle multiple aliases
 {%- macro replaceLineBreaks(string) -%}
     {{ string | striptags(true) | escape | nl2br }}
 {%- endmacro -%}
 
-<<<<<<< HEAD
-=======
->>>>>>> Create UPW Individuals details page
-=======
->>>>>>> Update template to handle multiple aliases
 <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
 
 <div class="govuk-grid-row">
@@ -47,15 +38,7 @@
                             text: 'First name aliases'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: replaceLineBreaks(answers['first_name_aliases'])
-=======
-                            text: answers['first_name_aliases']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: replaceLineBreaks(answers['first_name_aliases'])
->>>>>>> Update template to handle multiple aliases
                         }
                     },
                     {
@@ -63,15 +46,7 @@
                             text: 'Family name aliases'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: replaceLineBreaks(answers['family_name_aliases'])
-=======
-                            text: answers['family_name_aliases']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: replaceLineBreaks(answers['family_name_aliases'])
->>>>>>> Update template to handle multiple aliases
                         }
                     }
                 ]
@@ -101,45 +76,21 @@
                             text: 'Mobile number'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: answers['contact_mobile_phone_number']
-=======
-                            text: answers['contact_mobile_phone_number']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: answers['contact_mobile_phone_number']
->>>>>>> Update template to handle multiple aliases
                         }
                     }, {
                         key: {
                             text: 'Phone number'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: answers['contact_phone_number']
-=======
-                            text: answers['contact_phone_number']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: answers['contact_phone_number']
->>>>>>> Update template to handle multiple aliases
                         }
                     }, {
                         key: {
                             text: 'Email'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: answers['contact_phone_number']
-=======
-                            text: answers['contact_phone_number']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: answers['contact_phone_number']
->>>>>>> Update template to handle multiple aliases
                         }
                     }
                 ]
@@ -183,30 +134,14 @@
                             text: 'Mobile number'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: answers['emergency_contact_phone_number']
-=======
-                            text: answers['emergency_contact_phone_number']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: answers['emergency_contact_phone_number']
->>>>>>> Update template to handle multiple aliases
                         }
                     }, {
                         key: {
                             text: 'Phone number'
                         },
                         value: {
-<<<<<<< HEAD
-<<<<<<< HEAD
                             html: answers['emergency_contact_mobile_phone_number']
-=======
-                            text: answers['emergency_contact_mobile_phone_number']
->>>>>>> Create UPW Individuals details page
-=======
-                            html: answers['emergency_contact_mobile_phone_number']
->>>>>>> Update template to handle multiple aliases
                         }
                     }
                 ]
