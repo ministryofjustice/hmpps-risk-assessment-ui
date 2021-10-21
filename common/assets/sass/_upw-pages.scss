@@ -26,20 +26,12 @@
   margin-bottom: govuk-spacing(4);
 }
 
-.upw-summary-list--top-border {
-  border-top: 1px solid #b1b4b6;
-}
-
 .upw-summary-list--bottom-margin {
   margin-bottom: govuk-spacing(8);
 }
 
 .upw-summary-list--top-border {
   border-top: 1px solid #b1b4b6;
-}
-
-.upw-summary-list--bottom-margin {
-  margin-bottom: govuk-spacing(8);
 }
 
 // availability matrix table
@@ -60,7 +52,7 @@
   background: #505a5f;
   padding: 10px 5px 10px 5px;
   font-size: 14px;
-  color: #ffffff;
+  color: #fff;
   line-height: 16px;
   text-align: center;
   vertical-align: middle;
@@ -68,10 +60,11 @@
   width: 90px !important;
 }
 
-.govuk-checkboxes__label:before {
+.govuk-checkboxes__label::before {
   left: 38px;
 }
-.govuk-checkboxes__label:after {
+
+.govuk-checkboxes__label::after {
   left: 43px !important;
 }
 
