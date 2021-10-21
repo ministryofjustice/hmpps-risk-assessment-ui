@@ -19,6 +19,10 @@
 {# include errorSummary partial #}
 {{ super() }}
 
+{%- macro replaceLineBreaks(string) -%}
+    {{ string | striptags(true) | escape | nl2br }}
+{%- endmacro -%}
+
 <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
 
 <div class="govuk-grid-row">
@@ -34,7 +38,7 @@
                             text: 'First name aliases'
                         },
                         value: {
-                            text: answers['first_name_aliases']
+                            html: replaceLineBreaks(answers['first_name_aliases'])
                         }
                     },
                     {
@@ -42,7 +46,7 @@
                             text: 'Family name aliases'
                         },
                         value: {
-                            text: answers['family_name_aliases']
+                            html: replaceLineBreaks(answers['family_name_aliases'])
                         }
                     }
                 ]
@@ -72,21 +76,21 @@
                             text: 'Mobile number'
                         },
                         value: {
-                            text: answers['contact_mobile_phone_number']
+                            html: answers['contact_mobile_phone_number']
                         }
                     }, {
                         key: {
                             text: 'Phone number'
                         },
                         value: {
-                            text: answers['contact_phone_number']
+                            html: answers['contact_phone_number']
                         }
                     }, {
                         key: {
                             text: 'Email'
                         },
                         value: {
-                            text: answers['contact_phone_number']
+                            html: answers['contact_phone_number']
                         }
                     }
                 ]
@@ -130,14 +134,14 @@
                             text: 'Mobile number'
                         },
                         value: {
-                            text: answers['emergency_contact_phone_number']
+                            html: answers['emergency_contact_phone_number']
                         }
                     }, {
                         key: {
                             text: 'Phone number'
                         },
                         value: {
-                            text: answers['emergency_contact_mobile_phone_number']
+                            html: answers['emergency_contact_mobile_phone_number']
                         }
                     }
                 ]
