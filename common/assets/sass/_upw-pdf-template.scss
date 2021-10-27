@@ -37,7 +37,7 @@
   @include govuk-clearfix;
 
   width: 100%;
-  border-bottom: 1px solid #000000;
+  border-bottom: 1px solid #000;
   margin-bottom: govuk-spacing(6);
 }
 
@@ -62,7 +62,7 @@
   float: right;
 }
 
-.upw-pdf-header__right__tag {
+.upw-pdf-header__right-tag {
   background-color: govuk-colour('red');
 }
 
@@ -85,11 +85,10 @@
     padding: govuk-spacing(2);
   }
 
-  tr {
-    & td,
-    & th {
-      padding: govuk-spacing(2);
-    }
+  & td,
+  & th {
+    text-align: center;
+    padding: govuk-spacing(2);
   }
 }
 
@@ -122,7 +121,7 @@
 }
 
 .upw-pdf-chart__cell--mid-grey {
-  background-color: #dddddd;
+  background-color: #ddd;
 }
 
 .upw-pdf-chart__cell--empty {

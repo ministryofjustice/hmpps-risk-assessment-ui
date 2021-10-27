@@ -54,7 +54,7 @@
             <span>HMPPS Unpaid work assessment</span>
         </div>
         <div class="upw-pdf-header__right">
-            <span class="govuk-tag upw-pdf-header__right__tag">Official Sensitive</span>
+            <span class="govuk-tag upw-pdf-header__right-tag">Official Sensitive</span>
         </div>
     </div>
 
@@ -628,33 +628,33 @@
             </tr>
             <tr>
                 <th class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--mid-grey upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right upw-pdf-chart__cell--border-left">Morning</th>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "monday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "tuesday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "wednesday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "thursday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "friday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "saturday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "sunday_morning", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "MONDAY_MORNING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "TUESDAY_MORNING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "WEDNESDAY_MORNING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "THURSDAY_MORNING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "FRIDAY_MORNING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "SATURDAY_MORNING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "SUNDAY_MORNING", "✓") }}</td>
             </tr>
             <tr>
                 <th class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--mid-grey upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right upw-pdf-chart__cell--border-left">Afternoon</th>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "monday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "tuesday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "wednesday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "thursday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "friday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "saturday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "sunday_morning", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "MONDAY_AFTERNOON", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "TUESDAY_AFTERNOON", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "WEDNESDAY_AFTERNOON", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "THURSDAY_AFTERNOON", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "FRIDAY_AFTERNOON", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "SATURDAY_AFTERNOON", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "SUNDAY_AFTERNOON", "✓") }}</td>
             </tr>
             <tr>
                 <th class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--mid-grey upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right upw-pdf-chart__cell--border-left">Evening</th>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "monday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "tuesday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "wednesday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "thursday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "friday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "saturday_morning", "✓") }}</td>
-                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(answers["upw_individual_availability"], "sunday_morning", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "MONDAY_EVENING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "TUESDAY_EVENING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "WEDNESDAY_EVENING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "THURSDAY_EVENING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "FRIDAY_EVENING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "SATURDAY_EVENING", "✓") }}</td>
+                <td class="upw-pdf-chart__cell--eighth upw-pdf-chart__cell--border-bottom upw-pdf-chart__cell--border-right">{{ ifAnswerHasValue(rawAnswers["upw_individual_availability"], "SUNDAY_EVENING", "✓") }}</td>
             </tr>
         </tbody>
     </table>
