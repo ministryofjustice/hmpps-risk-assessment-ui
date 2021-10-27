@@ -3,9 +3,10 @@ const fs = require('fs')
 const nunjucks = require('nunjucks')
 const superagent = require('superagent')
 const SaveAndContinue = require('./saveAndContinue')
+const { apis } = require('../../../common/config')
 
 class ConvertPdf extends SaveAndContinue {
-  render(req, res, next) {
+  async render(req, res, next) {
     try {
       const rendered = nunjucks.render('app/upw/templates/pdf-preview-and-declaration/pdf.njk', {
         ...res.locals,
@@ -13,7 +14,7 @@ class ConvertPdf extends SaveAndContinue {
       })
       res.set('content-type', 'application/pdf')
       return superagent
-        .post('http://localhost:9099/forms/chromium/convert/html')
+        .post(apis?.pdfConverter?.url)
         .accept('application/json')
         .attach('files', Buffer.from(rendered), 'index.html')
         .attach('files', fs.readFileSync('public/stylesheets/application.min.css'), 'application.min.css')
