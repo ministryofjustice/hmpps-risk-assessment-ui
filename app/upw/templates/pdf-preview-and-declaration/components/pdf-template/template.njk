@@ -35,7 +35,7 @@
 {%- endmacro -%}
 
 {%- macro renderOffence(code, description) -%}
-    {% if code %}{{ code }} - {% endif %}{{ description }}
+    <p>{% if code %}{{ code }} - {% endif %}{{ description }}</p>
 {%- endmacro -%}
 
 {%- macro renderGpDetails(name, phoneNumber, address) -%}
@@ -44,7 +44,7 @@
     {% if phoneNumber %}<p>{{ phoneNumber }}</p>{% endif %}
 {%- endmacro -%}
 
-<div class="govuk-body">
+<div class="govuk-body upw-pdf">
     <div class="upw-pdf-header">
         <div class="upw-pdf-header__left">
 
@@ -65,7 +65,7 @@
         rows: [
             { heading: "Offence", data: renderOffence(assessment.offence.offence, assessment.offence.offenceDescription) },
             { heading: "Subcode", data: renderOffence(assessment.offence.subCode, assessment.offence.subCodeDescription) },
-            { heading: "Sentence date", data: assessment.offence.sentenceDate }
+            { heading: "Sentence date", data: renderValue(assessment.offence.sentenceDate) }
         ]
     }) }}
 

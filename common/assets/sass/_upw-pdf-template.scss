@@ -1,5 +1,19 @@
 @use 'sass:math';
 
+.upw-pdf {
+  @media print {
+    &,
+    & p,
+    & span {
+      @include govuk-font(14, 'regular');
+    }
+  }
+
+  & p:last-of-type {
+    margin: 0;
+  }
+}
+
 .upw-pdf-table {
   width: 100%;
   border-collapse: collapse;
@@ -16,6 +30,7 @@
 
   & th {
     padding-left: govuk-spacing(1);
+    padding-right: govuk-spacing(3);
     width: percentage(math.div(1, 3));
     background-color: govuk-colour('light-grey');
   }
