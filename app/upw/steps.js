@@ -3,7 +3,6 @@ const TaskList = require('./controllers/taskList')
 const BaseSaveAndContinue = require('../common/controllers/saveAndContinue')
 const SaveAndContinue = require('./controllers/saveAndContinue')
 const ConvertPdf = require('./controllers/convertPdf')
-const BaseController = require('../common/controllers/baseController')
 
 module.exports = {
   '/start': {
