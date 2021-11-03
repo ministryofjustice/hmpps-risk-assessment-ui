@@ -17,6 +17,7 @@ jest.mock('../data/oauth', () => ({
 
 describe('checkUserHasAreaSelected', () => {
   const defaultSession = { save: jest.fn() }
+  const session = {}
   const res = { redirect: jest.fn(), render: jest.fn() }
   const next = jest.fn()
 
@@ -25,12 +26,14 @@ describe('checkUserHasAreaSelected', () => {
     defaultSession.save.mockReset()
     res.redirect.mockReset()
     res.render.mockReset()
+    delete session.standaloneAssessment
   })
 
   it('does nothing when a region is already selected', async () => {
+    session.standaloneAssessment = false
     const middleware = checkUserHasAreaSelected()
 
-    await middleware({ defaultSession, user: { areaCode: 'ABC' } }, res, next)
+    await middleware({ session, defaultSession, user: { areaCode: 'ABC' } }, res, next)
 
     expect(next).toHaveBeenCalled()
   })
