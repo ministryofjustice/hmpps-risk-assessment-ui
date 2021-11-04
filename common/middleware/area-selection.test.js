@@ -1,4 +1,4 @@
-const { checkUserHasAreaSelected } = require('./area-selection')
+const { checkUserHasAreaSelected, checkAssessmentType } = require('./area-selection')
 const { getUserProfile } = require('../data/offenderAssessmentApi')
 const { cacheUserDetailsWithRegion } = require('../data/userDetailsCache')
 const { getApiToken } = require('../data/oauth')
@@ -106,5 +106,60 @@ describe('checkUserHasAreaSelected', () => {
     await middleware(req, res, next)
 
     expect(res.render).toHaveBeenCalledWith(`app/error`, { error })
+  })
+})
+
+describe('checkAssessmentType', () => {
+  const session = { save: jest.fn() }
+  const next = jest.fn()
+  const res = {}
+  const req = { session, query: {} }
+
+  beforeEach(() => {
+    next.mockReset()
+    session.save.mockReset()
+    delete req.session.standaloneAssessment
+    delete req.query.assessmentType
+    delete req.originalUrl
+  })
+
+  it('sets standalone flag when assessment type is in query parameters', async () => {
+    req.query.assessmentType = 'UPW'
+    const middleware = checkAssessmentType()
+
+    await middleware(req, res, next)
+
+    expect(req.session.standaloneAssessment).toBe(true)
+    expect(next).toHaveBeenCalled()
+  })
+
+  it('sets standalone flag to false when query parameters assessment does not exist', async () => {
+    req.query.assessmentType = 'NOT_ASSESSMENT'
+    const middleware = checkAssessmentType()
+
+    await middleware(req, res, next)
+
+    expect(req.session.standaloneAssessment).toBe(false)
+    expect(next).toHaveBeenCalled()
+  })
+
+  it('sets standalone flag when assessment URL contains assessment code', async () => {
+    req.originalUrl = '/RSR/assessment_page'
+    const middleware = checkAssessmentType()
+
+    await middleware(req, res, next)
+
+    expect(req.session.standaloneAssessment).toBe(true)
+    expect(next).toHaveBeenCalled()
+  })
+
+  it('sets standalone flag to false when assessment URL does not contain assessment code', async () => {
+    req.originalUrl = '/NOT_ASSESSMENT/assessment_page'
+    const middleware = checkAssessmentType()
+
+    await middleware(req, res, next)
+
+    expect(req.session.standaloneAssessment).toBe(false)
+    expect(next).toHaveBeenCalled()
   })
 })
