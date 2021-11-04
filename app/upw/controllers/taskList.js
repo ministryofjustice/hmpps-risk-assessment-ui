@@ -13,8 +13,8 @@ class TaskList extends BaseController {
 
     res.locals.taskList = getTaskList(`/${journeyName}`, steps, answers)
 
-    const deliusRegistrations = await getRegistrations(res.locals.assessment?.subject?.crn, req.user)
-    const roshRiskSummary = await getRoshRiskSummary(res.locals.assessment?.subject?.crn, req.user)
+    const deliusRegistrations = await getRegistrations(req.session.assessment?.subject?.crn, req.user)
+    const roshRiskSummary = await getRoshRiskSummary(req.session.assessment?.subject?.crn, req.user)
 
     res.locals.widgetData = {
       ...deliusRegistrations,
