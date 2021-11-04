@@ -18,9 +18,9 @@ rosh-widget__risk--low
 {% endif %}
 {% endmacro %}
 
-{% if params.roshCompleted %}
+{% if params and params.overallRisk %}
 <div class="rosh-widget {{ roshWidgetClass }}">
-    <h3 class="govuk-heading-m"><strong>{{ params.level }}</strong> RoSH</h3>
+    <h3 class="govuk-heading-m"><strong>{{ params.overallRisk }}</strong> RoSH</h3>
     <p class="govuk-body-m">Risk of serious harm</p>
     <p class="govuk-hint govuk-body-m">Last updated: {{ params.lastUpdated | default("Not known") }}</p>
 
