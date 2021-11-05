@@ -38,9 +38,6 @@ const { fetchFilteredReferenceData } = require('./referenceData/post.controller'
 const { psrFromCourt } = require('./psrFromCourt/get.controller')
 const { startPsrFromCourt, startPsrFromForm } = require('./psrFromCourt/post.controller')
 
-const { assessmentFromCrn } = require('./assessmentFromCrn/get.controller')
-const { startAssessmentFromCrn, startAssessmentFromForm } = require('./assessmentFromCrn/post.controller')
-
 const { validate, localValidationRules } = require('../common/middleware/validator')
 
 const {
