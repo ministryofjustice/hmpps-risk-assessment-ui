@@ -193,10 +193,6 @@ module.exports = app => {
   app.post('/psr-from-court', startPsrFromForm)
   app.post('/psr-from-court/:courtCode/case/:caseNumber', startPsrFromCourt)
 
-  app.get('/assessment-from-delius', assessmentFromCrn)
-  app.post('/assessment-from-delius', startAssessmentFromForm)
-  app.post('/assessment-from-delius/:assessmentSchemaCode/crn/:crn/event/:deliusEventId', startAssessmentFromCrn)
-
   app.get('/:assessmentId/episode/:episodeId/:assessmentType/scores', getOffenderDetails, displayPredictorScores)
   app.get(
     '/:assessmentId/episode/:episodeId/:assessmentType/scores/complete',
@@ -204,7 +200,7 @@ module.exports = app => {
     submitPredictorScores,
   )
 
-  app.get('/start-assessment', startAssessment)
+  app.get(['/start-assessment', '/assessment-from-delius'], startAssessment)
   app.use('/rsr', rsrWorkflow)
   app.use('/upw', upwWorkflow)
 
