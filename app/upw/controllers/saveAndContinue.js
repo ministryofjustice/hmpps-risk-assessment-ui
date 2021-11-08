@@ -1,4 +1,5 @@
 const BaseSaveAndContinue = require('../../common/controllers/saveAndContinue')
+const { getRegistrations, getRoshRiskSummary } = require('./common.utils')
 
 const removeAnswers = fieldsToRemove => answers =>
   Object.entries(answers).reduce((modifiedAnswers, [fieldName, answer]) => {
@@ -35,7 +36,15 @@ const invalidateSectionCompleteAnswers = (answers, fields) => {
 const invalidateDeclarations = removeAnswers(['declaration'])
 
 class SaveAndContinue extends BaseSaveAndContinue {
-  locals(req, res, next) {
+  async locals(req, res, next) {
+    const deliusRegistrations = await getRegistrations(req.session.assessment?.subject?.crn, req.user)
+    const roshRiskSummary = await getRoshRiskSummary(req.session.assessment?.subject?.crn, req.user)
+
+    res.locals.widgetData = {
+      ...deliusRegistrations,
+      ...roshRiskSummary,
+    }
+
     super.locals(req, res, next)
 
     let answers = req.sessionModel.get('answers') || {}

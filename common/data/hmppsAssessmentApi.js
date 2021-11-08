@@ -91,6 +91,20 @@ const getDraftPredictorScore = (episodeUuid, authorisationToken, userId) => {
   return action(superagent.get(path), authorisationToken, userId)
 }
 
+const getRegistrationsForCrn = (crn, authorisationToken, userId) => {
+  const path = `${url}/assessments/${crn}/registrations`
+  logger.info(`Calling hmppsAssessments API with GET: ${path}`)
+
+  return action(superagent.get(path), authorisationToken, userId)
+}
+
+const getRoshRiskSummaryForCrn = (crn, authorisationToken, userId) => {
+  const path = `${url}/assessments/${crn}/ROSH/summary`
+  logger.info(`Calling hmppsAssessments API with GET: ${path}`)
+
+  return action(superagent.get(path), authorisationToken, userId)
+}
+
 const getFilteredReferenceData = (assessmentId, episodeId, questionCode, parentList, authorisationToken, userId) => {
   const path = `${url}/referencedata/filtered`
   const requestBody = {
@@ -186,4 +200,6 @@ module.exports = {
   getDraftPredictorScore,
   getEpisode,
   getCurrentEpisode,
+  getRegistrationsForCrn,
+  getRoshRiskSummaryForCrn,
 }
