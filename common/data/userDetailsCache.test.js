@@ -1,4 +1,4 @@
-const { cacheUserDetails, getCachedUserDetails } = require('./userDetailsCache')
+const { cacheOasysUserDetails, getCachedUserDetails } = require('./userDetailsCache')
 const redis = require('./redis')
 
 jest.mock('../data/redis', () => ({
@@ -21,7 +21,7 @@ describe('Auth', () => {
         accountStatus: 'ACTIVE',
       }
 
-      await cacheUserDetails(1, oasysUser)
+      await cacheOasysUserDetails(1, oasysUser)
       // Persist user details to Redis and key by the user's ID
       expect(redis.set).toHaveBeenCalledWith(
         'user:1',

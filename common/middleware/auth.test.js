@@ -3,7 +3,7 @@ const passport = require('passport')
 const auth = require('./auth')
 const { checkTokenIsActive, getUserEmail, getApiToken } = require('../data/oauth')
 const { getUserByEmail } = require('../data/offenderAssessmentApi')
-const { cacheUserDetails, getCachedUserDetails } = require('../data/userDetailsCache')
+const { cacheOasysUserDetails, getCachedUserDetails } = require('../data/userDetailsCache')
 const User = require('../models/user')
 
 jest.mock('passport-oauth2-refresh')
@@ -17,7 +17,7 @@ jest.mock('../data/offenderAssessmentApi', () => ({
   getUserByEmail: jest.fn(),
 }))
 jest.mock('../data/userDetailsCache', () => ({
-  cacheUserDetails: jest.fn(),
+  cacheOasysUserDetails: jest.fn(),
   getCachedUserDetails: jest.fn(),
 }))
 
@@ -26,7 +26,7 @@ describe('Auth', () => {
     getUserEmail.mockReset()
     getApiToken.mockReset()
     getUserByEmail.mockReset()
-    cacheUserDetails.mockReset()
+    cacheOasysUserDetails.mockReset()
     getCachedUserDetails.mockReset()
   })
 
@@ -289,13 +289,14 @@ describe('Auth', () => {
 
   describe('serializer', () => {
     it('sets the user serializer', async () => {
+      const req = {}
       expect(passport.serializeUser).toHaveBeenCalledTimes(1)
       const [serializer] = passport.serializeUser.mock.calls[0]
       expect(typeof serializer).toBe('function')
 
       getUserEmail.mockResolvedValue('foo@bar.baz')
       getApiToken.mockResolvedValue('BAR_TOKEN')
-      cacheUserDetails.mockResolvedValue({
+      cacheOasysUserDetails.mockResolvedValue({
         isActive: true,
         oasysUserCode: 'SUPPORT1',
         username: 'Ray Arnold',
@@ -313,17 +314,18 @@ describe('Auth', () => {
       getUserByEmail.mockResolvedValue(oasysUser)
       const callback = jest.fn()
 
-      await serializer(User.from({ id: 1, token: 'FOO_TOKEN', username: 'Foo' }), callback)
+      await serializer(req, User.from({ id: 1, token: 'FOO_TOKEN', username: 'Foo' }), callback)
       // We grab the user email
       expect(getUserEmail).toHaveBeenCalledWith('FOO_TOKEN')
       expect(getUserByEmail).toHaveBeenCalledWith('foo@bar.baz', 'BAR_TOKEN')
       // Persist user details to Cache and key by the user's ID
-      expect(cacheUserDetails).toHaveBeenCalledWith(1, oasysUser)
+      expect(cacheOasysUserDetails).toHaveBeenCalledWith(1, oasysUser)
       // Persist the user token to the session
       expect(callback).toHaveBeenCalledWith(null, { id: 1, token: 'FOO_TOKEN' })
     })
 
     it('does not fetch the user email if it already exists', async () => {
+      const req = {}
       expect(passport.serializeUser).toHaveBeenCalledTimes(1)
       const [serializer] = passport.serializeUser.mock.calls[0]
       expect(typeof serializer).toBe('function')
@@ -332,16 +334,18 @@ describe('Auth', () => {
       const callback = jest.fn()
 
       await serializer(
+        req,
         User.from({ id: 1, token: 'FOO_TOKEN', username: 'Foo' }).withDetails({ email: 'foo@bar.baz' }),
         callback,
       )
       // We grab the user email
       expect(getUserEmail).not.toHaveBeenCalled()
-      expect(cacheUserDetails).not.toHaveBeenCalled()
+      expect(cacheOasysUserDetails).not.toHaveBeenCalled()
       expect(callback).toHaveBeenCalled()
     })
 
     it('passes errors to the callback', async () => {
+      const req = {}
       expect(passport.serializeUser).toHaveBeenCalledTimes(1)
       const [serializer] = passport.serializeUser.mock.calls[0]
       expect(typeof serializer).toBe('function')
@@ -349,7 +353,7 @@ describe('Auth', () => {
       getUserEmail.mockRejectedValue('💥')
       const callback = jest.fn()
 
-      await serializer(User.from({ id: 1, token: 'FOO_TOKEN', username: 'Foo' }), callback)
+      await serializer(req, User.from({ id: 1, token: 'FOO_TOKEN', username: 'Foo' }), callback)
 
       expect(callback).toHaveBeenCalledWith('💥')
     })
@@ -357,6 +361,7 @@ describe('Auth', () => {
 
   describe('deserializer', () => {
     it('sets the passport deserializer', async () => {
+      const req = {}
       expect(passport.deserializeUser).toHaveBeenCalledTimes(1)
       const [deserializer] = passport.deserializeUser.mock.calls[0]
       expect(typeof deserializer).toBe('function')
@@ -376,6 +381,7 @@ describe('Auth', () => {
       const callback = jest.fn()
 
       await deserializer(
+        req,
         User.from({
           id: 1,
           token: 'FOO_TOKEN',
@@ -408,12 +414,13 @@ describe('Auth', () => {
     })
 
     it('handles a cache miss by fetching user details', async () => {
+      const req = {}
       expect(passport.deserializeUser).toHaveBeenCalledTimes(1)
       const [deserializer] = passport.deserializeUser.mock.calls[0]
       expect(typeof deserializer).toBe('function')
 
       getCachedUserDetails.mockResolvedValue(null)
-      cacheUserDetails.mockResolvedValue({
+      cacheOasysUserDetails.mockResolvedValue({
         oasysUserCode: 'USER_CODE',
         username: 'Test User',
         email: 'foo@bar.baz',
@@ -431,10 +438,10 @@ describe('Auth', () => {
       getUserByEmail.mockResolvedValue(oasysUser)
       const callback = jest.fn()
 
-      await deserializer(User.from({ id: 1, token: 'FOO_TOKEN' }), callback)
+      await deserializer(req, User.from({ id: 1, token: 'FOO_TOKEN' }), callback)
 
       expect(getCachedUserDetails).toHaveBeenCalledWith(1)
-      expect(cacheUserDetails).toHaveBeenCalledWith(1, oasysUser)
+      expect(cacheOasysUserDetails).toHaveBeenCalledWith(1, oasysUser)
       expect(callback).toHaveBeenCalled()
 
       const [error, user] = callback.mock.calls[0]
@@ -453,6 +460,7 @@ describe('Auth', () => {
     })
 
     it('passes errors to the callback', async () => {
+      const req = {}
       expect(passport.deserializeUser).toHaveBeenCalledTimes(1)
       const [deserializer] = passport.deserializeUser.mock.calls[0]
       expect(typeof deserializer).toBe('function')
@@ -460,7 +468,7 @@ describe('Auth', () => {
       getCachedUserDetails.mockRejectedValue('💥')
       const callback = jest.fn()
 
-      await deserializer(User.from({ id: 1, token: 'FOO_TOKEN' }), callback)
+      await deserializer(req, User.from({ id: 1, token: 'FOO_TOKEN' }), callback)
 
       expect(callback).toHaveBeenCalledWith('💥')
     })
