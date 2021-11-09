@@ -1,13 +1,16 @@
 const refresh = require('passport-oauth2-refresh')
 const passport = require('passport')
+const jwtDecode = require('jwt-decode')
 const auth = require('./auth')
 const { checkTokenIsActive, getUserEmail, getApiToken } = require('../data/oauth')
 const { getUserByEmail } = require('../data/offenderAssessmentApi')
-const { cacheOasysUserDetails, getCachedUserDetails } = require('../data/userDetailsCache')
+const { cacheOasysUserDetails, cacheUserDetails, getCachedUserDetails } = require('../data/userDetailsCache')
 const User = require('../models/user')
+const authUser = require('./testSupportFiles/user_token.json')
 
 jest.mock('passport-oauth2-refresh')
 jest.mock('passport')
+jest.mock('jwt-decode')
 jest.mock('../data/oauth', () => ({
   checkTokenIsActive: jest.fn(),
   getUserEmail: jest.fn(),
@@ -18,6 +21,7 @@ jest.mock('../data/offenderAssessmentApi', () => ({
 }))
 jest.mock('../data/userDetailsCache', () => ({
   cacheOasysUserDetails: jest.fn(),
+  cacheUserDetails: jest.fn(),
   getCachedUserDetails: jest.fn(),
 }))
 
@@ -27,6 +31,7 @@ describe('Auth', () => {
     getApiToken.mockReset()
     getUserByEmail.mockReset()
     cacheOasysUserDetails.mockReset()
+    cacheUserDetails.mockReset()
     getCachedUserDetails.mockReset()
   })
 
@@ -322,6 +327,27 @@ describe('Auth', () => {
       expect(cacheOasysUserDetails).toHaveBeenCalledWith(1, oasysUser)
       // Persist the user token to the session
       expect(callback).toHaveBeenCalledWith(null, { id: 1, token: 'FOO_TOKEN' })
+    })
+
+    it('does not get OASys details for standalone assessments', async () => {
+      const req = { session: { standaloneAssessment: true } }
+
+      expect(passport.serializeUser).toHaveBeenCalledTimes(1)
+      const [serializer] = passport.serializeUser.mock.calls[0]
+      expect(typeof serializer).toBe('function')
+
+      const callback = jest.fn()
+
+      await serializer(req, User.from(authUser), callback)
+      // We grab the user email
+      expect(getUserEmail).toHaveBeenCalledWith(authUser.token)
+      expect(getUserByEmail).not.toHaveBeenCalled()
+      expect(cacheOasysUserDetails).not.toHaveBeenCalled()
+      const userDetails = jwtDecode(authUser)
+      expect(cacheUserDetails).toHaveBeenCalledWith(userDetails)
+
+      // Persist the user token to the session
+      expect(callback).toHaveBeenCalledWith(null, authUser)
     })
 
     it('does not fetch the user email if it already exists', async () => {
