@@ -78,8 +78,11 @@ const fields = {
   contact_email_addresses: {
     validate: [{ type: 'required', message: 'Email address is required' }],
   },
-  emergency_contact_name: {
-    validate: [{ type: 'required', message: 'Name is required' }],
+  emergency_contact_first_name: {
+    validate: [{ type: 'required', message: 'First name is required' }],
+  },
+  emergency_contact_family_name: {
+    validate: [{ type: 'required', message: 'Family name is required' }],
   },
   emergency_contact_relationship: {
     validate: [{ type: 'required', message: 'Emergency contact relationship is required' }],
@@ -250,8 +253,11 @@ const fields = {
     dependent: { field: 'upw_pregnancy', value: 'RECENTLY_GIVEN_BIRTH' },
     ...requireEnterDetails,
   },
-  upw_gp_name: {
-    validate: [{ type: 'required', message: 'Name is required' }],
+  upw_gp_first_name: {
+    validate: [{ type: 'required', message: 'First name is required' }],
+  },
+  upw_gp_family_name: {
+    validate: [{ type: 'required', message: 'Family name is required' }],
   },
   upw_gp_address_building_name: {
     validate: [{ type: 'required', message: 'Building name is required' }],
