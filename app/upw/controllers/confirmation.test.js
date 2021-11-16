@@ -93,8 +93,6 @@ describe('ConfirmationController', () => {
     })
 
     it('passes an error to the error handler when PDF conversion fails', async () => {
-      const file = createTestFile()
-
       nock(/localhost/gi)
         .post('/forms/chromium/convert/html')
         .reply(500)
