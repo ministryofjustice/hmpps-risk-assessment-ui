@@ -8,6 +8,16 @@ jest.mock('nunjucks')
 jest.mock('../../../common/utils/util', () => ({
   getCorrelationId: jest.fn(() => 'mocked-correlation-id'),
 }))
+jest.mock('../../../common/data/userDetailsCache', () => ({
+  getCachedUserDetails: jest.fn(() => ({
+    isActive: true,
+    oasysUserCode: 'SUPPORT1',
+    username: 'Ray Arnold',
+    email: 'foo@bar.baz',
+    areaCode: 'HFS',
+    areaName: 'Hertfordshire',
+  })),
+}))
 
 const createTestFile = () => Buffer.from('Test Buffer')
 
