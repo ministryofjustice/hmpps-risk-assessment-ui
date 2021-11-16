@@ -360,7 +360,7 @@ const stubRoshRiskSummary = () => {
 const stubDocumentUpload = () => {
   stubFor({
     request: {
-      method: 'GET',
+      method: 'POST',
       urlPattern: `/assessments/.+?/episode/.+?/document`,
     },
     response: {

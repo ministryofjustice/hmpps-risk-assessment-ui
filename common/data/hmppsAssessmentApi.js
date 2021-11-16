@@ -121,10 +121,14 @@ const uploadPdfDocumentToDelius = async (assessmentUuid, episodeUuid, pdf, user)
     throw new Error('No authorisation token found when calling hmppsAssessments API')
   }
 
+  const endpoint = `/assessments/${assessmentUuid}/episode/${episodeUuid}/document`
+
+  logger.info(`Calling hmppsAssessments API with POST: ${endpoint}`)
+
   const userDetails = await getCachedUserDetails(user.id)
   try {
     return await superagent
-      .post(`${url}/assessments/${assessmentUuid}/episode/${episodeUuid}/document`)
+      .post(url + endpoint)
       .auth(user.token, { type: 'bearer' })
       .set('x-correlation-id', getCorrelationId())
       .set('x-user-area', userDetails?.areaCode || '')
