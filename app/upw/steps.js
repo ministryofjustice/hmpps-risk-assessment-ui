@@ -320,7 +320,7 @@ module.exports = {
     template: `${__dirname}/templates/confirmation.njk`,
   },
   '/delius-error': {
-    pageTitle: 'Something went wrong',
+    pageTitle: 'There is a problem with the service',
     noPost: true,
     template: `${__dirname}/templates/delius-error.njk`,
   },
