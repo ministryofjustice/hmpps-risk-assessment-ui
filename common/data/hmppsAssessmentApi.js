@@ -136,6 +136,7 @@ const uploadPdfDocumentToDelius = async (assessmentUuid, episodeUuid, pdf, user)
       .attach('fileData', pdf.document, pdf.fieldName)
       .then(({ ok, body, status }) => ({ ok, response: body, status }))
   } catch (e) {
+    logError(e)
     const { response, status } = e
     return { ok: false, response, status }
   }
