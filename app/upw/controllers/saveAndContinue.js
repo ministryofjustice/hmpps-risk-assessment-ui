@@ -16,17 +16,6 @@ const removeAnswers = fieldsToRemove => answers =>
     }
   }, {})
 
-const setDefaultSectionCompleteAnswers = (answers, fields) => {
-  const newAnswers = answers
-  fields.forEach(field => {
-    if (newAnswers[field]?.toString().toUpperCase() !== 'YES') {
-      newAnswers[field] = 'NO_ILL_COME_BACK_LATER'
-    }
-  })
-
-  return newAnswers
-}
-
 const invalidateSectionCompleteAnswers = (answers, fields) => {
   return Object.entries(answers)
     .map(([key, value]) => (fields.includes(key) ? [key, ''] : [key, value]))
@@ -45,22 +34,21 @@ class SaveAndContinue extends BaseSaveAndContinue {
       ...roshRiskSummary,
     }
 
-    super.locals(req, res, next)
+    await super.locals(req, res, next)
 
     const validationErrors = Object.keys(req.form.errors)
     const sectionCompleteFields = Object.keys(req.form?.options?.fields).filter(key => key.match(/^\w+_complete$/))
 
-    let answers =
-      validationErrors.length === 0 ? req.sessionModel.get('answers') || {} : req.sessionModel.get('formAnswers') || {}
+    let { answers } = res.locals
 
     if (validationErrors.length > 0) {
       answers = invalidateSectionCompleteAnswers(answers, sectionCompleteFields)
     }
 
-    answers = setDefaultSectionCompleteAnswers(answers, sectionCompleteFields)
-    if (validationErrors.length === 0) {
-      req.sessionModel.set('answers', answers)
+    if (validationErrors.length > 0) {
+      req.sessionModel.set('formAnswers', answers)
     }
+    res.locals.answers = answers
   }
 
   saveValues(req, res, next) {

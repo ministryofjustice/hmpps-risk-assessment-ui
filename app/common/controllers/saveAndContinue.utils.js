@@ -54,9 +54,15 @@ const withAnswersFrom = (previousAnswers, submittedAnswers) => ([fieldName, fiel
   }
 
   if (fieldProperties.answerType === 'radio') {
-    const checkedAnswer = answerFor(fieldName)
+    let checkedAnswer = answerFor(fieldName)
     const [selectedAnswer] = fieldProperties.answerSchemas.filter(answerSchema => answerSchema.value === checkedAnswer)
     const displayAnswer = selectedAnswer?.text || ''
+
+    if (fieldProperties.questionCode.match(/^\w+_complete$/)) {
+      if (checkedAnswer !== 'YES') {
+        checkedAnswer = 'NO_ILL_COME_BACK_LATER'
+      }
+    }
     return {
       ...fieldProperties,
       answer: displayAnswer,
