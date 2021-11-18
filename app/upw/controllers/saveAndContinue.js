@@ -47,21 +47,24 @@ class SaveAndContinue extends BaseSaveAndContinue {
 
     super.locals(req, res, next)
 
-    let answers = req.sessionModel.get('answers') || {}
-
     const validationErrors = Object.keys(req.form.errors)
     const sectionCompleteFields = Object.keys(req.form?.options?.fields).filter(key => key.match(/^\w+_complete$/))
+
+    let answers =
+      validationErrors.length === 0 ? req.sessionModel.get('answers') || {} : req.sessionModel.get('formAnswers') || {}
 
     if (validationErrors.length > 0) {
       answers = invalidateSectionCompleteAnswers(answers, sectionCompleteFields)
     }
 
     answers = setDefaultSectionCompleteAnswers(answers, sectionCompleteFields)
-    req.sessionModel.set('answers', answers)
+    if (validationErrors.length === 0) {
+      req.sessionModel.set('answers', answers)
+    }
   }
 
   saveValues(req, res, next) {
-    const answers = req.sessionModel.get('answers') || {}
+    const answers = req.sessionModel.get('formAnswers') || {}
     const answersWithInvalidatedDeclarations = invalidateDeclarations(answers)
     req.sessionModel.set('answers', answersWithInvalidatedDeclarations)
 
