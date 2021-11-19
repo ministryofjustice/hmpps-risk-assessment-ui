@@ -409,14 +409,7 @@ const fields = {
   upw_eligibility_intensive_working_complete: requireSelectOption,
   upw_individual_availability_complete: requireSelectOption,
   upw_equipment_complete: requireSelectOption,
-  upw_declaration_confirmation: {
-    validate: [
-      {
-        type: 'required',
-        message: 'You must tick the confirmation',
-      },
-    ],
-  },
+  upw_declaration_confirmation: {},
 }
 
 // const customValidations = (fields, answers) => {
