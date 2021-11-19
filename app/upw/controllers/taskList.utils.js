@@ -105,6 +105,22 @@ const getTaskList = (baseUrl = '', steps = {}, answers = {}) => {
     },
   ]
 
+  if (answers.gender_identity === 'MALE') {
+    // find section with an item with text: placement preferences, and remove from task list
+    let taskIndex
+    let itemIndex
+    tasks.forEach((task, taskNumber) => {
+      task.items?.forEach((item, taskItemNumber) => {
+        if (item.text === 'Placement preferences') {
+          taskIndex = taskNumber
+          itemIndex = taskItemNumber
+        }
+      })
+    }, tasks)
+
+    if (taskIndex && itemIndex) delete tasks[taskIndex].items[itemIndex]
+  }
+
   const declaration = {
     heading: {
       text: 'Declaration',
