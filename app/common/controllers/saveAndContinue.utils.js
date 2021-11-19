@@ -1,4 +1,5 @@
 const nunjucks = require('nunjucks')
+const { SECTION_INCOMPLETE, SECTION_COMPLETE } = require('../../../common/utils/constants')
 
 const nullOrEmpty = s => !s || s === ''
 
@@ -59,8 +60,8 @@ const withAnswersFrom = (previousAnswers, submittedAnswers) => ([fieldName, fiel
     const displayAnswer = selectedAnswer?.text || ''
 
     if (fieldProperties.questionCode.match(/^\w+_complete$/)) {
-      if (checkedAnswer !== 'YES') {
-        checkedAnswer = 'NO_ILL_COME_BACK_LATER'
+      if (checkedAnswer !== SECTION_COMPLETE) {
+        checkedAnswer = SECTION_INCOMPLETE
       }
     }
     return {

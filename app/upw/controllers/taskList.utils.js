@@ -1,3 +1,5 @@
+const { SECTION_COMPLETE } = require('../../../common/utils/constants')
+
 const checkAllTasksAreComplete = sections => {
   return sections.every(section => {
     const tasks = section.items || []
@@ -33,7 +35,7 @@ const getTask = (answers, baseUrl, steps, taskName, completionField) => {
   return {
     text: steps[`/${taskName}`]?.pageTitle || 'Unknown Task',
     href: `${baseUrl}/${taskName}` || '#',
-    status: answers[completionField]?.toString().toUpperCase() === 'YES' ? 'COMPLETE' : 'INCOMPLETE',
+    status: answers[completionField]?.toString().toUpperCase() === SECTION_COMPLETE ? 'COMPLETE' : 'INCOMPLETE',
   }
 }
 
