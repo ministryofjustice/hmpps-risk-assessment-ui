@@ -360,10 +360,16 @@
     {%- set showPlacementPreferences = rawAnswers["gender_identity"] != "MALE" and rawAnswers["upw_placement_preference"] == "YES" -%}
     {%- set showPlacementPreferencesByGender = rawAnswers["sex_change"] == "YES" -%}
 
+    {%- if rawAnswers["requires_interpreter"] == "true" -%}
+    {%- set requiresInterpreter = "Yes" -%}
+    {%- elif rawAnswers["requires_interpreter"] == "false" -%}
+    {%- set requiresInterpreter = "No" -%}
+    {%- endif -%}
+
     {{ renderTable({
         rows: [
             { heading: "Preferred language", data: renderValue(rawAnswers["language"]) },
-            { heading: "Interpreter required?", data: renderValue(rawAnswers["requires_interpreter"]) },
+            { heading: "Interpreter required?", data: renderValue(requiresInterpreter) },
             {
                 heading: "Cultural or religious adjustments", 
                 data: renderValue(
