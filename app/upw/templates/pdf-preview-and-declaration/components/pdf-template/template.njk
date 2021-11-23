@@ -12,10 +12,12 @@
 
 {%- macro renderTable(table) -%}
         <table class="upw-pdf-table">
+        {%- if table.caption -%}
         <caption>
             <h2 class="govuk-heading-m">{{ table.caption }}</h2>
             <p>{{ table.captionDescription }}</p>
         </caption>
+        {%- endif -%}
         <tbody>
             {% for row in table.rows %}
             {%- if row.condition or row.condition == undefined -%}
@@ -93,7 +95,7 @@
         </div>
     </div>
 
-    <h1 class="govuk-heading-l">Supervised individual</h1>    
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Supervised individual</h1>    
 
     {{ renderTable({
         caption: "Offence details",
@@ -188,7 +190,7 @@
         ]
     }) }}
 
-    <h1 class="govuk-heading-l">Risk of Serious Harm in the community</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Risk of Serious Harm in the community</h1>
 
     {{ roshWidget(widgets.roshRiskSummary) }}
 
@@ -272,7 +274,7 @@
         ]
     }) }}
 
-    <h1 class="govuk-heading-l">Management of risk</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Management of risk</h1>
 
     {{ mappaWidget(widgets.mappa) }}
 
@@ -355,7 +357,7 @@
         }) }}
     {%- endif -%}
 
-    <h1 class="govuk-heading-l">Diversity information</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Diversity information</h1>
 
     {%- set showPlacementPreferences = rawAnswers["gender_identity"] != "MALE" and rawAnswers["upw_placement_preference"] == "YES" -%}
     {%- set showPlacementPreferencesByGender = rawAnswers["sex_change"] == "YES" -%}
@@ -392,7 +394,7 @@
         ]
     }) }}
 
-    <h1 class="govuk-heading-l">Placement restrictions due to health and other needs</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Placement restrictions due to health and other needs</h1>
 
     {%- macro ifAnswerIsPresent(answer, textIfPresent, textIfNotPresent) -%}
         {%- if answer -%}
@@ -566,7 +568,7 @@
         ]
     }) }}
 
-    <h1 class="govuk-heading-l">Employment, Education and skills</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Employment, Education and skills</h1>
 
     {%- if rawAnswers["upw_employment_education"] == "FULLTIME_EDUCATION_EMPLOYMENT" -%}
         {%- set employmentDetails = answers["upw_employment_education_details_fulltime"] -%}
@@ -639,7 +641,7 @@
         ] 
     }) }}
 
-    <h1 class="govuk-heading-l">Placement details</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Placement details</h1>
 
     {%- set showIntensiveWorkingSection = rawAnswers["upw_employment_education"] == "NO" -%}
     {%- if showIntensiveWorkingSection -%}
@@ -762,7 +764,7 @@
         ]
     }) }}
 
-    <h1 class="govuk-heading-l">Declaration</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-4 govuk-!-margin-top-9">Declaration</h1>
 
     {{ renderTable({
         rows: [
