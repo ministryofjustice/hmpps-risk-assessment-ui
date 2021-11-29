@@ -155,9 +155,9 @@ const fields = {
     dependent: { field: 'control_issues', value: 'YES' },
     ...requireEnterDetails,
   },
-  hate_based_behaviour: requireYesOrNo,
-  hate_based_behaviour_details: {
-    dependent: { field: 'hate_based_behaviour', value: 'YES' },
+  history_of_hate_based_behaviour: requireYesOrNo,
+  history_of_hate_based_behaviour_details: {
+    dependent: { field: 'history_of_hate_based_behaviour', value: 'YES' },
     ...requireEnterDetails,
   },
   high_profile_person: requireYesOrNo,

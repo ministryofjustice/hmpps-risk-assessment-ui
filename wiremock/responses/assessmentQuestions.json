@@ -916,7 +916,7 @@
     {
       "type": "question",
       "questionId": "b446b9db-d57a-4a29-9674-37099bdf1a00",
-      "questionCode": "hate_based_behaviour",
+      "questionCode": "history_of_hate_based_behaviour",
       "answerType": "radio",
       "questionText": "History of hate-based attitudes or behaviours?",
       "helpText": "For example, homophobic or racially motivated",
@@ -943,7 +943,7 @@
     {
       "type": "question",
       "questionId": "6ee5fa07-767d-46a5-8b56-dd05b7f21f45",
-      "questionCode": "hate_based_behaviour_details",
+      "questionCode": "history_of_hate_based_behaviour_details",
       "answerType": "textarea",
       "questionText": "Give details",
       "displayOrder": 10,
