@@ -89,6 +89,7 @@ describe('ConfirmationController', () => {
       nunjucks.render.mockReturnValue('RENDERED_TEMPLATE')
       pdfConverterClient.convertHtmlToPdf.mockReset()
       hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockReset()
+      superMethod.mockReset()
     })
 
     it('calls the PDF convert and passes the response to the backend API', async () => {
@@ -96,6 +97,7 @@ describe('ConfirmationController', () => {
 
       pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
       hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
+      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([true])
 
       await controller.render(req, res, next)
 
@@ -170,6 +172,47 @@ describe('ConfirmationController', () => {
         user,
       )
       expect(res.redirect).toHaveBeenCalledWith('/UPW/delius-error')
+    })
+
+    it('completes the assessment', async () => {
+      const file = createTestFile()
+
+      pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
+      hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
+      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([true])
+
+      await controller.render(req, res, next)
+
+      expect(pdfConverterClient.convertHtmlToPdf).toHaveBeenCalledWith('RENDERED_TEMPLATE')
+      expect(hmppsAssessmentsApiClient.uploadPdfDocumentToDelius).toHaveBeenCalledWith(
+        assessmentUuid,
+        episodeUuid,
+        { fileName: 'robert-x123456.pdf', document: file },
+        user,
+      )
+      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
+      expect(superMethod).toHaveBeenCalled()
+    })
+
+    it('displays an error when unable to complete the assessment', async () => {
+      const file = createTestFile()
+
+      pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
+      hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
+      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([false])
+
+      await controller.render(req, res, next)
+
+      expect(pdfConverterClient.convertHtmlToPdf).toHaveBeenCalledWith('RENDERED_TEMPLATE')
+      expect(hmppsAssessmentsApiClient.uploadPdfDocumentToDelius).toHaveBeenCalledWith(
+        assessmentUuid,
+        episodeUuid,
+        { fileName: 'robert-x123456.pdf', document: file },
+        user,
+      )
+      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
+      expect(next).toHaveBeenCalledWith(new Error('Failed to complete the assessment'))
+      expect(superMethod).not.toHaveBeenCalled()
     })
   })
 })

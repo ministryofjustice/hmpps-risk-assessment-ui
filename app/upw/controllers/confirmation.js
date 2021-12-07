@@ -2,7 +2,7 @@
 const nunjucks = require('nunjucks')
 const SaveAndContinue = require('./saveAndContinue')
 const logger = require('../../../common/logging/logger')
-const { uploadPdfDocumentToDelius } = require('../../../common/data/hmppsAssessmentApi')
+const { uploadPdfDocumentToDelius, postCompleteAssessment } = require('../../../common/data/hmppsAssessmentApi')
 const { convertHtmlToPdf } = require('../../../common/data/pdf')
 
 const createFileNameFrom = (type, ...parts) => {
@@ -48,6 +48,16 @@ class Confirmation extends SaveAndContinue {
         }
 
         throw new Error('Failed to upload the PDF')
+      }
+
+      const [assessmentCompleted] = await postCompleteAssessment(
+        req.session?.assessment?.uuid,
+        req.user?.token,
+        req.user?.id,
+      )
+
+      if (!assessmentCompleted) {
+        throw new Error('Failed to complete the assessment')
       }
 
       return super.render(req, res, next)
