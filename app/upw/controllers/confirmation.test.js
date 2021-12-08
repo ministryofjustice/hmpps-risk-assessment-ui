@@ -67,6 +67,7 @@ describe('ConfirmationController', () => {
             episodeUuid,
             subject: { dob: '1980-01-01' },
           },
+          save: jest.fn(),
         },
         form: {
           options: {
@@ -90,6 +91,7 @@ describe('ConfirmationController', () => {
       pdfConverterClient.convertHtmlToPdf.mockReset()
       hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockReset()
       superMethod.mockReset()
+      req.session.save.mockReset()
     })
 
     it('calls the PDF convert and passes the response to the backend API', async () => {
@@ -183,14 +185,21 @@ describe('ConfirmationController', () => {
 
       await controller.render(req, res, next)
 
-      expect(pdfConverterClient.convertHtmlToPdf).toHaveBeenCalledWith('RENDERED_TEMPLATE')
-      expect(hmppsAssessmentsApiClient.uploadPdfDocumentToDelius).toHaveBeenCalledWith(
-        assessmentUuid,
-        episodeUuid,
-        { fileName: 'robert-x123456.pdf', document: file },
-        user,
-      )
       expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
+      expect(superMethod).toHaveBeenCalled()
+    })
+
+    it('removes the assessment from the session', async () => {
+      const file = createTestFile()
+
+      pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
+      hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
+      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([true])
+
+      await controller.render(req, res, next)
+
+      expect(req.session.assessment).toBeUndefined()
+      expect(req.session.save).toHaveBeenCalled()
       expect(superMethod).toHaveBeenCalled()
     })
 
@@ -203,13 +212,6 @@ describe('ConfirmationController', () => {
 
       await controller.render(req, res, next)
 
-      expect(pdfConverterClient.convertHtmlToPdf).toHaveBeenCalledWith('RENDERED_TEMPLATE')
-      expect(hmppsAssessmentsApiClient.uploadPdfDocumentToDelius).toHaveBeenCalledWith(
-        assessmentUuid,
-        episodeUuid,
-        { fileName: 'robert-x123456.pdf', document: file },
-        user,
-      )
       expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
       expect(next).toHaveBeenCalledWith(new Error('Failed to complete the assessment'))
       expect(superMethod).not.toHaveBeenCalled()

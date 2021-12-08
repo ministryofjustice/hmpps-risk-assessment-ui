@@ -60,6 +60,9 @@ class Confirmation extends SaveAndContinue {
         throw new Error('Failed to complete the assessment')
       }
 
+      delete req.session.assessment
+      req.session.save()
+
       return super.render(req, res, next)
     } catch (e) {
       return next(e)
