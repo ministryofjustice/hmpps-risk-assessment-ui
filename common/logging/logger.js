@@ -1,6 +1,5 @@
 const winston = require('winston')
 let { loggingLevel, env } = require('../config')
-const { applicationInsights } = require('../config')
 const MDCAwareLogger = require('./mdc-aware-logger')
 
 if (!loggingLevel) {
