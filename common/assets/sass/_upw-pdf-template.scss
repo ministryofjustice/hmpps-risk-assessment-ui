@@ -19,6 +19,17 @@
   }
 }
 
+.upw-pdf-title-page__body {
+  margin-top: 50px;
+}
+
+.upw-pdf-title {
+  font-size: 64px;
+  font-family: Arial;
+  font-style: normal;
+  font-weight: 400;
+}
+
 .upw-pdf {
   @media print {
     &,
@@ -99,6 +110,11 @@
 
 .upw-pdf-header__right-tag {
   background-color: govuk-colour('red');
+}
+
+.upw-pdf-title-page__tag {
+  background-color: govuk-colour('red');
+  font-size: 24px;
 }
 
 .upw-pdf-footer {
