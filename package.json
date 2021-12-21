@@ -10,6 +10,9 @@
     "npm": "8.1.2"
   },
   "jest": {
+    "setupFilesAfterEnv": [
+      "./test-helpers/setup.js"
+    ],
     "collectCoverageFrom": [
       "common/**/*.js"
     ],
