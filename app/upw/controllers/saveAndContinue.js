@@ -57,12 +57,12 @@ class SaveAndContinue extends BaseSaveAndContinue {
     res.locals.answers = answers
   }
 
-  saveValues(req, res, next) {
+  async saveValues(req, res, next) {
     const answers = req.sessionModel.get('formAnswers') || {}
     const answersWithInvalidatedDeclarations = invalidateDeclarations(answers)
     req.sessionModel.set('answers', answersWithInvalidatedDeclarations)
 
-    super.saveValues(req, res, next)
+    await super.saveValues(req, res, next)
   }
 
   successHandler(req, res, next) {
