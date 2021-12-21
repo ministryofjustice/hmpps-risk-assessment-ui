@@ -68,7 +68,7 @@ describe('SaveAndContinueController (UPW)', () => {
     next.mockReset()
   })
 
-  it('it invalidates declarations when saving', async () => {
+  it('it invalidates declarations when saving', () => {
     mockSessionModel({
       formAnswers: {
         declaration: 'COMPLETED',
@@ -76,7 +76,7 @@ describe('SaveAndContinueController (UPW)', () => {
       },
     })
 
-    await controller.saveValues(req, res, next)
+    controller.saveValues(req, res, next)
 
     expect(req.sessionModel.set).toHaveBeenCalledWith('answers', {
       declaration: '',
