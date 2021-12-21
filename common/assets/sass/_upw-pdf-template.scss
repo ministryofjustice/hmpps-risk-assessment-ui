@@ -24,12 +24,13 @@
     break-after: avoid-page;
   }
 }
+
 .upw-pdf-title__strapline {
   margin-bottom: 0;
   margin-top: 50px;
 }
 
-.upw-pdf-title__moj_logo {
+.upw-pdf-title__mojlogo {
   margin-right: 30px;
   margin-top: 150px;
 }
@@ -38,13 +39,14 @@
   margin-top: 20px;
   margin-bottom: 15px;
   width: 440px;
-  border: 1px solid #626A6E;
+  border: 1px solid #626a6e;
 }
 
-.upw-pdf_details p {
+.upw-pdf__details p {
   font-size: 10px;
   line-height: 16px;
 }
+
 .upw-pdf-title-page__body {
   margin-top: 60px;
 }
@@ -53,7 +55,7 @@
   margin-top: 0;
   margin-bottom: 0;
   font-size: 48px;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
 }

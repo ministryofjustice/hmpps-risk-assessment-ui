@@ -179,9 +179,9 @@ function initialiseTemplateEngine(app) {
     return arr.slice(1)
   })
   nunjucksEnvironment.addFilter('todayPretty', () => {
-    const nth = function(d) {
-      if (d > 3 && d < 21) return 'th'
-      switch (d % 10) {
+    const nth = dateDay => {
+      if (dateDay > 3 && dateDay < 21) return 'th'
+      switch (dateDay % 10) {
         case 1:
           return 'st'
         case 2:
