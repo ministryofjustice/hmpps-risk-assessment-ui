@@ -81,18 +81,23 @@ const fields = {
     validate: [{ type: 'required', message: 'Email address is required' }],
   },
   emergency_contact_first_name: {
+    type: 'multiple',
     validate: [{ type: 'required', message: 'First name is required' }],
   },
   emergency_contact_family_name: {
+    type: 'multiple',
     validate: [{ type: 'required', message: 'Family name is required' }],
   },
   emergency_contact_relationship: {
+    type: 'multiple',
     validate: [{ type: 'required', message: 'Emergency contact relationship is required' }],
   },
   emergency_contact_phone_number: {
+    type: 'multiple',
     validate: [{ type: 'required', message: 'Phone number is required' }],
   },
   emergency_contact_mobile_phone_number: {
+    type: 'multiple',
     validate: [{ type: 'required', message: 'Mobile phone number is required' }],
   },
   cultural_religious_adjustment: requireYesOrNo,
