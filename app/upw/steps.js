@@ -1,6 +1,7 @@
 const StartUpwAssessment = require('./controllers/start')
 const TaskList = require('./controllers/taskList')
 const SaveAndContinue = require('./controllers/saveAndContinue')
+const editEmergencyContactsSaveAndContinue = require('./controllers/editEmergencyContactsSaveAndContinue')
 const ConvertPdf = require('./controllers/convertPdf')
 const Declaration = require('./controllers/declaration')
 const Confirmation = require('./controllers/confirmation')
@@ -53,9 +54,9 @@ module.exports = {
       'contact_email_addresses',
     ],
   },
-  '/edit-emergency-contact-details': {
+  '/edit-emergency-contact/*': {
     pageTitle: 'Emergency contact details',
-    controller: SaveAndContinue,
+    controller: editEmergencyContactsSaveAndContinue,
     template: `${__dirname}/templates/individuals-details/edit-emergency-contact-details.njk`,
     next: 'individuals-details',
     fields: [
