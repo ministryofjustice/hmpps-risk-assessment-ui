@@ -117,8 +117,8 @@
                 {% for item in rawAnswers['emergency_contact_first_name'] %}
                     {{ readOnly({
                         title: 'Emergency contact ' + [loop.index],
-                        editUrl: 'edit-emergency-contact-details/' + [loop.index0],
-                        removeUrl: 'remove-emergency-contact-details/' + [loop.index0],
+                        editUrl: 'edit-emergency-contact/' + [loop.index0],
+                        removeUrl: 'remove-emergency-contact/' + [loop.index0],
                         rows: [
                             {
                                 key: {

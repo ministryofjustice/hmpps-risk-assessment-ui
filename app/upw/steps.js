@@ -2,6 +2,7 @@ const StartUpwAssessment = require('./controllers/start')
 const TaskList = require('./controllers/taskList')
 const SaveAndContinue = require('./controllers/saveAndContinue')
 const editEmergencyContactsSaveAndContinue = require('./controllers/editEmergencyContactsSaveAndContinue')
+const removeEmergencyContactsSaveAndContinue = require('./controllers/removeEmergencyContactsSaveAndContinue')
 const ConvertPdf = require('./controllers/convertPdf')
 const Declaration = require('./controllers/declaration')
 const Confirmation = require('./controllers/confirmation')
@@ -66,6 +67,11 @@ module.exports = {
       'emergency_contact_phone_number',
       'emergency_contact_mobile_phone_number',
     ],
+  },
+  '/remove-emergency-contact/*': {
+    pageTitle: 'Remove emergency contact',
+    controller: removeEmergencyContactsSaveAndContinue,
+    next: 'individuals-details',
   },
   '/cultural-and-religious-adjustments': {
     pageTitle: 'Cultural and religious adjustments',
