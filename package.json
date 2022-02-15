@@ -166,7 +166,7 @@
       "eslint --cache --fix",
       "git add"
     ],
-    "*.{scss}": [
+    "*.scss": [
       "stylelint '**/*.scss' --cache --fix",
       "git add"
     ]
