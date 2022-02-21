@@ -20,7 +20,9 @@
 {{ super() }}
 
 {% if errorSummary and errorSummary.length == 0 %}
-    {% set questions = questions | clearAnswers %}
+    {% if not editMultiple %}
+        {% set questions = questions | clearAnswers %}
+    {% endif %}
 {% endif %}
 
 <div class="govuk-grid-row">

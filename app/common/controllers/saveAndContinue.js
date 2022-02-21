@@ -40,7 +40,7 @@ class SaveAndContinue extends BaseController {
         return [field[0], field[1].answerGroup]
       })
 
-    // now for each field construct an array containing all the collected answers for this field
+    // now for each field construct an array containing all the collected answers for this field,
     multipleFields.forEach(field => {
       const answers = []
 
@@ -72,6 +72,16 @@ class SaveAndContinue extends BaseController {
     res.locals.questions = questionsWithReplacements.reduce(keysByQuestionCode, {})
     res.locals.answers = questionsWithMappedAnswers.reduce(answersByQuestionCode, {})
     res.locals.rawAnswers = { ...previousAnswers, ...submittedAnswers }
+
+    // if editing a single 'record' from this multiples collection, add just that one to locals
+    if (res.locals.editMultiple && res.locals.multipleToEdit) {
+      multipleFields
+        .filter(field => field[1] === res.locals.editMultiple)
+        .forEach(field => {
+          const thisAnswer = previousAnswers[res.locals.editMultiple][res.locals.multipleToEdit][field[0]] || ''
+          res.locals.questions[field[0]].answer = thisAnswer[0] || ''
+        })
+    }
 
     req.sessionModel.set('rawAnswers', { ...previousAnswers, ...submittedAnswers })
     req.sessionModel.set('errors', {})
