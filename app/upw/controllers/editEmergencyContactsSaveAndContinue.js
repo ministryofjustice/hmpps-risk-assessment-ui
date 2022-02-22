@@ -1,5 +1,5 @@
 const upwSaveAndContinue = require('./saveAndContinue')
-const { answerDtoFrom } = require('../../common/controllers/saveAndContinue.utils')
+const { customValidationsEditEmergencyContact } = require('../fields')
 
 class SaveAndContinue extends upwSaveAndContinue {
   async locals(req, res, next) {
@@ -12,9 +12,21 @@ class SaveAndContinue extends upwSaveAndContinue {
       res.locals.pageTitle = 'Add emergency contact'
     }
 
-    console.log(`going to edit number ${contactToEdit}`)
-    const answers = req.sessionModel.get('answers') || req.sessionModel.get('rawAnswers')
     await super.locals(req, res, next)
+  }
+
+  async validateFields(req, res, next) {
+    // at this point makes changes to sessionModel fields to add in context specific validations
+    const answers = req.sessionModel.get('answers') || {}
+    const { emergency_contact_phone_number = '', emergency_contact_mobile_number = '' } = answers
+
+    req.form.options.fields = customValidationsEditEmergencyContact(
+      req.form.options.fields,
+      emergency_contact_phone_number,
+      emergency_contact_mobile_number,
+    )
+
+    super.validateFields(req, res, next)
   }
 
   async saveValues(req, res, next) {

@@ -65,6 +65,10 @@ const postCompleteAssessment = (assessmentId, authorisationToken, userId) => {
 }
 
 const postAnswers = (assessmentId, episodeId, answers, authorisationToken, userId) => {
+  // console.log('xxxxxxxx posting answers xxxxxxxxxx')
+  // console.log(JSON.stringify(answers, null, 2))
+  // console.log('xxxxxxxx end posting answers xxxxxxxxxx')
+
   const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
   return postData(path, authorisationToken, userId, answers)
 }

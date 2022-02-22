@@ -1,6 +1,7 @@
 const StartUpwAssessment = require('./controllers/start')
 const TaskList = require('./controllers/taskList')
 const SaveAndContinue = require('./controllers/saveAndContinue')
+const individualsDetailsSaveAndContinue = require('./controllers/individualsDetailsSaveAndContinue')
 const editEmergencyContactsSaveAndContinue = require('./controllers/editEmergencyContactsSaveAndContinue')
 const removeEmergencyContactsSaveAndContinue = require('./controllers/removeEmergencyContactsSaveAndContinue')
 const ConvertPdf = require('./controllers/convertPdf')
@@ -25,10 +26,10 @@ module.exports = {
   },
   '/individuals-details': {
     pageTitle: "Individual's details",
-    controller: SaveAndContinue,
+    controller: individualsDetailsSaveAndContinue,
     template: `${__dirname}/templates/individuals-details/individuals-details.njk`,
     next: 'task-list',
-    fields: ['individual_details_complete'],
+    fields: ['individual_details_complete', 'emergency_contact_declined'],
   },
   '/edit-personal-details': {
     pageTitle: 'Personal details',

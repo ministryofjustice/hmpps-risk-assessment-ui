@@ -46,7 +46,7 @@ class SaveAndContinue extends BaseController {
 
       const receivedAnswersForThisGroup = previousAnswers[field[1]]
 
-      receivedAnswersForThisGroup.forEach((answerSet, index) => {
+      receivedAnswersForThisGroup?.forEach((answerSet, index) => {
         const tempAnswer = answerSet[field[0]]
         answers[index] = tempAnswer ? tempAnswer[0] : ''
       })
@@ -78,7 +78,7 @@ class SaveAndContinue extends BaseController {
       multipleFields
         .filter(field => field[1] === res.locals.editMultiple)
         .forEach(field => {
-          const thisAnswer = previousAnswers[res.locals.editMultiple][res.locals.multipleToEdit][field[0]] || ''
+          const thisAnswer = previousAnswers[res.locals.editMultiple]?.[res.locals.multipleToEdit]?.[field[0]] || ''
           res.locals.questions[field[0]].answer = thisAnswer[0] || ''
         })
     }
@@ -153,13 +153,13 @@ class SaveAndContinue extends BaseController {
     const { user } = req
     const answers = answerDtoFrom(req.sessionModel.get('answers'))
 
-    // if isNewMultiple then get previous answers for this multiple
+    // if is a new multiple then get previous answers for this multiple
     // and add new answers to it to send to API
-    if (res.addNewMultiple) {
+    if (res.locals.addNewMultiple) {
       const questions = Object.entries(req.form.options.allFields)
       const multipleFields = questions
         .filter(value => {
-          return value[1].type === 'multiple' && value[1].answerGroup === res.addNewMultiple
+          return value[1].type === 'multiple' && value[1].answerGroup === res.locals.addNewMultiple
         })
         .map(field => {
           return field[0]
@@ -170,13 +170,43 @@ class SaveAndContinue extends BaseController {
         delete answers[field]
       })
 
-      const multipleKey = res.addNewMultiple
+      const multipleKey = res.locals.addNewMultiple
       const rawAnswers = req.sessionModel.get('rawAnswers')
       const existingMultiple = rawAnswers[multipleKey]
       existingMultiple.push(newMultipleAnswer)
       answers[multipleKey] = existingMultiple
 
-      // save new rawAnswers
+      rawAnswers[multipleKey] = existingMultiple
+      req.sessionModel.set('rawAnswers', rawAnswers)
+      req.sessionModel.set('answers', answers)
+
+      logger.info(`Added new record to ${multipleKey} in assessment ${req.session?.assessment?.uuid}, current episode`)
+    }
+
+    // if editing a multiple record
+    if (res.locals.editMultiple) {
+      const questions = Object.entries(req.form.options.allFields)
+      const multipleFields = questions
+        .filter(value => {
+          return value[1].type === 'multiple' && value[1].answerGroup === res.locals.editMultiple
+        })
+        .map(field => {
+          return field[0]
+        })
+
+      const newMultipleAnswer = {}
+      multipleFields.forEach(field => {
+        newMultipleAnswer[field] = answers[field] || ''
+        delete answers[field]
+      })
+
+      const multipleKey = res.locals.editMultiple
+      const rawAnswers = req.sessionModel.get('rawAnswers')
+      const existingMultiple = rawAnswers[multipleKey]
+
+      existingMultiple[res.locals.multipleUpdated] = newMultipleAnswer
+
+      answers[multipleKey] = existingMultiple
       rawAnswers[multipleKey] = existingMultiple
       req.sessionModel.set('rawAnswers', rawAnswers)
       req.sessionModel.set('answers', answers)

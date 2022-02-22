@@ -1,4 +1,19 @@
-const { range, noSpace } = require('../../common/middleware/form-wizard-validators/validators')
+const { range, noSpace, onePresent } = require('../../common/middleware/form-wizard-validators/validators')
+
+const customValidationsEditEmergencyContact = (fields, emergencyContactPhoneNumber, emergencyContactMobileNumber) => {
+  fields.emergency_contact_phone_number?.validate.push({
+    fn: onePresent,
+    arguments: [emergencyContactMobileNumber],
+    message: 'A phone number is required',
+  })
+  fields.emergency_contact_mobile_phone_number?.validate.push({
+    fn: onePresent,
+    arguments: [emergencyContactPhoneNumber],
+    message: 'A phone number is required',
+  })
+
+  return fields
+}
 
 const requireSelectOption = {
   validate: [
@@ -98,13 +113,12 @@ const fields = {
   emergency_contact_phone_number: {
     type: 'multiple',
     answerGroup: 'emergency_contacts',
-    validate: [{ type: 'required', message: 'Phone number is required' }],
   },
   emergency_contact_mobile_phone_number: {
     type: 'multiple',
     answerGroup: 'emergency_contacts',
-    validate: [{ type: 'required', message: 'Mobile phone number is required' }],
   },
+  emergency_contact_declined: {},
   cultural_religious_adjustment: requireYesOrNo,
   cultural_religious_adjustment_details: {
     dependent: { field: 'cultural_religious_adjustment', value: 'YES' },
@@ -411,4 +425,5 @@ const fields = {
 
 module.exports = {
   fields,
+  customValidationsEditEmergencyContact,
 }
