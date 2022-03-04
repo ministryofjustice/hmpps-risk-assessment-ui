@@ -73,7 +73,7 @@ class SaveAndContinue extends BaseController {
     res.locals.answers = questionsWithMappedAnswers.reduce(answersByQuestionCode, {})
     res.locals.rawAnswers = { ...previousAnswers, ...submittedAnswers }
 
-    // if editing a single 'record' from this multiples collection, add just that one to locals
+    // if editing a single 'record' from a multiples collection, add just that one to locals
     if (res.locals.editMultiple && res.locals.multipleToEdit) {
       multipleFields
         .filter(field => field[1] === res.locals.editMultiple)
@@ -83,7 +83,11 @@ class SaveAndContinue extends BaseController {
         })
     }
 
-    req.sessionModel.set('rawAnswers', { ...previousAnswers, ...submittedAnswers })
+    // if editing a 'new' record from a multiples collection and nothing is yet submitted, clear the answers
+    if (res.locals.editMultiple && res.locals.addingNewMultiple && errorSummary.length === 0) {
+      res.locals.clearQuestionAnswers = true
+    }
+    if (res.locals.editMultiple) req.sessionModel.set('rawAnswers', { ...previousAnswers, ...submittedAnswers })
     req.sessionModel.set('errors', {})
 
     super.locals(req, res, next)
