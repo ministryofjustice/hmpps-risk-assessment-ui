@@ -12,7 +12,6 @@ class SaveAndContinue extends upwSaveAndContinue {
       res.locals.addingNewMultiple = true
       res.locals.pageTitle = 'Add emergency contact'
     }
-
     await super.locals(req, res, next)
   }
 

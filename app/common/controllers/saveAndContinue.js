@@ -90,6 +90,14 @@ class SaveAndContinue extends BaseController {
     if (res.locals.editMultiple) req.sessionModel.set('rawAnswers', { ...previousAnswers, ...submittedAnswers })
     req.sessionModel.set('errors', {})
 
+    if (Object.keys(req.form.errors).length > 0) {
+      const questionsForThisPage = res.locals.questions
+      Object.entries(questionsForThisPage).forEach(([key]) => {
+        questionsForThisPage[key].answer = req.form.values[key]
+      })
+      res.locals.questions = questionsForThisPage
+    }
+
     super.locals(req, res, next)
   }
 
