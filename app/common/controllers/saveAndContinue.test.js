@@ -75,6 +75,10 @@ describe('SaveAndContinueController', () => {
     req.form.options.fields = {}
     req.form.options.allFields = {}
 
+    delete res.locals.editMultiple
+    delete res.locals.multipleToEdit
+    delete res.locals.addingNewMultiple
+
     next.mockReset()
 
     getAnswers.mockReset()
@@ -341,6 +345,213 @@ describe('SaveAndContinueController', () => {
           answer: '',
         },
       })
+    })
+
+    it('translates answers for multiple groups into consolidated arrays of answers for individual questions', async () => {
+      const fields = {
+        contact_address_house_number: {},
+        emergency_contact_first_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+        },
+        emergency_contact_family_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+        },
+      }
+
+      getAnswers.mockResolvedValue({
+        answers: {
+          contact_address_house_number: '23',
+          emergency_contacts: [
+            {
+              emergency_contact_first_name: ['George'],
+              emergency_contact_family_name: ['Costanza'],
+            },
+            {
+              emergency_contact_first_name: ['Alan'],
+              emergency_contact_family_name: ['Moore'],
+            },
+          ],
+        },
+      })
+
+      getFlatAssessmentQuestions.mockResolvedValue([
+        { questionCode: 'contact_address_house_number', questionText: 'contact_address_house_number question text' },
+        { questionCode: 'emergency_contacts', questionText: 'Age at first sanction' },
+      ])
+
+      req.form.options.fields = fields
+      req.form.options.allFields = fields
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.rawAnswers).toEqual({
+        contact_address_house_number: '23',
+        emergency_contacts: [
+          {
+            emergency_contact_first_name: ['George'],
+            emergency_contact_family_name: ['Costanza'],
+          },
+          {
+            emergency_contact_first_name: ['Alan'],
+            emergency_contact_family_name: ['Moore'],
+          },
+        ],
+        emergency_contact_first_name: ['George', 'Alan'],
+        emergency_contact_family_name: ['Costanza', 'Moore'],
+      })
+    })
+
+    it('presents the correct multiple for editing', async () => {
+      res.locals.editMultiple = 'emergency_contacts'
+      res.locals.multipleToEdit = '1'
+      const fields = {
+        contact_address_house_number: { answer: '', questionCode: '1' },
+        emergency_contact_first_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+          answer: '',
+          questionCode: 'emergency_contact_first_name',
+        },
+        emergency_contact_family_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+          answer: '',
+          questionCode: 'emergency_contact_family_name',
+        },
+      }
+
+      getAnswers.mockResolvedValue({
+        answers: {
+          contact_address_house_number: '23',
+          emergency_contacts: [
+            {
+              emergency_contact_first_name: ['George'],
+              emergency_contact_family_name: ['Costanza'],
+            },
+            {
+              emergency_contact_first_name: ['Alan'],
+              emergency_contact_family_name: ['Moore'],
+            },
+          ],
+        },
+      })
+
+      getFlatAssessmentQuestions.mockResolvedValue([
+        { questionCode: 'contact_address_house_number', questionText: 'contact_address_house_number question text' },
+        { questionCode: 'emergency_contacts', questionText: 'Age at first sanction' },
+      ])
+
+      req.form.options.fields = fields
+      req.form.options.allFields = fields
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.questions.emergency_contact_family_name.answer).toEqual('Moore')
+      expect(res.locals.questions.emergency_contact_first_name.answer).toEqual('Alan')
+    })
+
+    it('presents a blank multiple when adding a new multiple', async () => {
+      res.locals.editMultiple = 'emergency_contacts'
+      res.locals.addingNewMultiple = true
+      const fields = {
+        contact_address_house_number: { answer: '', questionCode: '1' },
+        emergency_contact_first_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+          answer: '',
+          questionCode: 'emergency_contact_first_name',
+        },
+        emergency_contact_family_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+          answer: '',
+          questionCode: 'emergency_contact_family_name',
+        },
+      }
+
+      getAnswers.mockResolvedValue({
+        answers: {
+          contact_address_house_number: '23',
+          emergency_contacts: [
+            {
+              emergency_contact_first_name: ['George'],
+              emergency_contact_family_name: ['Costanza'],
+            },
+            {
+              emergency_contact_first_name: ['Alan'],
+              emergency_contact_family_name: ['Moore'],
+            },
+          ],
+        },
+      })
+
+      getFlatAssessmentQuestions.mockResolvedValue([
+        { questionCode: 'contact_address_house_number', questionText: 'contact_address_house_number question text' },
+        { questionCode: 'emergency_contacts', questionText: 'Age at first sanction' },
+      ])
+
+      req.form.options.fields = fields
+      req.form.options.allFields = fields
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.clearQuestionAnswers).toEqual(true)
+    })
+
+    it('presents answer just submitted when there is a form error', async () => {
+      res.locals.editMultiple = 'emergency_contacts'
+      res.locals.addingNewMultiple = true
+      mockSessionModel({ errors: [{ message: 'field error', key: 'emergency_contact_first_name' }] })
+
+      req.form.values.emergency_contact_first_name = 'first_name'
+      req.form.values.emergency_contact_family_name = 'family_name'
+
+      const fields = {
+        contact_address_house_number: { answer: '', questionCode: '1' },
+        emergency_contact_first_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+          answer: '',
+          questionCode: 'emergency_contact_first_name',
+        },
+        emergency_contact_family_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+          answer: '',
+          questionCode: 'emergency_contact_family_name',
+        },
+      }
+
+      getAnswers.mockResolvedValue({
+        answers: {
+          contact_address_house_number: '23',
+          emergency_contacts: [
+            {
+              emergency_contact_first_name: ['George'],
+              emergency_contact_family_name: ['Costanza'],
+            },
+            {
+              emergency_contact_first_name: ['Alan'],
+              emergency_contact_family_name: ['Moore'],
+            },
+          ],
+        },
+      })
+
+      getFlatAssessmentQuestions.mockResolvedValue([
+        { questionCode: 'contact_address_house_number', questionText: 'contact_address_house_number question text' },
+        { questionCode: 'emergency_contacts', questionText: 'Age at first sanction' },
+      ])
+
+      req.form.options.fields = fields
+      req.form.options.allFields = fields
+
+      await controller.locals(req, res, () => {})
+
+      expect(res.locals.questions.emergency_contact_family_name.answer).toEqual('family_name')
+      expect(res.locals.questions.emergency_contact_first_name.answer).toEqual('first_name')
     })
   })
 

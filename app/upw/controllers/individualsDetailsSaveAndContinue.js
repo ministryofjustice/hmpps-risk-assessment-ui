@@ -11,7 +11,7 @@ const customValidationsIndividualsDetails = (fields, emergencyContacts, individu
   fields.emergency_contact_declined?.validate.push({
     fn: checkContacts,
     arguments: [emergencyContacts, individualDetailsComplete],
-    message: 'Confirm that no emergency contact is available',
+    message: 'You must provide an emergency contact or select if the individual has declined to give details.',
   })
 
   return fields
