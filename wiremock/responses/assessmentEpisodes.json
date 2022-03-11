@@ -142,16 +142,18 @@
     ],
     "gp_details": [
       {
-        "gp_first_name": ["GP1"],
-        "gp_family_name": ["GP1"],
-        "gp_address_building_name": ["GP1"],
-        "gp_address_district": ["GP1"]
+        "gp_first_name": ["GP1 first name"],
+        "gp_family_name": ["GP1 family name"],
+        "gp_address_building_name": ["GP1 address building name"],
+        "gp_address_district": ["GP1 district"],
+        "gp_phone_number": ["0123456789"]
       },
       {
-        "gp_first_name": ["GP2"],
-        "gp_family_name": ["GP2"],
+        "gp_first_name": ["GP2 first name"],
+        "gp_family_name": ["GP2 family name"],
         "gp_address_building_name": [""],
-        "gp_address_district": ["GP2"]
+        "gp_address_district": ["GP2 district"],
+        "gp_phone_number": ["09876654321"]
       }
     ]
   },

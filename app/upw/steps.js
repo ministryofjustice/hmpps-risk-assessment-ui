@@ -4,6 +4,9 @@ const SaveAndContinue = require('./controllers/saveAndContinue')
 const individualsDetailsSaveAndContinue = require('./controllers/individualsDetailsSaveAndContinue')
 const editEmergencyContactsSaveAndContinue = require('./controllers/editEmergencyContactsSaveAndContinue')
 const removeEmergencyContactsSaveAndContinue = require('./controllers/removeEmergencyContactsSaveAndContinue')
+const gpDetailsSaveAndContinue = require('./controllers/gpDetailsSaveAndContinue')
+const editGpDetailsSaveAndContinue = require('./controllers/editGpDetailsSaveAndContinue')
+const removeGpDetailsSaveAndContinue = require('./controllers/removeGpDetailsSaveAndContinue')
 const ConvertPdf = require('./controllers/convertPdf')
 const Declaration = require('./controllers/declaration')
 const Confirmation = require('./controllers/confirmation')
@@ -187,14 +190,14 @@ module.exports = {
   },
   '/gp-details': {
     pageTitle: 'GP Details',
-    controller: SaveAndContinue,
+    controller: gpDetailsSaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/gp-details.njk`,
     next: 'task-list',
     fields: ['gp_details_complete'],
   },
-  '/edit-gp-details': {
+  '/edit-gp-details/*': {
     pageTitle: 'Details of GP',
-    controller: SaveAndContinue,
+    controller: editGpDetailsSaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/edit-gp-details.njk`,
     next: 'gp-details',
     fields: [
@@ -209,6 +212,11 @@ module.exports = {
       'gp_address_postcode',
       'gp_phone_number',
     ],
+  },
+  '/remove-gp-details/*': {
+    pageTitle: 'Remove emergency contact',
+    newController: removeGpDetailsSaveAndContinue,
+    next: 'individuals-details',
   },
   '/travel-information': {
     pageTitle: 'Travel',

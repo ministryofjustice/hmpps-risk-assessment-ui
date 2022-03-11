@@ -10,7 +10,7 @@ const { logger } = require('../../../common/logging/mdc-aware-logger')
 class SaveAndContinue extends upwSaveAndContinue {
   async locals(req, res, next) {
     const itemToDelete = req.params[0]
-    const multipleGroupName = 'emergency_contacts'
+    const multipleGroupName = 'gp_details'
 
     const { user } = req
     const answers = answerDtoFrom(req.sessionModel.get('answers') || req.sessionModel.get('rawAnswers'))
