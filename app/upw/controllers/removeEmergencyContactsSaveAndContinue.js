@@ -10,17 +10,17 @@ const { logger } = require('../../../common/logging/mdc-aware-logger')
 class SaveAndContinue extends upwSaveAndContinue {
   async locals(req, res, next) {
     const contactToDelete = req.params[0]
-    const multipleTopLevelReference = 'emergency_contacts'
+    const multipleGroupName = 'emergency_contacts'
 
     const { user } = req
     const answers = answerDtoFrom(req.sessionModel.get('answers') || req.sessionModel.get('rawAnswers'))
     const rawAnswers = req.sessionModel.get('rawAnswers')
 
     // delete the appropriate entry
-    const existingMultiple = answers[multipleTopLevelReference] || {}
+    const existingMultiple = answers[multipleGroupName] || {}
     existingMultiple.splice(contactToDelete, 1)
-    answers[multipleTopLevelReference] = existingMultiple
-    rawAnswers[multipleTopLevelReference] = existingMultiple
+    answers[multipleGroupName] = existingMultiple
+    rawAnswers[multipleGroupName] = existingMultiple
     req.sessionModel.set('rawAnswers', rawAnswers)
     req.sessionModel.set('answers', answers)
 

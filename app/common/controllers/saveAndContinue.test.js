@@ -26,6 +26,8 @@ describe('SaveAndContinueController', () => {
           return values.errors || []
         case 'answers':
           return values.answers || {}
+        case 'rawAnswers':
+          return values.rawAnswers || {}
         default:
           return undefined
       }
@@ -78,6 +80,8 @@ describe('SaveAndContinueController', () => {
     delete res.locals.editMultiple
     delete res.locals.multipleToEdit
     delete res.locals.addingNewMultiple
+    delete res.locals.addNewMultiple
+    delete res.locals.multipleUpdated
 
     next.mockReset()
 
@@ -701,6 +705,147 @@ describe('SaveAndContinueController', () => {
             some_selection_field: ['bar'],
             some_empty_selection_field: [],
             some_empty_field: [],
+          },
+        },
+        user.token,
+        user.id,
+      )
+    })
+
+    it('adds a new item to a multiples group', async () => {
+      postAnswers.mockResolvedValue([true, { episodeUuid }])
+      res.locals.addNewMultiple = 'emergency_contacts'
+
+      const fields = {
+        contact_address_house_number: {},
+        emergency_contact_first_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+        },
+        emergency_contact_family_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+        },
+      }
+
+      req.form.options.fields = fields
+      req.form.options.allFields = fields
+
+      mockSessionModel({
+        answers: {
+          contact_address_house_number: '23',
+          emergency_contact_first_name: 'New',
+          emergency_contact_family_name: 'Name',
+        },
+        rawAnswers: {
+          contact_address_house_number: '23',
+          emergency_contacts: [
+            {
+              emergency_contact_first_name: ['George'],
+              emergency_contact_family_name: ['Costanza'],
+            },
+            {
+              emergency_contact_first_name: ['Alan'],
+              emergency_contact_family_name: ['Moore'],
+            },
+          ],
+          emergency_contact_first_name: ['New'],
+          emergency_contact_family_name: ['Name'],
+        },
+      })
+
+      await controller.saveValues(req, res, next)
+
+      expect(req.sessionModel.get).toHaveBeenCalledWith('answers')
+      expect(postAnswers).toHaveBeenCalledWith(
+        assessmentUuid,
+        episodeUuid,
+        {
+          answers: {
+            contact_address_house_number: ['23'],
+            emergency_contacts: [
+              {
+                emergency_contact_first_name: ['George'],
+                emergency_contact_family_name: ['Costanza'],
+              },
+              {
+                emergency_contact_first_name: ['Alan'],
+                emergency_contact_family_name: ['Moore'],
+              },
+              {
+                emergency_contact_first_name: ['New'],
+                emergency_contact_family_name: ['Name'],
+              },
+            ],
+          },
+        },
+        user.token,
+        user.id,
+      )
+    })
+
+    it('updates an existing multiples group', async () => {
+      postAnswers.mockResolvedValue([true, { episodeUuid }])
+      res.locals.editMultiple = 'emergency_contacts'
+      res.locals.multipleUpdated = '1'
+
+      const fields = {
+        contact_address_house_number: {},
+        emergency_contact_first_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+        },
+        emergency_contact_family_name: {
+          type: 'multiple',
+          answerGroup: 'emergency_contacts',
+        },
+      }
+
+      req.form.options.fields = fields
+      req.form.options.allFields = fields
+
+      mockSessionModel({
+        answers: {
+          contact_address_house_number: '23',
+          emergency_contact_first_name: 'New',
+          emergency_contact_family_name: 'Name',
+        },
+        rawAnswers: {
+          contact_address_house_number: '23',
+          emergency_contacts: [
+            {
+              emergency_contact_first_name: ['George'],
+              emergency_contact_family_name: ['Costanza'],
+            },
+            {
+              emergency_contact_first_name: ['Alan'],
+              emergency_contact_family_name: ['Moore'],
+            },
+          ],
+          emergency_contact_first_name: ['New'],
+          emergency_contact_family_name: ['Name'],
+        },
+      })
+
+      await controller.saveValues(req, res, next)
+
+      expect(req.sessionModel.get).toHaveBeenCalledWith('answers')
+      expect(postAnswers).toHaveBeenCalledWith(
+        assessmentUuid,
+        episodeUuid,
+        {
+          answers: {
+            contact_address_house_number: ['23'],
+            emergency_contacts: [
+              {
+                emergency_contact_first_name: ['George'],
+                emergency_contact_family_name: ['Costanza'],
+              },
+              {
+                emergency_contact_first_name: ['New'],
+                emergency_contact_family_name: ['Name'],
+              },
+            ],
           },
         },
         user.token,
