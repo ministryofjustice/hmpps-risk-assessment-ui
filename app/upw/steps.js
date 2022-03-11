@@ -214,9 +214,9 @@ module.exports = {
     ],
   },
   '/remove-gp-details/*': {
-    pageTitle: 'Remove emergency contact',
-    newController: removeGpDetailsSaveAndContinue,
-    next: 'individuals-details',
+    pageTitle: 'Remove GP details',
+    controller: removeGpDetailsSaveAndContinue,
+    next: 'gp-details',
   },
   '/travel-information': {
     pageTitle: 'Travel',
