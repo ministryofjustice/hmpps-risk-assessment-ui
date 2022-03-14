@@ -15,19 +15,6 @@ class SaveAndContinue extends upwSaveAndContinue {
     await super.locals(req, res, next)
   }
 
-  async validateFields(req, res, next) {
-    // at this point make changes to sessionModel fields to add in context specific validations
-    const { emergency_contact_phone_number = '', emergency_contact_mobile_phone_number = '' } = req.form.values
-
-    req.form.options.fields = customValidationsEditGpDetails(
-      req.form.options.fields,
-      emergency_contact_phone_number,
-      emergency_contact_mobile_phone_number,
-    )
-
-    super.validateFields(req, res, next)
-  }
-
   async saveValues(req, res, next) {
     const contactToEdit = req.params[0]
     if (contactToEdit !== 'new') {
