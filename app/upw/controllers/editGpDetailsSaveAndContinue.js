@@ -1,5 +1,4 @@
 const upwSaveAndContinue = require('./saveAndContinue')
-const { customValidationsEditGpDetails } = require('../fields')
 
 class SaveAndContinue extends upwSaveAndContinue {
   async locals(req, res, next) {
