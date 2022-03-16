@@ -101,12 +101,14 @@ const fields = {
   contact_address_postcode: {
     validate: [{ type: 'required', message: 'Postcode is required' }],
   },
-  contact_phone_number: {
-    validate: [{ type: 'required', message: 'Phone number is required' }],
-  },
-  contact_mobile_phone_number: {
-    validate: [{ type: 'required', message: 'Mobile phone number is required' }],
-  },
+  // contact_phone_number: {
+  //   validate: [{ type: 'required', message: 'Phone number is required' }],
+  // },
+  // contact_mobile_phone_number: {
+  //   validate: [{ type: 'required', message: 'Mobile phone number is required' }],
+  // },
+  contact_phone_number: {},
+  contact_mobile_phone_number: {},
   contact_email_addresses: {
     validate: [{ type: 'required', message: 'Email address is required' }],
   },
