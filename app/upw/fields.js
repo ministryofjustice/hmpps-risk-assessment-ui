@@ -29,6 +29,21 @@ const customValidationsEditGpDetails = (fields, emergencyContactPhoneNumber, eme
 
   return fields
 }
+// add new validators for phone and mobile for individual details
+const customValidationsEditContactDetails = (fields, contactPhoneNumber, contactMobileNumber) => {
+  fields.contact_phone_number?.validate.push({
+    fn: onePresent,
+    arguments: [contactMobileNumber],
+    message: 'A phone number is required',
+  })
+  fields.contact_mobile_phone_number?.validate.push({
+    fn: onePresent,
+    arguments: [contactPhoneNumber],
+    message: 'A phone number is required',
+  })
+
+  return fields
+}
 
 const requireSelectOption = {
   validate: [
@@ -461,4 +476,5 @@ module.exports = {
   fields,
   customValidationsEditEmergencyContact,
   customValidationsEditGpDetails,
+  customValidationsEditContactDetails,
 }
