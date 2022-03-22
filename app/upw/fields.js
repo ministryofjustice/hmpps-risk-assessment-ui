@@ -29,7 +29,7 @@ const customValidationsEditGpDetails = (fields, emergencyContactPhoneNumber, eme
 
   return fields
 }
-// add new validators for phone and mobile for individual details
+
 const customValidationsEditContactDetails = (
   fields,
   contactPhoneNumber,
@@ -132,12 +132,6 @@ const fields = {
   contact_address_postcode: {
     validate: [{ type: 'required', message: 'Postcode is required' }],
   },
-  // contact_phone_number: {
-  //   validate: [{ type: 'required', message: 'Phone number is required' }],
-  // },
-  // contact_mobile_phone_number: {
-  //   validate: [{ type: 'required', message: 'Mobile phone number is required' }],
-  // },
   contact_phone_number: {},
   contact_mobile_phone_number: {},
   contact_email_addresses: {
