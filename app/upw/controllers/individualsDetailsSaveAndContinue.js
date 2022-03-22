@@ -24,15 +24,10 @@ class SaveAndContinue extends upwSaveAndContinue {
 
     const { individual_details_complete = '' } = req.form.values
 
-    // getting the value of the fields we are interested in
-    const { contact_phone_number = '', contact_mobile_number = '' } = req.form.values
-
     req.form.options.fields = customValidationsIndividualsDetails(
       req.form.options.fields,
       emergency_contacts,
       individual_details_complete,
-      contact_phone_number,
-      contact_mobile_number,
     )
 
     super.validateFields(req, res, next)

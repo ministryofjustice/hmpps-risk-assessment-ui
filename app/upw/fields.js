@@ -30,7 +30,13 @@ const customValidationsEditGpDetails = (fields, emergencyContactPhoneNumber, eme
   return fields
 }
 // add new validators for phone and mobile for individual details
-const customValidationsEditContactDetails = (fields, contactPhoneNumber, contactMobileNumber) => {
+const customValidationsEditContactDetails = (
+  fields,
+  contactPhoneNumber,
+  contactMobileNumber,
+  contactAddressBuildingName,
+  contactAddressHouseNumber,
+) => {
   fields.contact_phone_number?.validate.push({
     fn: onePresent,
     arguments: [contactMobileNumber],
@@ -40,6 +46,16 @@ const customValidationsEditContactDetails = (fields, contactPhoneNumber, contact
     fn: onePresent,
     arguments: [contactPhoneNumber],
     message: 'A phone number is required',
+  })
+  fields.contact_address_building_name?.validate.push({
+    fn: onePresent,
+    arguments: [contactAddressHouseNumber],
+    message: 'A building name or house number is required',
+  })
+  fields.contact_address_house_number?.validate.push({
+    fn: onePresent,
+    arguments: [contactAddressBuildingName],
+    message: 'A building name or house number is required',
   })
 
   return fields
