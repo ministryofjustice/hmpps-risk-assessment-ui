@@ -40,22 +40,22 @@ const customValidationsEditContactDetails = (
   fields.contact_phone_number?.validate.push({
     fn: onePresent,
     arguments: [contactMobileNumber],
-    message: 'A phone number is required',
+    message: 'You must provide details for Mobile or Phone number',
   })
   fields.contact_mobile_phone_number?.validate.push({
     fn: onePresent,
     arguments: [contactPhoneNumber],
-    message: 'A phone number is required',
+    message: 'You must provide details for Mobile or Phone number',
   })
   fields.contact_address_building_name?.validate.push({
     fn: onePresent,
     arguments: [contactAddressHouseNumber],
-    message: 'A building name or house number is required',
+    message: 'You must provide details for Building name or House number',
   })
   fields.contact_address_house_number?.validate.push({
     fn: onePresent,
     arguments: [contactAddressBuildingName],
-    message: 'A building name or house number is required',
+    message: 'You must provide details for Building name or House number',
   })
 
   return fields
