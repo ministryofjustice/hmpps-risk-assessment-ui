@@ -105,7 +105,11 @@ const encodeHTML = str => {
 }
 
 // used in nunjucks templates which doesn't support directly setting json values
-const updateJsonValue = (jsonObj, key, value) => {
+const updateJsonValue = (jsonObj, key, value, createNewObject = false) => {
+  if (!jsonObj && createNewObject) {
+    // eslint-disable-next-line no-param-reassign
+    jsonObj = {}
+  }
   if (!jsonObj) {
     return {}
   }
