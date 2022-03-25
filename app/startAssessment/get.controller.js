@@ -1,5 +1,5 @@
 const { differenceInYears, format } = require('date-fns')
-const { assessmentSupervision, getCurrentEpisode } = require('../../common/data/hmppsAssessmentApi')
+const { assessmentSupervision, getCurrentEpisode, getOffenceData } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 
 const getErrorMessageFor = (user, reason) => {
@@ -105,6 +105,52 @@ const startAssessment = async (req, res, next) => {
   }
 }
 
+const verifyAssessment = async (req, res, next) => {
+  const { crn, eventId = 1, assessmentType } = req.query
+
+  try {
+    validateCRN(crn)
+    validateAssessmentType(assessmentType)
+
+    const assessmentCode = assessmentType === 'UNPAID_WORK' ? 'UPW' : assessmentType
+    const deliusEventType = assessmentType === 'UNPAID_WORK' ? 'EVENT_ID' : null
+
+    const [offenceRetrieved, offenceResponse] = await getOffenceData(
+      req.user,
+      crn,
+      eventId,
+      assessmentCode,
+      deliusEventType,
+    )
+
+    if (!offenceRetrieved) {
+      return res.render('app/error', { subHeading: getErrorMessageFor(req.user, offenceResponse.reason) })
+    }
+
+    const currentEpisode = await getCurrentEpisode(
+      createAssessmentResponse.assessmentUuid,
+      req.user?.token,
+      req.user?.id,
+    )
+
+    req.session.assessment = {
+      uuid: createAssessmentResponse?.assessmentUuid,
+      episodeUuid: currentEpisode?.episodeUuid,
+      lastEditedBy: currentEpisode?.userFullName,
+      lastEditedDate: currentEpisode?.lastEditedDate,
+      offence: getOffenceDetailsFor(currentEpisode),
+      subject: getSubjectDetailsFor(createAssessmentResponse),
+    }
+
+    req.session.save()
+
+    return res.redirect(`/${assessmentCode}/start`)
+  } catch (e) {
+    return next(e)
+  }
+}
+
 module.exports = {
   startAssessment,
+  verifyAssessment,
 }

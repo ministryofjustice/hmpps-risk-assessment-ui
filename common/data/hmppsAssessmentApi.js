@@ -9,6 +9,12 @@ const {
   },
 } = require('../config')
 
+const getOffenceData = (assessmentDto, authorisationToken, userId) => {
+  const path = `${url}/offences/crn`
+  return getData(path, authorisationToken, userId)
+}
+
+// this endpoint creates the assessment
 const assessmentSupervision = (assessmentDto, authorisationToken, userId) => {
   const path = `${url}/assessments`
   return postData(path, authorisationToken, userId, assessmentDto)
@@ -237,4 +243,5 @@ module.exports = {
   getRoshRiskSummaryForCrn,
   uploadPdfDocumentToDelius,
   closeAssessment,
+  getOffenceData,
 }
