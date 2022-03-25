@@ -3,6 +3,7 @@ const { customValidationsEditContactDetails } = require('../fields')
 
 class SaveAndContinue extends upwSaveAndContinue {
   async validateFields(req, res, next) {
+    // getting the value of the fields we are interested in
     const {
       contact_phone_number = '',
       contact_mobile_phone_number = '',
