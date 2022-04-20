@@ -9,8 +9,11 @@ const {
   },
 } = require('../config')
 
-const getOffenceData = (assessmentDto, authorisationToken, userId) => {
-  const path = `${url}/offences/crn`
+const getOffenderAndOffenceDetails = (crn, eventId, assessmentCode, eventType, authorisationToken, userId) => {
+  const path =
+    eventType === null
+      ? `${url}/offender/crn/${crn}/eventId/${eventId}`
+      : `${url}/offender/crn/${crn}/eventType/${eventType}/eventId/${eventId}`
   return getData(path, authorisationToken, userId)
 }
 
@@ -57,6 +60,11 @@ const getEpisode = (assessmentId, episodeId, authorisationToken, userId) => {
 
 const getCurrentEpisode = (assessmentId, authorisationToken, userId) => {
   const path = `${url}/assessments/${assessmentId}/episodes/current`
+  return getData(path, authorisationToken, userId)
+}
+
+const getCurrentEpisodeForCrn = (crn, authorisationToken, userId) => {
+  const path = `${url}/assessments/subject/${crn}/episodes/current`
   return getData(path, authorisationToken, userId)
 }
 
@@ -239,9 +247,10 @@ module.exports = {
   getDraftPredictorScore,
   getEpisode,
   getCurrentEpisode,
+  getCurrentEpisodeForCrn,
   getRegistrationsForCrn,
   getRoshRiskSummaryForCrn,
   uploadPdfDocumentToDelius,
   closeAssessment,
-  getOffenceData,
+  getOffenderAndOffenceDetails,
 }
