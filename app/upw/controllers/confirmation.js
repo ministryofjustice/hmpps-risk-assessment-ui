@@ -55,7 +55,7 @@ class Confirmation extends SaveAndContinue {
         logger.info(`PDF uploaded for CRN ${crn}, episode ${episodeId}`)
       }
 
-      const [assessmentCompleted] = await postCompleteAssessment(assessmentId, req.user?.token, req.user?.id)
+      const [assessmentCompleted] = await postCompleteAssessment(assessmentId, episodeId, req.user?.token, req.user?.id)
 
       if (!assessmentCompleted) {
         logger.error(`Could not close assessment: ${assessmentId} for CRN: ${crn}`)

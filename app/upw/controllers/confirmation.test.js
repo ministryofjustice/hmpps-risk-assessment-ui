@@ -185,7 +185,12 @@ describe('ConfirmationController', () => {
 
       await controller.render(req, res, next)
 
-      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
+      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(
+        assessmentUuid,
+        episodeUuid,
+        user.token,
+        user.id,
+      )
       expect(superMethod).toHaveBeenCalled()
     })
 
@@ -198,7 +203,12 @@ describe('ConfirmationController', () => {
 
       await controller.render(req, res, next)
 
-      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(assessmentUuid, user.token, user.id)
+      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(
+        assessmentUuid,
+        episodeUuid,
+        user.token,
+        user.id,
+      )
       expect(next).toHaveBeenCalledWith(new Error('Failed to complete the assessment'))
       expect(superMethod).not.toHaveBeenCalled()
     })

@@ -73,8 +73,8 @@ const getAssessmentsList = (authorisationToken, userId) => {
   return getData(path, authorisationToken, userId)
 }
 
-const postCompleteAssessment = (assessmentId, authorisationToken, userId) => {
-  const path = `${url}/assessments/${assessmentId}/complete`
+const postCompleteAssessment = (assessmentId, episodeId, authorisationToken, userId) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}/complete`
   return postData(path, authorisationToken, userId)
 }
 
