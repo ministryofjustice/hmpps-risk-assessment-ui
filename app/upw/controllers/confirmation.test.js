@@ -99,7 +99,7 @@ describe('ConfirmationController', () => {
 
       pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
       hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
-      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([true])
+      hmppsAssessmentsApiClient.postCompleteAssessmentEpisode.mockResolvedValue([true])
 
       await controller.render(req, res, next)
 
@@ -181,11 +181,11 @@ describe('ConfirmationController', () => {
 
       pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
       hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
-      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([true])
+      hmppsAssessmentsApiClient.postCompleteAssessmentEpisode.mockResolvedValue([true])
 
       await controller.render(req, res, next)
 
-      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(
+      expect(hmppsAssessmentsApiClient.postCompleteAssessmentEpisode).toHaveBeenCalledWith(
         assessmentUuid,
         episodeUuid,
         user.token,
@@ -199,11 +199,11 @@ describe('ConfirmationController', () => {
 
       pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
       hmppsAssessmentsApiClient.uploadPdfDocumentToDelius.mockResolvedValue({ ok: true })
-      hmppsAssessmentsApiClient.postCompleteAssessment.mockResolvedValue([false])
+      hmppsAssessmentsApiClient.postCompleteAssessmentEpisode.mockResolvedValue([false])
 
       await controller.render(req, res, next)
 
-      expect(hmppsAssessmentsApiClient.postCompleteAssessment).toHaveBeenCalledWith(
+      expect(hmppsAssessmentsApiClient.postCompleteAssessmentEpisode).toHaveBeenCalledWith(
         assessmentUuid,
         episodeUuid,
         user.token,
