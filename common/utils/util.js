@@ -113,6 +113,9 @@ const updateJsonValue = (jsonObj, key, value, createNewObject = false) => {
   if (!jsonObj) {
     return {}
   }
+  if (!key) {
+    return jsonObj
+  }
   // eslint-disable-next-line no-param-reassign
   jsonObj[key] = value
   return jsonObj
