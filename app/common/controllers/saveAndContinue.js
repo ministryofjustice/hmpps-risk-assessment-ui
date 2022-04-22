@@ -98,7 +98,7 @@ class SaveAndContinue extends BaseController {
     const answersInSession = req.sessionModel.get('answers')
     const filteredAnswers = filterAnswersByFields(req.form?.options?.fields, answersWithFormattedDates)
 
-    // if user has selected 'I'll come back later for this page, remove field validations for unanswered fields
+    // if user has selected 'I'll come back later' for this page, remove field validations for unanswered fields
     const sectionCompleteField = Object.keys(req.form?.options?.fields).find(key => key.match(/^\w+_complete$/))
     if (filteredAnswers[sectionCompleteField] === SECTION_INCOMPLETE) {
       Object.keys(filteredAnswers).forEach(key => {
@@ -117,6 +117,65 @@ class SaveAndContinue extends BaseController {
   async saveValues(req, res, next) {
     const { user } = req
     const answers = answerDtoFrom(req.sessionModel.get('answers'))
+
+    // if is a new multiple then get previous answers for this multiple
+    // and add new answers to it to send to API
+    if (res.locals.addNewMultiple) {
+      const questions = Object.entries(req.form.options.allFields)
+      const multipleFields = questions
+        .filter(value => {
+          return value[1].type === 'multiple' && value[1].answerGroup === res.locals.addNewMultiple
+        })
+        .map(field => {
+          return field[0]
+        })
+      const newMultipleAnswer = {}
+      multipleFields.forEach(field => {
+        newMultipleAnswer[field] = answers[field] || ''
+        delete answers[field]
+      })
+
+      const multipleKey = res.locals.addNewMultiple
+      const rawAnswers = req.sessionModel.get('rawAnswers')
+      const existingMultiple = rawAnswers[multipleKey]
+      existingMultiple.push(newMultipleAnswer)
+      answers[multipleKey] = existingMultiple
+
+      rawAnswers[multipleKey] = existingMultiple
+      req.sessionModel.set('rawAnswers', rawAnswers)
+      req.sessionModel.set('answers', answers)
+
+      logger.info(`Added new record to ${multipleKey} in assessment ${req.session?.assessment?.uuid}, current episode`)
+    }
+
+    // if editing a multiple record
+    if (res.locals.editMultiple) {
+      const questions = Object.entries(req.form.options.allFields)
+      const multipleFields = questions
+        .filter(value => {
+          return value[1].type === 'multiple' && value[1].answerGroup === res.locals.editMultiple
+        })
+        .map(field => {
+          return field[0]
+        })
+
+      const newMultipleAnswer = {}
+      multipleFields.forEach(field => {
+        newMultipleAnswer[field] = answers[field] || ''
+        delete answers[field]
+      })
+
+      const multipleKey = res.locals.editMultiple
+      const rawAnswers = req.sessionModel.get('rawAnswers')
+      const existingMultiple = rawAnswers[multipleKey]
+
+      existingMultiple[res.locals.multipleUpdated] = newMultipleAnswer
+
+      answers[multipleKey] = existingMultiple
+      rawAnswers[multipleKey] = existingMultiple
+      req.sessionModel.set('rawAnswers', rawAnswers)
+      req.sessionModel.set('answers', answers)
+    }
 
     try {
       const [ok, response] = await postAnswers(

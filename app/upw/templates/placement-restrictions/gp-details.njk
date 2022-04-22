@@ -31,7 +31,7 @@
         <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
         
         <form method="post" action="{{ action }}">
-            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">            
+            <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
             {% if answers['gp_phone_number'] %}{% set gpPhoneNumber = answers['gp_phone_number'] %}{% else %}{% set gpPhoneNumber = 'No data' %}{%endif%}
 
             {{ readOnly({
@@ -40,17 +40,17 @@
                 rows: [
                     {
                         key: {
-                            text: 'Name'
-                        },
+                        text: 'Name'
+                    },
                         value: {
-                            html: renderGpName(answers['gp_first_name'], answers['gp_family_name'])
-                        }
+                        html: renderGpName(answers['gp_first_name'], answers['gp_family_name'])
+                    }
                     },{
                         key: {
                             text: 'Address'
                         },
                         value: {
-                            html: readOnlyAddress({ 
+                            html: readOnlyAddress({
                                 buildingName: answers['gp_address_building_name'],
                                 houseNumber: answers['gp_address_house_number'],
                                 streetName: answers['gp_address_street_name'],
@@ -66,10 +66,11 @@
                         },
                         value: {
                             html: gpPhoneNumber
+
                         }
-                    }
-                ]
-            }) }}
+                        }
+                    ]
+                }) }}
 
             <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible upw-complete-break">
             

@@ -124,6 +124,8 @@
     "gp_address_district": ["In a district"],
     "gp_address_postcode": ["ABC 123"],
     "placement_preference": ["NO"],
+    "placement_preference_complete": ["YES"],
+
     "placement_preference_complete": ["YES"]
   },
   "predictors": [

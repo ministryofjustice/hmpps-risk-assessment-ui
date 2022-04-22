@@ -6,6 +6,7 @@
 {% from "common/templates/components/read-only-address/macro.njk" import readOnlyAddress %}
 {% from "common/templates/components/widgets/macro.njk" import widgets %}
 
+
 {% set backLink = 'task-list' %}
 
 {% block pageTitle %}
@@ -35,15 +36,15 @@
 {{ firstName }} {{ familyName }}
 {%- endmacro -%}
 
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
         <h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
-        
+
         <form method="post" action="{{ action }}">
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
 
             {{ readOnly({
-                title: 'Personal details',
                 rows: [
                     {
                         key: {
