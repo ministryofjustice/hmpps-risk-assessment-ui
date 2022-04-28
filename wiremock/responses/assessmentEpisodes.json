@@ -103,7 +103,7 @@
     "f822b029-5907-4789-93e0-e52aac2acfac": [""],
     "crn": ["X259951"],
     "dob": ["1975-01-12"],
-    "gender": ["Male"],
+    "gender_identity": ["MALE"],
     "ethnicity": ["White : Irish"],
     "first_name": ["Gary"],
     "family_name": ["Hart"],
@@ -123,10 +123,7 @@
     "gp_address_street_name": ["Some street"],
     "gp_address_district": ["In a district"],
     "gp_address_postcode": ["ABC 123"],
-    "placement_preference": ["NO"],
-    "placement_preference_complete": ["YES"],
-
-    "placement_preference_complete": ["YES"]
+    "placement_preference": ["NO"]
   },
   "predictors": [
     {
