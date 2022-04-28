@@ -9,6 +9,15 @@ const {
   },
 } = require('../config')
 
+const getOffenderAndOffenceDetails = (crn, eventId, assessmentCode, eventType, authorisationToken, userId) => {
+  const path =
+    eventType === null
+      ? `${url}/offender/crn/${crn}/eventId/${eventId}`
+      : `${url}/offender/crn/${crn}/eventType/${eventType}/eventId/${eventId}`
+  return getData(path, authorisationToken, userId)
+}
+
+// this endpoint creates the assessment
 const assessmentSupervision = (assessmentDto, authorisationToken, userId) => {
   const path = `${url}/assessments`
   return postData(path, authorisationToken, userId, assessmentDto)
@@ -54,13 +63,24 @@ const getCurrentEpisode = (assessmentId, authorisationToken, userId) => {
   return getData(path, authorisationToken, userId)
 }
 
+const getCurrentEpisodeForCrn = (crn, authorisationToken, userId) => {
+  const path = `${url}/assessments/subject/${crn}/episodes/current`
+  return getData(path, authorisationToken, userId)
+}
+
 const getAssessmentsList = (authorisationToken, userId) => {
   const path = `${url}/questions/list`
   return getData(path, authorisationToken, userId)
 }
 
+// this endpoint is now deprecated - use postCompleteAssessmentEpisode below which is idempotent
 const postCompleteAssessment = (assessmentId, authorisationToken, userId) => {
   const path = `${url}/assessments/${assessmentId}/complete`
+  return postData(path, authorisationToken, userId)
+}
+
+const postCompleteAssessmentEpisode = (assessmentId, episodeId, authorisationToken, userId) => {
+  const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}/complete`
   return postData(path, authorisationToken, userId)
 }
 
@@ -193,7 +213,7 @@ const action = async (agent, authorisationToken, userId) => {
   } catch (error) {
     logError(error)
     const { status, response } = error
-    if (status === 400 || status === 403 || status === 422) {
+    if (status === 400 || status === 403 || status === 422 || (agent.method !== 'POST' && status === 404)) {
       return [false, response.body]
     }
 
@@ -233,8 +253,11 @@ module.exports = {
   getDraftPredictorScore,
   getEpisode,
   getCurrentEpisode,
+  getCurrentEpisodeForCrn,
   getRegistrationsForCrn,
   getRoshRiskSummaryForCrn,
   uploadPdfDocumentToDelius,
   closeAssessment,
+  getOffenderAndOffenceDetails,
+  postCompleteAssessmentEpisode,
 }
