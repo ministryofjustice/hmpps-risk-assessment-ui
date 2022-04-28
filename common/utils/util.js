@@ -105,9 +105,16 @@ const encodeHTML = str => {
 }
 
 // used in nunjucks templates which doesn't support directly setting json values
-const updateJsonValue = (jsonObj, key, value) => {
+const updateJsonValue = (jsonObj, key, value, createNewObject = false) => {
+  if (!jsonObj && createNewObject) {
+    // eslint-disable-next-line no-param-reassign
+    jsonObj = {}
+  }
   if (!jsonObj) {
     return {}
+  }
+  if (!key) {
+    return jsonObj
   }
   // eslint-disable-next-line no-param-reassign
   jsonObj[key] = value
@@ -180,6 +187,21 @@ const clearAnswers = questions => {
   return questions
 }
 
+const getErrorMessageFor = (user, reason) => {
+  if (reason === 'OASYS_PERMISSION') {
+    return 'You do not have permission to create this type of assessment. Speak to your manager and ask them to request a change to your level of authorisation.'
+  }
+  if (reason === 'DUPLICATE_OFFENDER_RECORD') {
+    return `The offender is showing as a possible duplicate record under ${user.areaName}. Log into OASys to manage the duplication. If you need help, contact the OASys Application Support team`
+  }
+
+  if (reason === 'LAO_PERMISSION') {
+    return 'You do not have the permissions needed to access this record'
+  }
+
+  return 'Something went wrong' // Unhandled exception
+}
+
 module.exports = {
   getYearMonthFromDate,
   isEmptyObject,
@@ -201,4 +223,5 @@ module.exports = {
   prettyDateAndTime,
   ageFrom,
   clearAnswers,
+  getErrorMessageFor,
 }
