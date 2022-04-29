@@ -91,7 +91,7 @@ const convertAnswersStructure = async (answers, assessmentId, episodeId, authori
   if (!_.isEqual(newAnswers, answers)) {
     logger.info(`convertAnswersStructure: saving new answers for assessment ${assessmentId}, episode ${episodeId}`)
     try {
-      const [result] = await postAnswers(assessmentId, episodeId, { answers: newAnswers }, authorisationToken, userId)
+      await postAnswers(assessmentId, episodeId, { answers: newAnswers }, authorisationToken, userId)
     } catch (error) {
       logger.error(`Could not save converted answers for assessment ${assessmentId}, current episode, error: ${error}`)
     }
