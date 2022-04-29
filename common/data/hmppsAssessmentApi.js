@@ -57,8 +57,8 @@ const getAnswers = (assessmentId, episodeId, authorisationToken, userId) => {
   if (!result) {
     return [result, data]
   }
-  return [result, convertAnswersStructure(data, assessmentId, episodeId, authorisationToken, userId)]
-  return getData(path, authorisationToken, userId)
+  data.answers = convertAnswersStructure(data.answers, assessmentId, episodeId, authorisationToken, userId)
+  return [result, data]
 }
 
 const getEpisode = (assessmentId, episodeId, authorisationToken, userId) => {

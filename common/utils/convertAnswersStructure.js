@@ -1,8 +1,7 @@
 // used to convert the structure of answers from the old format to the new one for assessments in progress
-
+const _ = require('lodash')
 const { postAnswers } = require('../data/hmppsAssessmentApi')
-const { pageValidationErrorsFrom, getErrorMessage } = require('../../app/common/controllers/saveAndContinue.utils')
-const { logger } = require('../logging/mdc-aware-logger')
+const { logger } = require('../logging/logger')
 
 const gpDetailsFields = [
   'gp_first_name',
@@ -68,7 +67,7 @@ const checkAndConvert = (answers, oldStructure, newStructure, itemGrouping) => {
       }
     })
 
-    transformedAnswers[itemGrouping] = newItem
+    transformedAnswers[itemGrouping] = [newItem]
 
     // remove old answers
     oldStructure.forEach(field => {
@@ -79,7 +78,7 @@ const checkAndConvert = (answers, oldStructure, newStructure, itemGrouping) => {
 }
 
 const convertAnswersStructure = async (answers, assessmentId, episodeId, authorisationToken, userId) => {
-  let newAnswers = answers
+  let newAnswers = { ...answers }
 
   newAnswers = checkAndConvert(newAnswers, gpDetailsPreviousFormatFields, gpDetailsFields, 'gp_details')
   newAnswers = checkAndConvert(
@@ -88,17 +87,15 @@ const convertAnswersStructure = async (answers, assessmentId, episodeId, authori
     emergencyContactsFields,
     'emergency_contacts',
   )
-
   // save if necessary
-  if (newAnswers !== answers) {
+  if (!_.isEqual(newAnswers, answers)) {
     logger.info(`convertAnswersStructure: saving new answers for assessment ${assessmentId}, episode ${episodeId}`)
     try {
-      const [ok, response] = await postAnswers(assessmentId, episodeId, { answers }, authorisationToken, userId)
+      const [result] = await postAnswers(assessmentId, episodeId, { answers: newAnswers }, authorisationToken, userId)
     } catch (error) {
-      logger.error(`Could not save to assessment ${assessmentId}, current episode, error: ${error}`)
+      logger.error(`Could not save converted answers for assessment ${assessmentId}, current episode, error: ${error}`)
     }
   }
-
   return newAnswers
 }
 
