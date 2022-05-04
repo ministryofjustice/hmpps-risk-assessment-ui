@@ -49,14 +49,12 @@ const getAssessmentSummary = (assessmentSchemaCode, authorisationToken, userId) 
   return getData(path, authorisationToken, userId)
 }
 
-const getAnswers = (assessmentId, episodeId, authorisationToken, userId) => {
+const getAnswers = async (assessmentId, episodeId, authorisationToken, userId) => {
   const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
-  const [result, data] = getData(path, authorisationToken, userId)
-  if (!result) {
-    return [result, data]
-  }
-  data.answers = convertAnswersStructure(data.answers, assessmentId, episodeId, authorisationToken, userId)
-  return [result, data]
+  const answerData = await getData(path, authorisationToken, userId)
+
+  answerData.answers = convertAnswersStructure(answerData.answers, assessmentId, episodeId, authorisationToken, userId)
+  return answerData
 }
 
 const getEpisode = (assessmentId, episodeId, authorisationToken, userId) => {

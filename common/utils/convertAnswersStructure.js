@@ -80,13 +80,17 @@ const checkAndConvert = (answers, oldStructure, newStructure, itemGrouping) => {
 const convertAnswersStructure = async (answers, assessmentId, episodeId, authorisationToken, userId) => {
   let newAnswers = { ...answers }
 
+  // check and convert gp details
   newAnswers = checkAndConvert(newAnswers, gpDetailsPreviousFormatFields, gpDetailsFields, 'gp_details')
+
+  // check and convert emergency contacts
   newAnswers = checkAndConvert(
     newAnswers,
     emergencyContactsPreviousFormatFields,
     emergencyContactsFields,
     'emergency_contacts',
   )
+
   // save if necessary
   if (!_.isEqual(newAnswers, answers)) {
     logger.info(`convertAnswersStructure: saving new answers for assessment ${assessmentId}, episode ${episodeId}`)
