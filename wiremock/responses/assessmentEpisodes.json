@@ -103,6 +103,7 @@
     "crn": ["X259951"],
     "dob": ["1975-01-12"],
     "gender": ["Male"],
+    "gender_identity": ["MALE"],
     "ethnicity": ["White : Irish"],
     "first_name": ["Gary"],
     "family_name": ["Hart"],
