@@ -107,14 +107,41 @@ const fields = {
   family_name_aliases: {
     answerType: 'textarea',
   },
-  gender_identity: requireSelectOption,
+  // requireYesOrNo,
+  gender_identity: {
+    validate: [{ type: 'required', message: 'Select a Gender Identity option' }],
+  },
   sex_change: requireYesOrNo,
   sex_change_details: {
     dependent: { field: 'sex_change', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of gender identity and relevant placement options discussed with the individual.',
+        },
+      ],
+    },
   },
-  intersex_or_dsd: requireYesOrNo,
-  transgender: requireYesOrNo,
+  // requireYesOrNo,
+  intersex_or_dsd: {
+    validate: [
+      {
+        type: 'required',
+        message:
+          'Is the individual intersex or do they have a Difference in Sexual Development (DSD)? Select Yes or No',
+      },
+    ],
+  },
+  // requireYesOrNo,
+  transgender: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Do they consider themselves to be transgender or have a transgender history? Select Yes or No',
+      },
+    ],
+  },
   contact_address_building_name: {},
   contact_address_house_number: {},
   contact_address_street_name: {
