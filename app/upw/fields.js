@@ -172,10 +172,21 @@ const fields = {
   emergency_contact_mobile_phone_number: {
     validate: [{ type: 'required', message: 'Mobile phone number is required' }],
   },
-  cultural_religious_adjustment: requireYesOrNo,
+  cultural_religious_adjustment: {
+    validate: [
+      { type: 'required', message: 'Are adjustments required for cultural or religious reasons? Select Yes or No' },
+    ],
+  },
   cultural_religious_adjustment_details: {
     dependent: { field: 'cultural_religious_adjustment', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the adjustments required for cultural or religious reasons',
+        },
+      ],
+    },
   },
   placement_preference: requireYesOrNo,
   placement_preferences: {
@@ -454,7 +465,14 @@ const fields = {
   waterproof_clothing: requireSelectOption,
   footwear_size: requireSelectOption,
   individual_details_complete: requireSelectOption,
-  cultural_religious_adjustment_complete: requireSelectOption,
+  cultural_religious_adjustment_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
   placement_preference_complete: requireSelectOption,
   placement_preference_by_gender_complete: {
     validate: [
