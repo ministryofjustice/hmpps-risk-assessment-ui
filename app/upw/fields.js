@@ -196,50 +196,176 @@ const fields = {
   placement_preference_by_gender_details: {
     ...requireEnterDetails,
   },
-  history_sexual_offending: requireYesOrNo,
+  history_sexual_offending: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is there a history of sexual offending? Select Yes or No',
+      },
+    ],
+  },
   history_sexual_offending_details: {
     dependent: { field: 'history_sexual_offending', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the sexual offending',
+        },
+      ],
+    },
   },
-  poses_risk_to_children: requireYesOrNo,
+  poses_risk_to_children: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Does the individual pose a risk to children? Select Yes or No',
+      },
+    ],
+  },
   poses_risk_to_children_details: {
     dependent: { field: 'poses_risk_to_children', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the risk posed to children',
+        },
+      ],
+    },
   },
-  violent_offences: requireYesOrNo,
+  violent_offences: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is there a history of violent offences? Select Yes or No',
+      },
+    ],
+  },
   violent_offences_details: {
     dependent: { field: 'violent_offences', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the violent offences',
+        },
+      ],
+    },
   },
-  acquisitive_offending: requireYesOrNo,
+  acquisitive_offending: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is there a history of acquisitive offending? Select Yes or No',
+      },
+    ],
+  },
   acquisitive_offending_details: {
     dependent: { field: 'acquisitive_offending', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the acquisitive offending',
+        },
+      ],
+    },
   },
-  sgo_identifier: requireYesOrNo,
+  sgo_identifier: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Has the individual been involved in serious group offending? Select Yes or No',
+      },
+    ],
+  },
   sgo_identifier_details: {
     dependent: { field: 'sgo_identifier', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the serious group offending (SGO)',
+        },
+      ],
+    },
   },
-  control_issues: requireYesOrNo,
+  control_issues: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Has the individual had control issues or disruptive behaviour? Select Yes or No',
+      },
+    ],
+  },
   control_issues_details: {
     dependent: { field: 'control_issues', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the control issues or disruptive behaviour',
+        },
+      ],
+    },
   },
-  history_of_hate_based_behaviour: requireYesOrNo,
+  history_of_hate_based_behaviour: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Does the individual have a history of hate-based attitudes or behaviours? Select Yes or No',
+      },
+    ],
+  },
   history_of_hate_based_behaviour_details: {
     dependent: { field: 'history_of_hate_based_behaviour', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the hate-based attitudes or behaviours',
+        },
+      ],
+    },
   },
-  high_profile_person: requireYesOrNo,
+  high_profile_person: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is the individual vulnerable because they are a high-profile person? Select Yes or No',
+      },
+    ],
+  },
   high_profile_person_details: {
     dependent: { field: 'high_profile_person', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: "Enter details of the individual's vulnerabilities",
+        },
+      ],
+    },
   },
-  additional_rosh_info: requireYesOrNo,
+  additional_rosh_info: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is there additional risk assessment information relevant to Community Payback? Select Yes or No',
+      },
+    ],
+  },
   additional_rosh_info_details: {
     dependent: { field: 'additional_rosh_info', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter additional risk assessment information',
+        },
+      ],
+    },
   },
   location_exclusion_criteria: requireYesOrNo,
   location_exclusion_criteria_details: {
@@ -482,7 +608,14 @@ const fields = {
       },
     ],
   },
-  rosh_community_complete: requireSelectOption,
+  rosh_community_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
   managing_risk_complete: requireSelectOption,
   disabilities_complete: requireSelectOption,
   health_issues_complete: requireSelectOption,
