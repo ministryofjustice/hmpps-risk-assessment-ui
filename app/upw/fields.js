@@ -107,7 +107,6 @@ const fields = {
   family_name_aliases: {
     answerType: 'textarea',
   },
-  // requireYesOrNo,
   gender_identity: {
     validate: [{ type: 'required', message: 'Select a Gender Identity option' }],
   },
@@ -123,7 +122,6 @@ const fields = {
       ],
     },
   },
-  // requireYesOrNo,
   intersex_or_dsd: {
     validate: [
       {
@@ -133,7 +131,6 @@ const fields = {
       },
     ],
   },
-  // requireYesOrNo,
   transgender: {
     validate: [
       {
@@ -459,7 +456,14 @@ const fields = {
   individual_details_complete: requireSelectOption,
   cultural_religious_adjustment_complete: requireSelectOption,
   placement_preference_complete: requireSelectOption,
-  placement_preference_by_gender_complete: requireSelectOption,
+  placement_preference_by_gender_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
   rosh_community_complete: requireSelectOption,
   managing_risk_complete: requireSelectOption,
   disabilities_complete: requireSelectOption,
