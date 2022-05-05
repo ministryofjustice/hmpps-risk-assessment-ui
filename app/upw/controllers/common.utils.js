@@ -52,12 +52,25 @@ const getRegistrations = async (crn, user) => {
 
 const getRoshRiskSummary = async (crn, user) => {
   try {
-    const [, response] = await getRoshRiskSummaryForCrn(crn, user?.token, user?.id)
+    const { response, status } = await getRoshRiskSummaryForCrn(crn, user)
 
     const nullIfNotKnown = s => (s === 'NOT_KNOWN' ? null : s)
 
+    if (status === 404) {
+      return {
+        roshRiskSummary: { hasBeenCompleted: false },
+      }
+    }
+
+    if (status >= 400) {
+      return {
+        roshRiskSummary: null,
+      }
+    }
+
     return {
       roshRiskSummary: {
+        hasBeenCompleted: true,
         overallRisk: nullIfNotKnown(response.overallRisk),
         riskToChildren: nullIfNotKnown(response.riskToChildrenInCommunity),
         riskToPublic: nullIfNotKnown(response.riskToPublicInCommunity),
