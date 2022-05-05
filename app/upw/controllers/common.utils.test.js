@@ -228,4 +228,38 @@ describe('GetRegistrations', () => {
       },
     })
   })
+
+  it('flags as notBeenCompleted when the response is 404', async () => {
+    getRoshRiskSummaryForCrn.mockResolvedValue({
+      status: 404,
+      ok: false,
+      response: {},
+    })
+
+    const riskSummary = await getRoshRiskSummary('A123456', user)
+
+    expect(riskSummary).toEqual({
+      roshRiskSummary: {
+        hasBeenCompleted: false,
+      },
+    })
+  })
+
+  it('returns null when the response is 400', async () => {
+    await Promise.all(
+      [400, 401, 403, 500, 501, 502, 503, 504].map(async statusCode => {
+        getRoshRiskSummaryForCrn.mockResolvedValue({
+          status: statusCode,
+          ok: false,
+          response: {},
+        })
+
+        const riskSummary = await getRoshRiskSummary('A123456', user)
+
+        expect(riskSummary).toEqual({
+          roshRiskSummary: null,
+        })
+      }),
+    )
+  })
 })
