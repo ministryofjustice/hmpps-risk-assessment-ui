@@ -110,7 +110,15 @@ const fields = {
   gender_identity: {
     validate: [{ type: 'required', message: 'Select a Gender Identity option' }],
   },
-  sex_change: requireYesOrNo,
+  sex_change: {
+    validate: [
+      {
+        type: 'required',
+        message:
+          'Has the individual gone through any part of a process to change the sex they were assigned at birth to the gender they now identify with, or do they intend to? Select yes or no',
+      },
+    ],
+  },
   sex_change_details: {
     dependent: { field: 'sex_change', value: 'YES' },
     ...{
@@ -367,45 +375,157 @@ const fields = {
       ],
     },
   },
-  location_exclusion_criteria: requireYesOrNo,
+  location_exclusion_criteria: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is the individual’s location restricted by victim exclusion criteria? Select Yes or No',
+      },
+    ],
+  },
   location_exclusion_criteria_details: {
     dependent: { field: 'location_exclusion_criteria', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the location restrictions due to victim exclusion criteria',
+        },
+      ],
+    },
   },
-  restricted_placement: requireYesOrNo,
+  restricted_placement: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Is close supervision or restricted placement recommended? Select Yes or No',
+      },
+    ],
+  },
   restricted_placement_details: {
     dependent: { field: 'restricted_placement', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of the close supervision or restricted placement recommended',
+        },
+      ],
+    },
   },
-  no_female_supervisor: requireYesOrNo,
+  no_female_supervisor: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Do you recommend not to place with a female supervisor? Select Yes or No',
+      },
+    ],
+  },
   no_female_supervisor_details: {
     dependent: { field: 'no_female_supervisor', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of why not to place individual with female supervisor',
+        },
+      ],
+    },
   },
-  no_male_supervisor: requireYesOrNo,
+  no_male_supervisor: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Do you recommend not to place with a male supervisor? Select yes or no',
+      },
+    ],
+  },
   no_male_supervisor_details: {
     dependent: { field: 'no_male_supervisor', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of why not to place individual with male supervisor',
+        },
+      ],
+    },
   },
-  restrictive_orders: requireYesOrNo,
+  restrictive_orders: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Are there restrictive orders? Select Yes or No',
+      },
+    ],
+  },
   restrictive_orders_details: {
     dependent: { field: 'restrictive_orders', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of restrictive orders',
+        },
+      ],
+    },
   },
-  risk_management_issues_individual: requireYesOrNo,
+  risk_management_issues_individual: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Are there any risk management issues for an individual placement? Select Yes or No',
+      },
+    ],
+  },
   risk_management_issues_individual_details: {
     dependent: { field: 'risk_management_issues_individual', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of risk management issues for an individual placement',
+        },
+      ],
+    },
   },
-  risk_management_issues_supervised_group: requireYesOrNo,
+  risk_management_issues_supervised_group: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Are there any risk management issues if working in a supervised group? Select Yes or No',
+      },
+    ],
+  },
   risk_management_issues_supervised_group_details: {
     dependent: { field: 'risk_management_issues_supervised_group', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of risk management issues if working in a supervised group',
+        },
+      ],
+    },
   },
-  alcohol_drug_issues: requireYesOrNo,
+  alcohol_drug_issues: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Are there any alcohol or drug issues with health and safety impact? Select Yes or No',
+      },
+    ],
+  },
   alcohol_drug_issues_details: {
     dependent: { field: 'alcohol_drug_issues', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of alcohol or drug issues with health and safety impact',
+        },
+      ],
+    },
   },
   physical_disability: readOnly,
   physical_disability_details: readOnly,
@@ -616,7 +736,14 @@ const fields = {
       },
     ],
   },
-  managing_risk_complete: requireSelectOption,
+  managing_risk_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
   disabilities_complete: requireSelectOption,
   health_issues_complete: requireSelectOption,
   gp_details_complete: requireSelectOption,
