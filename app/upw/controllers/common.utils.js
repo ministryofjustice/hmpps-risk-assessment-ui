@@ -38,7 +38,21 @@ const formatFlag = flag => flag.description || null
 
 const getRegistrations = async (crn, user) => {
   try {
-    const [, response] = await getRegistrationsForCrn(crn, user?.token, user?.id)
+    const { response, status } = await getRegistrationsForCrn(crn, user)
+
+    if (status === 404) {
+      return {
+        flags: [],
+        mappa: {},
+      }
+    }
+
+    if (status >= 400) {
+      return {
+        mappa: null,
+        flags: null,
+      }
+    }
 
     return {
       mappa: formatMappaResponse(response.mappa),
@@ -46,7 +60,7 @@ const getRegistrations = async (crn, user) => {
     }
   } catch (error) {
     logger.info(`Failed to fetch registrations for CRN ${crn}`)
-    return { flags: [] }
+    return { mappa: null, flags: null }
   }
 }
 

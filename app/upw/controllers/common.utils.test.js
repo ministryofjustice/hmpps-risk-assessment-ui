@@ -7,9 +7,9 @@ const user = { id: 1, token: 'FOO_TOKEN' }
 
 describe('GetRegistrations', () => {
   it('returns MAPPA data', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         mappa: {
           level: 'M1',
           levelDescription: 'MAPPA Level 1',
@@ -19,7 +19,7 @@ describe('GetRegistrations', () => {
         },
         flags: [],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -34,12 +34,12 @@ describe('GetRegistrations', () => {
   })
 
   it('handles when there is no MAPPA data', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         flags: [],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -54,9 +54,9 @@ describe('GetRegistrations', () => {
   })
 
   it('handles when there is no MAPPA category', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         mappa: {
           level: 'M1',
           levelDescription: 'MAPPA Level 1',
@@ -64,7 +64,7 @@ describe('GetRegistrations', () => {
         },
         flags: [],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -79,9 +79,9 @@ describe('GetRegistrations', () => {
   })
 
   it('handles when there is no MAPPA level', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         mappa: {
           category: 'M2',
           categoryDescription: 'MAPPA Cat 2',
@@ -89,7 +89,7 @@ describe('GetRegistrations', () => {
         },
         flags: [],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -104,9 +104,9 @@ describe('GetRegistrations', () => {
   })
 
   it('handles when there is no MAPPA startDate', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         mappa: {
           level: 'M1',
           levelDescription: 'MAPPA Level 1',
@@ -115,7 +115,7 @@ describe('GetRegistrations', () => {
         },
         flags: [],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -130,12 +130,12 @@ describe('GetRegistrations', () => {
   })
 
   it('returns risk flags', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         flags: [{ code: 'IRMO', description: 'Hate Crime', colour: 'Red' }],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -150,12 +150,12 @@ describe('GetRegistrations', () => {
   })
 
   it('handles when there are no risk flags', async () => {
-    getRegistrationsForCrn.mockResolvedValue([
-      true,
-      {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 200,
+      response: {
         flags: [],
       },
-    ])
+    })
 
     const registrations = await getRegistrations('A123456', user)
 
@@ -167,6 +167,40 @@ describe('GetRegistrations', () => {
         lastUpdated: null,
       },
     })
+  })
+
+  it('flags when the response is 404', async () => {
+    getRegistrationsForCrn.mockResolvedValue({
+      status: 404,
+      ok: false,
+      response: {},
+    })
+
+    const registrations = await getRegistrations('A123456', user)
+
+    expect(registrations).toEqual({
+      flags: [],
+      mappa: {},
+    })
+  })
+
+  it('returns null when there is a failed request', async () => {
+    await Promise.all(
+      [400, 401, 403, 500, 501, 502, 503, 504].map(async statusCode => {
+        getRegistrationsForCrn.mockResolvedValue({
+          status: statusCode,
+          ok: false,
+          response: {},
+        })
+
+        const registrations = await getRegistrations('A123456', user)
+
+        expect(registrations).toEqual({
+          flags: null,
+          mappa: null,
+        })
+      }),
+    )
   })
 })
 
