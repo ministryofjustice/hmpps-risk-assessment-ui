@@ -660,17 +660,27 @@ const fields = {
     dependent: { field: 'individual_commitment', value: 'YES' },
     ...requireEnterDetails,
   },
-  eligibility_intensive_working: requireYesOrNo,
+  eligibility_intensive_working: {
+    validate: [{ type: 'required', message: 'Is the individual eligible for intensive working? Select yes or no' }],
+  },
   eligibility_intensive_working_details: {
     dependent: { field: 'eligibility_intensive_working', value: 'NO' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details about why the individual is not eligible for intensive working',
+        },
+      ],
+    },
   },
   recommended_hours_start_order: {
     dependent: { field: 'eligibility_intensive_working', value: 'YES' },
     validate: [
       {
         type: 'required',
-        message: 'Enter a number between 0 and 21',
+        message:
+          'Enter recommended hours per week in addition to the statutory minimum at the start of the order between 0 and 21',
       },
       {
         fn: noSpace,
@@ -688,7 +698,8 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Enter a number between 0 and 21',
+        message:
+          'Enter recommended hours per week in addition to the statutory minimum at the midpoint of the order between 0 and 21',
       },
       {
         fn: noSpace,
@@ -703,7 +714,14 @@ const fields = {
   },
   twenty_eight_hours_working_week_details: {
     dependent: { field: 'eligibility_intensive_working', value: 'YES' },
-    ...requireEnterDetails,
+    ...{
+      validate: [
+        {
+          type: 'required',
+          message: 'Enter details of when the individual should be expected to reach a 28 hour working week',
+        },
+      ],
+    },
   },
   individual_availability: requireSelectOption,
   individual_availability_details: {},
