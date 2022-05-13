@@ -121,14 +121,12 @@ const fields = {
   },
   sex_change_details: {
     dependent: { field: 'sex_change', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of gender identity and relevant placement options discussed with the individual.',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of gender identity and relevant placement options discussed with the individual.',
+      },
+    ],
   },
   intersex_or_dsd: {
     validate: [
@@ -187,14 +185,12 @@ const fields = {
   },
   cultural_religious_adjustment_details: {
     dependent: { field: 'cultural_religious_adjustment', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the adjustments required for cultural or religious reasons',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the adjustments required for cultural or religious reasons',
+      },
+    ],
   },
   placement_preference: requireYesOrNo,
   placement_preferences: {
@@ -214,14 +210,12 @@ const fields = {
   },
   history_sexual_offending_details: {
     dependent: { field: 'history_sexual_offending', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the sexual offending',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the sexual offending',
+      },
+    ],
   },
   poses_risk_to_children: {
     validate: [
@@ -233,14 +227,12 @@ const fields = {
   },
   poses_risk_to_children_details: {
     dependent: { field: 'poses_risk_to_children', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the risk posed to children',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the risk posed to children',
+      },
+    ],
   },
   violent_offences: {
     validate: [
@@ -252,14 +244,12 @@ const fields = {
   },
   violent_offences_details: {
     dependent: { field: 'violent_offences', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the violent offences',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the violent offences',
+      },
+    ],
   },
   acquisitive_offending: {
     validate: [
@@ -271,14 +261,12 @@ const fields = {
   },
   acquisitive_offending_details: {
     dependent: { field: 'acquisitive_offending', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the acquisitive offending',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the acquisitive offending',
+      },
+    ],
   },
   sgo_identifier: {
     validate: [
@@ -290,14 +278,12 @@ const fields = {
   },
   sgo_identifier_details: {
     dependent: { field: 'sgo_identifier', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the serious group offending (SGO)',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the serious group offending (SGO)',
+      },
+    ],
   },
   control_issues: {
     validate: [
@@ -309,14 +295,12 @@ const fields = {
   },
   control_issues_details: {
     dependent: { field: 'control_issues', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the control issues or disruptive behaviour',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the control issues or disruptive behaviour',
+      },
+    ],
   },
   history_of_hate_based_behaviour: {
     validate: [
@@ -328,14 +312,12 @@ const fields = {
   },
   history_of_hate_based_behaviour_details: {
     dependent: { field: 'history_of_hate_based_behaviour', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the hate-based attitudes or behaviours',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the hate-based attitudes or behaviours',
+      },
+    ],
   },
   high_profile_person: {
     validate: [
@@ -347,14 +329,12 @@ const fields = {
   },
   high_profile_person_details: {
     dependent: { field: 'high_profile_person', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: "Enter details of the individual's vulnerabilities",
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: "Enter details of the individual's vulnerabilities",
+      },
+    ],
   },
   additional_rosh_info: {
     validate: [
@@ -366,14 +346,12 @@ const fields = {
   },
   additional_rosh_info_details: {
     dependent: { field: 'additional_rosh_info', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter additional risk assessment information',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter additional risk assessment information',
+      },
+    ],
   },
   location_exclusion_criteria: {
     validate: [
@@ -385,14 +363,12 @@ const fields = {
   },
   location_exclusion_criteria_details: {
     dependent: { field: 'location_exclusion_criteria', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the location restrictions due to victim exclusion criteria',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the location restrictions due to victim exclusion criteria',
+      },
+    ],
   },
   restricted_placement: {
     validate: [
@@ -404,14 +380,12 @@ const fields = {
   },
   restricted_placement_details: {
     dependent: { field: 'restricted_placement', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of the close supervision or restricted placement recommended',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of the close supervision or restricted placement recommended',
+      },
+    ],
   },
   no_female_supervisor: {
     validate: [
@@ -423,14 +397,12 @@ const fields = {
   },
   no_female_supervisor_details: {
     dependent: { field: 'no_female_supervisor', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of why not to place individual with female supervisor',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of why not to place individual with female supervisor',
+      },
+    ],
   },
   no_male_supervisor: {
     validate: [
@@ -442,14 +414,12 @@ const fields = {
   },
   no_male_supervisor_details: {
     dependent: { field: 'no_male_supervisor', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of why not to place individual with male supervisor',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of why not to place individual with male supervisor',
+      },
+    ],
   },
   restrictive_orders: {
     validate: [
@@ -461,14 +431,12 @@ const fields = {
   },
   restrictive_orders_details: {
     dependent: { field: 'restrictive_orders', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of restrictive orders',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of restrictive orders',
+      },
+    ],
   },
   risk_management_issues_individual: {
     validate: [
@@ -480,14 +448,12 @@ const fields = {
   },
   risk_management_issues_individual_details: {
     dependent: { field: 'risk_management_issues_individual', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of risk management issues for an individual placement',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of risk management issues for an individual placement',
+      },
+    ],
   },
   risk_management_issues_supervised_group: {
     validate: [
@@ -499,14 +465,12 @@ const fields = {
   },
   risk_management_issues_supervised_group_details: {
     dependent: { field: 'risk_management_issues_supervised_group', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of risk management issues if working in a supervised group',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of risk management issues if working in a supervised group',
+      },
+    ],
   },
   alcohol_drug_issues: {
     validate: [
@@ -518,14 +482,12 @@ const fields = {
   },
   alcohol_drug_issues_details: {
     dependent: { field: 'alcohol_drug_issues', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of alcohol or drug issues with health and safety impact',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of alcohol or drug issues with health and safety impact',
+      },
+    ],
   },
   physical_disability: readOnly,
   physical_disability_details: readOnly,
@@ -665,14 +627,12 @@ const fields = {
   },
   eligibility_intensive_working_details: {
     dependent: { field: 'eligibility_intensive_working', value: 'NO' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details about why the individual is not eligible for intensive working',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details about why the individual is not eligible for intensive working',
+      },
+    ],
   },
   recommended_hours_start_order: {
     dependent: { field: 'eligibility_intensive_working', value: 'YES' },
@@ -714,14 +674,12 @@ const fields = {
   },
   twenty_eight_hours_working_week_details: {
     dependent: { field: 'eligibility_intensive_working', value: 'YES' },
-    ...{
-      validate: [
-        {
-          type: 'required',
-          message: 'Enter details of when the individual should be expected to reach a 28 hour working week',
-        },
-      ],
-    },
+    validate: [
+      {
+        type: 'required',
+        message: 'Enter details of when the individual should be expected to reach a 28 hour working week',
+      },
+    ],
   },
   individual_availability: requireSelectOption,
   individual_availability_details: {},
