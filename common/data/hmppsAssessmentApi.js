@@ -29,7 +29,7 @@ const getOffenderData = (uuid, authorisationToken, userId) => {
 }
 
 const getAssessmentQuestions = (assessmentSchemaCode, authorisationToken, userId) => {
-  const path = `${url}/assessments/schema/${assessmentSchemaCode}`
+  const path = `${url}/assessments/${assessmentSchemaCode}`
   return getData(path, authorisationToken, userId)
 }
 
@@ -39,12 +39,12 @@ const getQuestionGroupSummary = (groupId, authorisationToken, userId) => {
 }
 
 const getFlatAssessmentQuestions = (assessmentCode, authorisationToken, userId) => {
-  const path = `${url}/assessments/schema/${assessmentCode}/questions`
+  const path = `${url}/assessments/${assessmentCode}/questions`
   return getData(path, authorisationToken, userId)
 }
 
 const getAssessmentSummary = (assessmentSchemaCode, authorisationToken, userId) => {
-  const path = `${url}/assessments/schema/${assessmentSchemaCode}/summary`
+  const path = `${url}/assessments/${assessmentSchemaCode}/summary`
   return getData(path, authorisationToken, userId)
 }
 
@@ -118,18 +118,52 @@ const getDraftPredictorScore = (episodeUuid, authorisationToken, userId) => {
   return action(superagent.get(path), authorisationToken, userId)
 }
 
-const getRegistrationsForCrn = (crn, authorisationToken, userId) => {
-  const path = `${url}/assessments/${crn}/registrations`
-  logger.info(`Calling hmppsAssessments API with GET: ${path}`)
+const getRegistrationsForCrn = async (crn, user) => {
+  const endpoint = `${url}/assessments/${crn}/registrations`
 
-  return action(superagent.get(path), authorisationToken, userId)
+  logger.info(`Calling hmppsAssessments API with GET: ${endpoint}`)
+
+  const userDetails = await getCachedUserDetails(user.id)
+
+  try {
+    return await superagent
+      .get(endpoint)
+      .auth(user.token, { type: 'bearer' })
+      .set('x-correlation-id', getCorrelationId())
+      .set('x-user-area', userDetails?.areaCode || '')
+      .accept('application/json')
+      .then(({ ok, body, status }) => ({ ok, response: body, status }))
+  } catch (e) {
+    logError(e)
+    const { response, status } = e
+    return { ok: false, response, status }
+  }
 }
 
-const getRoshRiskSummaryForCrn = (crn, authorisationToken, userId) => {
-  const path = `${url}/assessments/${crn}/ROSH/summary`
-  logger.info(`Calling hmppsAssessments API with GET: ${path}`)
+const getRoshRiskSummaryForCrn = async (crn, user) => {
+  const endpoint = `${url}/assessments/${crn}/ROSH/summary`
 
-  return action(superagent.get(path), authorisationToken, userId)
+  if (user.token === undefined) {
+    throw new Error('No authorisation token found when calling hmppsAssessments API')
+  }
+
+  logger.info(`Calling hmppsAssessments API with GET: ${endpoint}`)
+
+  const userDetails = await getCachedUserDetails(user.id)
+
+  try {
+    return await superagent
+      .get(endpoint)
+      .auth(user.token, { type: 'bearer' })
+      .set('x-correlation-id', getCorrelationId())
+      .set('x-user-area', userDetails?.areaCode || '')
+      .accept('application/json')
+      .then(({ ok, body, status }) => ({ ok, response: body, status }))
+  } catch (e) {
+    logError(e)
+    const { response, status } = e
+    return { ok: false, response, status }
+  }
 }
 
 const getFilteredReferenceData = (assessmentId, episodeId, questionCode, parentList, authorisationToken, userId) => {

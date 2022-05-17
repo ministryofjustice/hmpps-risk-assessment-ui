@@ -12,14 +12,13 @@ const checkDeclarationIsSigned = (answers, fieldName, valueWhenSigned) => {
     return false
   }
 
-  return answers[fieldName] === valueWhenSigned
+  return answers[fieldName] && answers[fieldName][0] === valueWhenSigned
 }
 
 const getDeclarationStatus = (answers, tasks, fieldName) => {
   if (!checkAllTasksAreComplete(tasks)) {
     return 'CANNOT_START'
   }
-
   return checkDeclarationIsSigned(answers, fieldName, 'SIGNED') ? 'COMPLETE' : 'INCOMPLETE'
 }
 
@@ -105,7 +104,7 @@ const getTaskList = (baseUrl = '', steps = {}, answers = {}) => {
     },
   ]
 
-  if (answers.gender_identity === 'MALE') {
+  if (answers.gender_identity && answers.gender_identity[0] === 'MALE') {
     // find section with an item with text: placement preferences, and remove from task list
     let taskIndex
     let itemIndex
