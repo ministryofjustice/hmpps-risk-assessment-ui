@@ -22,10 +22,6 @@
 {# include errorSummary partial #}
 {{ super() }}
 
-{%- macro renderGpName(firstName, familyName) -%}
-{{ firstName }} {{ familyName }}
-{%- endmacro -%}
-
 {% set addGpDetails %}
     {{ govukButton({
         text: "Add GP",
@@ -58,7 +54,7 @@
                                 text: 'Name'
                             },
                                 value: {
-                                html: renderGpName(rawAnswers['gp_first_name'][loop.index0], rawAnswers['gp_family_name'][loop.index0])
+                                html: rawAnswers['gp_name'][loop.index0]
                             }
                             },{
                                 key: {

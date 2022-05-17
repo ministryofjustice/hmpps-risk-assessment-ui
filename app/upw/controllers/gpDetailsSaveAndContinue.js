@@ -1,4 +1,4 @@
-const { updateAnswersWith, mapExistingAnswersForMultipleEntries } = require('./gpDetails.utils')
+const { mapExistingAnswersForMultipleEntries } = require('./gpDetails.utils')
 const upwSaveAndContinue = require('./saveAndContinue')
 
 const checkGpDetails = function range(gpDetailsDeclined, gpDetails, gpDetailsComplete) {
@@ -19,11 +19,10 @@ const customValidationsGpDetails = (fields, gpDetails, gpDetailsComplete) => {
 }
 
 class SaveAndContinue extends upwSaveAndContinue {
-  async locals(req, res, next) {
-    await super.locals(req, res, next)
-
+  constructor(...args) {
+    super(...args)
     // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
-    updateAnswersWith(req.sessionModel, mapExistingAnswersForMultipleEntries)
+    this.getAnswerMutators = [mapExistingAnswersForMultipleEntries]
   }
 
   async validateFields(req, res, next) {

@@ -1,7 +1,14 @@
-const { updateAnswersWith, unsetDeprecatedAnswers, mapExistingAnswersToNewFields } = require('./gpDetails.utils')
+const { unsetDeprecatedAnswers, mapExistingAnswersForMultipleEntries } = require('./gpDetails.utils')
 const upwSaveAndContinue = require('./saveAndContinue')
 
 class SaveAndContinue extends upwSaveAndContinue {
+  constructor(...args) {
+    super(...args)
+    // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
+    this.getAnswerMutators = [mapExistingAnswersForMultipleEntries]
+    this.postAnswerMutators = [unsetDeprecatedAnswers]
+  }
+
   async locals(req, res, next) {
     const contactToEdit = req.params[0]
     res.locals.editMultiple = 'gp_details'
@@ -12,10 +19,8 @@ class SaveAndContinue extends upwSaveAndContinue {
       res.locals.addingNewMultiple = true
       res.locals.pageTitle = 'Add GP details'
     }
-    await super.locals(req, res, next)
 
-    // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
-    updateAnswersWith(req.sessionModel, mapExistingAnswersToNewFields)
+    await super.locals(req, res, next)
   }
 
   async saveValues(req, res, next) {
@@ -26,8 +31,6 @@ class SaveAndContinue extends upwSaveAndContinue {
     } else {
       res.locals.addNewMultiple = 'gp_details'
     }
-
-    updateAnswersWith(req.sessionModel, unsetDeprecatedAnswers)
 
     await super.saveValues(req, res, next)
   }

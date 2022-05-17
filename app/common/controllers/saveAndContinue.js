@@ -16,18 +16,26 @@ const {
 } = require('./saveAndContinue.utils')
 
 class SaveAndContinue extends BaseController {
+  constructor(...args) {
+    super(...args)
+    this.getAnswerMutators = []
+    this.postAnswerMutators = []
+  }
+
   async locals(req, res, next) {
     const errors = req.sessionModel.get('errors') || {}
     const { validationErrors, errorSummary } = pageValidationErrorsFrom(errors)
     res.locals.errors = validationErrors
     res.locals.errorSummary = errorSummary
 
-    const { answers: previousAnswers } = await getAnswers(
+    const getAnswersResponse = await getAnswers(
       req.session.assessment?.uuid,
       req.session.assessment?.episodeUuid,
       req.user?.token,
       req.user?.id,
     )
+
+    const previousAnswers = this.getAnswerMutators.reduce((a, fn) => fn(a), getAnswersResponse.answers)
 
     // get a list of fields with multiple answers in the form [fieldName, answerGroup]
     // 'answerGroup' is the top level key that the API will use to send repeating groups of answers
@@ -76,10 +84,10 @@ class SaveAndContinue extends BaseController {
     // if editing a single 'record' from a multiples collection, add just that one to locals
     if (res.locals.editMultiple && res.locals.multipleToEdit) {
       multipleFields
-        .filter(field => field[1] === res.locals.editMultiple)
-        .forEach(field => {
-          const thisAnswer = previousAnswers[res.locals.editMultiple]?.[res.locals.multipleToEdit]?.[field[0]] || ''
-          res.locals.questions[field[0]].answer = thisAnswer[0] || ''
+        .filter(([_, editMultiple]) => editMultiple === res.locals.editMultiple)
+        .forEach(([questionCode]) => {
+          const thisAnswer = previousAnswers[res.locals.editMultiple]?.[res.locals.multipleToEdit]?.[questionCode] || ''
+          res.locals.questions[questionCode].answer = thisAnswer[0] || ''
         })
     }
 
@@ -225,11 +233,13 @@ class SaveAndContinue extends BaseController {
       req.sessionModel.set('answers', answers)
     }
 
+    const answersToPost = this.postAnswerMutators.reduce((a, fn) => fn(a), answers)
+
     try {
       const [ok, response] = await postAnswers(
         req.session?.assessment?.uuid,
         req.session?.assessment?.episodeUuid,
-        { answers },
+        { answers: answersToPost },
         user?.token,
         user?.id,
       )

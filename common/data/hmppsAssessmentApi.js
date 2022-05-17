@@ -53,7 +53,13 @@ const getAnswers = async (assessmentId, episodeId, authorisationToken, userId) =
   const path = `${url}/assessments/${assessmentId}/episodes/${episodeId}`
   const answerData = await getData(path, authorisationToken, userId)
 
-  answerData.answers = convertAnswersStructure(answerData.answers, assessmentId, episodeId, authorisationToken, userId)
+  answerData.answers = await convertAnswersStructure(
+    answerData.answers,
+    assessmentId,
+    episodeId,
+    authorisationToken,
+    userId,
+  )
   return answerData
 }
 
