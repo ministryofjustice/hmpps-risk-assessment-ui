@@ -1,3 +1,4 @@
+const { updateAnswersWith, mapExistingAnswersForMultipleEntries } = require('./gpDetails.utils')
 const upwSaveAndContinue = require('./saveAndContinue')
 
 const checkGpDetails = function range(gpDetailsDeclined, gpDetails, gpDetailsComplete) {
@@ -18,6 +19,13 @@ const customValidationsGpDetails = (fields, gpDetails, gpDetailsComplete) => {
 }
 
 class SaveAndContinue extends upwSaveAndContinue {
+  async locals(req, res, next) {
+    await super.locals(req, res, next)
+
+    // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
+    updateAnswersWith(req.sessionModel, mapExistingAnswersForMultipleEntries)
+  }
+
   async validateFields(req, res, next) {
     // make changes to sessionModel fields to add in context specific validations
     const { gp_details = [] } = req.sessionModel.get('rawAnswers') || []

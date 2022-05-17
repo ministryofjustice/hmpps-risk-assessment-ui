@@ -202,8 +202,10 @@ module.exports = {
     template: `${__dirname}/templates/placement-restrictions/edit-gp-details.njk`,
     next: 'gp-details',
     fields: [
-      'gp_first_name',
-      'gp_family_name',
+      'gp_first_name', // Deprecated: use gp_name instead
+      'gp_family_name', // Deprecated: use gp_name instead
+      'gp_name',
+      'gp_practice_name',
       'gp_address_building_name',
       'gp_address_house_number',
       'gp_address_street_name',

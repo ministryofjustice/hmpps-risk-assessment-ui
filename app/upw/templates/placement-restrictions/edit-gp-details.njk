@@ -35,16 +35,16 @@
         
         <form method="post" action="{{ action }}">
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
-
-            {{ renderQuestion(questions['gp_first_name'], errors, null, null, null, {
+            
+            {{ renderQuestion(questions['gp_name'], errors, null, null, null, {
                 classes: 'govuk-!-width-two-thirds'
             }) }}
 
-            {{ renderQuestion(questions['gp_family_name'], errors, null, null, null, {
+            {{ renderQuestion(questions['gp_practice_name'], errors, null, null, null, {
                 classes: 'govuk-!-width-two-thirds'
             }) }}
 
-            <h2 class="govuk-heading-m">Address</h2>
+            <h2 class="govuk-heading-m">Address (Optional)</h2>
 
             {{ renderQuestion(questions['gp_address_building_name'], errors, null, null, null, { 
                 useSmallLabel: true,
