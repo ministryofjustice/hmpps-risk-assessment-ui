@@ -1,12 +1,12 @@
-const { unsetDeprecatedAnswers, mapExistingAnswersForMultipleEntries } = require('./gpDetails.utils')
+const { unsetOldGPDetailsFields, convertGpDetailsEntries } = require('./gpDetails.utils')
 const upwSaveAndContinue = require('./saveAndContinue')
 
 class SaveAndContinue extends upwSaveAndContinue {
   constructor(...args) {
     super(...args)
     // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
-    this.getAnswerMutators = [mapExistingAnswersForMultipleEntries]
-    this.postAnswerMutators = [unsetDeprecatedAnswers]
+    this.getAnswerMutators = [convertGpDetailsEntries]
+    this.postAnswerMutators = [unsetOldGPDetailsFields]
   }
 
   async locals(req, res, next) {

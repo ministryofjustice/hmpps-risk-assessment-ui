@@ -1,4 +1,4 @@
-const { mapExistingAnswersForMultipleEntries } = require('./gpDetails.utils')
+const { convertGpDetailsEntries } = require('./gpDetails.utils')
 const upwSaveAndContinue = require('./saveAndContinue')
 
 const checkGpDetails = function range(gpDetailsDeclined, gpDetails, gpDetailsComplete) {
@@ -22,7 +22,7 @@ class SaveAndContinue extends upwSaveAndContinue {
   constructor(...args) {
     super(...args)
     // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
-    this.getAnswerMutators = [mapExistingAnswersForMultipleEntries]
+    this.getAnswerMutators = [convertGpDetailsEntries]
   }
 
   async validateFields(req, res, next) {

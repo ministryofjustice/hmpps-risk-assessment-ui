@@ -1,20 +1,20 @@
-const mapExistingAnswersForMultipleEntries = answers => {
+const convertGpDetailsEntries = answers => {
   const gpDetails = answers.gp_details || []
-  const updatedGpDetails = gpDetails.map(mapExistingAnswersToNewFields)
+  const updatedGpDetails = gpDetails.map(convertGpDetails)
   return {
     ...answers,
     gp_details: updatedGpDetails,
   }
 }
 
-const formatFullName = (firstName = '', familyName = '') => `${firstName} ${familyName}`.trim()
+const createFullNameFrom = (firstName = '', familyName = '') => `${firstName} ${familyName}`.trim()
 
-const mapExistingAnswersToNewFields = answers => ({
+const convertGpDetails = answers => ({
   ...answers,
-  gp_name: [formatFullName(answers.gp_first_name, answers.gp_family_name)],
+  gp_name: [createFullNameFrom(answers.gp_first_name, answers.gp_family_name)],
 })
 
-const unsetDeprecatedAnswers = answers => {
+const unsetOldGPDetailsFields = answers => {
   return {
     ...answers,
     gp_details: (answers.gp_details || []).map(e => ({
@@ -28,7 +28,7 @@ const unsetDeprecatedAnswers = answers => {
 }
 
 module.exports = {
-  mapExistingAnswersToNewFields,
-  unsetDeprecatedAnswers,
-  mapExistingAnswersForMultipleEntries,
+  convertGpDetails,
+  unsetOldGPDetailsFields,
+  convertGpDetailsEntries,
 }

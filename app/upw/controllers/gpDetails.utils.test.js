@@ -1,15 +1,11 @@
-const {
-  mapExistingAnswersToNewFields,
-  mapExistingAnswersForMultipleEntries,
-  unsetDeprecatedAnswers,
-} = require('./gpDetails.utils')
+const { convertGpDetails, convertGpDetailsEntries, unsetOldGPDetailsFields } = require('./gpDetails.utils')
 
 const GP_FIRST_NAME = 'first'
 const GP_FAMILY_NAME = 'last'
 const GP_NAME = `${GP_FIRST_NAME} ${GP_FAMILY_NAME}`
 
 describe('gpDetails.utils.js', () => {
-  describe('mapExistingAnswersForMultipleEntries', () => {
+  describe('convertGpDetailsEntries', () => {
     it('formats all records in "gp_details"', () => {
       const originalAnswers = {
         gp_details: [
@@ -18,7 +14,7 @@ describe('gpDetails.utils.js', () => {
         ],
       }
 
-      const updatedAnswers = mapExistingAnswersForMultipleEntries(originalAnswers)
+      const updatedAnswers = convertGpDetailsEntries(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_details: [
@@ -31,20 +27,20 @@ describe('gpDetails.utils.js', () => {
     it('handles when "gp_details" is unset', () => {
       const originalAnswers = {}
 
-      const updatedAnswers = mapExistingAnswersForMultipleEntries(originalAnswers)
+      const updatedAnswers = convertGpDetailsEntries(originalAnswers)
 
       expect(updatedAnswers).toEqual({ gp_details: [] })
     })
   })
 
-  describe('mapExistingAnswersToNewFields', () => {
+  describe('convertGpDetails', () => {
     it('combines "gp_first_name" and "gp_family_name" in to a single field', () => {
       const originalAnswers = {
         gp_first_name: [GP_FIRST_NAME],
         gp_family_name: [GP_FAMILY_NAME],
       }
 
-      const updatedAnswers = mapExistingAnswersToNewFields(originalAnswers)
+      const updatedAnswers = convertGpDetails(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_name: [GP_NAME],
@@ -59,7 +55,7 @@ describe('gpDetails.utils.js', () => {
         gp_family_name: [GP_FAMILY_NAME],
       }
 
-      const updatedAnswers = mapExistingAnswersToNewFields(originalAnswers)
+      const updatedAnswers = convertGpDetails(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_name: [GP_FAMILY_NAME],
@@ -74,7 +70,7 @@ describe('gpDetails.utils.js', () => {
         gp_family_name: [],
       }
 
-      const updatedAnswers = mapExistingAnswersToNewFields(originalAnswers)
+      const updatedAnswers = convertGpDetails(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_name: [GP_FIRST_NAME],
@@ -89,7 +85,7 @@ describe('gpDetails.utils.js', () => {
         gp_family_name: [],
       }
 
-      const updatedAnswers = mapExistingAnswersToNewFields(originalAnswers)
+      const updatedAnswers = convertGpDetails(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_name: [''],
@@ -103,7 +99,7 @@ describe('gpDetails.utils.js', () => {
         other_field: ['test'],
       }
 
-      const updatedAnswers = mapExistingAnswersToNewFields(originalAnswers)
+      const updatedAnswers = convertGpDetails(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         other_field: ['test'],
@@ -112,13 +108,13 @@ describe('gpDetails.utils.js', () => {
     })
   })
 
-  describe('unsetDeprecatedAnswers', () => {
+  describe('unsetOldGPDetailsFields', () => {
     it('will unset the "gp_first_name" field', () => {
       const originalAnswers = {
         gp_first_name: [GP_FIRST_NAME],
       }
 
-      const updatedAnswers = unsetDeprecatedAnswers(originalAnswers)
+      const updatedAnswers = unsetOldGPDetailsFields(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_details: [],
@@ -131,7 +127,7 @@ describe('gpDetails.utils.js', () => {
         gp_family_name: [GP_FAMILY_NAME],
       }
 
-      const updatedAnswers = unsetDeprecatedAnswers(originalAnswers)
+      const updatedAnswers = unsetOldGPDetailsFields(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_details: [],
@@ -150,7 +146,7 @@ describe('gpDetails.utils.js', () => {
         ],
       }
 
-      const updatedAnswers = unsetDeprecatedAnswers(originalAnswers)
+      const updatedAnswers = unsetOldGPDetailsFields(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_first_name: [],
@@ -169,7 +165,7 @@ describe('gpDetails.utils.js', () => {
         other_field: ['test'],
       }
 
-      const updatedAnswers = unsetDeprecatedAnswers(originalAnswers)
+      const updatedAnswers = unsetOldGPDetailsFields(originalAnswers)
 
       expect(updatedAnswers).toEqual({
         gp_details: [],
