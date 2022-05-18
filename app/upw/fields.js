@@ -133,7 +133,7 @@ const fields = {
       {
         type: 'required',
         message:
-          'Is the individual intersex or do they have a Difference in Sexual Development (DSD)? Select Yes or No',
+          'Is the individual intersex or do they have a Difference in Sexual Development (DSD)? Select yes or no',
       },
     ],
   },
@@ -141,7 +141,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Do they consider themselves to be transgender or have a transgender history? Select Yes or No',
+        message: 'Do they consider themselves to be transgender or have a transgender history? Select yes or no',
       },
     ],
   },
@@ -180,7 +180,7 @@ const fields = {
   },
   cultural_religious_adjustment: {
     validate: [
-      { type: 'required', message: 'Are adjustments required for cultural or religious reasons? Select Yes or No' },
+      { type: 'required', message: 'Are adjustments required for cultural or religious reasons? Select yes or no' },
     ],
   },
   cultural_religious_adjustment_details: {
@@ -204,7 +204,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is there a history of sexual offending? Select Yes or No',
+        message: 'Is there a history of sexual offending? Select yes or no',
       },
     ],
   },
@@ -221,7 +221,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Does the individual pose a risk to children? Select Yes or No',
+        message: 'Does the individual pose a risk to children? Select yes or no',
       },
     ],
   },
@@ -238,7 +238,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is there a history of violent offences? Select Yes or No',
+        message: 'Is there a history of violent offences? Select yes or no',
       },
     ],
   },
@@ -255,7 +255,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is there a history of acquisitive offending? Select Yes or No',
+        message: 'Is there a history of acquisitive offending? Select yes or no',
       },
     ],
   },
@@ -272,7 +272,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Has the individual been involved in serious group offending? Select Yes or No',
+        message: 'Has the individual been involved in serious group offending? Select yes or no',
       },
     ],
   },
@@ -289,7 +289,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Has the individual had control issues or disruptive behaviour? Select Yes or No',
+        message: 'Has the individual had control issues or disruptive behaviour? Select yes or no',
       },
     ],
   },
@@ -306,7 +306,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Does the individual have a history of hate-based attitudes or behaviours? Select Yes or No',
+        message: 'Does the individual have a history of hate-based attitudes or behaviours? Select yes or no',
       },
     ],
   },
@@ -323,7 +323,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is the individual vulnerable because they are a high-profile person? Select Yes or No',
+        message: 'Is the individual vulnerable because they are a high-profile person? Select yes or no',
       },
     ],
   },
@@ -340,7 +340,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is there additional risk assessment information relevant to Community Payback? Select Yes or No',
+        message: 'Is there additional risk assessment information relevant to Community Payback? Select yes or no',
       },
     ],
   },
@@ -357,7 +357,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is the individual’s location restricted by victim exclusion criteria? Select Yes or No',
+        message: 'Is the individual’s location restricted by victim exclusion criteria? Select yes or no',
       },
     ],
   },
@@ -374,7 +374,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Is close supervision or restricted placement recommended? Select Yes or No',
+        message: 'Is close supervision or restricted placement recommended? Select yes or no',
       },
     ],
   },
@@ -391,7 +391,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Do you recommend not to place with a female supervisor? Select Yes or No',
+        message: 'Do you recommend not to place with a female supervisor? Select yes or no',
       },
     ],
   },
@@ -408,7 +408,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Do you recommend not to place with a male supervisor? Select Yes or No',
+        message: 'Do you recommend not to place with a male supervisor? Select yes or no',
       },
     ],
   },
@@ -425,7 +425,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Are there restrictive orders? Select Yes or No',
+        message: 'Are there restrictive orders? Select yes or no',
       },
     ],
   },
@@ -442,7 +442,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Are there any risk management issues for an individual placement? Select Yes or No',
+        message: 'Are there any risk management issues for an individual placement? Select yes or no',
       },
     ],
   },
@@ -459,7 +459,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Are there any risk management issues if working in a supervised group? Select Yes or No',
+        message: 'Are there any risk management issues if working in a supervised group? Select yes or no',
       },
     ],
   },
@@ -476,7 +476,7 @@ const fields = {
     validate: [
       {
         type: 'required',
-        message: 'Are there any alcohol or drug issues with health and safety impact? Select Yes or No',
+        message: 'Are there any alcohol or drug issues with health and safety impact? Select yes or no',
       },
     ],
   },
@@ -623,7 +623,7 @@ const fields = {
     ...requireEnterDetails,
   },
   eligibility_intensive_working: {
-    validate: [{ type: 'required', message: 'Is the individual eligible for intensive working? Select Yes or No' }],
+    validate: [{ type: 'required', message: 'Is the individual eligible for intensive working? Select yes or no' }],
   },
   eligibility_intensive_working_details: {
     dependent: { field: 'eligibility_intensive_working', value: 'NO' },
@@ -687,39 +687,11 @@ const fields = {
   waterproof_clothing: requireSelectOption,
   footwear_size: requireSelectOption,
   individual_details_complete: requireSelectOption,
-  cultural_religious_adjustment_complete: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
-      },
-    ],
-  },
+  cultural_religious_adjustment_complete: requireSelectOption,
   placement_preference_complete: requireSelectOption,
-  placement_preference_by_gender_complete: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
-      },
-    ],
-  },
-  rosh_community_complete: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
-      },
-    ],
-  },
-  managing_risk_complete: {
-    validate: [
-      {
-        type: 'required',
-        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
-      },
-    ],
-  },
+  placement_preference_by_gender_complete: requireSelectOption,
+  rosh_community_complete: requireSelectOption,
+  managing_risk_complete: requireSelectOption,
   disabilities_complete: requireSelectOption,
   health_issues_complete: requireSelectOption,
   gp_details_complete: requireSelectOption,
