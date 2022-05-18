@@ -14,11 +14,18 @@ const mapExistingAnswersToNewFields = answers => ({
   gp_name: [formatFullName(answers.gp_first_name, answers.gp_family_name)],
 })
 
-const unsetDeprecatedAnswers = answers => ({
-  ...answers,
-  gp_first_name: [],
-  gp_family_name: [],
-})
+const unsetDeprecatedAnswers = answers => {
+  return {
+    ...answers,
+    gp_details: (answers.gp_details || []).map(e => ({
+      ...e,
+      gp_first_name: [],
+      gp_family_name: [],
+    })),
+    gp_first_name: [],
+    gp_family_name: [],
+  }
+}
 
 module.exports = {
   mapExistingAnswersToNewFields,
