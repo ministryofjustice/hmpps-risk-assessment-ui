@@ -5,7 +5,6 @@ const { logger } = require('../../logging/logger')
 
 const whereAnswerValueIs = value => answerDto => answerDto.value === value
 const isMultipleChoiceAnswerFor = answerType => answerType === 'radio' || answerType === 'checkbox'
-const isPresentationOnlyFor = answerType => typeof answerType === 'string' && answerType.match(/presentation:/gi)
 let conditionalQuestionsToRemove = []
 const outOfLineConditionalQuestions = []
 
@@ -34,13 +33,6 @@ const annotateWithAnswers = (questions, answers, body = {}, tables = {}) => {
       }
     }
 
-    if (isPresentationOnlyFor(questionSchema.answerType)) {
-      return {
-        ...questionSchema,
-        answer: '',
-      }
-    }
-
     if (questionSchema.type === 'table' || questionSchema.type === 'tableGroup') {
       const tableEntries = tables[questionSchema.tableCode] || []
       const tableAnswers = transformTableEntries(tableEntries)
@@ -48,9 +40,6 @@ const annotateWithAnswers = (questions, answers, body = {}, tables = {}) => {
       return {
         ...questionSchema,
         contents: questionSchema.contents.map(tableQuestion => {
-          if (isPresentationOnlyFor(tableQuestion.answerType)) {
-            return tableQuestion
-          }
           if (isMultipleChoiceAnswerFor(tableQuestion.answerType)) {
             return {
               ...tableQuestion,

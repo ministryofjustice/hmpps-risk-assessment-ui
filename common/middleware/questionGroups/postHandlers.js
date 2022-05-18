@@ -50,67 +50,6 @@ const constructValidationRule = (questionId, validationType, validationSettings)
   }
 }
 
-const questionGroupValidationRules = async (req, res, next) => {
-  const {
-    body: reqBody,
-    params: { tableName },
-  } = req
-
-  const { questionGroup } = res.locals
-  let currentQuestions = questionGroup.contents
-
-  if (tableName) {
-    currentQuestions = currentQuestions.find(element => element.tableCode === tableName).contents
-  }
-
-  const validatorsToSend = []
-
-  currentQuestions.forEach(question => {
-    let addThisValidation = true
-    if (question.validation && question.readOnly !== true) {
-      // check if this is a conditional question with a parent
-      if (question.conditional) {
-        let conditionalParentAnswer = ''
-        const conditionalQuestionToFind = question.questionCode
-        const parentQuestion = currentQuestions.filter(thisQuestion => {
-          let foundParent = false
-          thisQuestion.answerDtos?.forEach(schema => {
-            schema.conditionals?.forEach(childQuestion => {
-              if (childQuestion.conditional === conditionalQuestionToFind) {
-                foundParent = true
-                conditionalParentAnswer = schema.value
-              }
-            })
-          })
-          return foundParent
-        })
-
-        if (parentQuestion[0]) {
-          // if parent question answer submitted does not match the triggering answer, skip this validation
-          const answerKey = `${parentQuestion[0].questionCode}`
-          if (reqBody[answerKey] !== conditionalParentAnswer) {
-            addThisValidation = false
-          }
-        } else {
-          logger.error(`No parent question found for conditional question ${question.questionCode}`)
-          addThisValidation = false
-        }
-      }
-
-      if (addThisValidation) {
-        const validation = JSON.parse(question.validation)
-        if (validation) {
-          Object.entries(validation).forEach(([validationType, feedback]) => {
-            validatorsToSend.push(constructValidationRule(`${question.questionCode}`, validationType, feedback))
-          })
-        }
-      }
-    }
-  })
-
-  await dynamicMiddleware(validatorsToSend, req, res, next)
-}
-
 function formatValidationErrors(serverErrors, pageErrors) {
   const errors = {}
   const errorSummary = []
@@ -150,4 +89,4 @@ function extractAnswers(req, res, next) {
   next()
 }
 
-module.exports = { questionGroupValidationRules, assembleDates, formatValidationErrors, extractAnswers }
+module.exports = { assembleDates, formatValidationErrors, extractAnswers }

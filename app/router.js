@@ -30,11 +30,7 @@ const { updateTableRow } = require('./editRow/post.controller')
 const { displayOverview } = require('./summary/get.controller')
 const { completeAssessment } = require('./summary/post.controller')
 const { saveQuestionGroup } = require('./questionGroup/post.controller')
-const {
-  questionGroupValidationRules,
-  assembleDates,
-  extractAnswers,
-} = require('../common/middleware/questionGroups/postHandlers')
+const { assembleDates, extractAnswers } = require('../common/middleware/questionGroups/postHandlers')
 const { fetchFilteredReferenceData } = require('./referenceData/post.controller')
 const { psrFromCourt } = require('./psrFromCourt/get.controller')
 const { startPsrFromCourt, startPsrFromForm } = require('./psrFromCourt/post.controller')
@@ -133,7 +129,6 @@ module.exports = app => {
     getOffenderDetails,
     getQuestionGroup,
     assembleDates,
-    questionGroupValidationRules,
     localValidationRules,
     validate,
     extractAnswers,
@@ -154,7 +149,6 @@ module.exports = app => {
     getOffenderDetails,
     getQuestionGroup,
     assembleDates,
-    questionGroupValidationRules,
     validate,
     extractAnswers,
     saveTableRow,
@@ -181,7 +175,6 @@ module.exports = app => {
     getOffenderDetails,
     getQuestionGroup,
     assembleDates,
-    questionGroupValidationRules,
     validate,
     extractAnswers,
     updateTableRow,
