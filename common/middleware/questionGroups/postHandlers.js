@@ -1,6 +1,3 @@
-const { body } = require('express-validator')
-const { dynamicMiddleware } = require('../../utils/util')
-const { logger } = require('../../logging/logger')
 const { extractCheckboxGroupAnswers } = require('./checkboxGroups')
 
 function findDateAnswerKeys(postBody) {
@@ -37,17 +34,6 @@ const assembleDates = async (req, res, next) => {
   })
 
   return next()
-}
-
-const constructValidationRule = (questionId, validationType, validationSettings) => {
-  switch (validationType) {
-    case 'mandatory':
-      return body(questionId)
-        .isLength({ min: 1 })
-        .withMessage({ error: validationSettings.errorMessage, errorSummary: validationSettings.errorSummary })
-    default:
-      return ''
-  }
 }
 
 function formatValidationErrors(serverErrors, pageErrors) {
