@@ -99,7 +99,7 @@ const fields = {
     questionText: '[PLACEHOLDER]',
     questionCode: 'declaration',
     answerType: 'checkbox',
-    answerSchemas: [{ text: 'Complete', value: 'COMPLETE' }],
+    answerDtos: [{ text: 'Complete', value: 'COMPLETE' }],
   },
   first_name_aliases: {
     answerType: 'textarea',
@@ -687,11 +687,39 @@ const fields = {
   waterproof_clothing: requireSelectOption,
   footwear_size: requireSelectOption,
   individual_details_complete: requireSelectOption,
-  cultural_religious_adjustment_complete: requireSelectOption,
+  cultural_religious_adjustment_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
   placement_preference_complete: requireSelectOption,
-  placement_preference_by_gender_complete: requireSelectOption,
-  rosh_community_complete: requireSelectOption,
-  managing_risk_complete: requireSelectOption,
+  placement_preference_by_gender_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
+  rosh_community_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
+  managing_risk_complete: {
+    validate: [
+      {
+        type: 'required',
+        message: 'Select Yes I have completed this section or No I have not completed and will come back later',
+      },
+    ],
+  },
   disabilities_complete: requireSelectOption,
   health_issues_complete: requireSelectOption,
   gp_details_complete: requireSelectOption,
