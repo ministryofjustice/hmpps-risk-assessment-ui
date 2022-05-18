@@ -1,5 +1,4 @@
 const { extractAnswers, formatValidationErrors, assembleDates } = require('./postHandlers')
-const { logger } = require('../../logging/logger')
 
 jest.mock('../../logging/logger', () => ({
   logger: {
