@@ -1,10 +1,5 @@
 const { extractAnswers, formatValidationErrors, assembleDates } = require('./postHandlers')
-const { dynamicMiddleware } = require('../../utils/util')
 const { logger } = require('../../logging/logger')
-
-jest.mock('../../utils/util', () => ({
-  dynamicMiddleware: jest.fn(),
-}))
 
 jest.mock('../../logging/logger', () => ({
   logger: {
@@ -12,17 +7,6 @@ jest.mock('../../logging/logger', () => ({
     error: jest.fn(),
   },
 }))
-
-describe('Question group validation rules', () => {
-  const next = jest.fn()
-
-  beforeEach(() => {
-    dynamicMiddleware.mockReset()
-    next.mockReset()
-    logger.info.mockReset()
-    logger.error.mockReset()
-  })
-})
 
 describe('Assemble dates', () => {
   const next = jest.fn()
