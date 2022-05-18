@@ -22,7 +22,7 @@ class SaveAndContinue extends upwSaveAndContinue {
   constructor(...args) {
     super(...args)
     // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
-    this.getAnswerMutators = [convertGpDetailsEntries]
+    this.getAnswerModifiers = [convertGpDetailsEntries]
   }
 
   async validateFields(req, res, next) {

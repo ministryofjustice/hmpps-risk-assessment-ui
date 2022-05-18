@@ -5,8 +5,8 @@ class SaveAndContinue extends upwSaveAndContinue {
   constructor(...args) {
     super(...args)
     // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
-    this.getAnswerMutators = [convertGpDetailsEntries]
-    this.postAnswerMutators = [unsetOldGPDetailsFields]
+    this.getAnswerModifiers = [convertGpDetailsEntries]
+    this.postAnswerModifiers = [unsetOldGPDetailsFields]
   }
 
   async locals(req, res, next) {

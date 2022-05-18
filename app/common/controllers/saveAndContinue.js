@@ -18,8 +18,8 @@ const {
 class SaveAndContinue extends BaseController {
   constructor(...args) {
     super(...args)
-    this.getAnswerMutators = []
-    this.postAnswerMutators = []
+    this.getAnswerModifiers = []
+    this.postAnswerModifiers = []
   }
 
   async locals(req, res, next) {
@@ -35,7 +35,7 @@ class SaveAndContinue extends BaseController {
       req.user?.id,
     )
 
-    const previousAnswers = this.getAnswerMutators.reduce((a, fn) => fn(a), getAnswersResponse.answers)
+    const previousAnswers = this.getAnswerModifiers.reduce((a, fn) => fn(a), getAnswersResponse.answers)
 
     // get a list of fields with multiple answers in the form [fieldName, answerGroup]
     // 'answerGroup' is the top level key that the API will use to send repeating groups of answers
@@ -233,7 +233,7 @@ class SaveAndContinue extends BaseController {
       req.sessionModel.set('answers', answers)
     }
 
-    const answersToPost = this.postAnswerMutators.reduce((a, fn) => fn(a), answers)
+    const answersToPost = this.postAnswerModifiers.reduce((a, fn) => fn(a), answers)
 
     try {
       const [ok, response] = await postAnswers(
