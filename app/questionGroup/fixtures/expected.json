@@ -3,6 +3,7 @@
   "assessmentId": "test-assessment-id",
   "heading": "Page 1",
   "groupId": "22222222-2222-2222-2222-222222222204",
+  "page": 0,
   "questions": [
     {
       "type": "question",
@@ -23,73 +24,15 @@
       "answer": ""
     },
     {
-      "type": "tableGroup",
-      "tableId": "946091d2-4038-4e2b-9283-83cc4876f6ed",
-      "tableCode": "children",
-      "title": "Children",
-      "formClasses": "govuk-input--pack-together",
-      "contents": [
-        {
-          "type": "question",
-          "questionId": "946091d2-4038-4e2b-9283-83cc4883cc1",
-          "questionCode": "129.1",
-          "answerType": "freetext",
-          "questionText": "Child's name",
-          "answer": ""
-        },
-        {
-          "type": "question",
-          "questionId": "946091d2-4038-4e2b-9283-83cc4883cc2",
-          "questionCode": "129.2",
-          "answerType": "freetext",
-          "questionText": "Child's age",
-          "answer": ""
-        },
-        {
-          "type": "question",
-          "questionId": "946091d2-4038-4e2b-9283-83cc4883cc3",
-          "questionCode": "129.3",
-          "answerType": "textarea",
-          "questionText": "Child's address",
-          "answer": ""
-        },
-        {
-          "type": "question",
-          "questionId": "946091d2-4038-4e2b-9283-83cc4883cc4",
-          "questionCode": "129.4",
-          "answerType": "date",
-          "questionText": "Date of birth",
-          "answer": ""
-        },
-        {
-          "type": "question",
-          "questionId": "946091d2-4038-4e2b-9283-83cc4883cc5",
-          "questionCode": "129.5",
-          "answerType": "checkbox",
-          "questionText": "Type",
-          "helpText": "Select all that apply",
-          "answerDtos": [
-            {
-              "answerUuid": "1124444444-4444-4444-4444-444444444444",
-              "answerSchemaCode": "SR15.1.2.1",
-              "value": "physical",
-              "text": "Physical"
-            },
-            {
-              "answerUuid": "1234444444-4444-4444-4444-444444444445",
-              "answerSchemaCode": "SR15.1.2.2",
-              "value": "mental",
-              "text": "Mental"
-            },
-            {
-              "answerUuid": "1334444444-4444-4444-4444-444444444445",
-              "answerSchemaCode": "SR15.1.2.2",
-              "value": "emotional",
-              "text": "Emotional"
-            }
-          ]
-        }
-      ]
+      "type": "question",
+      "questionId": "b0608208-e593-4958-a903-d23b47948429",
+      "questionCode": "uiS5.1",
+      "questionText": "Add another child",
+      "readOnly": true,
+      "conditional": false,
+      "referenceDataTargets": [],
+      "answerDtos": [],
+      "answer": ""
     },
     {
       "type": "question",
@@ -456,6 +399,5 @@
   ],
   "errors": {},
   "errorSummary": null,
-  "groupUuid": "22222222-2222-2222-2222-222222222205",
-  "page": 0
+  "groupUuid": "22222222-2222-2222-2222-222222222205"
 }

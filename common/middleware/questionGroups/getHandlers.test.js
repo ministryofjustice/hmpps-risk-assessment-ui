@@ -11,7 +11,7 @@ nunjucksEnvironment.addFilter('mojDate', mojDate)
 nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
 nunjucksEnvironment.addFilter('addSpellcheck', jsonObj => updateJsonValue(jsonObj, 'spellcheck', true, true))
 
-const { compileInlineConditionalQuestions, annotateWithAnswers, transformTableEntries } = require('./getHandlers')
+const { compileInlineConditionalQuestions, annotateWithAnswers } = require('./getHandlers')
 
 const questions = [
   {
@@ -222,41 +222,6 @@ describe('getQuestionGroups', () => {
       const [firstAnswer, secondAnswer] = theQuestion.answerDtos
       expect(firstAnswer.checked).toBe(true)
       expect(secondAnswer.checked).toBe(false)
-    })
-  })
-
-  describe('transformTableEntries', () => {
-    it('converts entries to question answers', () => {
-      const tableEntries = [
-        { first: 'foo', second: 'baz' },
-        { first: 'bar', second: 'bar' },
-        { first: 'baz', second: 'foo' },
-      ]
-
-      const expected = {
-        first: ['foo', 'bar', 'baz'],
-        second: ['baz', 'bar', 'foo'],
-      }
-
-      expect(transformTableEntries(tableEntries)).toStrictEqual(expected)
-    })
-
-    it('converts handles missing answers', () => {
-      const tableEntries = [{ first: 'foo', second: 'baz' }, { first: 'bar' }, { second: 'foo' }]
-
-      const expected = {
-        first: ['foo', 'bar', ''],
-        second: ['baz', '', 'foo'],
-      }
-
-      expect(transformTableEntries(tableEntries)).toStrictEqual(expected)
-    })
-
-    it('handles no entries', () => {
-      const tableEntries = []
-      const expected = {}
-
-      expect(transformTableEntries(tableEntries)).toStrictEqual(expected)
     })
   })
 })
