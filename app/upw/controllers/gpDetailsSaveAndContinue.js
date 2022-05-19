@@ -1,3 +1,4 @@
+const { convertGpDetailsEntries } = require('./gpDetails.utils')
 const upwSaveAndContinue = require('./saveAndContinue')
 
 const checkGpDetails = function range(gpDetailsDeclined, gpDetails, gpDetailsComplete) {
@@ -18,6 +19,12 @@ const customValidationsGpDetails = (fields, gpDetails, gpDetailsComplete) => {
 }
 
 class SaveAndContinue extends upwSaveAndContinue {
+  constructor(...args) {
+    super(...args)
+    // Migrate existing answers for "gp_first_name" and "gp_family_name" to the single "gp_name" field for display
+    this.getAnswerModifiers = [convertGpDetailsEntries]
+  }
+
   async validateFields(req, res, next) {
     // make changes to sessionModel fields to add in context specific validations
     const { gp_details = [] } = req.sessionModel.get('rawAnswers') || []

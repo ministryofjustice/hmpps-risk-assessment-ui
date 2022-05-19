@@ -539,39 +539,43 @@ const fields = {
     ...requireEnterDetails,
   },
   gp_first_name: {
-    validate: [{ type: 'required', message: 'First name is required' }],
+    // Deprecated: use gp_name instead
     type: 'multiple',
     answerGroup: 'gp_details',
   },
   gp_family_name: {
-    validate: [{ type: 'required', message: 'Family name is required' }],
+    // Deprecated: use gp_name instead
+    type: 'multiple',
+    answerGroup: 'gp_details',
+  },
+  gp_name: {
+    type: 'multiple',
+    answerGroup: 'gp_details',
+  },
+  gp_practice_name: {
+    validate: [{ type: 'required', message: 'GP Practice Name is required' }],
     type: 'multiple',
     answerGroup: 'gp_details',
   },
   gp_address_building_name: { type: 'multiple', answerGroup: 'gp_details' },
   gp_address_house_number: { type: 'multiple', answerGroup: 'gp_details' },
   gp_address_street_name: {
-    validate: [{ type: 'required', message: 'Street name is required' }],
     type: 'multiple',
     answerGroup: 'gp_details',
   },
   gp_address_district: {
-    validate: [{ type: 'required', message: 'District is required' }],
     type: 'multiple',
     answerGroup: 'gp_details',
   },
   gp_address_town_or_city: {
-    validate: [{ type: 'required', message: 'Town/City is required' }],
     type: 'multiple',
     answerGroup: 'gp_details',
   },
   gp_address_county: {
-    validate: [{ type: 'required', message: 'County is required' }],
     type: 'multiple',
     answerGroup: 'gp_details',
   },
   gp_address_postcode: {
-    validate: [{ type: 'required', message: 'Postcode is required' }],
     type: 'multiple',
     answerGroup: 'gp_details',
   },

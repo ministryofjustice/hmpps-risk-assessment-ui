@@ -12,6 +12,7 @@ const Declaration = require('./controllers/declaration')
 const Confirmation = require('./controllers/confirmation')
 const CloseAssessment = require('./controllers/closeAssessment')
 const editContactDetailsSaveAndContinue = require('./controllers/editContactDetailsSaveAndContinue')
+const PreviewPdf = require('./controllers/previewPdf')
 
 module.exports = {
   '/start': {
@@ -202,8 +203,10 @@ module.exports = {
     template: `${__dirname}/templates/placement-restrictions/edit-gp-details.njk`,
     next: 'gp-details',
     fields: [
-      'gp_first_name',
-      'gp_family_name',
+      'gp_first_name', // Deprecated: use gp_name instead
+      'gp_family_name', // Deprecated: use gp_name instead
+      'gp_name',
+      'gp_practice_name',
       'gp_address_building_name',
       'gp_address_house_number',
       'gp_address_street_name',
@@ -308,7 +311,7 @@ module.exports = {
   },
   '/pdf-preview': {
     pageTitle: 'PDF preview',
-    controller: SaveAndContinue,
+    controller: PreviewPdf,
     template: `${__dirname}/templates/pdf-preview-and-declaration/pdf-preview.njk`,
     fields: [],
     next: 'pdf-preview-and-declaration',
