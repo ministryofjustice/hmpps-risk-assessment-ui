@@ -1,6 +1,7 @@
 const { format } = require('date-fns')
 const { getRegistrationsForCrn, getRoshRiskSummaryForCrn } = require('../../../common/data/hmppsAssessmentApi')
 const logger = require('../../../common/logging/logger')
+const { prettyDate } = require('../../../common/utils/util')
 
 const whereStringNotNull = s => s !== null
 
@@ -16,10 +17,6 @@ const formatMappaCode = (code, prefix) => {
   return suffix ? `${prefix} ${suffix}` : null
 }
 
-const formatDate = date => {
-  return date ? format(new Date(date), 'do MMMM y') : null
-}
-
 const formatMappaCodes = ({ category, level } = {}) => {
   if (!category && !level) {
     return null
@@ -31,7 +28,7 @@ const formatMappaCodes = ({ category, level } = {}) => {
 const formatMappaResponse = (mappaResponse = {}) => ({
   level: formatMappaCodes(mappaResponse),
   isNominal: mappaResponse.level ? mappaResponse.level === 'M0' : null,
-  lastUpdated: formatDate(mappaResponse?.startDate),
+  lastUpdated: prettyDate(mappaResponse?.startDate),
 })
 
 const formatFlag = flag => flag.description || null
@@ -90,7 +87,7 @@ const getRoshRiskSummary = async (crn, user) => {
         riskToPublic: nullIfNotKnown(response.riskToPublicInCommunity),
         riskToKnownAdult: nullIfNotKnown(response.riskToKnownAdultInCommunity),
         riskToStaff: nullIfNotKnown(response.riskToStaffInCommunity),
-        lastUpdated: formatDate(response.lastUpdated),
+        lastUpdated: prettyDate(response.lastUpdated),
       },
     }
   } catch (error) {
