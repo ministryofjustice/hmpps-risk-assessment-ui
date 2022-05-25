@@ -1,4 +1,3 @@
-const { differenceInYears } = require('date-fns')
 const BaseController = require('../../common/controllers/baseController')
 const { trackEvent } = require('../../../common/logging/app-insights')
 const { EVENTS } = require('../../../common/utils/constants')

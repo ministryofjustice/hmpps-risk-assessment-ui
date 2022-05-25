@@ -1,4 +1,3 @@
-const { format } = require('date-fns')
 const { getRegistrationsForCrn, getRoshRiskSummaryForCrn } = require('../../../common/data/hmppsAssessmentApi')
 const logger = require('../../../common/logging/logger')
 const { prettyDate } = require('../../../common/utils/util')

@@ -1,4 +1,3 @@
-const { differenceInYears, format } = require('date-fns')
 const { getCurrentEpisodeForCrn, getOffenderAndOffenceDetails } = require('../../common/data/hmppsAssessmentApi')
 const logger = require('../../common/logging/logger')
 const { getErrorMessageFor, prettyDate, ageFrom } = require('../../common/utils/util')
