@@ -35,6 +35,7 @@ const getTask = (answers, baseUrl, steps, taskName, completionField) => {
     text: steps[`/${taskName}`]?.pageTitle || 'Unknown Task',
     href: `${baseUrl}/${taskName}` || '#',
     status: answers[completionField]?.toString().toUpperCase() === SECTION_COMPLETE ? 'COMPLETE' : 'INCOMPLETE',
+    id: steps[`/${taskName}`]?.id,
   }
 }
 
@@ -95,6 +96,7 @@ const getTaskList = (baseUrl = '', steps = {}, answers = {}) => {
     {
       heading: {
         text: 'Placement details',
+        id: 'placementDetails',
       },
       items: [
         getTask(answers, baseUrl, steps, 'intensive-working', 'eligibility_intensive_working_complete'),

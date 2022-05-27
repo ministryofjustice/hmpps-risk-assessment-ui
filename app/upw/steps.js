@@ -31,9 +31,10 @@ module.exports = {
   },
   '/individuals-details': {
     pageTitle: "Individual's details",
+    id: 'individualsDetails',
     controller: individualsDetailsSaveAndContinue,
     template: `${__dirname}/templates/individuals-details/individuals-details.njk`,
-    next: 'task-list',
+    next: 'task-list#individualsDetails',
     fields: ['individual_details_complete', 'emergency_contact_declined'],
   },
   '/edit-personal-details': {
@@ -81,9 +82,10 @@ module.exports = {
   },
   '/cultural-and-religious-adjustments': {
     pageTitle: 'Cultural and religious adjustments',
+    id: 'cultualAndReligiousAdjustments',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/diversity-information/cultural-and-religious-adjustments`,
-    next: 'task-list',
+    next: 'task-list#cultualAndReligiousAdjustments',
     fields: [
       'cultural_religious_adjustment',
       'cultural_religious_adjustment_details',
@@ -99,9 +101,10 @@ module.exports = {
   },
   '/gender-information': {
     pageTitle: 'Gender information',
+    id: 'genderInformation',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/diversity-information/gender-information`,
-    next: 'task-list',
+    next: 'task-list#genderInformation',
     fields: [
       'gender_identity',
       'sex_change',
@@ -113,9 +116,10 @@ module.exports = {
   },
   '/risk-of-harm-in-the-community': {
     pageTitle: 'Risk of harm in the community',
+    id: 'riskOfHarmInTheCommunity',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/risk-information/risk-of-harm-in-the-community`,
-    next: 'task-list',
+    next: 'task-list#riskOfHarmInTheCommunity',
     fields: [
       'history_sexual_offending',
       'history_sexual_offending_details',
@@ -140,9 +144,10 @@ module.exports = {
   },
   '/managing-risk': {
     pageTitle: 'Managing risk',
+    id: 'managingRisk',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/risk-information/managing-risk`,
-    next: 'task-list',
+    next: 'task-list#managingRisk',
     fields: [
       'location_exclusion_criteria',
       'location_exclusion_criteria_details',
@@ -165,16 +170,18 @@ module.exports = {
   },
   '/disabilities-and-mental-health': {
     pageTitle: 'Disabilities and mental health',
+    id: 'disabilitiesAndMentalHealth',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/disabilities-and-mental-health.njk`,
-    next: 'task-list',
+    next: 'task-list#disabilitiesAndMentalHealth',
     fields: ['disabilities', 'disabilities_details', 'disabilities_complete'],
   },
   '/health-issues': {
     pageTitle: 'Health issues',
+    id: 'healthIssues',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/health-issues.njk`,
-    next: 'task-list',
+    next: 'task-list#healthIssues',
     fields: [
       'allergies',
       'allergies_details',
@@ -192,9 +199,10 @@ module.exports = {
   },
   '/gp-details': {
     pageTitle: 'GP Details',
+    id: 'gpDetails',
     controller: gpDetailsSaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/gp-details.njk`,
-    next: 'task-list',
+    next: 'task-list#gpDetails',
     fields: ['gp_details_complete'],
   },
   '/edit-gp-details/*': {
@@ -224,9 +232,10 @@ module.exports = {
   },
   '/travel-information': {
     pageTitle: 'Travel',
+    id: 'travel',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/travel-information.njk`,
-    next: 'task-list',
+    next: 'task-list#travel',
     fields: [
       'travel_information',
       'travel_information_details',
@@ -238,16 +247,18 @@ module.exports = {
   },
   '/caring-commitments': {
     pageTitle: 'Caring commitments',
+    id: 'caringCommitments',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/caring-commitments.njk`,
-    next: 'task-list',
+    next: 'task-list#caringCommitments',
     fields: ['caring_commitments', 'caring_commitments_details', 'caring_commitments_complete'],
   },
   '/employment-education-and-skills': {
     pageTitle: 'Employment, education and skills',
+    id: 'employmenetEducationAndSkills',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/employment-education-skills/employment-education-skills`,
-    next: 'task-list',
+    next: 'task-list#employmenetEducationAndSkills',
     fields: [
       'employment_education',
       'employment_education_details_fulltime',
@@ -263,9 +274,10 @@ module.exports = {
   },
   '/training-and-employment-opportunities': {
     pageTitle: 'Training & employment opportunities',
+    id: 'training&EmploymentOpportunities',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/employment-education-skills/training-employment-opportunities`,
-    next: 'task-list',
+    next: 'task-list#training&EmploymentOpportunities',
     fields: [
       'education_training_need',
       'education_training_need_details',
@@ -276,9 +288,10 @@ module.exports = {
   },
   '/intensive-working': {
     pageTitle: 'Intensive working',
+    id: 'intensiveWorking',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-details/intensive-working`,
-    next: 'task-list',
+    next: 'task-list#intensiveWorking',
     fields: [
       'eligibility_intensive_working',
       'eligibility_intensive_working_details',
@@ -290,16 +303,18 @@ module.exports = {
   },
   '/availability': {
     pageTitle: 'Availability',
+    id: 'availability',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-details/availability`,
-    next: 'task-list',
+    next: 'task-list#availability',
     fields: ['individual_availability', 'individual_availability_details', 'individual_availability_complete'],
   },
   '/equipment': {
     pageTitle: 'Equipment',
+    id: 'equipment',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-details/equipment`,
-    next: 'task-list',
+    next: 'task-list#equipment',
     fields: ['male_female_clothing', 'waterproof_clothing', 'footwear_size', 'equipment_complete'],
   },
   '/pdf-preview-and-declaration': {
