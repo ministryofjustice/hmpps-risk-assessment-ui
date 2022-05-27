@@ -31,10 +31,10 @@ module.exports = {
   },
   '/individuals-details': {
     pageTitle: "Individual's details",
-    id: 'individualsDetails',
+    id: 'individuals-details',
     controller: individualsDetailsSaveAndContinue,
     template: `${__dirname}/templates/individuals-details/individuals-details.njk`,
-    next: 'task-list#individualsDetails',
+    next: 'task-list#individuals-details',
     fields: ['individual_details_complete', 'emergency_contact_declined'],
   },
   '/edit-personal-details': {
@@ -82,10 +82,10 @@ module.exports = {
   },
   '/cultural-and-religious-adjustments': {
     pageTitle: 'Cultural and religious adjustments',
-    id: 'cultualAndReligiousAdjustments',
+    id: 'cultual-religious-adjustments',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/diversity-information/cultural-and-religious-adjustments`,
-    next: 'task-list#cultualAndReligiousAdjustments',
+    next: 'task-list#cultual-religious-adjustments',
     fields: [
       'cultural_religious_adjustment',
       'cultural_religious_adjustment_details',
@@ -101,10 +101,10 @@ module.exports = {
   },
   '/gender-information': {
     pageTitle: 'Gender information',
-    id: 'genderInformation',
+    id: 'gender-information',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/diversity-information/gender-information`,
-    next: 'task-list#genderInformation',
+    next: 'task-list#gender-information',
     fields: [
       'gender_identity',
       'sex_change',
@@ -116,10 +116,10 @@ module.exports = {
   },
   '/risk-of-harm-in-the-community': {
     pageTitle: 'Risk of harm in the community',
-    id: 'riskOfHarmInTheCommunity',
+    id: 'risk-of-harm-in-the-community',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/risk-information/risk-of-harm-in-the-community`,
-    next: 'task-list#riskOfHarmInTheCommunity',
+    next: 'task-list#risk-of-harm-in-the-community',
     fields: [
       'history_sexual_offending',
       'history_sexual_offending_details',
@@ -144,10 +144,10 @@ module.exports = {
   },
   '/managing-risk': {
     pageTitle: 'Managing risk',
-    id: 'managingRisk',
+    id: 'managing-risk',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/risk-information/managing-risk`,
-    next: 'task-list#managingRisk',
+    next: 'task-list#managing-risk',
     fields: [
       'location_exclusion_criteria',
       'location_exclusion_criteria_details',
@@ -170,18 +170,18 @@ module.exports = {
   },
   '/disabilities-and-mental-health': {
     pageTitle: 'Disabilities and mental health',
-    id: 'disabilitiesAndMentalHealth',
+    id: 'disabilities-mental-health',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/disabilities-and-mental-health.njk`,
-    next: 'task-list#disabilitiesAndMentalHealth',
+    next: 'task-list#disabilities-mental-health',
     fields: ['disabilities', 'disabilities_details', 'disabilities_complete'],
   },
   '/health-issues': {
     pageTitle: 'Health issues',
-    id: 'healthIssues',
+    id: 'health-issues',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/health-issues.njk`,
-    next: 'task-list#healthIssues',
+    next: 'task-list#health-issues',
     fields: [
       'allergies',
       'allergies_details',
@@ -199,10 +199,10 @@ module.exports = {
   },
   '/gp-details': {
     pageTitle: 'GP Details',
-    id: 'gpDetails',
+    id: 'gp-details',
     controller: gpDetailsSaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/gp-details.njk`,
-    next: 'task-list#gpDetails',
+    next: 'task-list#gp-details',
     fields: ['gp_details_complete'],
   },
   '/edit-gp-details/*': {
@@ -247,18 +247,18 @@ module.exports = {
   },
   '/caring-commitments': {
     pageTitle: 'Caring commitments',
-    id: 'caringCommitments',
+    id: 'caring-commitments',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/caring-commitments.njk`,
-    next: 'task-list#caringCommitments',
+    next: 'task-list#caring-commitments',
     fields: ['caring_commitments', 'caring_commitments_details', 'caring_commitments_complete'],
   },
   '/employment-education-and-skills': {
     pageTitle: 'Employment, education and skills',
-    id: 'employmenetEducationAndSkills',
+    id: 'employment-education-skills',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/employment-education-skills/employment-education-skills`,
-    next: 'task-list#employmenetEducationAndSkills',
+    next: 'task-list#employment-education-skills',
     fields: [
       'employment_education',
       'employment_education_details_fulltime',
@@ -274,10 +274,10 @@ module.exports = {
   },
   '/training-and-employment-opportunities': {
     pageTitle: 'Training & employment opportunities',
-    id: 'training&EmploymentOpportunities',
+    id: 'training-employment-opportunities',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/employment-education-skills/training-employment-opportunities`,
-    next: 'task-list#training&EmploymentOpportunities',
+    next: 'task-list#training-employment-opportunities',
     fields: [
       'education_training_need',
       'education_training_need_details',
@@ -288,10 +288,10 @@ module.exports = {
   },
   '/intensive-working': {
     pageTitle: 'Intensive working',
-    id: 'intensiveWorking',
+    id: 'intensive-working',
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-details/intensive-working`,
-    next: 'task-list#intensiveWorking',
+    next: 'task-list#intensive-working',
     fields: [
       'eligibility_intensive_working',
       'eligibility_intensive_working_details',
