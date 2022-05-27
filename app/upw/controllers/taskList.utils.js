@@ -96,7 +96,6 @@ const getTaskList = (baseUrl = '', steps = {}, answers = {}) => {
     {
       heading: {
         text: 'Placement details',
-        id: 'placementDetails',
       },
       items: [
         getTask(answers, baseUrl, steps, 'intensive-working', 'eligibility_intensive_working_complete'),
