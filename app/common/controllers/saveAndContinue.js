@@ -1,3 +1,4 @@
+const lodash = require('lodash')
 const BaseController = require('./baseController')
 const { SECTION_INCOMPLETE } = require('../../../common/utils/constants')
 const { getAnswers, postAnswers, getFlatAssessmentQuestions } = require('../../../common/data/hmppsAssessmentApi')
@@ -14,6 +15,19 @@ const {
   answerDtoFrom,
   answersByQuestionCode,
 } = require('./saveAndContinue.utils')
+
+const postUpdateIfMigrated = async (originalAnswers, migratedAnswers, assessmentUuid, episodeUuid, user) => {
+  if (!lodash.isEqual(originalAnswers, migratedAnswers)) {
+    logger.info(`Saving updated answer structure for assessment ${assessmentUuid}, episode ${episodeUuid}`)
+    try {
+      await postAnswers(assessmentUuid, episodeUuid, { answers: migratedAnswers }, user?.token, user?.id)
+    } catch (error) {
+      logger.error(
+        `Could not save converted answers for assessment ${assessmentUuid}, episode ${episodeUuid}, error: ${error}`,
+      )
+    }
+  }
+}
 
 class SaveAndContinue extends BaseController {
   constructor(...args) {
@@ -36,6 +50,14 @@ class SaveAndContinue extends BaseController {
     )
 
     const previousAnswers = this.getAnswerModifiers.reduce((a, fn) => fn(a), getAnswersResponse.answers)
+
+    await postUpdateIfMigrated(
+      getAnswersResponse.answers,
+      previousAnswers,
+      req.session.assessment?.uuid,
+      req.session.assessment?.episodeUuid,
+      req.user,
+    )
 
     // get a list of fields with multiple answers in the form [fieldName, answerGroup]
     // 'answerGroup' is the top level key that the API will use to send repeating groups of answers
