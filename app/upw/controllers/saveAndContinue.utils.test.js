@@ -7,18 +7,18 @@ const {
 
 describe('gpDetails.utils.js', () => {
   describe('createMultiplesFields', () => {
-    it('creates a "gp_details" and "emergency_contacts" arrays if non exists', () => {
+    it('creates a "gp_details" and "emergency_contact_details" arrays if non exists', () => {
       const answers = {}
 
       const updatedAnswers = createMultiplesFields(answers)
 
       expect(updatedAnswers).toEqual({
         gp_details: [],
-        emergency_contacts: [],
+        emergency_contact_details: [],
       })
     })
 
-    it('does not overwrite "gp_details" and "emergency_contacts" arrays if they exist', () => {
+    it('does not overwrite "gp_details" and "emergency_contact_details" arrays if they exist', () => {
       const answers = {
         gp_details: [
           {
@@ -34,7 +34,7 @@ describe('gpDetails.utils.js', () => {
             gp_address_postcode: [''],
           },
         ],
-        emergency_contacts: [
+        emergency_contact_details: [
           {
             emergency_contact_first_name: ['Peter'],
             emergency_contact_family_name: ['Venkman'],
@@ -224,7 +224,7 @@ describe('gpDetails.utils.js', () => {
 })
 
 describe('migrateEmergencyContacts', () => {
-  it('creates a new "emergency_contacts" entry from existing data', () => {
+  it('creates a new "emergency_contact_details" entry from existing data', () => {
     const answers = {
       emergency_contact_first_name: ['Peter'],
       emergency_contact_family_name: ['Venkman'],
@@ -237,14 +237,14 @@ describe('migrateEmergencyContacts', () => {
       emergency_contact_address_county: [''],
       emergency_contact_phone_number: [''],
       emergency_contact_mobile_phone_number: [''],
-      emergency_contacts: [],
+      emergency_contact_details: [],
     }
 
     const updatedAnswers = migrateEmergencyContacts(answers)
 
     expect(updatedAnswers).toEqual({
       ...answers,
-      emergency_contacts: [
+      emergency_contact_details: [
         {
           emergency_contact_first_name: ['Peter'],
           emergency_contact_family_name: ['Venkman'],
@@ -256,7 +256,7 @@ describe('migrateEmergencyContacts', () => {
     })
   })
 
-  it('creates a new "emergency_contacts" entry from existing data', () => {
+  it('creates a new "emergency_contact_details" entry from existing data', () => {
     const answers = {
       emergency_contact_first_name: [''],
       emergency_contact_family_name: [''],
@@ -269,18 +269,18 @@ describe('migrateEmergencyContacts', () => {
       emergency_contact_address_county: [''],
       emergency_contact_phone_number: [''],
       emergency_contact_mobile_phone_number: [''],
-      emergency_contacts: [],
+      emergency_contact_details: [],
     }
 
     const updatedAnswers = migrateEmergencyContacts(answers)
 
     expect(updatedAnswers).toEqual({
       ...answers,
-      emergency_contacts: [],
+      emergency_contact_details: [],
     })
   })
 
-  it('creates another new "emergency_contacts" entry from existing data when they do not match', () => {
+  it('creates another new "emergency_contact_details" entry from existing data when they do not match', () => {
     const answers = {
       emergency_contact_first_name: ['Peter'],
       emergency_contact_family_name: ['Venkman'],
@@ -293,7 +293,7 @@ describe('migrateEmergencyContacts', () => {
       emergency_contact_address_county: [''],
       emergency_contact_phone_number: [''],
       emergency_contact_mobile_phone_number: [''],
-      emergency_contacts: [
+      emergency_contact_details: [
         {
           emergency_contact_first_name: ['Winston'],
           emergency_contact_family_name: ['Zeddemore'],
@@ -308,7 +308,7 @@ describe('migrateEmergencyContacts', () => {
 
     expect(updatedAnswers).toEqual({
       ...answers,
-      emergency_contacts: [
+      emergency_contact_details: [
         {
           emergency_contact_first_name: ['Winston'],
           emergency_contact_family_name: ['Zeddemore'],
@@ -327,7 +327,7 @@ describe('migrateEmergencyContacts', () => {
     })
   })
 
-  it('does not create another new "emergency_contacts" entry from existing data when they do match', () => {
+  it('does not create another new "emergency_contact_details" entry from existing data when they do match', () => {
     const answers = {
       emergency_contact_first_name: ['Peter'],
       emergency_contact_family_name: ['Venkman'],
@@ -340,7 +340,7 @@ describe('migrateEmergencyContacts', () => {
       emergency_contact_address_county: [''],
       emergency_contact_phone_number: [''],
       emergency_contact_mobile_phone_number: [''],
-      emergency_contacts: [
+      emergency_contact_details: [
         {
           emergency_contact_first_name: ['Peter'],
           emergency_contact_family_name: ['Venkman'],
@@ -355,7 +355,7 @@ describe('migrateEmergencyContacts', () => {
 
     expect(updatedAnswers).toEqual({
       ...answers,
-      emergency_contacts: [
+      emergency_contact_details: [
         {
           emergency_contact_first_name: ['Peter'],
           emergency_contact_family_name: ['Venkman'],

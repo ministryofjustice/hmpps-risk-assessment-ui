@@ -37,7 +37,7 @@ const gpDetailsMigration = {
 }
 
 const emergencyContactsMigration = {
-  collectionKey: 'emergency_contacts',
+  collectionKey: 'emergency_contact_details',
   recordFrom(answers) {
     const getAnswerOrEmpty = orEmptyWith(answers, [''])
     return {
@@ -89,7 +89,7 @@ const createMultiplesFields = answers => {
   return {
     ...answers,
     gp_details: getExistingEntriesFor('gp_details'),
-    emergency_contacts: getExistingEntriesFor('emergency_contacts'),
+    emergency_contact_details: getExistingEntriesFor('emergency_contact_details'),
   }
 }
 
