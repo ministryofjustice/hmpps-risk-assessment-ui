@@ -61,20 +61,20 @@
     ],
     "active_disabilities": [
       {
-        "type": "AP",
+        "code": "AP",
         "description": "Terminal Apathy",
         "disability_notes": "Some comments"
       },
       {
-        "type": "OD",
+        "code": "OD",
         "description": "Other"
       },
       {
-        "type": "LD",
+        "code": "LD",
         "description": "Learning Difficulties"
       },
       {
-        "type": "VI",
+        "code": "VI",
         "description": "Visual Impairment",
         "disability_notes": "Some comments",
         "disability_adjustments": ["Colour/visibility marking"]

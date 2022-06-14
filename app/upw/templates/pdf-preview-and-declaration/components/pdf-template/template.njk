@@ -412,7 +412,7 @@
                 <tbody>
                     {% for disability in rawAnswers["active_disabilities"] %}
                     <tr>
-                        <th>{{ disability["description"] }}</th>
+                        <th>{{ disability["code"] | toDisabilityDescription | default(disability["description"]) }}</th>
                         <td>
                             <p class="govuk-body">{{ disability["disability_notes"] | default("No further details.") }}</p>
                             <p class="govuk-body">
