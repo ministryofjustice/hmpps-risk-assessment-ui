@@ -535,7 +535,11 @@ const fields = {
     answerGroup: 'gp_details',
   },
   gp_practice_name: {
+<<<<<<< HEAD
     validate: [{ type: 'required', message: 'GP practice name is required' }],
+=======
+    validate: [{ type: 'required', message: 'GP Practice name is required' }],
+>>>>>>> Error messages updated
     type: 'multiple',
     answerGroup: 'gp_details',
   },
