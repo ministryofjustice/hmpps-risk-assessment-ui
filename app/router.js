@@ -55,20 +55,6 @@ const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 
 // Export
 module.exports = (app) => {
-  // app.get('/health', (req, res, next) => {
-  //   const healthService = healthCheckFactory({ name: 'sentencePlanning', config: sentencePlanning })
-  //   healthService((err, result) => {
-  //     if (err) {
-  //       return next(err)
-  //     }
-  //     if (!result.healthy) {
-  //       res.status(503)
-  //     }
-  //     res.json(result)
-  //     return result
-  //   })
-  // })
-
   app.get('/health', (req, res, next) => {
     res.status(200).send({
       healthy: true,
