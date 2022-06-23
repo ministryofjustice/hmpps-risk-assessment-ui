@@ -54,7 +54,7 @@ const { getCorrelationId } = require('../common/utils/util')
 const assessmentUrl = `/${devAssessmentId}/questiongroup/ROSH/summary`
 
 // Export
-module.exports = app => {
+module.exports = (app) => {
   // app.get('/health', (req, res, next) => {
   //   const healthService = healthCheckFactory({ name: 'sentencePlanning', config: sentencePlanning })
   //   healthService((err, result) => {

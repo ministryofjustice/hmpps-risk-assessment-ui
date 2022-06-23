@@ -173,20 +173,20 @@ function initialiseTemplateEngine(app) {
 
   // for textarea or input components we can add an extra filter to encode any raw HTML characters
   // that might cause security issues otherwise
-  nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
-  nunjucksEnvironment.addFilter('extractLink', str => extractLink(str))
+  nunjucksEnvironment.addFilter('encodeHtml', (str) => encodeHTML(str))
+  nunjucksEnvironment.addFilter('extractLink', (str) => extractLink(str))
   nunjucksEnvironment.addFilter('doReplace', (str, target, replacement) => doReplace(str, target, replacement))
   // typeof for array, using native JS Array.isArray()
-  nunjucksEnvironment.addFilter('isArr', str => Array.isArray(str))
-  nunjucksEnvironment.addFilter('addSpellcheck', jsonObj => updateJsonValue(jsonObj, 'spellcheck', true, true))
+  nunjucksEnvironment.addFilter('isArr', (str) => Array.isArray(str))
+  nunjucksEnvironment.addFilter('addSpellcheck', (jsonObj) => updateJsonValue(jsonObj, 'spellcheck', true, true))
   nunjucksEnvironment.addFilter('updateJsonValue', (jsonObj, keyToChange, newValue) =>
     updateJsonValue(jsonObj, keyToChange, newValue),
   )
-  nunjucksEnvironment.addFilter('shiftArray', arr => {
+  nunjucksEnvironment.addFilter('shiftArray', (arr) => {
     return arr.slice(1)
   })
   nunjucksEnvironment.addFilter('todayPretty', () => {
-    const nth = dateDay => {
+    const nth = (dateDay) => {
       if (dateDay > 3 && dateDay < 21) return 'th'
       switch (dateDay % 10) {
         case 1:
