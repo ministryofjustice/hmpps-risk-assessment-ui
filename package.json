@@ -157,5 +157,8 @@
     "*.scss": [
       "stylelint '**/*.scss' --cache --fix"
     ]
+  },
+  "resolutions": {
+    "got": "11.8.5"
   }
 }
