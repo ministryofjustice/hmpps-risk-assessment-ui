@@ -152,12 +152,10 @@
   "lint-staged": {
     "*.{js,json,css}": [
       "prettier --write",
-      "eslint --cache --fix",
-      "git add"
+      "eslint --cache --fix"
     ],
     "*.scss": [
-      "stylelint '**/*.scss' --cache --fix",
-      "git add"
+      "stylelint '**/*.scss' --cache --fix"
     ]
   }
 }
