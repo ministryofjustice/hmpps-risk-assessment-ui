@@ -2705,7 +2705,7 @@
       "type": "question",
       "questionId": "d1d6d2be-bbec-4cd0-bced-927bf24fa614",
       "questionCode": "active_carer_commitments_details",
-      "answerType": "freetext",
+      "answerType": "textarea",
       "questionText": "Additional information (Optional)",
       "helpText": "",
       "readOnly": true,

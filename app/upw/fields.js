@@ -594,6 +594,7 @@ const fields = {
     dependent: { field: 'caring_commitments', value: 'YES' },
     ...requireEnterDetails,
   },
+  active_carer_commitments_details: {},
   employment_education: {
     validate: [
       {
