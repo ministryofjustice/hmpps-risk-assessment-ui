@@ -256,7 +256,12 @@ module.exports = {
     controller: SaveAndContinue,
     template: `${__dirname}/templates/placement-restrictions/caring-commitments.njk`,
     next: 'task-list#caring-commitments',
-    fields: ['caring_commitments', 'caring_commitments_details', 'caring_commitments_complete'],
+    fields: [
+      'caring_commitments',
+      'caring_commitments_details',
+      'caring_commitments_complete',
+      'active_carer_commitments_details',
+    ],
   },
   '/employment-education-and-skills': {
     pageTitle: 'Employment, education and skills',
