@@ -54,7 +54,7 @@
     "concat": "concat -o public/javascripts/application.js public/javascripts/browsered.js && rm public/javascripts/browsered.js",
     "copy-assets": "copyfiles -e \"**/*.test.js\" -e \"**/sass/**/*\" -e \"**/javascripts/**/*\" -u 1 common/assets/**/* public && copyfiles -u 3 common/assets/images/**/* public/images && copyfiles -u 3 common/assets/javascripts/**/* public/javascripts && copyfiles -u 3 common/assets/downloads/**/* public/downloads",
     "copy-govuk-assets": "copyfiles -u 1 node_modules/govuk-frontend/govuk/assets/fonts/**/* -f public/assets/fonts && copyfiles -u 1 node_modules/govuk-frontend/govuk/assets/images/**/* -f public/assets/images",
-    "compile-sass": "sass --load-path node_modules/ common/assets/sass:public/stylesheets",
+    "compile-sass": "sass --quiet-deps --no-source-map --load-path=node_modules --load-path=. ./common/assets/sass:./public/stylesheets --style compressed",
     "cssmin": "cleancss -o public/stylesheets/application.min.css public/stylesheets/application.css",
     "security_audit": "npm audit",
     "server": "node ./start.js",
@@ -72,7 +72,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@ministryofjustice/frontend": "^0.2.4",
+    "@ministryofjustice/frontend": "^1.4.2",
     "accessible-autocomplete": "^2.0.3",
     "agentkeepalive": "^4.1.4",
     "applicationinsights": "^1.8.10",
@@ -90,7 +90,7 @@
     "express-validator": "^6.14.2",
     "govuk-frontend": "^4.1.0",
     "helmet": "^5.1.0",
-    "hmpo-form-wizard": "^11.11.0",
+    "hmpo-form-wizard": "^12.0.4",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
@@ -107,7 +107,7 @@
     "superagent": "^7.1.6",
     "throng": "^5.0.0",
     "uuid": "^8.3.2",
-    "winston": "^3.3.3",
+    "winston": "^3.8.0",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
@@ -135,7 +135,7 @@
     "mocha-junit-reporter": "^2.0.2",
     "nanoid": "^4.0.0",
     "nock": "^13.2.7",
-    "nodemon": "2.0.16",
+    "nodemon": "^1.3.3",
     "prettier": "^2.7.1",
     "redis-mock": "^0.56.3",
     "rimraf": "^3.0.2",
