@@ -89,6 +89,13 @@ function initialiseApplicationInsights() {
 function initialiseGlobalMiddleware(app) {
   app.set('settings', { getVersionedPath: staticify.getVersionedPath })
   app.use(helmet())
+  app.use(function (req, res, next) {
+    res.setHeader(
+      'Content-Security-Policy',
+      "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self' 'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU=' 'sha256-m5Sbrhw+r00tt+60yyAghRM3ydJ7im+KM/aKiPEK/HQ='; style-src 'self'; frame-src 'self'",
+    )
+    next()
+  })
   app.use(favicon(join(__dirname, 'public/images/', 'favicon.ico')))
   app.use(compression())
   app.use(staticify.middleware)
