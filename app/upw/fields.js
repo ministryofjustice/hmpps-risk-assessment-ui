@@ -46,10 +46,7 @@ const customValidationsEditContactDetails = (
   return fields
 }
 
-const customValidationsCaringCommitments = (
-  fields,
-  newCaringCommitmentsData,
-) => {
+const customValidationsCaringCommitments = (fields, newCaringCommitmentsData) => {
   if (!newCaringCommitmentsData) {
     fields.caring_commitments?.validate.push(...requireYesOrNo.validate)
     fields.caring_commitments_details?.validate.push(...requireEnterDetails.validate)
@@ -57,7 +54,6 @@ const customValidationsCaringCommitments = (
 
   return fields
 }
-
 
 const requireSelectOption = {
   validate: [
