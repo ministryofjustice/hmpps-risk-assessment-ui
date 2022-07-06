@@ -1,24 +1,23 @@
 {% if not hideOffenderDetails %}
   {% if assessment.subject %}
-        {% set subjectName = assessment.subject.name %}
-        {% set subjectCrn = assessment.subject.crn %}
-        {% set subjectPnc = assessment.subject.pnc %}
-        {% set subjectDob = assessment.subject.dob %}
-        {% set subjectAge = assessment.subject.age %}
-        {% set offenderDetailsExists = true %}
+    {% set subjectName = assessment.subject.name %}
+    {% set subjectCrn = assessment.subject.crn %}
+    {% set subjectPnc = assessment.subject.pnc %}
+    {% set subjectDob = assessment.subject.dob %}
+    {% set subjectAge = assessment.subject.age %}
+    {% set offenderDetailsExists = true %}
   {% elif offenderDetails %}
-        {% set subjectName = offenderDetails.name %}
-        {% set subjectCrn = offenderDetails.crn %}
-        {% set subjectPnc = offenderDetails.pnc %}
-        {% set subjectDob = offenderDetails.dob %}
-        {% set subjectAge = offenderDetails.age %}
-        {% set offenderDetailsExists = true %}
+    {% set subjectName = offenderDetails.name %}
+    {% set subjectCrn = offenderDetails.crn %}
+    {% set subjectPnc = offenderDetails.pnc %}
+    {% set subjectDob = offenderDetails.dob %}
+    {% set subjectAge = offenderDetails.age %}
+    {% set offenderDetailsExists = true %}
   {% endif %}
   {% if offenderDetailsExists %}
-  <section class="key-details-bar" aria-label="Key details">
-    <div class="moj-primary-navigation__container govuk-width-container--app-extra-wide">
+    <section class="key-details-bar" aria-label="Key details">
       <div class="key-details-bar__top-block moj-context-header">
-        <dl>
+        <dl class="key-details-bar__other-details">
           {% if subjectCrn %}
             <dt class="govuk-body key-details-bar__divider ">CRN:</dt>
             <dd class="govuk-body ">{{ subjectCrn }}</dd>
@@ -36,7 +35,6 @@
         <div class="key-details-bar__name">{{ subjectName }}</div>
         <hr class="key-details-bar__section-break govuk-section-break govuk-section-break--m govuk-section-break--visible">
       </div>
-    </div>
-  </section>
+    </section>
   {% endif %}
 {% endif %}
