@@ -56,15 +56,15 @@
       <form method="post" action="{{ action }}">
         <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
 
-        <fieldset class="govuk-fieldset" aria-describedby="individual_availability-hint">
-          <legend class="govuk-fieldset__legend individual_availability govuk-label--m">
+        <fieldset class="govuk-fieldset" aria-describedby="individual_availability-legend">
+          <legend id="individual_availability-legend" class="govuk-fieldset__legend individual_availability govuk-label--m">
             {{ questions['individual_availability'].questionText }}
           </legend>
 
           <table class="govuk-table upw-availability-table">
             <thead class="govuk-table__head">
             <tr>
-              <th scope="row" class="govuk-table__header"></th>
+              <td scope="row" class="govuk-table__header"></td>
               <th scope="col" class="govuk-table__header upw-availability-table__column upw-availability-table__header">
                 Monday
               </th>
