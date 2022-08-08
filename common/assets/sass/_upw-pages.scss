@@ -1,5 +1,6 @@
 /*  styles related to specific questions and elements in the unpaid work assessment */
 @use "sass:math";
+@use "sass:map";
 
 /* stylelint-disable selector-class-pattern */
 .cultural_religious_adjustment,
@@ -58,6 +59,13 @@
   line-height: 16px;
   text-align: center;
   width: 90px;
+
+  @media (max-width: 650px) {
+    padding: 2px;
+    writing-mode: vertical-rl;
+    vertical-align: middle;
+    text-orientation: sideways;
+  }
 }
 
 .upw-availability-table__rowheader {
@@ -73,18 +81,45 @@
 }
 
 .upw-checkbox-item__availability {
+  @media (max-width: 650px) {
+    min-height: 0;
+  }
+
   .govuk-checkboxes__label::before {
     left: 38px;
+
+    @media (max-width: 650px) {
+      left: 0;
+      top: 0;
+      margin: 0 auto;
+    }
   }
 
   .govuk-checkboxes__label::after {
-    left: 43px !important;
+    @media (min-width: 650px) {
+      left: 43px !important;
+    }
+
+    @media (max-width: 650px) {
+      left: 6px;
+      top: 7px;
+    }
   }
 }
 
 .upw-availability-table__column {
   border-left: 1px solid #b1b4b6;
   border-right: 1px solid #b1b4b6;
+
+  @media (max-width: 650px) {
+    padding: 4px;
+  }
+
+  .govuk-checkboxes__item {
+    @media (max-width: 650px) {
+      padding: 4px;
+    }
+  }
 }
 
 .upw-availability-table__column > :last-child {
