@@ -89,46 +89,26 @@ $compact-table-breakpoint: 650px;
   width: 90px !important;
 }
 
-.upw-checkbox-item__availability {
-  @media (max-width: $compact-table-breakpoint) {
-    min-height: 0;
+.upw-availability-table__cell {
+  padding: 10px 24px 10px 0;
+  border-left: 1px solid #b1b4b6;
+  border-right: 1px solid #b1b4b6;
+
+  &:last-child {
+    padding: 10px 24px 10px 0;
   }
 
-  .govuk-checkboxes__label::before {
-    left: 38px;
-
-    @media (max-width: $compact-table-breakpoint) {
-      left: 0;
-      top: 0;
-      margin: 0 auto;
-    }
-  }
-
-  .govuk-checkboxes__label::after {
-    @media (min-width: $compact-table-breakpoint) {
-      left: 43px !important;
-    }
-
-    @media (max-width: $compact-table-breakpoint) {
-      left: 6px;
-      top: 7px;
-    }
+  .govuk-checkboxes__item {
+    padding: 0;
+    width: 0;
+    height: 0;
+    margin: 0 auto;
   }
 }
 
 .upw-availability-table__column {
   border-left: 1px solid #b1b4b6;
   border-right: 1px solid #b1b4b6;
-
-  @media (max-width: $compact-table-breakpoint) {
-    padding: 4px;
-  }
-
-  .govuk-checkboxes__item {
-    @media (max-width: $compact-table-breakpoint) {
-      padding: 4px;
-    }
-  }
 }
 
 .upw-availability-table__column > :last-child {
