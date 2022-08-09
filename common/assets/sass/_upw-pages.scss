@@ -24,13 +24,21 @@ $compact-table-breakpoint: 650px;
   float: left;
 }
 
-.upw-read-only__link {
-  font-size: 1.25rem;
+.upw-summary__links {
   float: right;
   margin-bottom: govuk-spacing(4);
+
+  & a {
+    font-size: 1.25rem;
+    margin-left: 10px;
+  }
+
+  & a:first-of-type {
+    margin-left: 0;
+  }
 }
 
-.upw-remove__link {
+.upw-summary__link--remove {
   color: #d4351c !important;
   margin-left: 10px;
 }
