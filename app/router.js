@@ -24,8 +24,6 @@ const { completeAssessment } = require('./summary/post.controller')
 const { saveQuestionGroup } = require('./questionGroup/post.controller')
 const { assembleDates, extractAnswers } = require('../common/middleware/questionGroups/postHandlers')
 const { fetchFilteredReferenceData } = require('./referenceData/post.controller')
-const { psrFromCourt } = require('./psrFromCourt/get.controller')
-const { startPsrFromCourt, startPsrFromForm } = require('./psrFromCourt/post.controller')
 
 const { validate, localValidationRules } = require('../common/middleware/validator')
 
@@ -118,10 +116,6 @@ module.exports = (app) => {
   app.post(`/:assessmentId/episode/:episodeId/referencedata/filtered`, fetchFilteredReferenceData)
 
   app.post('/:assessmentId/questiongroup/:groupId/summary', getOffenderDetails, completeAssessment)
-
-  app.get('/psr-from-court', psrFromCourt)
-  app.post('/psr-from-court', startPsrFromForm)
-  app.post('/psr-from-court/:courtCode/case/:caseNumber', startPsrFromCourt)
 
   app.get('/:assessmentId/episode/:episodeId/:assessmentType/scores', getOffenderDetails, displayPredictorScores)
   app.get(
