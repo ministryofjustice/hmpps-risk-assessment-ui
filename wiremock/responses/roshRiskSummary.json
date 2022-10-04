@@ -2,8 +2,10 @@
   "hasBeenCompleted": true,
   "lastUpdated": "2021-10-10",
   "overallRisk": "VERY_HIGH",
-  "riskToChildren": "LOW",
-  "riskToPublic": "VERY_HIGH",
-  "riskToKnownAdult": "MEDIUM",
-  "riskToStaff": "HIGH"
+  "riskInCommunity": {
+    "Children": "LOW",
+    "Public": "VERY_HIGH",
+    "Known Adult": "MEDIUM",
+    "Staff": "HIGH"
+  }
 }

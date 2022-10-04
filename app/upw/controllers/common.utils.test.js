@@ -213,10 +213,12 @@ describe('GetRegistrations', () => {
         hasBeenCompleted: true,
         overallRisk: 'HIGH',
         lastUpdated: '2021-10-10',
-        riskToChildren: 'LOW',
-        riskToPublic: 'HIGH',
-        riskToKnownAdult: 'MEDIUM',
-        riskToStaff: 'HIGH',
+        riskInCommunity: {
+          Children: 'LOW',
+          Public: 'HIGH',
+          'Known Adult': 'MEDIUM',
+          Staff: 'HIGH',
+        },
       },
     })
 
@@ -227,10 +229,12 @@ describe('GetRegistrations', () => {
         hasBeenCompleted: true,
         overallRisk: 'HIGH',
         lastUpdated: '10th October 2021',
-        riskToChildren: 'LOW',
-        riskToPublic: 'HIGH',
-        riskToKnownAdult: 'MEDIUM',
-        riskToStaff: 'HIGH',
+        riskInCommunity: {
+          Children: 'LOW',
+          Public: 'HIGH',
+          'Known Adult': 'MEDIUM',
+          Staff: 'HIGH',
+        },
       },
     })
   })
@@ -243,10 +247,12 @@ describe('GetRegistrations', () => {
         hasBeenCompleted: true,
         overallRisk: null,
         lastUpdated: '2021-10-10',
-        riskToChildren: null,
-        riskToPublic: null,
-        riskToKnownAdult: null,
-        riskToStaff: null,
+        riskInCommunity: {
+          Children: null,
+          Public: null,
+          'Known Adult': null,
+          Staff: null,
+        },
       },
     })
 
@@ -257,10 +263,12 @@ describe('GetRegistrations', () => {
         hasBeenCompleted: true,
         overallRisk: null,
         lastUpdated: '10th October 2021',
-        riskToChildren: null,
-        riskToPublic: null,
-        riskToKnownAdult: null,
-        riskToStaff: null,
+        riskInCommunity: {
+          Children: null,
+          Public: null,
+          'Known Adult': null,
+          Staff: null,
+        },
       },
     })
   })
