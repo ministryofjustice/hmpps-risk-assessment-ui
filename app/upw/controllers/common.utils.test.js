@@ -212,7 +212,7 @@ describe('GetRegistrations', () => {
       response: {
         hasBeenCompleted: true,
         overallRisk: 'HIGH',
-        lastUpdated: '2021-10-10',
+        assessedOn: '2021-10-10',
         riskInCommunity: {
           Children: 'LOW',
           Public: 'HIGH',
@@ -246,7 +246,7 @@ describe('GetRegistrations', () => {
       response: {
         hasBeenCompleted: true,
         overallRisk: null,
-        lastUpdated: '2021-10-10',
+        assessedOn: '2021-10-10',
         riskInCommunity: {
           Children: null,
           Public: null,
@@ -289,6 +289,22 @@ describe('GetRegistrations', () => {
         })
       }),
     )
+  })
+
+  it('flags as notBeenCompleted when the response is 404', async () => {
+    getRoshRiskSummaryForCrn.mockResolvedValue({
+      status: 404,
+      ok: false,
+      response: {},
+    })
+
+    const riskSummary = await getRoshRiskSummary('A123456', user)
+
+    expect(riskSummary).toEqual({
+      roshRiskSummary: {
+        hasBeenCompleted: false,
+      },
+    })
   })
 })
 

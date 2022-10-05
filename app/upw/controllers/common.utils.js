@@ -62,6 +62,12 @@ const getRoshRiskSummary = async (crn, user) => {
   try {
     const { response, status } = await getRoshRiskSummaryForCrn(crn, user)
 
+    if (status === 404) {
+      return {
+        roshRiskSummary: { hasBeenCompleted: false },
+      }
+    }
+
     if (status >= 400) {
       return {
         roshRiskSummary: null,
@@ -70,8 +76,10 @@ const getRoshRiskSummary = async (crn, user) => {
 
     return {
       roshRiskSummary: {
-        ...response,
-        lastUpdated: prettyDate(response.lastUpdated),
+        hasBeenCompleted: true,
+        overallRisk: response.overallRisk,
+        riskInCommunity: response.riskInCommunity,
+        lastUpdated: prettyDate(response.assessedOn),
       },
     }
   } catch (error) {
