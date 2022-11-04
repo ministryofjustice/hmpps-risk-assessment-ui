@@ -160,6 +160,6 @@
     ]
   },
   "overrides": {
-    "cliui": "7.0.4"
+    "string-width": "4.2.2"
   }
 }
