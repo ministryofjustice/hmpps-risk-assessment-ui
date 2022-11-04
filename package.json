@@ -158,5 +158,8 @@
     "*.scss": [
       "stylelint '**/*.scss' --cache --fix"
     ]
+  },
+  "overrides": {
+    "cliui": "7.0.4"
   }
 }
