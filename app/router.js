@@ -15,6 +15,7 @@ const upwWorkflow = require('./upw')
 const logger = require('../common/logging/logger')
 const { verifyAssessment } = require('./startAssessment/get.controller')
 const { getCorrelationId } = require('../common/utils/util')
+const { downloadUpwPdf } = require('./upw/controllers/api')
 
 // Export
 module.exports = (app) => {
@@ -51,6 +52,7 @@ module.exports = (app) => {
 
   app.get(['/start-assessment', '/assessment-from-delius'], verifyAssessment)
   app.use('/upw', upwWorkflow)
+  app.use('/api/upw/download/:key', downloadUpwPdf)
 
   app.use((error, req, res, next) => {
     logger.info(`Unhandled exception received - ${error.message} ${error.stack}`)

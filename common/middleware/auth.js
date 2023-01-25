@@ -61,6 +61,11 @@ const checkUserIsAuthenticated = (verifyToken = tokenVerifier) => {
       return next()
     }
 
+    // prevent API endpoints redirecting when unauthenticated, just return a 401
+    if (req.originalUrl.match(/^\/api\/.*$/i)) {
+      return res.status(401).send()
+    }
+
     req.session.returnUrl = req.originalUrl
     return res.redirect('/login')
   }
