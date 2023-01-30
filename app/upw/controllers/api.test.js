@@ -27,13 +27,13 @@ describe('UPW API', () => {
     })
 
     it('returns the document from S3', async () => {
-      req.params.key = 'foo/bar.pdf'
+      req.params.episodeId = 'episodeId'
 
       S3.prototype.fetch.mockResolvedValue({ ok: true, body: 'FOO_FILE_DATA' })
 
       await downloadUpwPdf(req, res)
 
-      expect(S3.prototype.fetch).toHaveBeenCalledWith(req.params.key)
+      expect(S3.prototype.fetch).toHaveBeenCalledWith(`documents/${req.params.episodeId}.pdf`)
       expect(res.send).toHaveBeenCalledWith('FOO_FILE_DATA')
     })
 
@@ -46,13 +46,13 @@ describe('UPW API', () => {
     })
 
     it('returns a 404 when the key does not exist in S3', async () => {
-      req.params.key = 'foo/bar.pdf'
+      req.params.episodeId = 'episodeId'
 
       S3.prototype.fetch.mockResolvedValue({ ok: false, statusCode: 404 })
 
       await downloadUpwPdf(req, res)
 
-      expect(S3.prototype.fetch).toHaveBeenCalledWith(req.params.key)
+      expect(S3.prototype.fetch).toHaveBeenCalledWith(`documents/${req.params.episodeId}.pdf`)
       expect(res.status).toHaveBeenCalledWith(404)
       expect(res.send).toHaveBeenCalled()
     })

@@ -8,6 +8,9 @@ const {
   handleLoginCallback,
   handleLogout,
   checkForTokenRefresh,
+  requestIsAuthenticated,
+  apiErrorHandler,
+  clientHasRole,
 } = require('../common/middleware/auth')
 
 const upwWorkflow = require('./upw')
@@ -28,6 +31,14 @@ module.exports = (app) => {
   app.get('/ping', (req, res) => {
     res.status(200).send('pong')
   })
+
+  app.use(
+    '/api/upw/download/:episodeId',
+    requestIsAuthenticated(),
+    clientHasRole('ROLE_UPW_DOCUMENT_READ'),
+    downloadUpwPdf,
+    apiErrorHandler,
+  )
 
   app.get('/login', passport.authenticate('oauth2'))
   app.get('/login/callback', handleLoginCallback())
@@ -52,7 +63,6 @@ module.exports = (app) => {
 
   app.get(['/start-assessment', '/assessment-from-delius'], verifyAssessment)
   app.use('/upw', upwWorkflow)
-  app.use('/api/upw/download/:key', downloadUpwPdf)
 
   app.use((error, req, res, next) => {
     logger.info(`Unhandled exception received - ${error.message} ${error.stack}`)

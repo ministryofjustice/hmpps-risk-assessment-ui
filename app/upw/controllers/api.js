@@ -1,14 +1,15 @@
 const { S3 } = require('../../../common/data/aws')
+const { createDocumentId } = require('../../../common/utils/util')
 
 const downloadUpwPdf = async (req, res) => {
-  const { key } = req.params
+  const { episodeId } = req.params
 
-  if (!key) {
+  if (!episodeId) {
     return res.status(400).send()
   }
 
   const s3 = new S3()
-  const response = await s3.fetch(key)
+  const response = await s3.fetch(createDocumentId(episodeId))
 
   if (response.ok) {
     return res
