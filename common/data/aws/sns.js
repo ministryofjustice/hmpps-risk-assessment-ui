@@ -22,7 +22,16 @@ class SNS {
 
   async publishJson(message) {
     return this.client
-      .publish({ Message: JSON.stringify(message), MessageStructure: 'json', TopicArn: this.topicArn })
+      .publish({
+        Message: JSON.stringify(message),
+        MessageAttributes: {
+          eventType: {
+            DataType: 'String',
+            StringValue: message.eventType,
+          },
+        },
+        TopicArn: this.topicArn,
+      })
       .promise()
       .then(() => {
         logger.info(`Publishing message to SNS topic: ${this.topicArn}`)
