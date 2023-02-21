@@ -102,7 +102,7 @@ describe('ConfirmationController', () => {
     it('completes the assessment', async () => {
       const file = createTestFile()
 
-      pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, response: file })
+      pdfConverterClient.convertHtmlToPdf.mockResolvedValue({ ok: true, body: file })
       S3.prototype.upload.mockResolvedValue({ ok: true, key: `documents/${episodeUuid}}` })
       SNS.prototype.publishJson.mockResolvedValue({ ok: true })
       hmppsAssessmentsApiClient.postCompleteAssessmentEpisode.mockResolvedValue([true])
@@ -116,7 +116,6 @@ describe('ConfirmationController', () => {
         assessmentUuid,
         episodeUuid,
         user.token,
-        user.id,
       )
       expect(superMethod).toHaveBeenCalled()
     })

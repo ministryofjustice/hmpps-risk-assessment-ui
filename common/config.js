@@ -97,7 +97,7 @@ module.exports = {
     },
     sns: {
       region: get('SNS_REGION', 'eu-west-2', { requireInProduction: true }),
-      topicArn: get('SNS_TOPIC_NAME', 'arn:aws:sns:eu-west-2:000000000000:hmpps-assessments-topic', {
+      topicArn: get('SNS_TOPIC_ARN', 'arn:aws:sns:eu-west-2:000000000000:hmpps-assessments-topic', {
         requireInProduction: true,
       }),
       accessKeyId: get('SNS_ACCESS_KEY_ID', 'UNSET', { requireInProduction: true }),
