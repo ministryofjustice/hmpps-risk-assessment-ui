@@ -420,4 +420,9 @@ module.exports = {
     controller: SaveAndContinue,
     next: 'task-list#additional-information',
   },
+  '/maintenance-page': {
+    pageTitle: 'Maintenance Page',
+    noPost: true,
+    template: `${__dirname}/templates/maintenance-page.njk`,
+  },
 }
