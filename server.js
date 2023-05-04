@@ -120,6 +120,14 @@ async function initialiseGlobalMiddleware(app) {
     noCache(res)
     next()
   })
+
+  if (config.displayMaintenancePage) {
+    logger.info('Maintenance page enabled')
+    app.get('*', (req, res) => {
+      return res.render('common/templates/maintenance-page.njk')
+    })
+  }
+
   app.use(json())
   app.use(urlencoded({ extended: true }))
   app.use(allGateKeeperPages, (req, res, next) => {
