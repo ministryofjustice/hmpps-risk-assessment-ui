@@ -121,9 +121,10 @@ async function initialiseGlobalMiddleware(app) {
     next()
   })
 
-  if (config.displayMaintenancePage) {
+  if (config.displayMaintenancePage && config.maintenancePageText) {
     logger.info('Maintenance page enabled')
     app.get('*', (req, res) => {
+      res.locals.maintenancePageText = config.maintenancePageText
       return res.render('common/templates/maintenance-page.njk')
     })
   }
