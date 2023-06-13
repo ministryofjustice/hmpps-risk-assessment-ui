@@ -73,8 +73,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.289.0",
-    "@aws-sdk/client-sns": "^3.289.0",
+    "@aws-sdk/client-s3": "^3.350.0",
+    "@aws-sdk/client-sns": "^3.350.0",
     "@ministryofjustice/frontend": "^1.4.2",
     "accessible-autocomplete": "^2.0.3",
     "agentkeepalive": "^4.1.4",
