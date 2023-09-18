@@ -165,6 +165,6 @@
     ]
   },
   "overrides": {
-    "string-width": "4.2.3"
+    "string-width": "6.1.0"
   }
 }
