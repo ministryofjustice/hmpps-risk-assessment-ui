@@ -1,8 +1,8 @@
 {% from "govuk/components/footer/macro.njk" import govukFooter %}
-{% from 'moj/components/header/macro.njk' import mojHeader %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from 'moj/components/header/macro.njk' import mojHeader %}
 
 {% extends "govuk/template.njk" %}
 
@@ -94,6 +94,6 @@
 {% block bodyEnd %}
   <script nonce="{{ cspNonce }}">
     window.initAll()
-    window.outOflineConditionalRadios()
+    window.outOfLineConditionalRadios()
   </script>
 {% endblock %}
