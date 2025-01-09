@@ -67,7 +67,7 @@ jobs:
     machine:
       image: ubuntu-2204:current
       resource_class: medium
-    parallelism: 10
+#    parallelism: 10
     steps:
       - checkout
       - run: git submodule sync
