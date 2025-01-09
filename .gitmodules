@@ -1,0 +1,5 @@
+[submodule "hmpps-arn-acceptance-tests"]
+	path = hmpps-arn-acceptance-tests
+	url = http://github.com/ministryofjustice/hmpps-arn-acceptance-tests
+	branch = main
+	update = rebase

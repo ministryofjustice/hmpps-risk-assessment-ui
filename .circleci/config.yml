@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   hmpps: ministryofjustice/hmpps@7
   slack: circleci/slack@4.4.2
+  mem: circleci/rememborb@0.0.2
 
 parameters:
   alerts-slack-channel:
@@ -84,6 +85,63 @@ jobs:
       - store_artifacts:
           path: test-results/unit-test-reports.html
 
+  e2e_test:
+    machine:
+      image: ubuntu-2204:current
+      resource_class: medium
+    parallelism: 10
+    steps:
+      - checkout
+      - run: git submodule sync
+      - run: git submodule update --init
+      - attach_workspace:
+          at: ~/app
+      - run:
+          name: Extract saved container image
+          command: docker load --input ~/app/docker_cache/build_image.tar
+      - mem/recall:
+          env_var: APP_VERSION
+      - restore_cache:
+          key: dependency-cache-{{ checksum "hmpps-arn-acceptance-tests/package-lock.json" }}
+      - run:
+          name: Stand up a test environment
+          command: |
+            cd hmpps-arn-acceptance-tests
+            export UI_IMAGE_TAG=$APP_VERSION
+            make test-up
+      - run:
+          name: Install Node and npm for running Cypress
+          command: |
+            sudo apt-get update
+            sudo apt-get install nodejs npm
+      - run:
+          name: Install Dependencies
+          command: |
+            cd hmpps-arn-acceptance-tests
+            npm i --no-audit
+      - save_cache:
+          key: dependency-cache-{{ checksum "hmpps-arn-acceptance-tests/package-lock.json" }}
+          paths:
+            - hmpps-arn-acceptance-tests/node_modules
+            - ~/.cache
+      - run:
+          name: Run the end-to-end tests
+          command: |
+            cd hmpps-arn-acceptance-tests
+            make e2e-ci
+#      - run:
+#          name: Store container logs
+#          command: make save-logs OUTPUT_LOGS_DIR=~/docker-logs PROJECT_NAME="hmpps-assess-risks-and-needs-test"
+#          when: on_fail
+      - store_test_results:
+          path: hmpps-arn-acceptance-tests/test_results
+      - store_artifacts:
+          path: hmpps-arn-acceptance-tests/cypress/videos
+      - store_artifacts:
+          path: hmpps-arn-acceptance-tests/cypress/screenshots
+#      - store_artifacts:
+#          path: ~/docker-logs
+
 workflows:
   version: 2
   build-test-and-deploy:
@@ -101,6 +159,26 @@ workflows:
           chart_name: hmpps-risk-assessment-ui
       - hmpps/build_docker:
           name: build_docker
+          publish: false
+          persist_container_image: true
+          jira_update: true
+          pipeline_id: << pipeline.id >>
+          pipeline_number: << pipeline.number >>
+          context: hmpps-common-vars
+      - e2e_test:
+          context: hmpps-common-vars
+          requires:
+            - build_docker
+      - hmpps/publish_docker:
+          name: publish_docker
+          publish_latest_tag: true
+          context: hmpps-common-vars
+          requires:
+            - build
+            - test
+            - build_docker
+            - e2e_test
+            - helm_lint
           filters:
             branches:
               only:
@@ -119,6 +197,7 @@ workflows:
             - helm_lint
             - test
             - build_docker
+            - e2e_test
       - request-preprod-approval:
           type: approval
           requires:
