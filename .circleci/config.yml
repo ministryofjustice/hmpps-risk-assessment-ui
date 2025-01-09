@@ -132,7 +132,14 @@ workflows:
           requires:
             - build
       - hmpps/helm_lint:
-          name: helm_lint
+          name: helm_lint_dev
+          env: development
+      - hmpps/helm_lint:
+          name: helm_lint_preprod
+          env: preprod
+      - hmpps/helm_lint:
+          name: helm_lint_prod
+          env: prod
       - hmpps/build_docker:
           name: build_docker
           publish: false
@@ -154,7 +161,9 @@ workflows:
             - test
             - build_docker
             - e2e_test
-            - helm_lint
+            - helm_lint_dev
+            - helm_lint_preprod
+            - helm_lint_prod
           filters:
             branches:
               only:
@@ -173,7 +182,9 @@ workflows:
               only:
                 - main
           requires:
-            - helm_lint
+            - helm_lint_dev
+            - helm_lint_preprod
+            - helm_lint_prod
             - test
             - build_docker
             - e2e_test
