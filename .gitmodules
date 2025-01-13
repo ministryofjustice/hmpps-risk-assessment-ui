@@ -1,5 +1,5 @@
-[submodule "hmpps-arn-acceptance-tests"]
-	path = hmpps-arn-acceptance-tests
-	url = http://github.com/ministryofjustice/hmpps-arn-acceptance-tests
+[submodule "hmpps-community-payback-assessment-e2e-tests"]
+	path = hmpps-community-payback-assessment-e2e-tests
+	url = http://github.com/ministryofjustice/hmpps-community-payback-assessment-e2e-tests
 	branch = main
 	update = rebase
