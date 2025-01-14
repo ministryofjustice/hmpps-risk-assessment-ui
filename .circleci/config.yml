@@ -120,6 +120,8 @@ jobs:
       - store_artifacts:
           path: hmpps-community-payback-assessment-e2e-tests/cypress/screenshots
       - store_artifacts:
+          path: hmpps-community-payback-assessment-e2e-tests/cypress/snapshots/diff
+      - store_artifacts:
           path: ~/docker-logs
 
 workflows:
