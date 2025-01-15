@@ -1,4 +1,4 @@
-FROM node:18.18-bullseye-slim
+FROM node:22.13-bullseye-slim
 LABEL maintainer="HMPPS Digital Studio <info@digital.justice.gov.uk>"
 ARG BUILD_NUMBER
 ARG GIT_REF
@@ -21,10 +21,6 @@ RUN addgroup --gid 2000 --system appgroup && \
 RUN mkdir -p /app
 WORKDIR /app
 ADD . .
-
-# Install AWS RDS Root cert
-RUN curl https://s3.amazonaws.com/rds-downloads/rds-ca-2019-root.pem > /app/root.cert
-RUN curl https://s3.amazonaws.com/rds-downloads/rds-ca-2015-root.pem >> /app/root.cert
 
 RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit && \
     npm run build && \
