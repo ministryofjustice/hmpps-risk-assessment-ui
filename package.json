@@ -52,7 +52,7 @@
     "babel": "babel -o public/javascripts/browsered.js public/javascripts/browsered.js",
     "concat": "concat -o public/javascripts/application.js public/javascripts/browsered.js && rm public/javascripts/browsered.js",
     "copy-assets": "ncp common/assets/downloads/ public/downloads/ --filter=.* && ncp common/assets/javascripts/ public/javascripts/ --filter=.* && ncp common/assets/images/ public/images/ --filter=.*",
-    "copy-govuk-assets": "ncp node_modules/govuk-frontend/dist/govuk/assets/fonts/ public/assets/fonts/ --filter=.* && ncp node_modules/govuk-frontend/dist/govuk/assets/images/ public/assets/images/ --filter=.* ",
+    "copy-govuk-assets": "ncp node_modules/govuk-frontend/dist/govuk/assets/fonts/ public/assets/fonts/ --filter=.* && ncp node_modules/govuk-frontend/dist/govuk/assets/images/ public/assets/images/ --filter=.* && ncp node_modules/govuk-frontend/dist/govuk/assets/manifest.json public/assets/manifest.json",
     "compile-sass": "sass --quiet-deps --no-source-map --load-path=node_modules --load-path=node_modules/govuk-frontend/dist --load-path=node_modules/@ministryofjustice/frontend --load-path=. ./common/assets/sass:./public/stylesheets --style compressed",
     "cssmin": "cleancss -o public/stylesheets/application.min.css public/stylesheets/application.css",
     "security_audit": "npm audit",
