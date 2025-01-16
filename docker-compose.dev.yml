@@ -1,0 +1,27 @@
+services:
+  hmpps-auth:
+    ports:
+      - "9090:9090"
+
+  hmpps-auth-proxy:
+    image: nginx:latest
+    depends_on:
+      - hmpps-auth
+    networks:
+      - hmpps
+    ports:
+      - "9091:9091"
+    volumes:
+      - ./hmpps-auth-proxy/nginx.conf:/etc/nginx/nginx.conf
+
+  community-payback-assessment-ui:
+    image: quay.io/hmpps/hmpps-risk-assessment-ui:local
+    build:
+      target: development
+    ports:
+      - "3000:3000"
+    environment:
+      - OAUTH_EXTERNAL_URL=${OAUTH_EXTERNAL_URL:-http://localhost:9091/auth}
+      - INGRESS_URL=http://localhost:3000
+    depends_on:
+      - hmpps-auth-proxy

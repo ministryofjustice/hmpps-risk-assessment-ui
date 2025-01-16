@@ -6,7 +6,7 @@ $govuk-breakpoints: (
   desktop: 1024px,
 );
 
-@import "govuk/all";
+@import "govuk/index";
 @import "moj/all";
 /* stylelint-disable scss/at-import-partial-extension */
 @import "accessible-autocomplete/dist/accessible-autocomplete.min";

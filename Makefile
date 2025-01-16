@@ -20,6 +20,22 @@ down: ## Stops and removes all containers in the project.
 	docker compose ${LOCAL_COMPOSE_FILES} down
 	make test-down
 
+dev-up: ## Starts/restarts the UI in a development container. A remote debugger can be attached on port 9229.
+	docker compose ${DEV_COMPOSE_FILES} down community-payback-assessment-ui
+	docker compose ${DEV_COMPOSE_FILES} up community-payback-assessment-ui --wait --no-recreate
+
+dev-build: ## Builds a development image of the UI and installs Node dependencies.
+	docker compose ${DEV_COMPOSE_FILES} build community-payback-assessment-ui
+
+dev-down: ## Stops and removes all dev containers.
+	docker compose ${DEV_COMPOSE_FILES} down
+
+dev-update: update dev-build ## Pulls latest docker images, re-builds the Dev UI and copies node_modules to local filesystem.
+	rm -rf node_modules
+	docker compose ${DEV_COMPOSE_FILES} run --no-deps --name ui-node-modules community-payback-assessment-ui node -v
+	docker container cp ui-node-modules:/app/node_modules .
+	docker container rm -f ui-node-modules
+
 test-up: pull ## Stands up a test environment.
 	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test up community-payback-assessment-ui --wait --no-recreate
 

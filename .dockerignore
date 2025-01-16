@@ -14,3 +14,13 @@ tests
 scss-report.txt
 eslint-report.html
 test-report.html
+wiremock
+hmpps-auth-proxy
+scripts
+test-helpers
+cypress
+__mocks__
+volume
+.husky
+.vscode
+.circleci
