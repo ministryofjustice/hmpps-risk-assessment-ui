@@ -16,6 +16,7 @@ services:
 
   community-payback-assessment-ui:
     image: quay.io/hmpps/hmpps-risk-assessment-ui:local
+    command: npm run start
     build:
       target: development
     ports:
@@ -25,3 +26,16 @@ services:
       - INGRESS_URL=http://localhost:3000
     depends_on:
       - hmpps-auth-proxy
+    volumes:
+      - ./app:/app/app
+      - ./common:/app/common
+      - ./.eslintcache:/app/.eslintcache
+      - ./.eslintignore:/app/.eslintignore
+      - ./.eslintrc.json:/app/.eslintrc.json
+      - ./.prettierignore:/app/.prettierignore
+      - ./.prettierrc:/app/.prettierrc
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./server.js:/app/server.js
+      - ./start.js:/app/start.js
+      - ./tsconfig.json:/app/tsconfig.json
