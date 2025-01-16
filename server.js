@@ -65,7 +65,7 @@ const allGateKeeperPages = /^\/(?!health$).*/
 
 // Define app views
 const APP_VIEWS = [
-  join(__dirname, 'node_modules/govuk-frontend/'),
+  join(__dirname, 'node_modules/govuk-frontend/dist'),
   join(__dirname, 'node_modules/@ministryofjustice/frontend/'),
   __dirname,
 ]
@@ -279,7 +279,7 @@ function initialisePublic(app) {
   app.use('/images', _static(join(__dirname, '/public/images'), publicCaching))
   app.use('/stylesheets', _static(join(__dirname, '/public/assets/stylesheets'), publicCaching))
   app.use('/public', _static(join(__dirname, '/public')))
-  app.use('/', _static(join(__dirname, '/node_modules/govuk-frontend/')))
+  app.use('/', _static(join(__dirname, '/node_modules/govuk-frontend/dist')))
 }
 
 function initialiseRoutes(app) {
