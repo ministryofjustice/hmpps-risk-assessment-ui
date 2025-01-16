@@ -1,39 +1,24 @@
 services:
-  hmpps-auth:
-    ports:
-      - "9090:9090"
-
-  hmpps-auth-proxy:
-    image: nginx:latest
-    depends_on:
-      - hmpps-auth
-    networks:
-      - hmpps
-    ports:
-      - "9091:9091"
-    volumes:
-      - ./hmpps-auth-proxy/nginx.conf:/etc/nginx/nginx.conf
-
   community-payback-assessment-ui:
     image: quay.io/hmpps/hmpps-risk-assessment-ui:local
     command: npm run start
     build:
       target: development
-    ports:
-      - "3000:3000"
-    environment:
-      - OAUTH_EXTERNAL_URL=${OAUTH_EXTERNAL_URL:-http://localhost:9091/auth}
-      - INGRESS_URL=http://localhost:3000
-    depends_on:
-      - hmpps-auth-proxy
     volumes:
       - ./app:/app/app
       - ./common:/app/common
+      - ./cypress:/app/cypress
+      - ./test-helpers:/app/test-helpers
       - ./.eslintcache:/app/.eslintcache
       - ./.eslintignore:/app/.eslintignore
       - ./.eslintrc.json:/app/.eslintrc.json
       - ./.prettierignore:/app/.prettierignore
       - ./.prettierrc:/app/.prettierrc
+      - ./.stylelintcache:/app/.stylelintcache
+      - ./.stylelintrc.json:/app/.stylelintrc.json
+      - ./.stylelintrc.yml:/app/.stylelintrc.yml
+      - ./audit-ci.json:/app/audit-ci.json
+      - ./cypress.config.js:/app/cypress.config.js
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
       - ./server.js:/app/server.js
