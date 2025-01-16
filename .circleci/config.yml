@@ -45,6 +45,7 @@ jobs:
           command: npm run lint
       - run:
           command: |
+            npm run clean
             npm run build
       - persist_to_workspace:
           root: .
