@@ -20,6 +20,9 @@ down: ## Stops and removes all containers in the project.
 	docker compose ${LOCAL_COMPOSE_FILES} down
 	make test-down
 
+build-ui: ## Builds a production image of the UI.
+	docker compose build ui
+
 dev-up: ## Starts/restarts the UI in a development container. A remote debugger can be attached on port 9229.
 	docker compose ${DEV_COMPOSE_FILES} down ui
 	docker compose ${DEV_COMPOSE_FILES} up ui --wait --no-recreate
@@ -52,7 +55,7 @@ test-down: ## Stops and removes all of the test containers.
 	docker compose ${TEST_COMPOSE_FILES} -p ${PROJECT_NAME}-test down
 
 BASE_URL ?= "http://localhost:3000"
-e2e: up ## Run the end-to-end tests locally in the Cypress app. Override the default base URL with BASE_URL=...
+e2e: ## Run the end-to-end tests locally in the Cypress app. Override the default base URL with BASE_URL=...
 	npm i
 	npx cypress install
 	npx cypress open -c baseUrl=$(BASE_URL)

@@ -9,6 +9,7 @@ RUN addgroup --gid 2000 --system appgroup && \
     adduser --uid 2000 --system appuser --ingroup appgroup
 
 WORKDIR /app
+RUN chown -R appuser:appgroup /app
 
 FROM base AS build
 ARG BUILD_NUMBER=1_0_0
@@ -26,7 +27,6 @@ RUN npm run record-build-info
 FROM base AS development
 COPY --from=build --chown=appuser:appgroup /app/node_modules ./node_modules
 COPY --from=build --chown=appuser:appgroup /app/build-info.json ./build-info.json
-COPY --from=build --chown=appuser:appgroup /app/public ./public
 ENV NODE_ENV='development'
 
 FROM base AS production
