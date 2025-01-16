@@ -148,13 +148,14 @@ services:
 
   ui:
     image: quay.io/hmpps/hmpps-risk-assessment-ui:${UI_IMAGE_TAG:-latest}
+    hostname: community-payback-assessment-ui
     build:
       context: .
       target: production
     networks:
       - hmpps
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://ui:3000/health"]
+      test: ["CMD", "curl", "-f", "http://community-payback-assessment-ui:3000/health"]
       interval: 5s
       retries: 60
     environment:
@@ -183,7 +184,7 @@ services:
       - REDIS_HOST=redis
       - REDIS_TLS_ENABLED=false
       - LOGGING_LEVEL=debug
-      - INGRESS_URL=http://ui:3000
+      - INGRESS_URL=http://community-payback-assessment-ui:3000
       - NODE_ENV=development
     depends_on:
       - hmpps-auth
