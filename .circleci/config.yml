@@ -70,11 +70,11 @@ jobs:
     parallelism: 2
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/app
       - restore_cache:
           keys:
             - dependency-cache-{{ checksum "package-lock.json" }}
+      - attach_workspace:
+          at: ~/app
       - run:
           name: Extract saved container image
           command: docker load --input ~/app/docker_cache/build_image.tar
