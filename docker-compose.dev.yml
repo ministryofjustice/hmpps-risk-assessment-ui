@@ -1,7 +1,7 @@
 services:
   community-payback-assessment-ui:
     image: quay.io/hmpps/hmpps-risk-assessment-ui:local
-    command: npm run start
+    command: npm run start:dev
     build:
       target: development
     volumes:
