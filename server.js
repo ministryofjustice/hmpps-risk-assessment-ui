@@ -5,7 +5,6 @@ const crypto = require('crypto')
 // Npm dependencies
 const appInsights = require('applicationinsights')
 const express = require('express')
-const favicon = require('serve-favicon')
 const cookieParser = require('cookie-parser')
 const { json, urlencoded } = require('body-parser')
 const loggingMiddleware = require('morgan')
