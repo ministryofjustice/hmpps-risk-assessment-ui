@@ -4,7 +4,6 @@ README.md
 node_modules
 npm-debug.log
 .env*
-README.md
 *.iml
 .idea/
 .gitignore
@@ -21,6 +20,4 @@ test-helpers
 cypress
 __mocks__
 volume
-.husky
 .vscode
-.circleci
