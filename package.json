@@ -7,7 +7,7 @@
   "license": "MIT",
   "engines": {
     "node": "^v22",
-    "npm": "^10"
+    "npm": "^11.0.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -90,8 +90,8 @@
     "express-jwt": "^8.3.0",
     "express-session": "^1.17.3",
     "govuk-frontend": "^5.0.0",
-    "helmet": "^7.0.0",
-    "hmpo-form-wizard": "^13.0.0",
+    "helmet": "^8.0.0",
+    "hmpo-form-wizard": "^15.0.0",
     "json-web-token": "^3.2.0",
     "jsonwebtoken": "^9.0.0",
     "jwks-rsa": "^3.0.1",
@@ -107,9 +107,9 @@
     "passport-oauth2-refresh": "^2.0.2",
     "redis": "^4.6.5",
     "serve-favicon": "^2.5.0",
-    "superagent": "^8.0.0",
+    "superagent": "^10.0.0",
     "throng": "^5.0.0",
-    "uuid": "^9.0.0",
+    "uuid": "^11.0.0",
     "winston": "^3.8.0",
     "xss-clean": "^0.1.1"
   },
@@ -149,12 +149,12 @@
     "mocha-junit-reporter": "^2.2.1",
     "nanoid": "^5.0.0",
     "ncp": "^2.0.0",
-    "nock": "^13.2.7",
+    "nock": "^14.0.0",
     "nodemon": "^3.0.0",
     "prettier": "^3.0.3",
     "querystring": "^0.2.1",
     "redis-mock": "^0.56.3",
-    "rimraf": "^5.0.1",
+    "rimraf": "^6.0.0",
     "sass": "^1.53.0",
     "set-value": ">=4.0.1",
     "stylelint": "^16.13.2",
@@ -162,7 +162,7 @@
     "stylelint-config-standard": "^37.0.0",
     "stylelint-config-standard-scss": "^14.0.0",
     "stylelint-scss": "^6.0.0",
-    "supertest": "^6.1.3",
+    "supertest": "^7.0.0",
     "tar": ">=4.4.18"
   },
   "lint-staged": {
