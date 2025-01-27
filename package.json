@@ -151,7 +151,7 @@
   },
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": false,
-    "step_definitions": "integration_tests/support/step_definitions/",
+    "stepDefinitions": ["integration_tests/support/step_definitions/**/*.{js,ts}"],
     "cucumberJson": {
       "generate": true,
       "outputFolder": "integration_tests/reports/cucumber-json",
