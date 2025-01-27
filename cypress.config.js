@@ -28,6 +28,7 @@ module.exports = defineConfig({
   e2e: {
     testIsolation: true,
     specPattern: '**/*.feature',
+    supportFile: 'integration_tests/support/index.js',
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
     async setupNodeEvents(on, config) {
       on('before:browser:launch', (browser, launchOptions) => {
