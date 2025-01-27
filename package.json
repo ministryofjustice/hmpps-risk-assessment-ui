@@ -35,7 +35,7 @@
     "babel": "babel -o public/javascripts/browsered.js public/javascript/browsered.js",
     "concat": "concat -o public/javascripts/application.js public/javascripts/browsered.js && rm public/javascripts/browsered.js",
     "copy-assets": "ncp assets/javascripts/ public/javascripts/ --filter=.* && ncp assets/images/ public/images/ --filter=.*",
-    "compile-sass": "sass --quiet-deps --no-source-map --load-path=node_modules --load-path=node_modules/govuk-frontend/dist --load-path=node_modules/@ministryofjustice/frontend --load-path=. ./common/assets/sass:./public/stylesheets --style compressed",
+    "compile-sass": "sass --quiet-deps --no-source-map --load-path=node_modules --load-path=node_modules/govuk-frontend/dist --load-path=node_modules/@ministryofjustice/frontend --load-path=. ./assets/sass:./public/stylesheets --style compressed",
     "cssmin": "cleancss -o public/stylesheets/application.min.css public/stylesheets/application.css",
     "security_audit": "npm audit",
     "start": "node ./start.js",
