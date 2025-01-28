@@ -1,5 +1,5 @@
 const { Given, When, Then } = require('@badeball/cypress-cucumber-preprocessor')
-const querystring = require('querystring')
+const querystring = require('node:querystring')
 const ArnHomePage = require('../../../integration/pages/homePage/ARNHomePage')
 const urls = require('../../../fixtures/urls.json')
 const UPWStartPage = require('../../../integration/pages/upwPages/start/startPage')

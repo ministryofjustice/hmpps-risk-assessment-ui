@@ -24,7 +24,7 @@ const { ForbiddenError } = require('../common/utils/errors')
 // Export
 module.exports = (app) => {
   app.get('/health', (req, res, next) => {
-    res.status(200).send({
+    res.status(200).json({
       healthy: true,
     })
   })
