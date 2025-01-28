@@ -55,7 +55,7 @@ module.exports = (app) => {
 
   app.use(checkUserIsAuthenticated(), checkForTokenRefresh, addUserToLocals)
 
-  app.post('*', xss())
+  app.post('*splat', xss())
 
   app.get(['/start-assessment', '/assessment-from-delius'], verifyAssessment)
   app.use('/upw', upwWorkflow)
@@ -78,7 +78,7 @@ module.exports = (app) => {
     })
   })
 
-  app.get('*', (req, res) =>
+  app.get('*splat', (req, res) =>
     res.status(404).render('app/error', {
       subHeading: "We're unable to find the page you're looking for",
     }),

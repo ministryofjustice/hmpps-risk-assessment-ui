@@ -6,13 +6,13 @@ const config = require('./upw_config')
 
 const router = Router()
 
-router.get('*', (req, res, next) => {
+router.get('*splat', (req, res, next) => {
   res.locals.pageTitle = steps[req.url]?.pageTitle
   res.locals.feedbackUrl = config.feedback_banner.url || ''
   next()
 })
 
-router.get('*', (req, res, next) => {
+router.get('*splat', (req, res, next) => {
   res.locals.previousUrl = req.session.previousUrl
   if (req.session.previousUrl !== req.originalUrl) {
     req.session.previousUrl = req.originalUrl
