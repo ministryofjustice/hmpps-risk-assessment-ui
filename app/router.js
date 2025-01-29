@@ -1,5 +1,5 @@
 const passport = require('passport')
-const xss = require('xss-clean')
+const { xss } = require('../common/middleware/sanitise')
 
 const addUserToLocals = require('../common/middleware/add-user-information')
 
