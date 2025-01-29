@@ -23,14 +23,13 @@ const initializeOptions = (options) => {
 
 function sanitise(data, options = {}) {
   const initialisedOptions = initializeOptions(options)
-  const modifiedData = { ...data }
 
-  if (typeof modifiedData === 'string') {
-    return sanitizeHtml(modifiedData, initialisedOptions.sanitizerOptions)
+  if (typeof data === 'string') {
+    return sanitizeHtml(data, initialisedOptions.sanitizerOptions)
   }
 
-  if (Array.isArray(modifiedData)) {
-    return modifiedData.map((item) => {
+  if (Array.isArray(data)) {
+    return data.map((item) => {
       if (typeof item === 'string') {
         return sanitizeHtml(item, initialisedOptions.sanitizerOptions)
       }
@@ -40,6 +39,8 @@ function sanitise(data, options = {}) {
       return item
     })
   }
+
+  const modifiedData = { ...data }
 
   if (typeof modifiedData === 'object' && modifiedData !== null) {
     Object.keys(modifiedData).forEach((key) => {
