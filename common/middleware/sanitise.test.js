@@ -113,4 +113,24 @@ describe('sanitise.js', () => {
         })
       })
   })
+
+  it('should sanitise a complex malicious JSON body', () => {
+    return request(app)
+      .post('/test-malicious-body')
+      .send({
+        nested: {
+          html: '<script> doSomethingNefarious(); </script>',
+        },
+        list: ['<li onclick="doSomethingNefarious();"> Click me! </li>'],
+      })
+      .expect(200)
+      .then(() => {
+        expect(spy).toHaveBeenCalledWith({
+          nested: {
+            html: '',
+          },
+          list: ['<li> Click me! </li>'],
+        })
+      })
+  })
 })
