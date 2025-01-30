@@ -27,7 +27,7 @@ router.use(
     journeyPageTitle: 'Community payback assessment',
     name: 'UPW',
     entryPoint: true,
-    preControllerMiddleware: sanitise,
+    preControllerMiddleware: sanitise(),
   }),
 )
 
