@@ -21,7 +21,7 @@ const initializeOptions = (options) => {
   }
 }
 
-function sanitise(data, options = {}) {
+function sanitiseValue(data, options = {}) {
   const initialisedOptions = initializeOptions(options)
 
   if (typeof data === 'string') {
@@ -34,7 +34,7 @@ function sanitise(data, options = {}) {
         return sanitizeHtml(item, initialisedOptions.sanitizerOptions)
       }
       if (Array.isArray(item) || typeof item === 'object') {
-        return sanitise(item, initialisedOptions)
+        return sanitiseValue(item, initialisedOptions)
       }
       return item
     })
@@ -51,7 +51,7 @@ function sanitise(data, options = {}) {
       if (typeof item === 'string') {
         modifiedData[key] = sanitizeHtml(item, initialisedOptions.sanitizerOptions)
       } else if (Array.isArray(item) || typeof item === 'object') {
-        modifiedData[key] = sanitise(item, initialisedOptions)
+        modifiedData[key] = sanitiseValue(item, initialisedOptions)
       }
     })
   }
@@ -63,11 +63,11 @@ function middleware(options = {}) {
   return (req, res, next) => {
     Array.of('body', 'params', 'headers').forEach((property) => {
       if (req[property]) {
-        req[property] = sanitise(req[property], options)
+        req[property] = sanitiseValue(req[property], options)
       }
     })
 
-    const sanitizedQuery = sanitise(req.query, options)
+    const sanitizedQuery = sanitiseValue(req.query, options)
     Object.defineProperty(req, 'query', {
       value: sanitizedQuery,
       writable: false,
@@ -80,5 +80,5 @@ function middleware(options = {}) {
 }
 
 module.exports = {
-  xss: middleware,
+  sanitise: middleware,
 }

@@ -1,5 +1,5 @@
 const passport = require('passport')
-const { xss } = require('../common/middleware/sanitise')
+const { sanitise } = require('../common/middleware/sanitise')
 
 const addUserToLocals = require('../common/middleware/add-user-information')
 
@@ -55,7 +55,7 @@ module.exports = (app) => {
 
   app.use(checkUserIsAuthenticated(), checkForTokenRefresh, addUserToLocals)
 
-  app.post('*splat', xss())
+  app.use('*splat', sanitise())
 
   app.get(['/start-assessment', '/assessment-from-delius'], verifyAssessment)
   app.use('/upw', upwWorkflow)

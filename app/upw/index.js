@@ -3,6 +3,7 @@ const wizard = require('hmpo-form-wizard')
 const steps = require('./steps')
 const { fields } = require('./fields')
 const config = require('./upw_config')
+const { sanitise } = require('../../common/middleware/sanitise')
 
 const router = Router()
 
@@ -26,6 +27,7 @@ router.use(
     journeyPageTitle: 'Community payback assessment',
     name: 'UPW',
     entryPoint: true,
+    preControllerMiddleware: sanitise,
   }),
 )
 

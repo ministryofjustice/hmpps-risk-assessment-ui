@@ -1,20 +1,24 @@
 const bodyParser = require('body-parser')
 const express = require('express')
 const request = require('supertest')
-const { xss } = require('./sanitise')
+const { sanitise } = require('./sanitise')
 
 describe('sanitise.js', () => {
   const app = express()
   app.use(bodyParser.urlencoded({ extended: true }))
   app.use(bodyParser.json())
-  app.use(xss())
+  app.use(sanitise())
 
   const spy = jest.fn()
 
-  app.post('/test-malicious-params/:test', xss(), (req, res) => {
+  const paramsRouter = express.Router()
+
+  paramsRouter.post('/:test', sanitise(), (req, res) => {
     spy(req.params)
     res.send()
   })
+
+  app.use('/test-malicious-params', paramsRouter)
 
   app.post('/test-malicious-query', (req, res) => {
     spy(req.query)
