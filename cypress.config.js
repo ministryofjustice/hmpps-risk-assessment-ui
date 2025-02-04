@@ -76,5 +76,7 @@ module.exports = defineConfig({
     AUTH_URL: 'http://localhost:9091/auth/oauth/token?grant_type=client_credentials&username=foobar',
     AUTH_USERNAME: '',
     AUTH_PASSWORD: '',
+    LOCALSTACK_HOSTNAME: 'localhost',
+    ARNS_API_URL: 'http://localhost:9080',
   },
 })

@@ -470,8 +470,8 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I click on Submit Button
     And I see the "You have completed the Community Payback assessment" page
     And I check the visual regression for "assessment-complete"
-    # And I download the UPW output pdf
-    # TODO: check PDF in S3
+    And I view the generated PDF
+    And I check the visual regression for "pdf"
 
 #  Scenario: Verify the values are correctly cloned for a cloned assessment
     Given I login and navigate to UPW Task list page for cloned assessment
@@ -735,5 +735,3 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I click on back link
     And I click on Submit Button
     And I see the "You have completed the Community Payback assessment" page
-#    And I download the UPW output pdf
-    # TODO: check PDF in S3

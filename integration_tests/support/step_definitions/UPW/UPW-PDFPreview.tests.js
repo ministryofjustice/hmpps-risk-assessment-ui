@@ -6,6 +6,14 @@ When('I check the visual regression for {string}', (id) => {
   cy.compareSnapshot(id)
 })
 
+When('I view the generated PDF', () => {
+  cy.get('@crn').then((crn) => {
+    cy.visit(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`)
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(3000)
+  })
+})
+
 When('I see output {string} Page', (pageName) => {
   cy.url().should('include', pageName)
   cy.get(':nth-child(3) > .govuk-heading-l').contains('Supervised individual')
