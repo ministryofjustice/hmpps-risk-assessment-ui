@@ -6,6 +6,10 @@ When('I check {string} for visual regression', (id) => {
   cy.compareSnapshot(id)
 })
 
+When('I check {string} for visual regression, ignoring minor differences', (id) => {
+  cy.compareSnapshot(id, 0.001)
+})
+
 When('I view the generated PDF', () => {
   cy.get('@crn').then((crn) => {
     cy.visit(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`)
