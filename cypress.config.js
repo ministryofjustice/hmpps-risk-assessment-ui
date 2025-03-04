@@ -3,6 +3,7 @@ const createBundler = require('@bahmutov/cypress-esbuild-preprocessor')
 const { addCucumberPreprocessorPlugin } = require('@badeball/cypress-cucumber-preprocessor')
 const { createEsbuildPlugin } = require('@badeball/cypress-cucumber-preprocessor/esbuild')
 const { configureVisualRegression } = require('cypress-visual-regression')
+const cypressSplit = require('cypress-split')
 
 const viewportWidth = 1740
 const viewportHeight = 1200
@@ -26,11 +27,14 @@ module.exports = defineConfig({
   },
   video: false,
   e2e: {
+    baseUrl: 'http://localhost:3000',
     testIsolation: true,
     specPattern: '**/*.feature',
     supportFile: 'integration_tests/support/index.js',
     excludeSpecPattern: ['**/__snapshots__/*', '**/__image_snapshots__/*'],
     async setupNodeEvents(on, config) {
+      cypressSplit(on, config)
+
       on('before:browser:launch', (browser, launchOptions) => {
         const options = { ...launchOptions }
         if (browser.family === 'chromium' && browser.name !== 'electron') {

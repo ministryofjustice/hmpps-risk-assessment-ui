@@ -20,7 +20,6 @@ COPY . .
 RUN apk add --no-cache python3 build-base linux-headers
 RUN rm -rf public node_modules
 RUN CYPRESS_INSTALL_BINARY=0 npm ci --no-audit --include=dev
-RUN npm run clean
 RUN npm run build
 RUN npm run record-build-info
 
