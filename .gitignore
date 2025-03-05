@@ -63,6 +63,7 @@ typings/
 # App specific
 govuk_modules/
 public/
+dist/
 
 # Cypress
 integration_tests/reports/
