@@ -114,8 +114,6 @@
     "clean-css-cli": "^5.3.0",
     "cypress": "^14.0.0",
     "cypress-axe": "^1.5.0",
-    "cypress-circleci-reporter": "^0.3.0",
-    "cypress-multi-reporters": "^2.0.5",
     "cypress-plugin-tab": "^1.0.5",
     "cypress-terminal-report": "^7.1.0",
     "cypress-visual-regression": "^5.2.2",

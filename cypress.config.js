@@ -21,10 +21,6 @@ module.exports = defineConfig({
   viewportHeight,
   screenshotsFolder: 'integration_tests/screenshots',
   videosFolder: 'integration_tests/videos',
-  reporter: 'cypress-multi-reporters',
-  reporterOptions: {
-    reporterEnabled: 'spec, cypress-circleci-reporter',
-  },
   video: false,
   e2e: {
     baseUrl: 'http://localhost:3000',
