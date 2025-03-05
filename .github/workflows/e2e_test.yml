@@ -91,7 +91,7 @@ jobs:
         if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
-          name: e2e_test_results
+          name: e2e_test_results_${{ matrix.container }}
           path: |
             test_results
             integration_tests/screenshots
