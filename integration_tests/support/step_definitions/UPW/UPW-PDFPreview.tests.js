@@ -10,11 +10,11 @@ When('I view the generated PDF', () => {
   cy.get('@crn').then((crn) => {
     cy.visit(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`)
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
-    cy.scrollTo(0, 10000, { duration: 2000 })
-    cy.scrollTo(0, 0, { duration: 2000 })
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
     cy.wait(2000)
+    cy.scrollTo(0, 10000, { duration: 3000 })
+    cy.scrollTo(0, 0, { duration: 3000 })
+    // eslint-disable-next-line cypress/no-unnecessary-waiting
+    cy.wait(4000)
   })
 })
 
