@@ -14,7 +14,7 @@ When('I view the generated PDF', () => {
     cy.scrollTo(0, 10000, { duration: 3000 })
     cy.scrollTo(0, 0, { duration: 3000 })
     // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(7000)
+    cy.wait(17000)
   })
 })
 
