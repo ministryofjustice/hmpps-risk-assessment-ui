@@ -6,7 +6,7 @@
   border-bottom: 10px solid #1d70b8;
 
   &__container {
-    @include govuk-width-container(1220px);
+    @include govuk-width-container;
 
     display: flex;
     justify-content: space-between;
