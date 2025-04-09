@@ -20,26 +20,20 @@
 
 <div class="govuk-grid-row">
     <section class="govuk-grid-column-three-quarters" aria-label="Form content">
-        <span class="govuk-caption-xl">Risk information</span>
-        <h1 class="govuk-heading-xl">
-            {{ pageTitle }}
-        </h1>
+        <span class="govuk-caption-xl">Other adjustments</span>
         
         <form method="post" action="{{ action }}">
             <input type="hidden" name="x-csrf-token" value="{{ csrfToken }}">
-            {{ renderQuestion(questions['history_sexual_offending'], errors) }}
-            {{ renderQuestion(questions['poses_risk_to_children'], errors) }}
-            {{ renderQuestion(questions['violent_offences'], errors) }}
-            {{ renderQuestion(questions['acquisitive_offending'], errors) }}
-            {{ renderQuestion(questions['sgo_identifier'], errors) }}
-            {{ renderQuestion(questions['control_issues'], errors) }}
-            {{ renderQuestion(questions['history_of_hate_based_behaviour'], errors) }}
-            {{ renderQuestion(questions['risks_history_of_offending_against_vulnerable_adults'], errors) }}
-            {{ renderQuestion(questions['high_profile_person'], errors) }}
-            {{ renderQuestion(questions['additional_rosh_info'], errors) }}
+            {{ renderQuestion(questions['diversity_information_trauma'], errors) }}
+            {{ renderQuestion(questions['diversity_information_gender'], errors) }}
+            {{ renderQuestion(questions['diversity_information_neurodiversity'], errors) }}
+            {{ renderQuestion(questions['diversity_information_mobility'], errors) }}
+            {{ renderQuestion(questions['diversity_information_maturity_assessment'], errors) }}
+            {{ renderQuestion(questions['diversity_information_maturity'], errors) }}
 
             <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible upw-complete-break">
-            {{ renderQuestion(questions['rosh_community_complete'], errors) }}
+
+            {{ renderQuestion(questions['other_adjustments_complete'], errors) }}
 
             <div class="questiongroup-action-buttons">
                 {{ govukButton({
