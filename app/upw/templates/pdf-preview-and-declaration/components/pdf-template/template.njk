@@ -112,7 +112,7 @@
     <div class='govuk-grid-column-two-thirds'>
 
       <div class='title-page-logos'>
-        <img class="upw-pdf-title__mojlogo" src="{{ options.imageAssetPath }}MOJ_logo_large.png" height='95'/>
+        <img class="upw-pdf-title__mojlogo" src="{{ options.imageAssetPath }}HMPPS_Lesser_Arms_Stacked_Black.png" height='95'/>
         <img src="{{ options.imageAssetPath }}community-payback-logo.jpg" height='95'/>
       </div>
 
@@ -399,13 +399,13 @@
       { 
         id: "no_female_supervisor",
         heading: "Recommend not to place with female supervisor?",
-        description: "Please Outline reasons why this would not be suitable.",
+        description: "Please outline reasons why this would not be suitable.",
         data: renderValue( answers["no_female_supervisor"], answers["no_female_supervisor_details"], "Yes" ) 
       },
       { 
         id: "no_male_supervisor",
         heading: "Recommend not to place with male supervisor?",
-        description: "Please Outline reasons why this would not be suitable.",
+        description: "Please outline reasons why this would not be suitable.",
         data: renderValue( answers["no_male_supervisor"],  answers["no_male_supervisor_details"], "Yes" ) 
       },
       { 
@@ -417,7 +417,7 @@
       {
         id: "risk_management_issues_individual",
         heading: "Are there any risk management issues for an individual placement?",
-        description: "Individual placements are often in charity shops or other smaller organisations meaning the person will not be supervised by a member of probation staff. Give any reasons why this person should not work on a partner supervised placement or independent placement.",
+        description: "Individual placements are often in charity shops or other smaller organisations meaning the person will not be supervised by a member of probation staff. Give any reasons why this person should not work on a partner supervised placement or individual placement.",
         data: renderValue( answers["risk_management_issues_individual"], answers["risk_management_issues_individual_details"], "Yes" )
       },
       {
@@ -926,7 +926,7 @@
         rows: [
           {
             id: "employment_education",
-            heading: "Is the individual in Employment or education?",
+            heading: "Is the individual in employment or education?",
             description: "It is important to request evidence to verify this.",
             data: renderValue(answers["employment_education"])
           },
@@ -1036,13 +1036,13 @@
             },
             {
               id: "availability_intensive_working_no_details",
-              heading: "If Person on Probation is unemployed, are they available to work intensively? (Up to a maximum 28 Hours a week)",
+              heading: "If person on probation is unemployed, are they available to work intensively? (Up to a maximum 28 Hours a week)",
               condition: persistedAnswers["availability_intensive_working"] == "NO",
               data: renderValue(answers["availability_intensive_working_no_details"])
             },
             {
               id: "availability_availability_weekdays_no_details",
-              heading: "If Person on Probation is unemployed, are they available to work Mon-Fri?",
+              heading: "If person on probation is unemployed, are they available to work Mon-Fri?",
               condition: persistedAnswers["availability_availability_weekdays"] == "NO",
               data: renderValue(answers["availability_availability_weekdays_no_details"])
             },
@@ -1121,7 +1121,7 @@
           },
           {
             id: "availability_intensive_working",
-            heading: "If Person on Probation is unemployed, are they available to work intensively? (Up to a maximum 28 Hours a week)",
+            heading: "If person on probation is unemployed, are they available to work intensively? (Up to a maximum 28 Hours a week)",
             data: renderValue(
               answers["availability_intensive_working"],
               answers["availability_intensive_working_no_details"],
@@ -1130,7 +1130,7 @@
           },
           {
             id: "availability_availability_weekdays",
-            heading: "If Person on Probation is unemployed, are they available to work Mon-Fri?",
+            heading: "If person on probation is unemployed, are they available to work Mon-Fri?",
             data: renderValue(
               answers["availability_availability_weekdays"],
               answers["availability_availability_weekdays_no_details"],
