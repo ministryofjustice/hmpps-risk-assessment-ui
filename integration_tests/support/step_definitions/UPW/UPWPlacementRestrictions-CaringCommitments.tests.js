@@ -7,10 +7,6 @@ When('I see that {string} is Default state on Caring commitments page', () => {
   cy.get(CaringCommitments.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
 })
 
-When('I select {string} for Mark this section as complete? for Caring commitments', (option) => {
-  CaringCommitments.selectCaringCommitsSectionComplete(option)
-})
-
 Then('I verify that the Optional Additional information text box is {string}', (textBoxState) => {
   if (textBoxState === 'Cleared') {
     cy.get(CaringCommitments.caringCommitsAddtnlDetails).should('be.visible').invoke('val').should('be.empty')

@@ -1,24 +1,8 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Equipment = require('../../../integration/pages/upwPages/placementDetails/equipmentPage')
-const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I verify that {string} is Default state on Equipment page', () => {
   cy.get(Equipment.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I select {string} for Mark this section as complete? for Equipment', (option) => {
-  Equipment.selectEquipmentSectionComplete(option)
-})
-
-Then('I select the Options and enter the details on the "Equipment" page as follows', (dataTable) => {
-  const questions = dataTable.hashes()
-  questions.forEach((question) => {
-    cy.get('form').should('contain.text', question['Question Name'])
-  })
-  Equipment.selectMaleFemaleClothingStatus(dataTable.hashes()[0]['Select Option'])
-  Equipment.selectWaterproofClothingSize(dataTable.hashes()[1]['Select Option'])
-  Equipment.selectFootwearSize(dataTable.hashes()[2]['Select Option'])
 })
 
 Then('I see the following Equipment Summary and Field error messages for {string}', (errMsgType, dataTable) => {
@@ -63,15 +47,6 @@ Then('I verify that the Equipment related radio buttons are still selected & uns
   } else if (dataTable.hashes()[1]['Select Option'] === 'XXX-Large') {
     cy.get(Equipment.xxxlargeClothingRBtn).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select the Options and enter the details on the "Equipment" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Equipment')
-  Equipment.selectMaleFemaleClothingStatus('Male')
-  Equipment.selectWaterproofClothingSize('Large')
-  Equipment.selectFootwearSize('Size 10')
-  Equipment.selectEquipmentSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the details on the "Equipment" page for cloned assessment as follows', (dataTable) => {

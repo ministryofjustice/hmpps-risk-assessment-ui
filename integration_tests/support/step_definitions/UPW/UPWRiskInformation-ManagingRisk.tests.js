@@ -1,92 +1,10 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const Managingrisk = require('../../../integration/pages/upwPages/riskInformation/managingRiskPage')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I see that {string} is Default state on Managing risk page', () => {
   cy.get(Managingrisk.iWillComeBackLaterRButtonNo).should('have.attr', 'type', 'radio').should('be.checked')
 })
-
-When('I select {string} for Mark this section as complete? for Managing Risk', (option) => {
-  Managingrisk.selectManagingRiskSectionComplete(option)
-})
-
-When('I select the Options and enter the details on the "Managing Risk" page as follows', (dataTable) => {
-  const questions = dataTable.hashes()
-  questions.forEach((question) => {
-    cy.get('form').should('contain.text', question['Question Name'])
-  })
-  Managingrisk.selectLocationExclusionCriteriaStatus(dataTable.hashes()[0]['Select Option'])
-  if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.locationExclCriteriaDetails).should('be.visible')
-    Managingrisk.enterlocationExclCriteriaDetails(dataTable.hashes()[0]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.locationExclCriteriaDetails).should('not.be.visible')
-  }
-  Managingrisk.selectRestrictedPlacementStatus(dataTable.hashes()[1]['Select Option'])
-  if (dataTable.hashes()[1]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.restrictedPlacemenDetails).should('be.visible')
-    Managingrisk.enterRestrictedPlacementDetails(dataTable.hashes()[1]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.restrictedPlacemenDetails).should('not.be.visible')
-  }
-  Managingrisk.selectNoFemaleSupervisorStatus(dataTable.hashes()[2]['Select Option'])
-  if (dataTable.hashes()[2]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.noFemaleSupervisorDetails).should('be.visible')
-    Managingrisk.enterNoFemaleSupervisorDetails(dataTable.hashes()[2]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.noFemaleSupervisorDetails).should('not.be.visible')
-  }
-  Managingrisk.selectNoMaleSupervisorStatus(dataTable.hashes()[3]['Select Option'])
-  if (dataTable.hashes()[3]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.noMaleSupervisorDetails).should('be.visible')
-    Managingrisk.enterNoMaleSupervisorDetails(dataTable.hashes()[3]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.noMaleSupervisorDetails).should('not.be.visible')
-  }
-  Managingrisk.selectRestrictiveOrdertatus(dataTable.hashes()[4]['Select Option'])
-  if (dataTable.hashes()[4]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.restrictiveOrderDetails).should('be.visible')
-    Managingrisk.enterRestrictiveOrderDetails(dataTable.hashes()[4]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.restrictiveOrderDetails).should('not.be.visible')
-  }
-  Managingrisk.selectRiskMgmtIssuesIndividualStatus(dataTable.hashes()[5]['Select Option'])
-  if (dataTable.hashes()[5]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.riskMgmtIssuesIndividualDetails).should('be.visible')
-    Managingrisk.enterRiskMgmtIssuesIndividualDetails(dataTable.hashes()[5]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.riskMgmtIssuesIndividualDetails).should('not.be.visible')
-  }
-  Managingrisk.selectRiskMgmtIssuesSupervisedStatus(dataTable.hashes()[6]['Select Option'])
-  if (dataTable.hashes()[6]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.riskMgmtIssuesSupervisedDetails).should('be.visible')
-    Managingrisk.enterRiskMgmtIssuesSupervisedDetails(dataTable.hashes()[6]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.riskMgmtIssuesSupervisedDetails).should('not.be.visible')
-  }
-  Managingrisk.selectAlcoholDrugIssuesStatus(dataTable.hashes()[7]['Select Option'])
-  if (dataTable.hashes()[7]['Select Option'] === 'Yes') {
-    cy.get(Managingrisk.alcoholDrugIssuesDetails).should('be.visible')
-    Managingrisk.enterAlcoholDrugIssuesDetails(dataTable.hashes()[7]['Text to be entered in Give Details'])
-  } else {
-    cy.get(Managingrisk.alcoholDrugIssuesDetails).should('not.be.visible')
-  }
-})
-
-Then(
-  'I select the only "Yes" Options for all the Managing Risk questions and do not enter the details',
-  (dataTable) => {
-    Managingrisk.selectLocationExclusionCriteriaStatus(dataTable.hashes()[0]['Select Option'])
-    Managingrisk.selectRestrictedPlacementStatus(dataTable.hashes()[1]['Select Option'])
-    Managingrisk.selectNoFemaleSupervisorStatus(dataTable.hashes()[2]['Select Option'])
-    Managingrisk.selectNoMaleSupervisorStatus(dataTable.hashes()[3]['Select Option'])
-    Managingrisk.selectRestrictiveOrdertatus(dataTable.hashes()[4]['Select Option'])
-    Managingrisk.selectRiskMgmtIssuesIndividualStatus(dataTable.hashes()[5]['Select Option'])
-    Managingrisk.selectRiskMgmtIssuesSupervisedStatus(dataTable.hashes()[6]['Select Option'])
-    Managingrisk.selectAlcoholDrugIssuesStatus(dataTable.hashes()[7]['Select Option'])
-  },
-)
 
 Then('I see the following Managing Risk Summary and Field error messages for {string}', (errMsgType, dataTable) => {
   if (errMsgType === 'Questions') {
@@ -274,31 +192,6 @@ When('I verify that the Managing risk related radio buttons are still selected &
   } else if (dataTable.hashes()[7]['Select Option'] === 'No') {
     cy.get(Managingrisk.alcoholDrugIssuesRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select the Options and enter the details on the "Managing Risk" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Managing risk')
-  Managingrisk.selectLocationExclusionCriteriaStatus('Yes')
-  Managingrisk.enterlocationExclCriteriaDetails('Entering Text related to victim exclusion criteria')
-  Managingrisk.selectRestrictedPlacementStatus('Yes')
-  Managingrisk.enterRestrictedPlacementDetails('Entering Text related to restricted placement')
-  Managingrisk.selectNoFemaleSupervisorStatus('Yes')
-  Managingrisk.enterNoFemaleSupervisorDetails(' Entering Text related to female supervisor')
-  Managingrisk.selectNoMaleSupervisorStatus('No')
-  Managingrisk.selectRestrictiveOrdertatus('Yes')
-  Managingrisk.enterRestrictiveOrderDetails('Entering Text related to Restrictive orders')
-  Managingrisk.selectRiskMgmtIssuesIndividualStatus('Yes')
-  Managingrisk.enterRiskMgmtIssuesIndividualDetails(
-    'Entering Text related to risk management issues for an individual placement',
-  )
-  Managingrisk.selectRiskMgmtIssuesSupervisedStatus('Yes')
-  Managingrisk.enterRiskMgmtIssuesSupervisedDetails(
-    'Entering Text related risk management issues if working in a supervised group',
-  )
-  Managingrisk.selectAlcoholDrugIssuesStatus('Yes')
-  Managingrisk.enterAlcoholDrugIssuesDetails('Entering Text related to health and safety impact')
-  Managingrisk.selectManagingRiskSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the Managing risk page for cloned assessment as follows', (dataTable) => {

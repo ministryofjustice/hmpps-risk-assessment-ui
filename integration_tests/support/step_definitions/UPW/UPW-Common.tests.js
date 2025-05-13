@@ -39,11 +39,11 @@ Then('I answer the multiple choice questions on the page', (dataTable) => {
 })
 
 Then('I answer the questions on the page', (dataTable) => {
-  dataTable.hashes().forEach(row => {
-    const question = row['Question']
-    const questionType = row['Type']
-    const answer = row['Answer']
-    const details = row['Details']
+  dataTable.hashes().forEach((row) => {
+    const question = row.Question
+    const questionType = row.Type
+    const answer = row.Answer
+    const details = row.Details
 
     if (questionType === 'Radio' || questionType === 'Checkbox') {
       cy.selectOption(answer, question)
@@ -57,11 +57,11 @@ Then('I answer the questions on the page', (dataTable) => {
 })
 
 Then('I check the answers on the page are as follows', (dataTable) => {
-  dataTable.hashes().forEach(row => {
-    const question = row['Question']
-    const questionType = row['Type']
-    const answer = row['Answer']
-    const details = row['Details']
+  dataTable.hashes().forEach((row) => {
+    const question = row.Question
+    const questionType = row.Type
+    const answer = row.Answer
+    const details = row.Details
 
     if (questionType === 'Radio' || questionType === 'Checkbox') {
       cy.checkMultipleChoiceQuestionHasAnswer(answer, details, question)

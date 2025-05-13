@@ -1,31 +1,9 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const TravelInformation = require('../../../integration/pages/upwPages/placementRestrictions/travelPage')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I see that {string} is Default state on Travel information page', () => {
   cy.get(TravelInformation.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I select {string} for Mark this section as complete? for Travel information', (option) => {
-  TravelInformation.selectTravelInfoSectionComplete(option)
-})
-
-When('I select {string} for {string} Travel question', (option) => {
-  TravelInformation.selectTravelInfoStatus(option)
-})
-
-Then('I select the Options and enter the details on the "Travel information" page as follows', (dataTable) => {
-  TravelInformation.selectTravelInfoStatus(dataTable.hashes()[0]['Select Option'])
-  if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
-    cy.get(TravelInformation.travelInfoDetails).should('be.visible')
-    TravelInformation.enterTravelInfoDetails(dataTable.hashes()[0]['Text to be entered in Give Details'])
-  } else {
-    cy.get(TravelInformation.travelInfoDetails).should('not.be.visible')
-  }
-  TravelInformation.selectDrivingLicenceStatus(dataTable.hashes()[1]['Select Option'])
-  TravelInformation.selectVehicleStatus(dataTable.hashes()[2]['Select Option'])
-  TravelInformation.selectPublicTransportStatus(dataTable.hashes()[3]['Select Option'])
 })
 
 Then('I see the following Travel information Summary and Field error messages', (dataTable) => {
@@ -88,17 +66,6 @@ When('I verify that the Travel information related radio buttons are still selec
   } else if (dataTable.hashes()[3]['Select Option'] === 'No') {
     cy.get(TravelInformation.publicTransportRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select the Options and enter the details on the "Travel information" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Travel information')
-  TravelInformation.selectTravelInfoStatus('Yes')
-  TravelInformation.enterTravelInfoDetails('Entering Text related to the Travel Issues')
-  TravelInformation.selectDrivingLicenceStatus('Yes')
-  TravelInformation.selectVehicleStatus('Yes')
-  TravelInformation.selectPublicTransportStatus('Yes')
-  TravelInformation.selectTravelInfoSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the Travel information page for cloned assessment as follows', (dataTable) => {

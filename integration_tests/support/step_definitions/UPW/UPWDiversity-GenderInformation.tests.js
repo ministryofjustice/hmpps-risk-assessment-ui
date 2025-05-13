@@ -1,35 +1,9 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const GenderInformation = require('../../../integration/pages/upwPages/diversity/genderInformationPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I see that {string} is Default state on Gender information page', () => {
   cy.get(GenderInformation.iWillComeBackLaterRButtonNo).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I select {string} for Mark this section as complete? for Gender information', (option) => {
-  GenderInformation.selectGenderInformationSectionComplete(option)
-})
-
-When('I select the Options and enter the details on the "Gender information" page as follows', (dataTable) => {
-  const questions = dataTable.hashes()
-  questions.forEach((question) => {
-    cy.get('form').should('contain.text', question['Question Name'])
-  })
-  GenderInformation.selectGenderIdentity(dataTable.hashes()[0]['Select Option'])
-  GenderInformation.selectSexChangeStatus(dataTable.hashes()[1]['Select Option'])
-  if (dataTable.hashes()[1]['Select Option'] === 'Yes') {
-    cy.get(GenderInformation.sexChangeDetails).should('be.visible')
-    GenderInformation.enterSexChangeDetails(dataTable.hashes()[1]['Text to be entered in Give Details'])
-  } else {
-    cy.get(GenderInformation.sexChangeDetails).should('not.be.visible')
-  }
-  GenderInformation.selectintersexDSDStatus(dataTable.hashes()[2]['Select Option'])
-  GenderInformation.selectTransgenderStatus(dataTable.hashes()[3]['Select Option'])
-})
-
-When('I select the Gender Option as {string}', (gender) => {
-  GenderInformation.selectGenderIdentity(gender)
 })
 
 When('I complete {string} Section with gender as {string}', (sectionName, gender) => {
@@ -46,24 +20,6 @@ When('I complete {string} Section with gender as {string}', (sectionName, gender
     expect($url).contains('task-list')
   })
 })
-
-When('I select the all the Options as Yes and select "Gender Identity" as {string}', (gender) => {
-  GenderInformation.selectGenderIdentity(gender)
-  GenderInformation.selectSexChangeStatus('Yes')
-  GenderInformation.enterSexChangeDetails('Entering text related to the sex change')
-  GenderInformation.selectintersexDSDStatus('Yes')
-  GenderInformation.selectTransgenderStatus('Yes')
-})
-
-Then(
-  'I select the only "Yes" Options for all the Gender information questions and do not enter the details',
-  (dataTable) => {
-    GenderInformation.selectGenderIdentity(dataTable.hashes()[0]['Select Option'])
-    GenderInformation.selectSexChangeStatus(dataTable.hashes()[1]['Select Option'])
-    GenderInformation.selectintersexDSDStatus(dataTable.hashes()[2]['Select Option'])
-    GenderInformation.selectTransgenderStatus(dataTable.hashes()[3]['Select Option'])
-  },
-)
 
 Then('I see that "Placement preferences" link is not available on the task list page', (dataTable) => {
   GenderInformation.selectGenderIdentity(dataTable.hashes()[0]['Select Option'])
@@ -168,16 +124,6 @@ When('I verify that the Gender information related radio buttons are still selec
   } else if (dataTable.hashes()[3]['Select Option'] === 'No') {
     cy.get(GenderInformation.transgenderRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select the Options and enter the details on the "Gender information" page and Save', () => {
-  GenderInformation.selectGenderIdentity('Female')
-  GenderInformation.selectSexChangeStatus('Yes')
-  GenderInformation.enterSexChangeDetails('Entering Text related to sex change')
-  GenderInformation.selectintersexDSDStatus('Yes')
-  GenderInformation.selectTransgenderStatus('Yes')
-  GenderInformation.selectGenderInformationSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the Gender information page for cloned assessment as follows', (dataTable) => {

@@ -1,11 +1,7 @@
-const { Given, When, Then } = require('@badeball/cypress-cucumber-preprocessor')
+const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const placementPreferencesPage = require('../../../integration/pages/upwPages/diversity/placementPreferencesPage')
 const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
-
-Given('I select the {string} radio Button for placement preferences', (option) => {
-  placementPreferencesPage.selectPlacementPreferStatus(option)
-})
 
 When('I verify that {string} is Default state on Placement preferences page', () => {
   cy.contains('legend', 'Mark placement preferences as complete?')
@@ -21,10 +17,6 @@ When('I verify that {string} is Default state on Placement preferences page', ()
 
 Then('I say my placement preference is {string}', (option) => {
   placementPreferencesPage.selectPlacementPreference(option)
-})
-
-When('I select {string} for Mark this section as complete?', (option) => {
-  placementPreferencesPage.selectPlacementPrefMarkSectionComplete(option)
 })
 
 Then('I see the following Placement preferences Summary and Field error messages', (dataTable) => {

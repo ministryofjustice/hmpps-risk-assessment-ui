@@ -1,76 +1,11 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const EmploymentEducationAndSkills = require('../../../integration/pages/upwPages/employmentEducationAndSkills/employmentEducationAndSkillsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I verify that {string} is Default state on Employment, education and skills page', () => {
   cy.get(EmploymentEducationAndSkills.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
 })
-
-When('I select {string} for Mark this section as complete? for Employment, education and skills', (option) => {
-  EmploymentEducationAndSkills.selectEmplEducationSkillsSectionComplete(option)
-})
-
-When(
-  'I select the Options and enter the details on the "Employment, education and skills" page as follows',
-  (dataTable) => {
-    const questions = dataTable.hashes()
-    questions.forEach((question) => {
-      cy.get('form').should('contain.text', question['Question Name'])
-    })
-    EmploymentEducationAndSkills.selectEmplEducationStatus(dataTable.hashes()[0]['Select Option'])
-    if (dataTable.hashes()[0]['Select Option'] === 'Full-time education or employment') {
-      cy.get(EmploymentEducationAndSkills.fullTimeEmplEducationDetails).should('be.visible')
-      EmploymentEducationAndSkills.enterFullTimeEmplEducationDetails(
-        dataTable.hashes()[0]['Text to be entered in Give Details'],
-      )
-    } else if (dataTable.hashes()[0]['Select Option'] === 'Part-time education or employment') {
-      cy.get(EmploymentEducationAndSkills.partTimeEmplEducationDetails).should('be.visible')
-      EmploymentEducationAndSkills.enterPartTimeEmplEducationDetails(
-        dataTable.hashes()[0]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(EmploymentEducationAndSkills.fullTimeEmplEducationDetails).should('not.be.visible')
-      cy.get(EmploymentEducationAndSkills.partTimeEmplEducationDetails).should('not.be.visible')
-    }
-    EmploymentEducationAndSkills.selectReadWriteDifficultiesStatus(dataTable.hashes()[1]['Select Option'])
-    if (dataTable.hashes()[1]['Select Option'] === 'Yes') {
-      cy.get(EmploymentEducationAndSkills.readWriteDifficultiesDetails).should('be.visible')
-      EmploymentEducationAndSkills.enterReadWriteDifficultiesDetails(
-        dataTable.hashes()[1]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(EmploymentEducationAndSkills.readWriteDifficultiesDetails).should('not.be.visible')
-    }
-    EmploymentEducationAndSkills.selectWorkSkillsStatus(dataTable.hashes()[2]['Select Option'])
-    if (dataTable.hashes()[2]['Select Option'] === 'Yes') {
-      cy.get(EmploymentEducationAndSkills.workSkillsDetails).should('be.visible')
-      EmploymentEducationAndSkills.enterWorkSkillsDetails(dataTable.hashes()[2]['Text to be entered in Give Details'])
-    } else {
-      cy.get(EmploymentEducationAndSkills.workSkillsDetails).should('not.be.visible')
-    }
-    EmploymentEducationAndSkills.selectFutureWorkPlansStatus(dataTable.hashes()[3]['Select Option'])
-    if (dataTable.hashes()[3]['Select Option'] === 'Yes') {
-      cy.get(EmploymentEducationAndSkills.futureWorkPlansDetails).should('be.visible')
-      EmploymentEducationAndSkills.enterFutureWorkPlansDetails(
-        dataTable.hashes()[3]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(EmploymentEducationAndSkills.futureWorkPlansDetails).should('not.be.visible')
-    }
-  },
-)
-
-Then(
-  'I select the only "Yes" Options for all the Employment, education and skills questions and do not enter the details',
-  (dataTable) => {
-    EmploymentEducationAndSkills.selectEmplEducationStatus(dataTable.hashes()[0]['Select Option'])
-    EmploymentEducationAndSkills.selectReadWriteDifficultiesStatus(dataTable.hashes()[1]['Select Option'])
-    EmploymentEducationAndSkills.selectWorkSkillsStatus(dataTable.hashes()[2]['Select Option'])
-    EmploymentEducationAndSkills.selectFutureWorkPlansStatus(dataTable.hashes()[3]['Select Option'])
-  },
-)
 
 Then(
   'I see the following Employment, education and skills Summary and Field error messages for {string}',
@@ -209,20 +144,6 @@ When(
     }
   },
 )
-
-When('I select the Options and enter the details on the "Employment, education and skills" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Employment, education and skills')
-  EmploymentEducationAndSkills.selectEmplEducationStatus('Full-time education or employment')
-  EmploymentEducationAndSkills.enterFullTimeEmplEducationDetails('Entering Text related to Full-time education')
-  EmploymentEducationAndSkills.selectReadWriteDifficultiesStatus('Yes')
-  EmploymentEducationAndSkills.enterReadWriteDifficultiesDetails('Entering Text related to writing difficulties')
-  EmploymentEducationAndSkills.selectWorkSkillsStatus('Yes')
-  EmploymentEducationAndSkills.enterWorkSkillsDetails('Entering Text related to work skills')
-  EmploymentEducationAndSkills.selectFutureWorkPlansStatus('Yes')
-  EmploymentEducationAndSkills.enterFutureWorkPlansDetails('Entering Text related to future work plans')
-  EmploymentEducationAndSkills.selectEmplEducationSkillsSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
-})
 
 When('I verify the Employment, education and skills page for cloned assessment as follows', (dataTable) => {
   if (dataTable.hashes()[0]['Option to be verified'] === 'Full-time education or employment') {

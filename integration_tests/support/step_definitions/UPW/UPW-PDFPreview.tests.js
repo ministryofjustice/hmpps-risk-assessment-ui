@@ -113,41 +113,30 @@ When('I verify the {string} Section for contact info on the pdf-preview page as 
 })
 
 When('I verify the section {string} is as follows', (sectionName, dataTable) => {
-  cy.contains('h2, h3', sectionName)
-    .parent()
-    .find('.upw-pdf-table')
-    .as('sectionAnswers')
+  cy.contains('h2, h3', sectionName).parent().find('.upw-pdf-table').as('sectionAnswers')
 
-  dataTable.hashes().forEach(row  => {
-    cy.get('@sectionAnswers')
-      .contains('tr', row["Question"])
-      .parent()
-      .as('questionRow')
+  dataTable.hashes().forEach((row) => {
+    cy.get('@sectionAnswers').contains('tr', row.Question).parent().as('questionRow')
 
-      cy.get('@questionRow').contains('td', row["Answer"])
+    cy.get('@questionRow').contains('td', row.Answer)
 
-      if (row["Details"] && row['Details'] !== '') {
-        cy.get('@questionRow').contains('td', row["Details"])
-      }
+    if (row.Details && row.Details !== '') {
+      cy.get('@questionRow').contains('td', row.Details)
+    }
   })
 })
 
 When('I verify the {string} table is as follows', (tableName, dataTable) => {
-  cy.contains('caption', tableName)
-    .parent()
-    .as('sectionAnswers')
+  cy.contains('caption', tableName).parent().as('sectionAnswers')
 
-  dataTable.hashes().forEach(row  => {
-    cy.get('@sectionAnswers')
-      .contains('tr', row["Question"])
-      .parent()
-      .as('questionRow')
+  dataTable.hashes().forEach((row) => {
+    cy.get('@sectionAnswers').contains('tr', row.Question).parent().as('questionRow')
 
-      cy.get('@questionRow').contains('td', row["Answer"])
+    cy.get('@questionRow').contains('td', row.Answer)
 
-      if (row["Details"] && row['Details'] !== '') {
-        cy.get('@questionRow').contains('td', row["Details"])
-      }
+    if (row.Details && row.Details !== '') {
+      cy.get('@questionRow').contains('td', row.Details)
+    }
   })
 })
 

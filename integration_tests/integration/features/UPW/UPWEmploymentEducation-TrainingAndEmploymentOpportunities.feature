@@ -12,12 +12,12 @@ Feature: Verify the Training & employment opportunities page
   Scenario: Verify that the user can select and enter answers on the "Training & employment opportunities" Page and mark the section as completed
     When I see UPW "Training & employment opportunities" page
     And I see that "No, I'll come back later" is Default state on Training & employment page
-    And I select the Options and enter the details on the "Training & employment" page as follows
-      | Question Name                                                                                                                                        | Select Option | Text to be entered in Give Details          |
-      | Does the individual have an education, training or employment-related need?                                                                          | Yes           | Entering Text related to the training needs |
-      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Yes           |                                             |
-      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Yes           | Entering Text related to the training needs |
-    And I select "Yes" for Mark this section as complete? for Training & employment
+    And I answer the questions on the page
+      | Question                                                                                                                                             | Type  | Answer | Details                                     |
+      | Does the individual have an education, training or employment-related need?                                                                          | Radio | Yes    | Entering Text related to the training needs |
+      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Radio | Yes    |                                             |
+      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Radio | Yes    | Entering Text related to the training needs |
+    And I select "Yes" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Training & employment opportunities" link is marked as "Completed"
@@ -26,19 +26,19 @@ Feature: Verify the Training & employment opportunities page
   Scenario: Verify that the user can select NO on the "Training & employment opportunities" Page and mark the section as completed
     When I see UPW "Training & employment opportunities" page
     And I see that "No, I'll come back later" is Default state on Training & employment page
-    And I select the Options and enter the details on the "Training & employment" page as follows
-      | Question Name                                                                                                                                        | Select Option | Text to be entered in Give Details          |
-      | Does the individual have an education, training or employment-related need?                                                                          | Yes           | Entering Text related to the training needs |
-      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Yes           |                                             |
-      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | No            |                                             |
-    And I select "Yes" for Mark this section as complete? for Training & employment
+    And I answer the questions on the page
+      | Question                                                                                                                                             | Type  | Answer | Details                                     |
+      | Does the individual have an education, training or employment-related need?                                                                          | Radio | Yes    | Entering Text related to the training needs |
+      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Radio | Yes    |                                             |
+      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Radio | No     |                                             |
+    And I select "Yes" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Training & employment opportunities" link is marked as "Completed"
 
   Scenario: Try to continue without selecting any of the options and verify the error messages
     When I see UPW "Training & employment opportunities" page
-    And I select "Yes" for Mark this section as complete? for Training & employment
+    And I select "Yes" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     Then I see the following Training & employment Summary and Field error messages
       | Question Name                                                               | Summary Error Messages | Field Error Messages |
@@ -46,14 +46,14 @@ Feature: Verify the Training & employment opportunities page
 
   Scenario: Try to continue by selecting "Yes" Option for all of the Questions and without entering details to verify the error messages
     When I see UPW "Training & employment opportunities" page
-    And I select "Yes" for "Does the individual have an education, training or employment-related need?" Training need question
-    And I select "Yes" for Mark this section as complete? for Training & employment
+    And I select "Yes" for the question "Does the individual have an education, training or employment-related need?"
+    And I select "Yes" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     Then I see the following Training & employment Details Summary and Field error messages
       | Question Name                                                                             | Summary Error Messages | Field Error Messages |
       | Does the individual have an education, training or employment-related need?               | Enter details          | Enter details        |
       | Does the individual agree to use the maximum entitlement of their hours on this activity? | Select yes or no       | Select yes or no     |
-    And I select "No" for "Does the individual agree to use the maximum entitlement of their hours on this activity?" Training need question
+    And I select "No" for the question "Does the individual agree to use the maximum entitlement of their hours on this activity?"
     And I click on the "Save" button
     And I see the following Training & Individual Commitment Details Summary and Field error messages
       | Question Name                                                                             | Summary Error Messages | Field Error Messages |
@@ -63,11 +63,11 @@ Feature: Verify the Training & employment opportunities page
 
   Scenario: Verify that all the Training & employment opportunities related values are cleared when the user navigates to Task List Page by clicking "Back" link
     When I see UPW "Training & employment opportunities" page
-    And I select the Options and enter the details on the "Training & employment" page as follows
-      | Question Name                                                                                                                                        | Select Option | Text to be entered in Give Details          |
-      | Does the individual have an education, training or employment-related need?                                                                          | Yes           | Entering Text related to the training needs |
-      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Yes           |                                             |
-      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Yes           | Entering Text related to the training needs |
+    And I answer the questions on the page
+      | Question                                                                                                                                             | Type  | Answer | Details                                     |
+      | Does the individual have an education, training or employment-related need?                                                                          | Radio | Yes    | Entering Text related to the training needs |
+      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Radio | Yes    |                                             |
+      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Radio | Yes    | Entering Text related to the training needs |
     And I click on back link
     And I see the UPW "task-list" page
     And I see the "Training & employment opportunities" link is marked as "Incomplete"
@@ -76,12 +76,12 @@ Feature: Verify the Training & employment opportunities page
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Training & employment opportunities" page
-    And I select the Options and enter the details on the "Training & employment" page as follows
-      | Question Name                                                                                                                                        | Select Option | Text to be entered in Give Details          |
-      | Does the individual have an education, training or employment-related need?                                                                          | Yes           | Entering Text related to the training needs |
-      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Yes           |                                             |
-      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Yes           | Entering Text related to the training needs |
-    And I select "No, I'll come back later" for Mark this section as complete? for Training & employment
+    And I answer the questions on the page
+      | Question                                                                                                                                             | Type  | Answer | Details                                     |
+      | Does the individual have an education, training or employment-related need?                                                                          | Radio | Yes    | Entering Text related to the training needs |
+      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Radio | Yes    |                                             |
+      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Radio | Yes    | Entering Text related to the training needs |
+    And I select "No, I’ll come back later" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     And I see the "Training & employment opportunities" link is marked as "Incomplete"

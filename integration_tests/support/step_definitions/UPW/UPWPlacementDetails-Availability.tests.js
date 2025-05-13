@@ -7,10 +7,6 @@ When('I see that {string} is Default state on Availability page', () => {
   cy.get(Availability.iWillComeBackLaterRBtn).should('be.checked')
 })
 
-When('I select {string} for Mark this section as complete? for Availability', (option) => {
-  Availability.selectAvailabilitySectionComplete(option)
-})
-
 When('I select the Availability CheckBoxes as follows', (dataTable) => {
   Availability.selectMondayAvailabilityStatus(dataTable.hashes()[0].Monday)
   Availability.selectTuesdayAvailabilityStatus(dataTable.hashes()[1].Tuesday)

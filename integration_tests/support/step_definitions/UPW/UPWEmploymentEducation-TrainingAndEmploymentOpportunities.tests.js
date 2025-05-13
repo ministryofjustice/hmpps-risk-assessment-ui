@@ -1,34 +1,9 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const TrainingEmploymentOpps = require('../../../integration/pages/upwPages/employmentEducationAndSkills/trainingEmploymentOpportunitiesPage')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I see that {string} is Default state on Training & employment page', () => {
   cy.get(TrainingEmploymentOpps.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I select {string} for Mark this section as complete? for Training & employment', (option) => {
-  TrainingEmploymentOpps.selectTrainingNeedSectionComplete(option)
-})
-
-When('I select {string} for {string} Training need question', (option, question) => {
-  if (question === 'Does the individual have an education, training or employment-related need?') {
-    TrainingEmploymentOpps.selectEducationTrainingNeedStatus(option)
-  } else if (question === 'Does the individual agree to use the maximum entitlement of their hours on this activity?') {
-    TrainingEmploymentOpps.selectIndividCommitmentStatus(option)
-  }
-})
-
-When('I select the Options and enter the details on the "Training & employment" page as follows', (dataTable) => {
-  const questions = dataTable.hashes()
-  questions.forEach((row) => {
-    const question = row['Question Name']
-    const option = row['Select Option']
-    const detailsText = row['Text to be entered in Give Details']
-
-    cy.selectOption(option, question)
-    cy.enterDetailsForOption(option, detailsText, question)
-  })
 })
 
 Then('I see the following Training & employment Summary and Field error messages', (dataTable) => {
@@ -97,16 +72,6 @@ When('I verify that the Training & employment related radio buttons are still se
   } else if (dataTable.hashes()[0]['Select Option'] === 'No') {
     cy.get(TrainingEmploymentOpps.educationTrainingNeedRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select the Options and enter the details on the "Training & employment" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Training & employment opportunities')
-  TrainingEmploymentOpps.selectEducationTrainingNeedStatus('Yes')
-  TrainingEmploymentOpps.enterEducationTrainingNeedDetails('Entering Text related to the training needs')
-  TrainingEmploymentOpps.selectIndividCommitmentStatus('Yes')
-  TrainingEmploymentOpps.enterIndividCommitmentDetails('Entering Text related to the commitments ')
-  TrainingEmploymentOpps.selectTrainingNeedSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the Training & employment page for cloned assessment as follows', (dataTable) => {

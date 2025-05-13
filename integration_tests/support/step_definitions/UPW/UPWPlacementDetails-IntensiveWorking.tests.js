@@ -1,20 +1,8 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const IntensiveWorking = require('../../../integration/pages/upwPages/placementDetails/intensiveWorkingPage')
-const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I see that {string} is Default state on Intensive working page', () => {
   cy.get(IntensiveWorking.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I select {string} for Mark this section as complete? for Intensive working', (option) => {
-  IntensiveWorking.selectIntesiveWorkingSectionComplete(option)
-})
-
-When('I enter the details on the "Intensive working" page as follows', (dataTable) => {
-  IntensiveWorking.enterRecommendedHoursStartOrder(dataTable.hashes()[0]['Text to be entered in Details'])
-  IntensiveWorking.enterRecommendedHoursMidOrder(dataTable.hashes()[1]['Text to be entered in Details'])
-  IntensiveWorking.enterTwentyEightHoursWeekDetails(dataTable.hashes()[2]['Text to be entered in Details'])
 })
 
 Then('I see the following Intensive working Summary and Field error messages', (dataTable) => {
@@ -55,10 +43,6 @@ Then('I see the following Intensive working Details Summary and Field error mess
   )
 })
 
-When('I enter the details on the "Eligibility No Details" as follows', (dataTable) => {
-  IntensiveWorking.enterEligibilityIntenseWorkNoDetails(dataTable.hashes()[0]['Text to be entered in Give Details'])
-})
-
 Then('I see the following eligibility No Details Summary and Field error messages', (dataTable) => {
   cy.get(IntensiveWorking.eligibilityIntenseWorkDetailsNoSummError).should(
     'have.text',
@@ -93,20 +77,6 @@ When('I verify that the Intensive working related radio buttons are still select
   } else if (dataTable.hashes()[0]['Select Option'] === 'No') {
     cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select {string} for {string} Intensive working question', (option) => {
-  IntensiveWorking.selectEligibilityIntenseWorkStatus(option)
-})
-
-When('I select and enter the details on the "Intensive working" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Intensive working')
-  IntensiveWorking.selectEligibilityIntenseWorkStatus('Yes')
-  IntensiveWorking.enterRecommendedHoursStartOrder('21')
-  IntensiveWorking.enterRecommendedHoursMidOrder('0')
-  IntensiveWorking.enterTwentyEightHoursWeekDetails('Entering Text related to 28-hour working week')
-  IntensiveWorking.selectIntesiveWorkingSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the Intensive working page Yes option for cloned assessment as follows', (dataTable) => {

@@ -1,52 +1,9 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const RiskOfHarmCommunityPage = require('../../../integration/pages/upwPages/riskInformation/riskOfHarmCommunityPage')
-const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I verify that {string} is Default state on Risk of harm in the community page', () => {
   cy.get(RiskOfHarmCommunityPage.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I verify the following questions are available on the {string} page', (pageName, dataTable) => {
-  const questions = dataTable.hashes()
-  questions.forEach((question) => {
-    cy.get('form').should('contain.text', question['Question Name'])
-  })
-})
-
-When('I select {string} for Mark this section as complete? for Risk of harm in the community', (option) => {
-  RiskOfHarmCommunityPage.selectRiskOfHarmMarkSectionComplete(option)
-})
-
-When(
-  'I select the Options and enter the details on the "Risk of harm in the community" page as follows',
-  (dataTable) => {
-    const questions = dataTable.hashes()
-    questions.forEach((row) => {
-      const question = row['Question Name']
-      const option = row['Select Option']
-      const detailsText = row['Text to be entered in Give Details']
-
-      cy.selectOption(option, question)
-      cy.enterDetailsForOption(option, detailsText, question)
-    })
-  },
-)
-
-When('I select {string} for Mark this section as complete? for Risk of Harm Community', (option) => {
-  RiskOfHarmCommunityPage.selectRiskOfHarmMarkSectionComplete(option)
-})
-
-Then('I select the only "Yes" Options for all the Risk of harm questions and do not enter the details', (dataTable) => {
-  RiskOfHarmCommunityPage.selectHistoryOfSexOffendingStatus(dataTable.hashes()[0]['Select Option'])
-  RiskOfHarmCommunityPage.selectRiskToChildrenStatus(dataTable.hashes()[1]['Select Option'])
-  RiskOfHarmCommunityPage.selectViolentOffencesStatus(dataTable.hashes()[2]['Select Option'])
-  RiskOfHarmCommunityPage.selectAcquisitiveOffendingStatus(dataTable.hashes()[3]['Select Option'])
-  RiskOfHarmCommunityPage.selectSeriousGroupOffendingStatus(dataTable.hashes()[4]['Select Option'])
-  RiskOfHarmCommunityPage.selectControlIssuesStatus(dataTable.hashes()[5]['Select Option'])
-  RiskOfHarmCommunityPage.selectHateBehaviourStatus(dataTable.hashes()[6]['Select Option'])
-  RiskOfHarmCommunityPage.selectHighProfilePersonStatus(dataTable.hashes()[7]['Select Option'])
-  RiskOfHarmCommunityPage.selectAdditionalRiskAssesInfoStatus(dataTable.hashes()[8]['Select Option'])
 })
 
 Then('I see the following Summary and Field error messages for {string}', (errMsgType, dataTable) => {
@@ -291,31 +248,6 @@ When('I verify that the Risk of harm related related radio buttons are still sel
   } else if (dataTable.hashes()[8]['Select Option'] === 'No') {
     cy.get(RiskOfHarmCommunityPage.additionalRoshInfoRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I select the Options and enter the details on the "Risk of harm in the community" page and Save', () => {
-  cy.get(Common.pageHeader).should('contain.text', 'Risk of harm in the community')
-  RiskOfHarmCommunityPage.clearExistingValuesInAllDetailsTextBoxes()
-  RiskOfHarmCommunityPage.selectHistoryOfSexOffendingStatus('Yes')
-  RiskOfHarmCommunityPage.enterHistoryOfSexOffendingDetails('Entering Text related to sexual offending')
-  RiskOfHarmCommunityPage.selectRiskToChildrenStatus('Yes')
-  RiskOfHarmCommunityPage.enterRiskToChildrenDetails('Entering Text related to risk to children')
-  RiskOfHarmCommunityPage.selectViolentOffencesStatus('Yes')
-  RiskOfHarmCommunityPage.enterViolentOffencesDetails('Entering Text related to Violent offences')
-  RiskOfHarmCommunityPage.selectAcquisitiveOffendingStatus('Yes')
-  RiskOfHarmCommunityPage.enterAcquisitiveOffendingDetails('Entering Text related to acquisitive offending')
-  RiskOfHarmCommunityPage.selectSeriousGroupOffendingStatus('Yes')
-  RiskOfHarmCommunityPage.enterSeriousGroupOffendingDetails('Entering Text related to serious group offending')
-  RiskOfHarmCommunityPage.selectControlIssuesStatus('Yes')
-  RiskOfHarmCommunityPage.enterControlIssuesDetails('Entering Text related to disruptive behaviour')
-  RiskOfHarmCommunityPage.selectHateBehaviourStatus('Yes')
-  RiskOfHarmCommunityPage.enterHateBehaviourDetails('Entering Text related to hate-based attitudes')
-  RiskOfHarmCommunityPage.selectHighProfilePersonStatus('Yes')
-  RiskOfHarmCommunityPage.enterHighProfilePersonDetails('Entering Text related to high-profile person')
-  RiskOfHarmCommunityPage.selectAdditionalRiskAssesInfoStatus('Yes')
-  RiskOfHarmCommunityPage.enterAdditionalRiskAssesInfoDetails('Entering Text related to Additional information')
-  RiskOfHarmCommunityPage.selectRiskOfHarmMarkSectionComplete('Yes')
-  IndividualsDetailsPage.clickSaveButton()
 })
 
 When('I verify the Risk of harm in the community page for cloned assessment as follows', (dataTable) => {

@@ -87,8 +87,9 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see UPW "Are adjustments required for cultural or religious reasons?" page
     And I check "cultural-religious-adjustments" for visual regression
     And I verify that "No, I'll come back later" is Default state on Cultural and religious page
-    And I select the "Yes" radio Button for culture and religious adjustments
-    And I enter details for culture and religious adjustments as "Test Culture details"
+    And I answer the questions on the page
+      | Question                                                   | Type  | Answer | Details              |
+      | Are adjustments required for cultural or religious reasons | Radio | Yes    | Test Culture details |
     And I select "Yes" for the question "Mark cultural or religious adjustments section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
@@ -113,7 +114,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see UPW "Does the individual have any placement preferences?" page
     And I check "placement-preferences" for visual regression
     And I verify that "No, I'll come back later" is Default state on Placement preferences page
-    And I select the "Yes" radio Button for placement preferences
+    And I select "Yes" for the question "Does the individual have any placement preferences?"
     And I say my placement preference is "Individual"
     And I select "Yes" for the question "Mark placement preferences as complete?"
     And I click on the "Save" button
@@ -287,7 +288,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see UPW "Intensive working" page
     And I check "intensive-working" for visual regression
     And I see that "No, I'll come back later" is Default state on Intensive working page
-    And I select "Yes" for "Is the individual eligible for intensive working?" Intensive working question
+    And I select "Yes" for the question "Is the individual eligible for intensive working?"
     And I answer the questions on the page
       | Question                                                                                  | Type | Answer                                        |
       | Recommended hours per week in addition to statutory minimum, at the start of the order    | Text |                                            21 |
@@ -513,15 +514,15 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Relationship to individual   | Father                 |
       | Mobile                       |          0776 666 6666 |
       | Phone number                 |                        |
-    And I select "Yes" for Mark this section as complete? for Individuals details
+    And I select "Yes" for the question "Mark individual’s details section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     And I see the "Individual's details" link is marked as "Completed"
     When I click on the "Gender information" link
     And I see UPW "Gender information" page
     And I see that "No, I'll come back later" is Default state on Gender information page
-    And I select the Gender Option as "Male"
-    And I select "No" for Mark this section as complete? for Gender information
+    And I select "Male" for the question "Gender identity"
+    And I select "No, I’ll come back later" for the question "Mark gender information section as complete?"
     And I click on the "Save" button
     When I click on the "Gender information" link
     And I see UPW "Gender information" page
@@ -531,8 +532,8 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Has the individual gone through any part of a process to change the sex they were assigned at birth to the gender they now identify with, or do they intend to? | Radio | Yes    | Entering Text related to sex change |
       | Is the individual intersex or do they have a Difference in Sexual Development (DSD)?                                                                            | Radio | Yes    |                                     |
       | Do they consider themselves to be transgender or have a transgender history?                                                                                    | Radio | Yes    |                                     |
-    And I select the Gender Option as "Female"
-    And I select "Yes" for Mark this section as complete? for Gender information
+    And I select "Female" for the question "Gender identity"
+    And I select "Yes" for the question "Mark gender information section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Gender information" link is marked as "Completed"
@@ -540,11 +541,13 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Cultural and religious adjustments" link
     And I see UPW "Are adjustments required for cultural or religious reasons?" page
     #  And I verify that "No, I'll come back later" is Default state on Cultural and religious page
-    And I select the "Yes" radio Button for culture and religious adjustments
+        And I answer the questions on the page
+      | Question                                                   | Type  | Answer | Details              |
+      | Are adjustments required for cultural or religious reasons | Radio | Yes    | Test Culture details |
     And I check the answers on the page are as follows
       | Question                                                    | Type  | Answer | Details              |
       | Are adjustments required for cultural or religious reasons? | Radio | Yes    | Test Culture details |
-    And I select "Yes" for Mark this section as complete? for Culture And Religious Adjustments
+    And I select "Yes" for the question "Mark cultural or religious adjustments section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Cultural and religious adjustments" link is marked as "Completed"
@@ -570,9 +573,9 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I verify the Placement preferences page for cloned assessment as follows
       | Question Name                                       | Option to be verified              |
       | Does the individual have any placement preferences? | Both Yes&No should not be selected |
-    And I select the "Yes" radio Button for placement preferences
+    And I select "Yes" for the question "Does the individual have any placement preferences?"
     And I say my placement preference is "Individual"
-    And I select "Yes" for Mark this section as complete?
+    And I select "Yes" for the question "Mark placement preferences as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Placement preferences" link is marked as "Completed"
@@ -592,7 +595,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | History of hate-based attitudes or behaviours?                        | Radio | Yes    | Entering Text related to hate-based attitudes    |
       | Is the individual vulnerable because they are a high-profile person?  | Radio | Yes    | Entering Text related to high-profile person     |
       | Additional risk assessment information relevant to Community Payback? | Radio | Yes    | Entering Text related to Additional information  |
-    And I select "Yes" for Mark this section as complete? for Risk of Harm Community
+    And I select "Yes" for the question "Mark risk of harm in the community section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Risk of harm in the community" link is marked as "Completed"
@@ -610,7 +613,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Are there any risk management issues for an individual placement?      | Radio | Yes    | Entering Text related to individual placement      |
       | Are there any risk management issues if working in a supervised group? | Radio | Yes    | Entering Text related to supervised group          |
       | Alcohol or drug issues with health and safety impact?                  | Radio | Yes    | Entering Text related to health and safety impact  |
-    And I select "Yes" for Mark this section as complete? for Managing Risk
+    And I select "Yes" for the question "Mark managing risk section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Managing risk" link is marked as "Completed"
@@ -622,7 +625,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Question                                                                                                            | Type  | Answer | Details                                            |
       | Any additional disabilities or health issues that affect the individual’s ability to engage with Community Payback? | Radio | Yes    | Entering Text related to the Additional disability |
       | Do any of the above affect the individual’s ability to engage with Community Payback?                               | Radio | No     |                                                    |
-    And I select "Yes" for Mark this section as complete? for Disabilities and mental health
+    And I select "Yes" for the question "Mark disabilities and mental health section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Disabilities and mental health" link is marked as "Completed"
@@ -637,7 +640,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Does the individual have epilepsy?                           | Radio | Yes    | Entering Text related to Epilepsy                     |
       | Is the individual pregnant or recently given birth?          | Radio | No     |                                                       |
       | Any other health issues?                                     | Radio | Yes    | Entering Text related to Health issues                |
-    And I select "Yes" for Mark this section as complete? for Health issues
+    And I select "Yes" for the question "Mark health issues section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Health issues" link is marked as "Completed"
@@ -664,7 +667,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Address       | South Yorkshire        |
       | Address       | S3 1HY                 |
       | Phone number  |         22222222222222 |
-    And I select "Yes" for Mark this section as complete? for GP details
+    And I select "Yes" for the question "Mark GP details section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "GP Details" link is marked as "Completed"
@@ -677,7 +680,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Does the individual have a valid driving licence?                            | Radio | Yes    |                                            |
       | Do they have access to a vehicle?                                            | Radio | Yes    |                                            |
       | Is public transport available and accessible to the individual?              | Radio | Yes    |                                            |
-    And I select "Yes" for Mark this section as complete? for Travel information
+    And I select "Yes" for the question "Mark travel information section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Travel" link is marked as "Completed"
@@ -688,7 +691,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I check the answers on the page are as follows
       | Question                          | Type      | Answer                        |
       | Additional information (Optional) | Text Area | Additional caring commitments |
-    And I select "Yes" for Mark this section as complete? for Caring commitments
+    And I select "Yes" for the question "Mark caring commitments section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Caring commitments" link is marked as "Completed"
@@ -703,7 +706,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Does the individual have any difficulties with reading, writing or numbers?                                     | Radio | Yes                               | Comment added by Probation User on 01/09/2022 at 14:03 |
       | Does the individual have any work skills or experience that could be used while carrying out Community Payback? | Radio | Yes                               | Entering Text related to work skills                   |
       | Does the individual have future work plans that could be supported through a Community Payback placement?       | Radio | Yes                               | Entering Text related to future work plans             |
-    And I select "Yes" for Mark this section as complete? for Employment, education and skills
+    And I select "Yes" for the question "Mark employment, education and skills section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Employment, education and skills" link is marked as "Completed"
@@ -715,7 +718,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Question                                                                                  | Type  | Answer | Details                                                                      |
       | Does the individual have an education, training or employment-related need?               | Radio | Yes    | Entering Text related to the training needs                                  |
       | Does the individual agree to use the maximum entitlement of their hours on this activity? | Radio | No     | Entering Text related to maximum entitlement of their hours on this activity |
-    And I select "Yes" for Mark this section as complete? for Training & employment
+    And I select "Yes" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Training & employment opportunities" link is marked as "Completed"
@@ -723,14 +726,14 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Intensive working" link
     And I see UPW "Intensive working" page
     And I see that "No, I'll come back later" is Default state on Intensive working page
-    And I select "Yes" for "Is the individual eligible for intensive working?" Intensive working question
+    And I select "Yes" for the question "Is the individual eligible for intensive working?"
     And I verify the Intensive working page Yes option for cloned assessment as follows
       | Question Name                                                                             | Text to be verified                           |
       | Recommended hours per week in addition to statutory minimum, at the start of the order    |                                            21 |
       | Recommended hours per week in addition to statutory minimum, at the midpoint of the order |                                             0 |
       | At what point should the individual be expected to reach a 28-hour working week?          | Entering Text related to 28-hour working week |
       | Is the individual eligible for intensive working?-No-Give detail                          | Entering Text related to Not eligibility      |
-    And I select "Yes" for Mark this section as complete? for Intensive working
+    And I select "Yes" for the question "Mark intensive working section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Intensive working" link is marked as "Completed"
@@ -744,7 +747,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Afternoon    |             | Afternoon-Yes |             | Afternoon-Yes |             | Afternoon-Yes |             |
       | Evening      |             |               | Evening-Yes |               |             |               | Evening-Yes |
     And I verify the text "Available early mornings and late nights" in the Additional availability information
-    And I select "Yes" for Mark this section as complete? for Availability
+    And I select "Yes" for the question "Mark availability for community payback work section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Availability" link is marked as "Completed"
@@ -758,7 +761,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Male or female clothing required? | Male          |
       | Waterproof clothing               | Large         |
       | Footwear                          | Size 10       |
-    And I select "Yes" for Mark this section as complete? for Equipment
+    And I select "Yes" for the question "Mark equipment sizes section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Choose equipment sizes" link is marked as "Completed"
