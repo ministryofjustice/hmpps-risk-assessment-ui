@@ -20,22 +20,15 @@ When('I select {string} for {string} Training need question', (option, question)
 })
 
 When('I select the Options and enter the details on the "Training & employment" page as follows', (dataTable) => {
-  TrainingEmploymentOpps.selectEducationTrainingNeedStatus(dataTable.hashes()[0]['Select Option'])
-  if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
-    cy.get(TrainingEmploymentOpps.educationTrainingNeedDetails).should('be.visible')
-    TrainingEmploymentOpps.enterEducationTrainingNeedDetails(
-      dataTable.hashes()[0]['Text to be entered in Give Details'],
-    )
-  } else {
-    cy.get(TrainingEmploymentOpps.educationTrainingNeedDetails).should('not.be.visible')
-  }
-  TrainingEmploymentOpps.selectIndividCommitmentStatus(dataTable.hashes()[1]['Select Option'])
-  if (dataTable.hashes()[1]['Select Option'] === 'No') {
-    cy.get(TrainingEmploymentOpps.individCommitmentDetails).should('be.visible')
-    TrainingEmploymentOpps.enterIndividCommitmentDetails(dataTable.hashes()[1]['Text to be entered in Give Details'])
-  } else {
-    cy.get(TrainingEmploymentOpps.individCommitmentDetails).should('not.be.visible')
-  }
+  const questions = dataTable.hashes()
+  questions.forEach((row) => {
+    const question = row['Question Name']
+    const option = row['Select Option']
+    const detailsText = row['Text to be entered in Give Details']
+
+    cy.selectOption(option, question)
+    cy.enterDetailsForOption(option, detailsText, question)
+  })
 })
 
 Then('I see the following Training & employment Summary and Field error messages', (dataTable) => {

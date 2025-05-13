@@ -22,80 +22,14 @@ When(
   'I select the Options and enter the details on the "Risk of harm in the community" page as follows',
   (dataTable) => {
     const questions = dataTable.hashes()
-    questions.forEach((question) => {
-      cy.get('form').should('contain.text', question['Question Name'])
+    questions.forEach((row) => {
+      const question = row['Question Name']
+      const option = row['Select Option']
+      const detailsText = row['Text to be entered in Give Details']
+
+      cy.selectOption(option, question)
+      cy.enterDetailsForOption(option, detailsText, question)
     })
-    RiskOfHarmCommunityPage.selectHistoryOfSexOffendingStatus(dataTable.hashes()[0]['Select Option'])
-    if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.historyOfSexOffendingDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterHistoryOfSexOffendingDetails(
-        dataTable.hashes()[0]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(RiskOfHarmCommunityPage.historyOfSexOffendingDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectRiskToChildrenStatus(dataTable.hashes()[1]['Select Option'])
-    if (dataTable.hashes()[1]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.riskToChildrenDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterRiskToChildrenDetails(dataTable.hashes()[1]['Text to be entered in Give Details'])
-    } else {
-      cy.get(RiskOfHarmCommunityPage.riskToChildrenDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectViolentOffencesStatus(dataTable.hashes()[2]['Select Option'])
-    if (dataTable.hashes()[2]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.violentOffencesDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterViolentOffencesDetails(dataTable.hashes()[2]['Text to be entered in Give Details'])
-    } else {
-      cy.get(RiskOfHarmCommunityPage.violentOffencesDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectAcquisitiveOffendingStatus(dataTable.hashes()[3]['Select Option'])
-    if (dataTable.hashes()[3]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.acquisitiveOffendingDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterAcquisitiveOffendingDetails(
-        dataTable.hashes()[3]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(RiskOfHarmCommunityPage.acquisitiveOffendingDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectSeriousGroupOffendingStatus(dataTable.hashes()[4]['Select Option'])
-    if (dataTable.hashes()[4]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.seriousGroupOffendingDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterSeriousGroupOffendingDetails(
-        dataTable.hashes()[4]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(RiskOfHarmCommunityPage.seriousGroupOffendingDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectControlIssuesStatus(dataTable.hashes()[5]['Select Option'])
-    if (dataTable.hashes()[5]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.controlIssuesDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterControlIssuesDetails(dataTable.hashes()[5]['Text to be entered in Give Details'])
-    } else {
-      cy.get(RiskOfHarmCommunityPage.controlIssuesDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectHateBehaviourStatus(dataTable.hashes()[6]['Select Option'])
-    if (dataTable.hashes()[6]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.hateBehaviourDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterHateBehaviourDetails(dataTable.hashes()[6]['Text to be entered in Give Details'])
-    } else {
-      cy.get(RiskOfHarmCommunityPage.hateBehaviourDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectHighProfilePersonStatus(dataTable.hashes()[7]['Select Option'])
-    if (dataTable.hashes()[7]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.highProfilePersonDetails).should('be.visible')
-      RiskOfHarmCommunityPage.enterHighProfilePersonDetails(dataTable.hashes()[7]['Text to be entered in Give Details'])
-    } else {
-      cy.get(RiskOfHarmCommunityPage.highProfilePersonDetails).should('not.be.visible')
-    }
-    RiskOfHarmCommunityPage.selectAdditionalRiskAssesInfoStatus(dataTable.hashes()[8]['Select Option'])
-    if (dataTable.hashes()[8]['Select Option'] === 'Yes') {
-      cy.get(RiskOfHarmCommunityPage.additionalRoshInfoDetails).should('exist')
-      RiskOfHarmCommunityPage.enterAdditionalRiskAssesInfoDetails(
-        dataTable.hashes()[8]['Text to be entered in Give Details'],
-      )
-    } else {
-      cy.get(RiskOfHarmCommunityPage.additionalRoshInfoDetails).should('not.be.visible')
-    }
   },
 )
 
