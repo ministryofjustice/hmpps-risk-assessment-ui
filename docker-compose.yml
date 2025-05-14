@@ -92,7 +92,9 @@ services:
       - -global-response-templating
 
   api:
-    image: ghcr.io/ministryofjustice/hmpps-assessments-api:${API_IMAGE_TAG:-latest}
+    # TODO: revert this change, pinned to ensure new/updated questions are available for E2E tests
+    # image: ghcr.io/ministryofjustice/hmpps-assessments-api:${API_IMAGE_TAG:-latest}
+    image: ghcr.io/ministryofjustice/hmpps-assessments-api:2025-05-14.3.379683d
     restart: always
     networks:
       - hmpps
