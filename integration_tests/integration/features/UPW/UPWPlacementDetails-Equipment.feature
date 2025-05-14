@@ -11,7 +11,7 @@ Feature: Verify the Equipment page
   Scenario: Verify that the user can select and answers on the "Equipment" Page and mark the section as completed
     When I see UPW "Choose equipment sizes" page
     And I see "Choose equipment sizes" in page title
-    And I verify that "No, I’ll come back later" is Default state on Equipment page
+    And I check that "No, I’ll come back later" is selected for "Mark equipment sizes section as complete?"
     And I answer the questions on the page
       | Question                          | Type     | Answer  |
       | Male or female clothing required? | Radio    | Male    |
@@ -44,7 +44,11 @@ Feature: Verify the Equipment page
     And I see the UPW "task-list" page
     And I see the "Choose equipment sizes" link is marked as "Incomplete"
     And I click on the "Choose equipment sizes" link
-    Then I verify that the Equipment related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                          | Type     |
+      | Male or female clothing required? | Radio    |
+      | Waterproof clothing               | Radio    |
+      | Footwear                          | Dropdown |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected values are saved
     When I see UPW "Choose equipment sizes" page

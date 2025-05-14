@@ -10,7 +10,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's "Individual details"
     When I click on the "Individual's details" link
     And I see UPW "Individual's details" page
-    And I verify that "No, I'll come back later" is Default state on Individuals details page
+    And I check that "No, I’ll come back later" is selected for "Mark individual’s details section as complete?"
     And I click "Change" link for changing Contact details
     And I see UPW "Contact details" page
     And I check "contact-details" for visual regression
@@ -27,7 +27,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Phone number  | Text |            02142785462 |
       | Mobile number | Text |            07123456789 |
       | Email         | Text | test@test.com          |
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     And I see UPW "Individual's details" page
     And I verify the details on the "Individuals details" page as follows
       | Field Name    | Text to be Verified    |
@@ -51,7 +51,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Relationship to the individual | Text | Friend       |
       | Mobile                         | Text | 020123456789 |
       | Phone number                   | Text |  02142785462 |
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     And I see UPW "Individual's details" page
     And I verify the "Emergency contact 2" in "Emergency contact details" Section as follows
       | Question name to be verified   | Details to be verified |
@@ -70,7 +70,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Gender information" link
     And I see UPW "Gender information" page
     And I check "gender-information" for visual regression
-    And I see that "No, I'll come back later" is Default state on Gender information page
+    And I check that "No, I’ll come back later" is selected for "Mark gender information section as complete?"
     And I answer the questions on the page
       | Question                                                                                                                                                        | Type  | Answer | Details                             |
       | Gender identity                                                                                                                                                 | Radio | Female |                                     |
@@ -86,10 +86,10 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Cultural and religious adjustments" link
     And I see UPW "Are adjustments required for cultural or religious reasons?" page
     And I check "cultural-religious-adjustments" for visual regression
-    And I verify that "No, I'll come back later" is Default state on Cultural and religious page
+    And I check that "No, I’ll come back later" is selected for "Mark cultural or religious adjustments section as complete?"
     And I answer the questions on the page
-      | Question                                                   | Type  | Answer | Details              |
-      | Are adjustments required for cultural or religious reasons | Radio | Yes    | Test Culture details |
+      | Question                                                    | Type  | Answer | Details              |
+      | Are adjustments required for cultural or religious reasons? | Radio | Yes    | Test Culture details |
     And I select "Yes" for the question "Mark cultural or religious adjustments section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
@@ -105,7 +105,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Transport/Mobility  | Text Area | Transport/Mobility details  |
       | Maturity Assessment | Text Area | Maturity Assessment details |
       | Maturity            | Text Area | Maturity details            |
-    And I select "Yes" for the question "Mark additional information section as complete?"
+    And I select "Yes" for the question "Mark the other adjustments section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Other adjustments" link is marked as "Completed"
@@ -113,7 +113,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Placement preferences" link
     And I see UPW "Does the individual have any placement preferences?" page
     And I check "placement-preferences" for visual regression
-    And I verify that "No, I'll come back later" is Default state on Placement preferences page
+    And I check that "No, I’ll come back later" is selected for "Mark placement preferences as complete?"
     And I select "Yes" for the question "Does the individual have any placement preferences?"
     And I say my placement preference is "Individual"
     And I select "Yes" for the question "Mark placement preferences as complete?"
@@ -125,7 +125,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see UPW "Risk of harm in the community" page
     And I check "risk-of-harm-in-the-community" for visual regression
     And I see "Risk of harm in the community" in page title
-    And I verify that "No, I'll come back later" is Default state on Risk of harm in the community page
+    And I check that "No, I’ll come back later" is selected for "Mark risk of harm in the community section as complete?"
     And I answer the questions on the page
       | Question                                                              | Type  | Answer | Details                                          |
       | History of sexual offending?                                          | Radio | Yes    | Entering Text related to sexual offending        |
@@ -146,7 +146,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Managing risk" link
     And I see UPW "Managing risk" page
     And I check "managing-risk" for visual regression
-    And I see that "No, I'll come back later" is Default state on Managing risk page
+    And I check that "No, I’ll come back later" is selected for "Mark managing risk section as complete?"
     And I answer the questions on the page
       | Question                                                               | Type  | Answer | Details                                            |
       | Location restricted by victim exclusion criteria?                      | Radio | Yes    | Entering Text related to victim exclusion criteria |
@@ -165,7 +165,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Disabilities and mental health" link
     And I see UPW "Disabilities and mental health" page
     And I check "disabilities-and-mental-health" for visual regression
-    And I see that "No, I'll come back later" is Default state on Disabilities and mental health page
+    And I check that "No, I’ll come back later" is selected for "Mark disabilities and mental health section as complete?"
     And I answer the questions on the page
       | Question                                                                                                            | Type  | Answer | Details                                            |
       | Any additional disabilities or health issues that affect the individual’s ability to engage with Community Payback? | Radio | Yes    | Entering Text related to the Additional disability |
@@ -178,7 +178,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Health issues" link
     And I see UPW "Are there any other health issues that may affect ability to work?" page
     And I check "other-health-issues" for visual regression
-    And I see that "No, I’ll come back later" is Default state on Health issues page
+    And I check that "No, I’ll come back later" is selected for "Mark health issues section as complete?"
     And I answer the questions on the page
       | Question                                                     | Type  | Answer   | Details                                               |
       | Does the individual have any known allergies?                | Radio | Yes      | Entering Text related to Allergies                    |
@@ -194,13 +194,13 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see the UPW "task-list" page
     And I click on the "GP Details" link
     When I see UPW "GP Details" page
-    And I verify that "No, I'll come back later" is Default state on GP details page
-    And I click "Add contact" button for GP details
+    And I check that "No, I’ll come back later" is selected for "Mark GP details section as complete?"
+    And I click on the "Add GP" button
     And I see UPW "Details of GP" page
     And I check "details-of-gp" for visual regression
     And I answer the questions on the page
       | Question         | Type | Answer                     |
-      | Name             | Text | Charles Doctor             |
+      | Name (Optional)  | Text | Charles Doctor             |
       | GP practice name | Text | Sheffield Medical practice |
       | Building name    | Text | New Offender Building      |
       | House number     | Text |                          1 |
@@ -210,7 +210,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | County           | Text | South Yorkshire            |
       | Postcode         | Text | S3 1HY                     |
       | Phone number     | Text |                02142785462 |
-    And I click the "Save" button on GP details
+    And I click on the "Save" button
     And I see UPW "GP Details" page
     And I verify the GP contact details "3" on the GP details page as follows
       | Field Name    | Text to be Verified        |
@@ -232,7 +232,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Travel" link
     And I see UPW "Travel information" page
     And I check "travel-information" for visual regression
-    And I see that "No, I'll come back later" is Default state on Travel information page
+    And I check that "No, I’ll come back later" is selected for "Mark travel information section as complete?"
     And I answer the questions on the page
       | Question                                                                     | Type  | Answer | Details                                    |
       | Does the individual have any travel issues that will affect their placement? | Radio | Yes    | Entering Text related to the Travel Issues |
@@ -247,7 +247,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Caring commitments" link
     And I see UPW "Are there carer commitments?" page
     And I check "carer-commitments" for visual regression
-    And I see that "No, I'll come back later" is Default state on Caring commitments page
+    And I check that "No, I’ll come back later" is selected for "Mark caring commitments section as complete?"
     And I enter Additional information as "Additional caring commitments" for Caring commitments
     And I select "Yes" for the question "Mark caring commitments section as complete?"
     And I click on the "Save" button
@@ -258,7 +258,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I see UPW "Employment, education and skills" page
     And I check "employment-education-and-skills" for visual regression
     And I see "Employment, education and skills" in page title
-    And I verify that "No, I'll come back later" is Default state on Employment, education and skills page
+    And I check that "No, I’ll come back later" is selected for "Mark employment, education and skills section as complete?"
     And I answer the questions on the page
       | Question                                                                                                        | Type  | Answer                            | Details                                       |
       | Is the individual in employment or education?                                                                   | Radio | Full-time education or employment | Entering Text related to Full-time education  |
@@ -273,7 +273,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I click on the "Training & employment opportunities" link
     When I see UPW "Training & employment opportunities" page
     And I check "training-and-employment-opportunities" for visual regression
-    And I see that "No, I'll come back later" is Default state on Training & employment page
+    And I check that "No, I’ll come back later" is selected for "Mark training and employment section as complete?"
     And I answer the questions on the page
       | Question                                                                                                                                             | Type  | Answer | Details                                                                      |
       | Does the individual have an education, training or employment-related need? What types of courses would be applicable?                               | Radio | Yes    | Entering Text related to the training needs                                  |
@@ -287,7 +287,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Intensive working" link
     And I see UPW "Intensive working" page
     And I check "intensive-working" for visual regression
-    And I see that "No, I'll come back later" is Default state on Intensive working page
+    And I check that "No, I’ll come back later" is selected for "Mark intensive working section as complete?"
     And I select "Yes" for the question "Is the individual eligible for intensive working?"
     And I answer the questions on the page
       | Question                                                                                  | Type | Answer                                        |
@@ -302,13 +302,13 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Availability" link
     And I see UPW "Availability for Community Payback work" page
     And I check "availability-for-community-payback-work" for visual regression
-    And I see that "No, I'll come back later" is Default state on Availability page
+    And I check that "No, I’ll come back later" is selected for "Mark availability for community payback work section as complete?"
     And I select the Availability CheckBoxes as follows
       | Availability | Monday      | Tuesday       | Wednesday   | Thursday      | Friday      | Saturday      | Sunday      |
       | Morning      | Morning-Yes |               |             |               | Morning-Yes |               |             |
       | Afternoon    |             | Afternoon-Yes |             | Afternoon-Yes |             | Afternoon-Yes |             |
       | Evening      |             |               | Evening-Yes |               |             |               | Evening-Yes |
-    And I enter "Available early mornings and late nights" in the Additional availability information
+    And I enter "Available early mornings and late nights" for the question "Additional availability information [Optional]"
     And I answer the questions on the page
       | Question                                                                                                            | Type  | Answer | Details          |
       | If the person on probation is unemployed, are they available to work intensively? (Up to a maximum 28 Hours a week) | Radio | No     | Entering details |
@@ -323,7 +323,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see UPW "Choose equipment sizes" page
     And I check "choose-equipment-sizes" for visual regression
     And I see "Choose equipment sizes" in page title
-    And I verify that "No, I'll come back later" is Default state on Equipment page
+    And I check that "No, I’ll come back later" is selected for "Mark equipment sizes section as complete?"
     And I answer the questions on the page
       | Question                          | Type     | Answer  |
       | Male or female clothing required? | Radio    | Male    |
@@ -497,7 +497,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see the UPW "task-list" page
     When I click on the "Individual's details" link
     And I see UPW "Individual's details" page
-    And I verify that "No, I'll come back later" is Default state on Individuals details page
+    And I check that "No, I’ll come back later" is selected for "Mark individual’s details section as complete?"
     And I verify the "Contact details" Section for contact info as follows
       | Question name to be verified | Details to be verified |
       | Address                      |         99 Oxford Road |
@@ -520,7 +520,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see the "Individual's details" link is marked as "Completed"
     When I click on the "Gender information" link
     And I see UPW "Gender information" page
-    And I see that "No, I'll come back later" is Default state on Gender information page
+    And I check that "No, I’ll come back later" is selected for "Mark gender information section as complete?"
     And I select "Male" for the question "Gender identity"
     And I select "No, I’ll come back later" for the question "Mark gender information section as complete?"
     And I click on the "Save" button
@@ -540,10 +540,10 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see that "Placement preferences" link is available
     When I click on the "Cultural and religious adjustments" link
     And I see UPW "Are adjustments required for cultural or religious reasons?" page
-    #  And I verify that "No, I'll come back later" is Default state on Cultural and religious page
-        And I answer the questions on the page
-      | Question                                                   | Type  | Answer | Details              |
-      | Are adjustments required for cultural or religious reasons | Radio | Yes    | Test Culture details |
+    #  And I check that "No, I’ll come back later" is selected for "Mark cultural or religious adjustments section as complete?"
+    And I answer the questions on the page
+      | Question                                                    | Type  | Answer | Details              |
+      | Are adjustments required for cultural or religious reasons? | Radio | Yes    | Test Culture details |
     And I check the answers on the page are as follows
       | Question                                                    | Type  | Answer | Details              |
       | Are adjustments required for cultural or religious reasons? | Radio | Yes    | Test Culture details |
@@ -562,14 +562,14 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
       | Transport/Mobility  | Text Area | Transport/Mobility details  |
       | Maturity Assessment | Text Area | Maturity Assessment details |
       | Maturity            | Text Area | Maturity details            |
-    And I select "Yes" for the question "Mark additional information section as complete?"
+    And I select "Yes" for the question "Mark the other adjustments section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Other adjustments" link is marked as "Completed"
     #  Action/Enter Offender's "Placement preferences"
     When I click on the "Placement preferences" link
     And I see UPW "Does the individual have any placement preferences?" page
-#    #  And I verify that "No, I'll come back later" is Default state on Placement preferences page
+#    And I check that "No, I’ll come back later" is selected for "Mark placement preferences as complete?"
     And I verify the Placement preferences page for cloned assessment as follows
       | Question Name                                       | Option to be verified              |
       | Does the individual have any placement preferences? | Both Yes&No should not be selected |
@@ -583,7 +583,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Risk of harm in the community" link
     And I see UPW "Risk of harm in the community" page
     And I see "Risk of harm in the community" in page title
-    And I verify that "No, I'll come back later" is Default state on Risk of harm in the community page
+    And I check that "No, I’ll come back later" is selected for "Mark risk of harm in the community section as complete?"
     And I check the answers on the page are as follows
       | Question                                                              | Type  | Answer | Details                                          |
       | History of sexual offending?                                          | Radio | Yes    | Entering Text related to sexual offending        |
@@ -602,7 +602,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
 #      Action/Enter Offender's "Managing risk" details
     When I click on the "Managing risk" link
     And I see UPW "Managing risk" page
-    And I see that "No, I'll come back later" is Default state on Managing risk page
+    And I check that "No, I’ll come back later" is selected for "Mark managing risk section as complete?"
     And I check the answers on the page are as follows
       | Question                                                               | Type  | Answer | Details                                            |
       | Location restricted by victim exclusion criteria?                      | Radio | Yes    | Entering Text related to victim exclusion criteria |
@@ -620,7 +620,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's "Disabilities and mental health" details
     When I click on the "Disabilities and mental health" link
     And I see UPW "Disabilities and mental health" page
-    And I see that "No, I'll come back later" is Default state on Disabilities and mental health page
+    And I check that "No, I’ll come back later" is selected for "Mark disabilities and mental health section as complete?"
     And I check the answers on the page are as follows
       | Question                                                                                                            | Type  | Answer | Details                                            |
       | Any additional disabilities or health issues that affect the individual’s ability to engage with Community Payback? | Radio | Yes    | Entering Text related to the Additional disability |
@@ -632,7 +632,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's existing "Health issues"
     When I click on the "Health issues" link
     And I see UPW "Are there any other health issues that may affect ability to work?" page
-    And I see that "No, I’ll come back later" is Default state on Health issues page
+    And I check that "No, I’ll come back later" is selected for "Mark health issues section as complete?"
     And I check the answers on the page are as follows
       | Question                                                     | Type  | Answer | Details                                               |
       | Does the individual have any known allergies?                | Radio | Yes    | Entering Text related to Allergies                    |
@@ -648,7 +648,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see the UPW "task-list" page
     And I click on the "GP Details" link
     When I see UPW "GP Details" page
-    And I verify that "No, I'll come back later" is Default state on GP details page
+    And I check that "No, I’ll come back later" is selected for "Mark GP details section as complete?"
     And I verify the GP contact details "1" on the GP details page as follows
       | Field Name    | Text to be Verified   |
       | Name          | Marie CurieContactOne |
@@ -687,7 +687,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's "Caring commitments" details
     When I click on the "Caring commitments" link
     And I see UPW "Are there carer commitments?" page
-    And I see that "No, I'll come back later" is Default state on Caring commitments page
+    And I check that "No, I’ll come back later" is selected for "Mark caring commitments section as complete?"
     And I check the answers on the page are as follows
       | Question                          | Type      | Answer                        |
       | Additional information (Optional) | Text Area | Additional caring commitments |
@@ -699,7 +699,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I click on the "Employment, education and skills" link
     When I see UPW "Employment, education and skills" page
     And I see "Employment, education and skills" in page title
-#    And I verify that "No, I'll come back later" is Default state on Employment, education and skills page
+#    And I check that "No, I’ll come back later" is selected for "Mark employment, education and skills section as complete?"
     And I check the answers on the page are as follows
       | Question                                                                                                        | Type  | Answer                            | Details                                                |
       | Is the individual in employment or education?                                                                   | Radio | Full-time education or employment | Entering Text related to Full-time education           |
@@ -713,11 +713,12 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's "Training & employment opportunities" information
     And I click on the "Training & employment opportunities" link
     When I see UPW "Training & employment opportunities" page
-#    And I see that "No, I'll come back later" is Default state on Training & employment page
+    # And I check that "No, I’ll come back later" is selected for "Mark training and employment section as complete?"
     And I check the answers on the page are as follows
-      | Question                                                                                  | Type  | Answer | Details                                                                      |
-      | Does the individual have an education, training or employment-related need?               | Radio | Yes    | Entering Text related to the training needs                                  |
-      | Does the individual agree to use the maximum entitlement of their hours on this activity? | Radio | No     | Entering Text related to maximum entitlement of their hours on this activity |
+      | Question                                                                                                                                             | Type  | Answer | Details                                                                      |
+      | Does the individual have an education, training or employment-related need? What types of courses would be applicable?                               | Radio | Yes    | Entering Text related to the training needs                                  |
+      | Does the individual agree to use the maximum entitlement of their hours on this activity?                                                            | Radio | No     | Entering Text related to maximum entitlement of their hours on this activity |
+      | Is there any reason that would prevent the individual from completing the 3 mandatory Community Campus Courses online? Or any other online learning? | Radio | Yes    | Entering Text related to the training needs                                  |
     And I select "Yes" for the question "Mark training and employment section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
@@ -725,14 +726,14 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's "Intensive working" details
     When I click on the "Intensive working" link
     And I see UPW "Intensive working" page
-    And I see that "No, I'll come back later" is Default state on Intensive working page
+    And I check that "No, I’ll come back later" is selected for "Mark intensive working section as complete?"
     And I select "Yes" for the question "Is the individual eligible for intensive working?"
-    And I verify the Intensive working page Yes option for cloned assessment as follows
-      | Question Name                                                                             | Text to be verified                           |
-      | Recommended hours per week in addition to statutory minimum, at the start of the order    |                                            21 |
-      | Recommended hours per week in addition to statutory minimum, at the midpoint of the order |                                             0 |
-      | At what point should the individual be expected to reach a 28-hour working week?          | Entering Text related to 28-hour working week |
-      | Is the individual eligible for intensive working?-No-Give detail                          | Entering Text related to Not eligibility      |
+    And I check the answers on the page are as follows
+      | Question                                                                                  | Type      | Answer                                        | Detail |
+      | Recommended hours per week in addition to statutory minimum, at the start of the order    | Text      |                                            21 |        |
+      | Recommended hours per week in addition to statutory minimum, at the midpoint of the order | Text      |                                             0 |        |
+      | At what point should the individual be expected to reach a 28-hour working week?          | Text Area | Entering Text related to 28-hour working week |        |
+      | Is the individual eligible for intensive working?                                         | Radio     | Yes                                           |        |
     And I select "Yes" for the question "Mark intensive working section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
@@ -740,13 +741,13 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     #  Action/Enter Offender's "Availability" for Community Payback work
     When I click on the "Availability" link
     And I see UPW "Availability for Community Payback work" page
-#    #  And I see that "No, I'll come back later" is Default state on Availability page
+#    #  I check that "No, I’ll come back later" is selected for "Mark availability for community payback work section as complete?"
     And I verify the Availability Section as follows
       | Availability | Monday      | Tuesday       | Wednesday   | Thursday      | Friday      | Saturday      | Sunday      |
       | Morning      | Morning-Yes |               |             |               | Morning-Yes |               |             |
       | Afternoon    |             | Afternoon-Yes |             | Afternoon-Yes |             | Afternoon-Yes |             |
       | Evening      |             |               | Evening-Yes |               |             |               | Evening-Yes |
-    And I verify the text "Available early mornings and late nights" in the Additional availability information
+    And I check that "Available early mornings and late nights" has been entered for "Additional availability information [Optional]"
     And I select "Yes" for the question "Mark availability for community payback work section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
@@ -755,12 +756,12 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     When I click on the "Choose equipment sizes" link
     And I see UPW "Choose equipment sizes" page
     And I see "Choose equipment sizes" in page title
-    And I verify that "No, I'll come back later" is Default state on Equipment page
-    And I verify the details on the "Equipment" page for cloned assessment as follows
-      | Question Name                     | Select Option |
-      | Male or female clothing required? | Male          |
-      | Waterproof clothing               | Large         |
-      | Footwear                          | Size 10       |
+    And I check that "No, I’ll come back later" is selected for "Mark equipment sizes section as complete?"
+    And I check the answers on the page are as follows
+      | Question                          | Type     | Answer  |
+      | Male or female clothing required? | Radio    | Male    |
+      | Waterproof clothing               | Radio    | Large   |
+      | Footwear                          | Dropdown | Size 10 |
     And I select "Yes" for the question "Mark equipment sizes section as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page

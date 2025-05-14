@@ -1,11 +1,5 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
-
 const EmploymentEducationAndSkills = require('../../../integration/pages/upwPages/employmentEducationAndSkills/employmentEducationAndSkillsPage')
-const Common = require('../../../integration/pages/upwPages/common/common')
-
-When('I verify that {string} is Default state on Employment, education and skills page', () => {
-  cy.get(EmploymentEducationAndSkills.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
 
 Then(
   'I see the following Employment, education and skills Summary and Field error messages for {string}',
@@ -81,30 +75,6 @@ Then(
   },
 )
 
-When('I verify that the Employment, education and skills related radio buttons are cleared', () => {
-  cy.get(EmploymentEducationAndSkills.fullTimeEmplEducationRBtn)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.partTimeEmplEducationRBtn)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.noEmplEducationRBtn).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.readWriteDifficultiesRBtnYes)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.readWriteDifficultiesRBtnNo)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.workSkillsRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.workSkillsRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.futureWorkPlansRBtnYes)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(EmploymentEducationAndSkills.futureWorkPlansRBtnNo)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-})
-
 When(
   'I verify that the Employment, education related related radio buttons are still selected & unselected',
   (dataTable) => {
@@ -144,58 +114,3 @@ When(
     }
   },
 )
-
-When('I verify the Employment, education and skills page for cloned assessment as follows', (dataTable) => {
-  if (dataTable.hashes()[0]['Option to be verified'] === 'Full-time education or employment') {
-    cy.get(EmploymentEducationAndSkills.fullTimeEmplEducationRBtn)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-    Common.getText(EmploymentEducationAndSkills.fullTimeEmplEducationDetails).should(
-      'contain',
-      dataTable.hashes()[0]['Text to be verified in Give Details'],
-    )
-  } else if (dataTable.hashes()[0]['Option to be verified'] === 'Part-time education or employment') {
-    cy.get(EmploymentEducationAndSkills.partTimeEmplEducationRBtn)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-    Common.getText(EmploymentEducationAndSkills.partTimeEmplEducationDetails).should(
-      'contain',
-      dataTable.hashes()[0]['Text to be verified in Give Details'],
-    )
-  } else if (dataTable.hashes()[0]['Option to be verified'] === 'No') {
-    cy.get(EmploymentEducationAndSkills.noEmplEducationRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[1]['Option to be verified'] === 'Yes') {
-    cy.get(EmploymentEducationAndSkills.readWriteDifficultiesRBtnYes)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-    Common.getText(EmploymentEducationAndSkills.readWriteDifficultiesDetails).should(
-      'contain',
-      dataTable.hashes()[1]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(EmploymentEducationAndSkills.readWriteDifficultiesRBtnNo)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-  }
-  if (dataTable.hashes()[2]['Option to be verified'] === 'Yes') {
-    cy.get(EmploymentEducationAndSkills.workSkillsRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(EmploymentEducationAndSkills.workSkillsDetails).should(
-      'contain',
-      dataTable.hashes()[2]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(EmploymentEducationAndSkills.workSkillsRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[3]['Option to be verified'] === 'Yes') {
-    cy.get(EmploymentEducationAndSkills.futureWorkPlansRBtnYes)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-    Common.getText(EmploymentEducationAndSkills.futureWorkPlansDetails).should(
-      'contain',
-      dataTable.hashes()[3]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(EmploymentEducationAndSkills.futureWorkPlansRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-})

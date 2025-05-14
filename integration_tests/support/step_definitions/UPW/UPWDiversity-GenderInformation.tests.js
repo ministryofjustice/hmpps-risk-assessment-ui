@@ -2,10 +2,6 @@ const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const GenderInformation = require('../../../integration/pages/upwPages/diversity/genderInformationPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I see that {string} is Default state on Gender information page', () => {
-  cy.get(GenderInformation.iWillComeBackLaterRButtonNo).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
 When('I complete {string} Section with gender as {string}', (sectionName, gender) => {
   cy.get('.task-list__task-name').contains(sectionName).click()
   cy.get(Common.pageHeader).should('contain.text', sectionName)
@@ -19,13 +15,6 @@ When('I complete {string} Section with gender as {string}', (sectionName, gender
   cy.url().then(($url) => {
     expect($url).contains('task-list')
   })
-})
-
-Then('I see that "Placement preferences" link is not available on the task list page', (dataTable) => {
-  GenderInformation.selectGenderIdentity(dataTable.hashes()[0]['Select Option'])
-  GenderInformation.selectSexChangeStatus(dataTable.hashes()[1]['Select Option'])
-  GenderInformation.selectintersexDSDStatus(dataTable.hashes()[2]['Select Option'])
-  GenderInformation.selectTransgenderStatus(dataTable.hashes()[3]['Select Option'])
 })
 
 When('I see that {string} link is not available', (linkName) => {
@@ -83,20 +72,6 @@ Then(
   },
 )
 
-When('I verify that the Gender information related radio buttons are cleared', () => {
-  cy.get(GenderInformation.maleGenderRBtn).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.femaleGenderBtn).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.nonBinaryGenderRBtn).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.preferToSelfDescribeGenderRBtn).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.preferNotToSayGenderRBtn).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.sexChangeRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.sexChangeRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.intersexDSDRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.intersexDSDRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.transgenderRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(GenderInformation.transgenderRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-})
-
 When('I verify that the Gender information related radio buttons are still selected & unselected', (dataTable) => {
   if (dataTable.hashes()[0]['Select Option'] === 'Male') {
     cy.get(GenderInformation.maleGenderRBtn).should('have.attr', 'type', 'radio').should('be.checked')
@@ -122,39 +97,6 @@ When('I verify that the Gender information related radio buttons are still selec
   if (dataTable.hashes()[3]['Select Option'] === 'Yes') {
     cy.get(GenderInformation.transgenderRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[3]['Select Option'] === 'No') {
-    cy.get(GenderInformation.transgenderRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-})
-
-When('I verify the Gender information page for cloned assessment as follows', (dataTable) => {
-  if (dataTable.hashes()[0]['Option to be verified'] === 'Male') {
-    cy.get(GenderInformation.maleGenderRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-  } else if (dataTable.hashes()[0]['Option to be verified'] === 'Female') {
-    cy.get(GenderInformation.femaleGenderBtn).should('have.attr', 'type', 'radio').should('be.checked')
-  } else if (dataTable.hashes()[0]['Option to be verified'] === 'Non-binary') {
-    cy.get(GenderInformation.nonBinaryGenderRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-  } else if (dataTable.hashes()[0]['Option to be verified'] === 'Prefer to self-describe') {
-    cy.get(GenderInformation.preferToSelfDescribeGenderRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-  } else if (dataTable.hashes()[0]['Option to be verified'] === 'Prefer not to say') {
-    cy.get(GenderInformation.preferNotToSayGenderRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[1]['Option to be verified'] === 'Yes') {
-    cy.get(GenderInformation.sexChangeRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(GenderInformation.sexChangeDetails).should(
-      'contain',
-      dataTable.hashes()[1]['Details to be verified'],
-    )
-  } else {
-    expect(GenderInformation.sexChangeRBtnNo).to.be.selected()
-  }
-  if (dataTable.hashes()[2]['Option to be verified'] === 'Yes') {
-    cy.get(GenderInformation.intersexDSDRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-  } else {
-    cy.get(GenderInformation.intersexDSDRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[3]['Option to be verified'] === 'Yes') {
-    cy.get(GenderInformation.transgenderRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-  } else {
     cy.get(GenderInformation.transgenderRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
 })

@@ -1,10 +1,5 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const TravelInformation = require('../../../integration/pages/upwPages/placementRestrictions/travelPage')
-const Common = require('../../../integration/pages/upwPages/common/common')
-
-When('I see that {string} is Default state on Travel information page', () => {
-  cy.get(TravelInformation.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
 
 Then('I see the following Travel information Summary and Field error messages', (dataTable) => {
   cy.get(TravelInformation.travelInfoSummError).should('have.text', dataTable.hashes()[0]['Summary Error Messages'])
@@ -37,17 +32,6 @@ Then('I see the following Travel information Details Summary and Field error mes
   )
 })
 
-When('I verify that the Travel information related radio buttons are cleared', () => {
-  cy.get(TravelInformation.travelInfoRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.travelInfoRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.drivingLicenceRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.drivingLicenceRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.vehicleRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.vehicleRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.publicTransportRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(TravelInformation.publicTransportRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-})
-
 When('I verify that the Travel information related radio buttons are still selected & unselected', (dataTable) => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(TravelInformation.travelInfoRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
@@ -64,36 +48,6 @@ When('I verify that the Travel information related radio buttons are still selec
   } else if (dataTable.hashes()[3]['Select Option'] === 'Yes') {
     cy.get(TravelInformation.publicTransportRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[3]['Select Option'] === 'No') {
-    cy.get(TravelInformation.publicTransportRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-})
-
-When('I verify the Travel information page for cloned assessment as follows', (dataTable) => {
-  if (dataTable.hashes()[0]['Option to be verified'] === 'Yes') {
-    cy.get(TravelInformation.travelInfoRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(TravelInformation.travelInfoDetails).should(
-      'contain',
-      dataTable.hashes()[0]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(TravelInformation.travelInfoRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-
-  if (dataTable.hashes()[1]['Option to be verified'] === 'Yes') {
-    cy.get(TravelInformation.drivingLicenceRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-  } else {
-    cy.get(TravelInformation.drivingLicenceRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-
-  if (dataTable.hashes()[2]['Option to be verified'] === 'Yes') {
-    cy.get(TravelInformation.vehicleRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-  } else {
-    cy.get(TravelInformation.vehicleRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-
-  if (dataTable.hashes()[3]['Option to be verified'] === 'Yes') {
-    cy.get(TravelInformation.publicTransportRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-  } else {
     cy.get(TravelInformation.publicTransportRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
 })

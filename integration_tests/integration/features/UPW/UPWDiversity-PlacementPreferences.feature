@@ -1,5 +1,4 @@
 Feature: Verify the Placement Preferences page
-
   As a Probation Practitioner
   I can enter Placement preferences associated to the Service User
   So that I can consider any adjustments needed on their work placement
@@ -13,13 +12,14 @@ Feature: Verify the Placement Preferences page
 
   Scenario Outline: Verify that the user can select the placement preferences and and mark the section as completed
     When I see UPW "Does the individual have any placement preferences?" page
-    And I verify that "No, I'll come back later" is Default state on Placement preferences page
+    And I check that "No, I’ll come back later" is selected for "Mark placement preferences as complete?"
     And I select "Yes" for the question "Does the individual have any placement preferences?"
     And I say my placement preference is "<Placement Preference Type>"
     And I select "Yes" for the question "Mark placement preferences as complete?"
     And I click on the "Save" button
     And I see the UPW "task-list" page
     Then I see the "Placement preferences" link is marked as "Completed"
+
     Examples:
       | Placement Preference Type |
       | Individual                |
@@ -47,7 +47,9 @@ Feature: Verify the Placement Preferences page
     Then I see the UPW "task-list" page
     And I see the "Placement preferences" link is marked as "Incomplete"
     And I click on the "Placement preferences" link
-    And I verify that the placement preferences related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                                            | Type  |
+      | Does the individual have any placement preferences? | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Does the individual have any placement preferences?" page
@@ -68,7 +70,7 @@ Feature: Verify the Placement Preferences page
 
   Scenario: Verify that the user can mark placement preferences as "Completed" and can change to "Incomplete"
     When I see UPW "Does the individual have any placement preferences?" page
-    Then I verify that "No, I'll come back later" is Default state on Placement preferences page
+    And I check that "No, I’ll come back later" is selected for "Mark placement preferences as complete?"
     And I select "Yes" for the question "Does the individual have any placement preferences?"
     And I say my placement preference is "Mixed group"
     And I select "Yes" for the question "Mark placement preferences as complete?"

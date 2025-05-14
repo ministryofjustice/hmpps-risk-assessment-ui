@@ -1,10 +1,6 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const IntensiveWorking = require('../../../integration/pages/upwPages/placementDetails/intensiveWorkingPage')
 
-When('I see that {string} is Default state on Intensive working page', () => {
-  cy.get(IntensiveWorking.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
 Then('I see the following Intensive working Summary and Field error messages', (dataTable) => {
   cy.get(IntensiveWorking.eligibilityIntensWorkSummError).should(
     'have.text',
@@ -54,11 +50,6 @@ Then('I see the following eligibility No Details Summary and Field error message
   )
 })
 
-When('I verify that the Intensive working related radio buttons are cleared', () => {
-  cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-})
-
 When('I verify that the Intensive working related radio buttons are still selected & unselected', (dataTable) => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
@@ -77,20 +68,4 @@ When('I verify that the Intensive working related radio buttons are still select
   } else if (dataTable.hashes()[0]['Select Option'] === 'No') {
     cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
-})
-
-When('I verify the Intensive working page Yes option for cloned assessment as follows', (dataTable) => {
-  cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-  cy.get(IntensiveWorking.recommendedHoursStartOrderTextBox)
-    .should('be.visible')
-    .invoke('val')
-    .should('contain', dataTable.hashes()[0]['Text to be verified'])
-  cy.get(IntensiveWorking.recommendedHoursMidOrderTextBox)
-    .should('be.visible')
-    .invoke('val')
-    .should('contain', dataTable.hashes()[1]['Text to be verified'])
-  cy.get(IntensiveWorking.twentyEightHoursWeekDetails)
-    .should('be.visible')
-    .invoke('val')
-    .should('contain', dataTable.hashes()[2]['Text to be verified'])
 })

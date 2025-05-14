@@ -12,7 +12,7 @@ Feature: Verify the Employment, education and skills page
   Scenario: Verify that the user can select and answers on the "Employment, education and skills" Page and mark the section as completed - Full-time education or employment
     When I see UPW "Employment, education and skills" page
     And I see "Employment, education and skills" in page title
-    And I verify that "No, I'll come back later" is Default state on Employment, education and skills page
+    And I check that "No, I’ll come back later" is selected for "Mark employment, education and skills section as complete?"
     And I answer the questions on the page
       | Question                                                                                                        | Type  | Answer                            | Details                                       |
       | Is the individual in employment or education?                                                                   | Radio | Full-time education or employment | Entering Text related to Full-time education  |
@@ -28,7 +28,7 @@ Feature: Verify the Employment, education and skills page
   Scenario: Verify that the user can select and answers on the "Employment, education and skills" Page and mark the section as completed - Part-time education or employment
     When I see UPW "Employment, education and skills" page
     And I see "Employment, education and skills" in page title
-    And I verify that "No, I'll come back later" is Default state on Employment, education and skills page
+    And I check that "No, I’ll come back later" is selected for "Mark employment, education and skills section as complete?"
     And I answer the questions on the page
       | Question                                                                                                        | Type  | Answer                            | Details                                       |
       | Is the individual in employment or education?                                                                   | Radio | Part-time education or employment | Entering Text related to Part-time education  |
@@ -96,7 +96,12 @@ Feature: Verify the Employment, education and skills page
     And I see the UPW "task-list" page
     And I see the "Employment, education and skills" link is marked as "Incomplete"
     And I click on the "Employment, education and skills" link
-    Then I verify that the Employment, education and skills related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                                                                                                        | Type  |
+      | Is the individual in employment or education?                                                                   | Radio |
+      | Does the individual have any difficulties with reading, writing or numbers?                                     | Radio |
+      | Does the individual have any work skills or experience that could be used while carrying out Community Payback? | Radio |
+      | Does the individual have future work plans that could be supported through a Community Payback placement?       | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/entered values are saved
     When I see UPW "Employment, education and skills" page

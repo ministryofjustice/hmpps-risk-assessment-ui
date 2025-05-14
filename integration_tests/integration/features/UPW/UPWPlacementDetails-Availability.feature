@@ -10,7 +10,7 @@ Feature: Verify the Availability page
 
   Scenario: Verify that the user can select and enter answers on the "Availability" Page and mark the section as completed
     When I see UPW "Availability for Community Payback work" page
-    And I see that "No, I'll come back later" is Default state on Availability page
+    And I check that "No, I’ll come back later" is selected for "Mark availability for community payback work section as complete?"
     And I verify that all the Availability related Check Boxes are selected
     And I select the Availability CheckBoxes as follows
       | Availability | Monday      | Tuesday       | Wednesday   | Thursday      | Friday      | Saturday      | Sunday      |
@@ -37,7 +37,7 @@ Feature: Verify the Availability page
 
   Scenario: Verify that all the Availability related values are cleared when the user navigates to Task List Page by clicking "Back" link
     When I see UPW "Availability for Community Payback work" page
-    And I see that "No, I'll come back later" is Default state on Availability page
+    And I check that "No, I’ll come back later" is selected for "Mark availability for community payback work section as complete?"
     And I select the Availability CheckBoxes as follows
       | Availability | Monday      | Tuesday       | Wednesday   | Thursday      | Friday      | Saturday      | Sunday      |
       | Morning      | Morning-Yes |               |             |               | Morning-Yes |               |             |

@@ -1,18 +1,5 @@
-const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
+const { Then } = require('@badeball/cypress-cucumber-preprocessor')
 const cultureAndReligiousAdjustments = require('../../../integration/pages/upwPages/diversity/culturalAndReligiousAdjustmentsPage')
-const Common = require('../../../integration/pages/upwPages/common/common')
-
-When('I verify that {string} is Default state on Cultural and religious page', () => {
-  cy.contains('legend', 'Mark cultural or religious adjustments section as complete?')
-    .parent()
-    .within(() => {
-      cy.contains('label', 'No')
-        .parent()
-        .within(() => {
-          cy.get('input').should('be.checked')
-        })
-    })
-})
 
 Then('I see the following Cultural or religious Summary and Field error messages', (dataTable) => {
   cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstSummError).should(
@@ -34,47 +21,4 @@ Then('I see the following Cultural or religious Details Summary and Field error 
     'contain.text',
     dataTable.hashes()[0]['Field Error Messages'],
   )
-})
-
-When('I verify that the culture and religious related radio buttons are cleared', () => {
-  cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnYes)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnNo)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-})
-
-When('I verify that the Culture and religious related radio button is still selected', () => {
-  cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnYes)
-    .should('have.attr', 'type', 'radio')
-    .should('be.checked')
-  cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnNo)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-})
-
-When('I verify that the Culture and religious related text box still have the text {string}', () => {
-  cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnYes)
-    .should('have.attr', 'type', 'radio')
-    .should('be.checked')
-  cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnNo)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-})
-
-When('I verify the Cultural or religious page for cloned assessment as follows', (dataTable) => {
-  if (dataTable.hashes()[0]['Option to be verified'] === 'Yes') {
-    cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnYes)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-    Common.getText(cultureAndReligiousAdjustments.cultReligiousAdjstDetails).should(
-      'contain',
-      dataTable.hashes()[0]['Details to be verified'],
-    )
-  } else {
-    cy.get(cultureAndReligiousAdjustments.cultReligiousAdjstRBtnNo)
-      .should('have.attr', 'type', 'radio')
-      .should('be.checked')
-  }
 })

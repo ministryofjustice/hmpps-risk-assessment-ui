@@ -10,7 +10,7 @@ Feature: Verify the Health issues page
 
   Scenario: Verify that the user can select and enter answers on the "Health issues" Page and mark the section as completed
     When I see UPW "Are there any other health issues that may affect ability to work?" page
-    And I see that "No, I’ll come back later" is Default state on Health issues page
+    And I check that "No, I’ll come back later" is selected for "Mark health issues section as complete?"
     And I answer the questions on the page
       | Question                                                     | Type  | Answer   | Details                                               |
       | Does the individual have any known allergies?                | Radio | Yes      | Entering Text related to Allergies                    |
@@ -67,7 +67,13 @@ Feature: Verify the Health issues page
     And I see the UPW "task-list" page
     And I see the "Health issues" link is marked as "Incomplete"
     And I click on the "Health issues" link
-    Then I verify that the Health issues related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                                                     | Type  |
+      | Does the individual have any known allergies?                | Radio |
+      | Has the individual experienced sudden loss of consciousness? | Radio |
+      | Does the individual have epilepsy?                           | Radio |
+      | Is the individual pregnant or recently given birth?          | Radio |
+      | Any other health issues?                                     | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Are there any other health issues that may affect ability to work?" page

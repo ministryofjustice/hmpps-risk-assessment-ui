@@ -10,7 +10,7 @@ Feature: Verify the Managing risk page
 
   Scenario: Verify that the user can select and enter answers on the "Managing risk" Page and mark the section as completed
     When I see UPW "Managing risk" page
-    And I see that "No, I'll come back later" is Default state on Managing risk page
+    And I check that "No, I’ll come back later" is selected for "Mark managing risk section as complete?"
     And I answer the questions on the page
       | Question                                                               | Type  | Answer | Details                                            |
       | Location restricted by victim exclusion criteria?                      | Radio | Yes    | Entering Text related to victim exclusion criteria |
@@ -84,7 +84,16 @@ Feature: Verify the Managing risk page
     And I see the UPW "task-list" page
     And I see the "Managing risk" link is marked as "Incomplete"
     And I click on the "Managing risk" link
-    Then I verify that the Managing risk related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                                                               | Type  |
+      | Location restricted by victim exclusion criteria?                      | Radio |
+      | Close supervision or restricted placement recommended?                 | Radio |
+      | Recommend not to place with female supervisor?                         | Radio |
+      | Recommend not to place with male supervisor?                           | Radio |
+      | Restrictive orders? (non-molestation, injunction etc.)                 | Radio |
+      | Are there any risk management issues for an individual placement?      | Radio |
+      | Are there any risk management issues if working in a supervised group? | Radio |
+      | Alcohol or drug issues with health and safety impact?                  | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Managing risk" page

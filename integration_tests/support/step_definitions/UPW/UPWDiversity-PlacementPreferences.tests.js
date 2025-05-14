@@ -3,18 +3,6 @@ const placementPreferencesPage = require('../../../integration/pages/upwPages/di
 const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I verify that {string} is Default state on Placement preferences page', () => {
-  cy.contains('legend', 'Mark placement preferences as complete?')
-    .parent()
-    .within(() => {
-      cy.contains('label', 'No')
-        .parent()
-        .within(() => {
-          cy.get('input').should('be.checked')
-        })
-    })
-})
-
 Then('I say my placement preference is {string}', (option) => {
   placementPreferencesPage.selectPlacementPreference(option)
 })
@@ -39,15 +27,6 @@ Then('I see the following Placement preferences Details Summary and Field error 
     'contain.text',
     dataTable.hashes()[0]['Field Error Messages'],
   )
-})
-
-When('I verify that the placement preferences related radio buttons are cleared', () => {
-  cy.get(placementPreferencesPage.placementPreferRButtonYes)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
-  cy.get(placementPreferencesPage.placementPreferRButtonNo)
-    .should('have.attr', 'type', 'radio')
-    .should('not.be.checked')
 })
 
 When('I verify that the placement preferences related radio button is still selected', () => {

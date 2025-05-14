@@ -1,5 +1,4 @@
 const { Then } = require('@badeball/cypress-cucumber-preprocessor')
-const Common = require('../../../integration/pages/upwPages/common/common')
 
 Then('I enter {string} for the question {string}', (answer, questionTitle) => {
   return cy
@@ -7,7 +6,7 @@ Then('I enter {string} for the question {string}', (answer, questionTitle) => {
     .find('fieldset > legend, .govuk-form-group > label')
     .contains(questionTitle)
     .parent()
-    .find('textarea')
+    .find('textarea, input')
     .type(answer)
 })
 
@@ -22,8 +21,8 @@ Then('I select {string} for the question {string}', (option, questionTitle) => {
     .click()
 })
 
-Then('I click on the {string} button', () => {
-  Common.clickSaveBtn()
+Then('I click on the {string} button', (label) => {
+  cy.contains('button, a', label).click()
 })
 
 Then('I answer the multiple choice questions on the page', (dataTable) => {
@@ -64,9 +63,40 @@ Then('I check the answers on the page are as follows', (dataTable) => {
     const details = row.Details
 
     if (questionType === 'Radio' || questionType === 'Checkbox') {
-      cy.checkMultipleChoiceQuestionHasAnswer(answer, details, question)
+      cy.checkRadioHasAnswer(answer, details, question)
+    } else if (questionType === 'Dropdown') {
+      cy.checkDropdownHasAnswer(answer, question)
     } else {
       cy.checkQuestionHasAnswer(answer, question)
     }
   })
+})
+
+Then('I check that {string} has been entered for {string}', (answer, question) => {
+  cy.checkQuestionHasAnswer(answer, question)
+})
+
+Then('I check that {string} is selected for {string}', (answer, question) => {
+  cy.checkRadioHasAnswer(answer, null, question)
+})
+
+Then('I see the following questions on the page are cleared down', (dataTable) => {
+  dataTable.hashes().forEach((row) => {
+    const question = row.Question
+    const questionType = row.Type
+
+    if (questionType === 'Radio') {
+      cy.checkRadioHasNoAnswer(question)
+    } else if (questionType === 'Text Area') {
+      cy.checkTextAreaIsUnanswered(question)
+    } else if (questionType === 'Dropdown') {
+      cy.checkDropdownHasNoAnswer(question)
+    } else {
+      cy.checkQuestionHasNoAnswer(question)
+    }
+  })
+})
+
+Then('I am presented with the subheading {string}', (errorMessage) => {
+  cy.contains('h2', errorMessage)
 })

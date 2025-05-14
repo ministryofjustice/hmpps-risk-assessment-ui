@@ -10,7 +10,7 @@ Feature: Verify the Individuals details page
 
   Scenario: Verify that the user can edit the contact details and mark the section as completed
     When I see UPW "Individual's details" page
-    And I verify that "No, I'll come back later" is Default state on Individuals details page
+    And I check that "No, I’ll come back later" is selected for "Mark individual’s details section as complete?"
     And I click "Change" link for changing Contact details
     And I see UPW "Contact details" page
 #    And I see "Emergency contact 1" sub heading
@@ -26,7 +26,7 @@ Feature: Verify the Individuals details page
       | Phone number  | Text |            02142785462 |
       | Mobile number | Text |            07123456789 |
       | Email         | Text | test@test.com          |
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     And I see UPW "Individual's details" page
     And I verify the details on the "Individuals details" page as follows
       | Field Name    | Text to be Verified    |
@@ -50,7 +50,7 @@ Feature: Verify the Individuals details page
     When I see UPW "Individual's details" page
     And I click "Change" link for changing Contact details
     And I see UPW "Contact details" page
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     Then I see the following Summary and Field error messages for Contact details
       | Field Name    | Summary Error Messages                                     | Field Error Messages                                       |
       | Building name | You must provide details for Building name or House number | You must provide details for Building name or House number |
@@ -65,7 +65,7 @@ Feature: Verify the Individuals details page
   Scenario: Verify that it is mandatory to provide a set of EC details or check the "Individual declined to give an emergency contact" CheckBox
     When I see UPW "Individual's details" page
     And I select "Yes" for the question "Mark individual’s details section as complete?"
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     Then I see the following Summary and Field error messages on Individual details page
       | Field Name                                       | Summary Error Message                                                                           | Field Error Message                                                                             |
       | Individual declined to give an emergency contact | You must provide an emergency contact or select if the individual has declined to give details. | You must provide an emergency contact or select if the individual has declined to give details. |
@@ -81,7 +81,7 @@ Feature: Verify the Individuals details page
       | Relationship to the individual | Text | Friend       |
       | Phone number                   | Text |  02142785462 |
       | Mobile                         | Text | 020123456789 |
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     And I see UPW "Individual's details" page
     And I verify the Emergency details on the "Individuals details" page as follows
       | Field Name                     | Text to be Verified |
@@ -99,7 +99,7 @@ Feature: Verify the Individuals details page
     When I see UPW "Individual's details" page
     And I click "Add contact" button for Emergency contact details
     And I see UPW "Emergency contact" page
-    And I click the "Save" button on Contact details
+    And I click on the "Save" button
     Then I see the following Summary and Field error messages for Emergency contact details
       | Field Name                     | Summary Error Messages                     | Field Error Messages                       |
       | First name                     | Name is required                           | Name is required                           |

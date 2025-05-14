@@ -3,14 +3,6 @@ const GPDetailsPage = require('../../../integration/pages/upwPages/placementRest
 const EditGPDetailsPage = require('../../../integration/pages/upwPages/placementRestrictions/editGPDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I verify that {string} is Default state on GP details page', () => {
-  cy.get(GPDetailsPage.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
-When('I click {string} button for GP details', () => {
-  GPDetailsPage.clickAddGPDetails()
-})
-
 When('I say Individual declined to give GP details', () => {
   GPDetailsPage.clickGPDetailsDecline()
 })
@@ -28,10 +20,6 @@ Then('I click on {string} link against the GP Contact {string} on the GP details
   }
 })
 
-When('I see that {string} 4 sub heading is not available', () => {
-  cy.get(':nth-child(8) > .govuk-heading-m').should('not.exist')
-})
-
 Then('I see the following Summary and Field error messages for GP details', (dataTable) => {
   cy.get(EditGPDetailsPage.gpPracticeNameSummError).should('have.text', dataTable.hashes()[0]['Summary Error Messages'])
   cy.get(EditGPDetailsPage.gpPracticeNameFieldError).should(
@@ -43,10 +31,6 @@ Then('I see the following Summary and Field error messages for GP details', (dat
     'contain.text',
     dataTable.hashes()[1]['Field Error Messages'],
   )
-})
-
-Then('I click the {string} button on GP details', () => {
-  EditGPDetailsPage.clickSaveGPDetails()
 })
 
 When('I verify the GP contact details {string} on the GP details page as follows', (index, dataTable) => {

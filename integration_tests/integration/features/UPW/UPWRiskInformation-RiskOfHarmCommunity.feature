@@ -11,7 +11,7 @@ Feature: Verify the UPW Risk of harm in the community page
   Scenario: Verify that the user can select and enter answers on the "Risk of harm in the community" Page and mark the section as completed
     When I see UPW "Risk of harm in the community" page
     And I see "Risk of harm in the community" in page title
-    And I verify that "No, I'll come back later" is Default state on Risk of harm in the community page
+    And I check that "No, I’ll come back later" is selected for "Mark risk of harm in the community section as complete?"
     And I answer the questions on the page
       | Question                                                              | Type  | Answer | Details                                                      |
       | History of sexual offending?                                          | Radio | Yes    | Entering Text related to sexual offending                    |
@@ -31,7 +31,7 @@ Feature: Verify the UPW Risk of harm in the community page
 
   Scenario: Verify that the user can select all Options as "No" on the "Risk of harm in the community" Page
     When I see UPW "Risk of harm in the community" page
-    And I verify that "No, I'll come back later" is Default state on Risk of harm in the community page
+    And I check that "No, I’ll come back later" is selected for "Mark risk of harm in the community section as complete?"
     And I answer the questions on the page
       | Question                                                              | Type  | Answer |
       | History of sexual offending?                                          | Radio | No     |
@@ -51,7 +51,7 @@ Feature: Verify the UPW Risk of harm in the community page
 
   Scenario: Verify that the user can select combination of Yes & NO as answers on the "Risk of harm in the community" Page
     When I see "Risk of harm in the community" in page title
-    And I verify that "No, I'll come back later" is Default state on Risk of harm in the community page
+    And I check that "No, I’ll come back later" is selected for "Mark risk of harm in the community section as complete?"
     And I answer the questions on the page
       | Question                                                              | Type  | Answer | Details                                                      |
       | History of sexual offending?                                          | Radio | No     |                                                              |
@@ -131,7 +131,17 @@ Feature: Verify the UPW Risk of harm in the community page
     And I see the UPW "task-list" page
     Then I see the "Risk of harm in the community" link is marked as "Incomplete"
     And I click on the "Risk of harm in the community" link
-    And I verify that the Risk of harm related radio buttons are cleared
+    And I see the following questions on the page are cleared down
+      | Question                                                              | Type  |
+      | History of sexual offending?                                          | Radio |
+      | Individual poses a risk to children?                                  | Radio |
+      | Violent offences?                                                     | Radio |
+      | History of acquisitive offending?                                     | Radio |
+      | Has the individual been involved in serious group offending (SGO)?    | Radio |
+      | Control issues or disruptive behaviour?                               | Radio |
+      | History of hate-based attitudes or behaviours?                        | Radio |
+      | Is the individual vulnerable because they are a high-profile person?  | Radio |
+      | Additional risk assessment information relevant to Community Payback? | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Risk of harm in the community" page
@@ -151,14 +161,14 @@ Feature: Verify the UPW Risk of harm in the community page
     And I see the UPW "task-list" page
     And I see the "Risk of harm in the community" link is marked as "Incomplete"
     And I click on the "Risk of harm in the community" link
-    And I verify that the Risk of harm related related radio buttons are still selected & unselected
-      | Question Name                                                         | Select Option |
-      | History of sexual offending?                                          | No            |
-      | Individual poses a risk to children?                                  | Yes           |
-      | Violent offences?                                                     | No            |
-      | History of acquisitive offending?                                     | Yes           |
-      | Has the individual been involved in serious group offending (SGO)?    | No            |
-      | Control issues or disruptive behaviour?                               | Yes           |
-      | History of hate-based attitudes or behaviours?                        | No            |
-      | Is the individual vulnerable because they are a high-profile person?  | Yes           |
-      | Additional risk assessment information relevant to Community Payback? | No            |
+    And I check the answers on the page are as follows
+      | Question                                                              | Type  | Answer | Details                                        |
+      | History of sexual offending?                                          | Radio | No     |                                                |
+      | Individual poses a risk to children?                                  | Radio | Yes    | Entering Text related to risk to children      |
+      | Violent offences?                                                     | Radio | No     |                                                |
+      | History of acquisitive offending?                                     | Radio | Yes    | Entering Text related to acquisitive offending |
+      | Has the individual been involved in serious group offending (SGO)?    | Radio | No     |                                                |
+      | Control issues or disruptive behaviour?                               | Radio | Yes    | Entering Text related to disruptive behaviour? |
+      | History of hate-based attitudes or behaviours?                        | Radio | No     |                                                |
+      | Is the individual vulnerable because they are a high-profile person?  | Radio | Yes    | Entering Text related to high-profile person?  |
+      | Additional risk assessment information relevant to Community Payback? | Radio | No     |                                                |

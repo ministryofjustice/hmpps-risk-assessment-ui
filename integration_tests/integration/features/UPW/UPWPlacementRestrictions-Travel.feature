@@ -10,7 +10,7 @@ Feature: Verify the Travel information page
 
   Scenario: Verify that the user can select and answers on the "Travel information" Page and mark the section as completed
     When I see UPW "Travel information" page
-    And I see that "No, I'll come back later" is Default state on Travel information page
+    And I check that "No, I’ll come back later" is selected for "Mark travel information section as complete?"
     And I answer the questions on the page
       | Question                                                                     | Type  | Answer | Details                                    |
       | Does the individual have any travel issues that will affect their placement? | Radio | Yes    | Entering Text related to the Travel Issues |
@@ -51,7 +51,9 @@ Feature: Verify the Travel information page
     And I see the UPW "task-list" page
     And I see the "Travel" link is marked as "Incomplete"
     And I click on the "Travel" link
-    Then I verify that the Travel information related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                                                                     | Type  |
+      | Does the individual have any travel issues that will affect their placement? | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Travel information" page

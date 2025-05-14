@@ -11,10 +11,10 @@ Feature: Verify the Intensive working page
 
   Scenario: Verify that the user can select and enter answers on the "Intensive working" Page and mark the section as completed
     When I see UPW "Intensive working" page
-    And I see that "No, I’ll come back later" is Default state on Intensive working page
+    And I check that "No, I’ll come back later" is selected for "Mark intensive working section as complete?"
     And I answer the questions on the page
       | Question                                                                                  | Type  | Answer                                        |
-      | Is the individual eligible for intensive working?                                         | Radio |                                              Yes |
+      | Is the individual eligible for intensive working?                                         | Radio | Yes                                           |
       | Recommended hours per week in addition to statutory minimum, at the start of the order    | Text  |                                            21 |
       | Recommended hours per week in addition to statutory minimum, at the midpoint of the order | Text  |                                             0 |
       | At what point should the individual be expected to reach a 28-hour working week?          | Text  | Entering Text related to 28-hour working week |
@@ -26,7 +26,7 @@ Feature: Verify the Intensive working page
 
   Scenario: Verify that the user can select NO on the "Intensive working" Page and mark the section as completed
     When I see UPW "Intensive working" page
-    And I see that "No, I'll come back later" is Default state on Intensive working page
+    And I check that "No, I’ll come back later" is selected for "Mark intensive working section as complete?"
     And I answer the questions on the page
       | Question                                          | Type  | Answer | Details                                                     |
       | Is the individual eligible for intensive working? | Radio | No     | Entering Text related to not eligible for intensive working |
@@ -76,7 +76,9 @@ Feature: Verify the Intensive working page
     And I see the UPW "task-list" page
     And I see the "Intensive working" link is marked as "Incomplete"
     And I click on the "Intensive working" link
-    Then I verify that the Intensive working related radio buttons are cleared
+    Then I see the following questions on the page are cleared down
+      | Question                                                                                  | Type  |
+      | Is the individual eligible for intensive working?                                         | Radio |
 
   Scenario: Verify that user that user can navigate to Task List page on clicking "No, I’ll come back later" button and selected/enter values are saved
     When I see UPW "Intensive working" page

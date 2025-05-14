@@ -4,10 +4,6 @@ const EditContactDetailsPage = require('../../../integration/pages/upwPages/indi
 const EditEmergencyContactDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/EditEmergencyContactDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I verify that {string} is Default state on Individuals details page', () => {
-  cy.get(IndividualsDetailsPage.iWillComeBackLaterRBtn).should('have.attr', 'type', 'radio').should('be.checked')
-})
-
 Then('I click on {string} link against the {string} on the Individual details', (option, emergencyContact) => {
   if (option === 'Remove') {
     IndividualsDetailsPage.clickRemoveEmergncyContact(emergencyContact)
@@ -29,14 +25,6 @@ Then('I see the following Summary and Field error messages on Individual details
 
 When('I click {string} link for changing Contact details', () => {
   IndividualsDetailsPage.clickChangeContactDetails()
-})
-
-When('I see {string} sub heading', (emrgncyContact) => {
-  cy.get('.upw-read-only__header').should('contain.text', emrgncyContact)
-})
-
-When('I see that {string} sub heading is not available', (emrgncyContact) => {
-  cy.get('.upw-read-only__header').should('not.contain.text', emrgncyContact)
 })
 
 When('I click {string} button for Emergency contact details', () => {
@@ -175,10 +163,6 @@ When('I verify the Emergency details on the "Individuals details" page as follow
     'contain.text',
     dataTable.hashes()[4]['Text to be Verified'],
   )
-})
-
-Then('I click the {string} button on Contact details', () => {
-  EditContactDetailsPage.clickSaveContactDetails()
 })
 
 Then('I see the following Summary and Field error messages for Emergency contact details', (dataTable) => {

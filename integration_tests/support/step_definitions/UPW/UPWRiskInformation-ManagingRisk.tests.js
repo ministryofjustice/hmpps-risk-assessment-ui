@@ -1,10 +1,5 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const Managingrisk = require('../../../integration/pages/upwPages/riskInformation/managingRiskPage')
-const Common = require('../../../integration/pages/upwPages/common/common')
-
-When('I see that {string} is Default state on Managing risk page', () => {
-  cy.get(Managingrisk.iWillComeBackLaterRButtonNo).should('have.attr', 'type', 'radio').should('be.checked')
-})
 
 Then('I see the following Managing Risk Summary and Field error messages for {string}', (errMsgType, dataTable) => {
   if (errMsgType === 'Questions') {
@@ -132,25 +127,6 @@ Then('I see the following Managing Risk Summary and Field error messages for {st
   }
 })
 
-When('I verify that the Managing risk related radio buttons are cleared', () => {
-  cy.get(Managingrisk.locationExclCriteriaRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.locationExclCriteriaRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.restrictedPlacementRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.restrictedPlacementRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.noFemaleSupervisorRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.noFemaleSupervisorRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.noMaleSupervisorRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.noMmaleSupervisorRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.restrictiveOrdersRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.restrictiveOrdersRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.riskMgmtIssuesIndividualRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.riskMgmtIssuesIndividualRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.riskMgmtIssuesSupervisedRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.riskMgmtIssuesSupervisedRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.alcoholDrugIssuesRBtnYes).should('have.attr', 'type', 'radio').should('not.be.checked')
-  cy.get(Managingrisk.alcoholDrugIssuesRBtnNo).should('have.attr', 'type', 'radio').should('not.be.checked')
-})
-
 When('I verify that the Managing risk related radio buttons are still selected & unselected', (dataTable) => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(Managingrisk.locationExclCriteriaRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
@@ -190,81 +166,6 @@ When('I verify that the Managing risk related radio buttons are still selected &
   if (dataTable.hashes()[7]['Select Option'] === 'Yes') {
     cy.get(Managingrisk.alcoholDrugIssuesRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[7]['Select Option'] === 'No') {
-    cy.get(Managingrisk.alcoholDrugIssuesRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-})
-
-When('I verify the Managing risk page for cloned assessment as follows', (dataTable) => {
-  if (dataTable.hashes()[0]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.locationExclCriteriaRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.locationExclCriteriaDetails).should(
-      'contain',
-      dataTable.hashes()[0]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.locationExclCriteriaRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[1]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.restrictedPlacementRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.restrictedPlacemenDetails).should(
-      'contain',
-      dataTable.hashes()[1]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.restrictedPlacementRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[2]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.noFemaleSupervisorRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.noFemaleSupervisorDetails).should(
-      'contain',
-      dataTable.hashes()[2]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.noFemaleSupervisorRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[3]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.noMaleSupervisorRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.noMaleSupervisorDetails).should(
-      'contain',
-      dataTable.hashes()[3]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.noMmaleSupervisorRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[4]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.restrictiveOrdersRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.restrictiveOrderDetails).should(
-      'contain',
-      dataTable.hashes()[4]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.restrictiveOrdersRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[5]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.riskMgmtIssuesIndividualRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.riskMgmtIssuesIndividualDetails).should(
-      'contain',
-      dataTable.hashes()[5]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.riskMgmtIssuesIndividualRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[6]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.riskMgmtIssuesSupervisedRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.riskMgmtIssuesSupervisedDetails).should(
-      'contain',
-      dataTable.hashes()[6]['Text to be verified in Give Details'],
-    )
-  } else {
-    cy.get(Managingrisk.riskMgmtIssuesSupervisedRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
-  }
-  if (dataTable.hashes()[7]['Option to be verified'] === 'Yes') {
-    cy.get(Managingrisk.alcoholDrugIssuesRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
-    Common.getText(Managingrisk.alcoholDrugIssuesDetails).should(
-      'contain',
-      dataTable.hashes()[7]['Text to be verified in Give Details'],
-    )
-  } else {
     cy.get(Managingrisk.alcoholDrugIssuesRBtnNo).should('have.attr', 'type', 'radio').should('be.checked')
   }
 })
