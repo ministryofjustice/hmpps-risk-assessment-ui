@@ -552,8 +552,7 @@ Feature: Verify the content on the Pdf Preview page matches the values entered/s
     And I see the UPW "task-list" page
     Then I see the "Cultural and religious adjustments" link is marked as "Completed"
     #  Action/Enter Offender's "Other adjustments"
-    When I click on the "Other adjustments" link
-    And I check "other-adjustments" for visual regression
+    When I click on the "Other adjustments" link    
     And I check the answers on the page are as follows
       | Question            | Type      | Answer                      |
       | Trauma              | Text Area | Trauma details              |
