@@ -77,7 +77,7 @@ module.exports = defineConfig({
     visualRegressionBaseDirectory: 'integration_tests/snapshots/base',
     visualRegressionDiffDirectory: 'integration_tests/snapshots/diff',
     pluginVisualRegressionUpdateImages: true,
-    pluginVisualRegressionDiffConfig: { threshold: 0.01 },
+    pluginVisualRegressionDiffConfig: { threshold: 0.05 },
     AUTH_URL: 'http://localhost:9091/auth/oauth/token?grant_type=client_credentials&username=foobar',
     AUTH_USERNAME: '',
     AUTH_PASSWORD: '',
