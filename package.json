@@ -91,7 +91,7 @@
     "passport-oauth2": "^1.6.1",
     "passport-oauth2-refresh": "^2.0.2",
     "patch-package": "^8.0.0",
-    "redis": "^4.6.5",
+    "redis": "^5.0.0",
     "sanitize-html": "^2.14.0",
     "serve-favicon": "^2.5.0",
     "superagent": "^10.0.0",
