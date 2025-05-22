@@ -60,7 +60,7 @@
     "@aws-sdk/client-sns": "^3.812.0",
     "@ministryofjustice/frontend": "5.1.3",
     "agentkeepalive": "^4.6.0",
-    "applicationinsights": "^3.7.0",
+    "applicationinsights": "^2.9.7",
     "applicationinsights-native-metrics": "0.0.11",
     "async": "^3.2.6",
     "body-parser": "^2.2.0",
