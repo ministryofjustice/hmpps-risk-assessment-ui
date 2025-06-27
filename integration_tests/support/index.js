@@ -23,28 +23,20 @@ addCompareSnapshotCommand({
   capture: 'fullPage',
   errorThreshold: 0.1,
 })
-Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
-  return (
-    cy
-      // wait for content to be ready
-      .get('body')
-      // hide ignored elements
-      .then(($app) => {
-        return new Cypress.Promise((resolve) => {
-          setTimeout(() => {
-            // hide the CRN
-            $app.find('.key-details-bar__other-details > dd:first-of-type, tr#crn > td > p').html('XXXXXX')
-            $app.find('head').append(`<style>.govuk-link:visited { color: #1d70b8; }</style>`)
-            resolve()
-            // add a very small delay to wait for the elements to be there, but you should
-            // make sure your test already handles this
-          }, 300)
-        })
-      })
-      .then(() => {
-        return originalFn(...args)
-      })
-  )
+Cypress.Commands.overwrite('compareSnapshot', async (originalFn, ...args) => {
+  await new Cypress.Promise((resolve) => {
+    setTimeout(() => {
+      // hide the CRN
+      document.body.find('.key-details-bar__other-details > dd:first-of-type, tr#crn > td > p').html('XXXXXX')
+
+      const style = document.createElement('style')
+      style.innerHTML = `.govuk-link:visited { color: #1d70b8 !important; }`
+      document.head.appendChild(style)
+
+      resolve()
+    }, 300)
+  })
+  return originalFn(...args)
 })
 
 beforeEach(() => {
