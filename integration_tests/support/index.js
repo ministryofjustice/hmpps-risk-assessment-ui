@@ -24,7 +24,8 @@ addCompareSnapshotCommand({
   errorThreshold: 0.1,
 })
 Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
-  cy.document()
+  return cy
+    .document()
     .then((doc) => {
       return new Cypress.Promise((resolve) => {
         setTimeout(() => {
