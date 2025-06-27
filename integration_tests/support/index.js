@@ -23,20 +23,19 @@ addCompareSnapshotCommand({
   capture: 'fullPage',
   errorThreshold: 0.1,
 })
-Cypress.Commands.overwrite('compareSnapshot', async (originalFn, ...args) => {
-  await new Cypress.Promise((resolve) => {
+Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
+  return new Cypress.Promise((resolve) => {
     setTimeout(() => {
       // hide the CRN
-      document.body.find('.key-details-bar__other-details > dd:first-of-type, tr#crn > td > p').html('XXXXXX')
-
+      document.body.querySelectorAll('.key-details-bar__other-details > dd:first-of-type, tr#crn > td > p').forEach(element => element.innerHTML = 'XXXXXX')
+      // override the visited state for links
       const style = document.createElement('style')
       style.innerHTML = `.govuk-link:visited { color: #1d70b8 !important; }`
       document.head.appendChild(style)
 
       resolve()
     }, 300)
-  })
-  return originalFn(...args)
+  }).then(() => originalFn(...args))
 })
 
 beforeEach(() => {
