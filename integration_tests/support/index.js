@@ -36,10 +36,14 @@ Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
               const updatedElement = element
               updatedElement.innerHTML = 'XXXXXX'
             })
+
           // override the visited state for links
-          const style = doc.createElement('style')
-          style.innerHTML = `.govuk-link:visited { color: #1d70b8 !important; }`
-          doc.head.appendChild(style)
+          doc.body
+            .querySelectorAll('.govuk-link')
+            .forEach((element) => {
+              const updatedElement = element
+              updatedElement.classList.add('govuk-link--no-visited-state')
+            })
 
           resolve()
         }, 300)
