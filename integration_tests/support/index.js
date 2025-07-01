@@ -40,7 +40,9 @@ Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
           // override the visited state for links
           doc.body.querySelectorAll('.govuk-link').forEach((element) => {
             const updatedElement = element
-            updatedElement.classList.add('govuk-link--no-visited-state')
+            if (!updatedElement.classList.contains('govuk-link--inverse')) {
+              updatedElement.classList.add('govuk-link--no-visited-state')
+            }
           })
 
           resolve()
