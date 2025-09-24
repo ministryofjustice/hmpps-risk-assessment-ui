@@ -52,7 +52,7 @@
   },
   "overrides": {
     "cypress-axe": {
-      "cypress": "^14.0.0"
+      "cypress": "^15.0.0"
     }
   },
   "dependencies": {
@@ -112,7 +112,7 @@
     "cheerio": "^1.0.0",
     "chokidar": "^3.6.0",
     "clean-css-cli": "^5.6.3",
-    "cypress": "^14.4.0",
+    "cypress": "^15.0.0",
     "cypress-axe": "^1.6.0",
     "cypress-on-fix": "^1.1.0",
     "cypress-plugin-tab": "^1.0.5",
