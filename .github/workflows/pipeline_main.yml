@@ -18,7 +18,7 @@ jobs:
 
   node_build:
     name: node build
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@fix-cache-key-generation
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_build.yml@v2
     secrets: inherit
 
   node_unit_tests:
