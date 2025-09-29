@@ -20,7 +20,7 @@ jobs:
 
   node_unit_tests:
     name: Unit tests
-    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_unit_tests.yml@fix-cache-key-generation
+    uses: ministryofjustice/hmpps-github-actions/.github/workflows/node_unit_tests.yml@v2
     needs: node_build
     secrets: inherit
 
