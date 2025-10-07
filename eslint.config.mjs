@@ -11,18 +11,8 @@ export default [
     extraPathsAllowingDevDependencies: ['cypress.config.js'],
   }),
   {
-    languageOptions: {
-      parserOptions: {
-        ecmaVersion: 2020,
-      },
-    },
     rules: {
-      'no-plusplus': [
-        'error',
-        {
-          allowForLoopAfterthoughts: true,
-        },
-      ],
+      'import/prefer-default-export': 'off',
     },
   },
 ]

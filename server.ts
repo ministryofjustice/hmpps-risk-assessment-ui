@@ -1,0 +1,332 @@
+// Node.js core dependencies
+import { join } from 'path'
+import { randomBytes } from 'crypto'
+
+// Npm dependencies
+import { setup, DistributedTracingModes, defaultClient } from 'applicationinsights'
+import express from 'express'
+import cookieParser from 'cookie-parser'
+import { json, urlencoded } from 'body-parser'
+import loggingMiddleware from 'morgan'
+import compression from 'compression'
+import { configure } from 'nunjucks'
+import dateFilter from 'nunjucks-date-filter'
+import session from 'express-session'
+import helmet from 'helmet'
+import passport from 'passport'
+import { RedisStore } from 'connect-redis'
+import minimist from 'minimist'
+import mojFiltersAll from '@ministryofjustice/frontend/moj/filters/all'
+import logger from './common/logging/logger'
+import router from './app/router'
+import noCache from './common/utils/no-cache'
+import { mdcSetup } from './common/logging/logger-mdc'
+import { updateCorrelationId } from './common/middleware/updateCorrelationId'
+import {
+  applicationInsights,
+  apis,
+  displayMaintenancePage,
+  maintenancePageText,
+  sessionSecret,
+  https,
+  isProduction,
+} from './common/config'
+import {
+  encodeHTML,
+  doReplace,
+  updateJsonValue,
+  prettyDate,
+  ageFrom,
+  prettyDateAndTime,
+  clearAnswers,
+  disabilityCodeToDescription,
+  splitLines,
+  todayPretty,
+  groupDisabilities,
+  groupProvisions,
+} from './common/utils/util'
+import { init } from './common/middleware/auth'
+import { client as _client } from './common/data/redis'
+import { REFRESH_TOKEN_LIFETIME_SECONDS, SIXTY_SECONDS } from './common/utils/constants'
+
+import {
+  hasBothModernSlaveryFlags,
+  isModernSlaveryVictim,
+  isModernSlaveryPerpetrator,
+} from './app/upw/controllers/common.utils'
+import { buildNumber } from './build-info.json'
+
+// Local dependencies
+
+const argv = minimist(process.argv.slice(2))
+const { mojDate } = mojFiltersAll()
+
+// Global constants
+const { static: _static } = express
+const unconfiguredApp = express()
+const oneYear = 86400000 * 365
+const publicCaching = { maxAge: oneYear }
+const PORT = process.env.PORT || 3000
+const { NODE_ENV } = process.env
+const allGateKeeperPages = /^\/(?!health$).*/
+
+// Define app views
+const APP_VIEWS = [
+  join(__dirname, 'node_modules/govuk-frontend/dist'),
+  join(__dirname, 'node_modules/@ministryofjustice/frontend/'),
+  __dirname,
+]
+
+function initialiseApplicationInsights() {
+  if (applicationInsights.disabled) {
+    logger.info('Application Insights disabled; disable flag set')
+    return
+  }
+
+  if (applicationInsights.instrumentationKey === '') {
+    logger.info('Application Insights disabled; no instrumentation key set')
+    return
+  }
+
+  setup()
+    .setDistributedTracingMode(DistributedTracingModes.AI_AND_W3C)
+    .setInternalLogging(applicationInsights.internalLogging, true)
+    .start()
+
+  const roleName = process.env.npm_package_name
+  defaultClient.context.tags['ai.cloud.role'] = roleName
+
+  logger.info(`Application Insights enabled with role name '${roleName}'`)
+}
+
+async function initialiseGlobalMiddleware(app) {
+  app.use((_req, res, next) => {
+    res.locals.cspNonce = randomBytes(16).toString('hex')
+    next()
+  })
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          connectSrc: ["'self'", 'dc.services.visualstudio.com/v2/track'],
+          defaultSrc: ["'self'"],
+          scriptSrc: [
+            "'self'",
+            'js.monitor.azure.com',
+            "'sha256-+6WnXIl4mbFTCARd8N3COQmT3bJJmo32N8q8ZSQAIcU='",
+            "'sha256-m5Sbrhw+r00tt+60yyAghRM3ydJ7im+KM/aKiPEK/HQ='",
+            "'sha256-KRSTS/E0qGKsfXMQ4E12L0K3g+FJNXiXgJSYfVQV91M='",
+            "'sha256-TKr7E5adYQIZfInlwPaDsfURYufKvKlSM0oNSK0yZwI='",
+            "'sha256-aC+Kg9O1M7kgGrqr2caWuEs3eY9R8msK8cFrLtguFY4='",
+            "'sha256-9YsoG/P7wvqSx6FVKCl5C73RpWzbIaMsbYfxLUQeDto='",
+            "'sha256-OMPCbW+0lYfE0SfAtKG15jIcU3/75d0fjIKf/f59gE4='",
+            (_req, res) => `'nonce-${res.locals.cspNonce}'`,
+          ],
+          styleSrc: ["'self'", (_req, res) => `'nonce-${res.locals.cspNonce}'`],
+          fontSrc: ["'self'"],
+          formAction: [`'self' ${apis.oauth.url}`],
+        },
+      },
+      crossOriginEmbedderPolicy: true,
+    }),
+  )
+  app.use(compression())
+
+  if (process.env.DISABLE_REQUEST_LOGGING !== 'true') {
+    app.use(
+      /\/((?!images|dist|stylesheets|javascripts).)*/,
+      loggingMiddleware(
+        ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent" - total time :response-time ms',
+      ),
+    )
+  }
+
+  app.use((req, res, next) => {
+    res.locals.asset_path = '/dist/'
+    res.locals.showDetailedErrors = process.env.SHOW_DETAILED_ERRORS === 'true'
+    res.locals.showRequestIdOnErrorPage = process.env.SHOW_REQUEST_ID_ON_ERROR_PAGE === 'true'
+    noCache(res)
+    next()
+  })
+
+  if (displayMaintenancePage && maintenancePageText) {
+    logger.info('Maintenance page enabled')
+    app.get('*splat', (req, res) => {
+      res.locals.maintenancePageText = maintenancePageText
+      return res.render('common/templates/maintenance-page.njk')
+    })
+  }
+
+  app.use(json())
+  app.use(urlencoded({ extended: true }))
+  app.use(allGateKeeperPages, (req, res, next) => {
+    res.locals.requested_url = req.originalUrl
+    next()
+  })
+
+  app.use(cookieParser())
+
+  await _client.connect()
+
+  app.use(
+    session({
+      store: new RedisStore({ client: _client }),
+      secret: sessionSecret,
+      cookie: {
+        secure: https,
+        sameSite: 'lax',
+        maxAge: (REFRESH_TOKEN_LIFETIME_SECONDS - SIXTY_SECONDS) * 1000,
+      },
+      resave: false, // redis implements touch so shouldn't need this
+      saveUninitialized: false,
+      rolling: true,
+    }),
+  )
+
+  init(passport)
+  app.use(passport.initialize())
+  app.use(passport.session())
+
+  // add instrumentation key to app so it can be picked up in front end templates
+  // eslint-disable-next-line no-param-reassign
+  app.locals.applicationInsightsInstrumentationKey = applicationInsights.instrumentationKey
+
+  // add role name to app so it can be picked up in front end templates
+  // eslint-disable-next-line no-param-reassign
+  app.locals.applicationInsightsRoleName = process.env.npm_package_name
+
+  // must be after session since we need session
+  app.use(mdcSetup)
+  app.use(updateCorrelationId)
+}
+
+function initialiseProxy(app) {
+  app.enable('trust proxy')
+}
+
+function initialiseTemplateEngine(app) {
+  // Configure nunjucks
+  // see https://mozilla.github.io/nunjucks/api.html#configure
+  const nunjucksConfiguration = {
+    express: app, // The express app that nunjucks should install to
+    autoescape: true, // Controls if output with dangerous characters are escaped automatically
+    throwOnUndefined: false, // Throw errors when outputting a null/undefined value
+    trimBlocks: true, // Automatically remove trailing newlines from a block/tag
+    lstripBlocks: true, // Automatically remove leading whitespace from a block/tag
+    watch: NODE_ENV !== 'production', // Reload templates when they are changed (server-side). To use watch, make sure optional dependency chokidar is installed
+    noCache: NODE_ENV !== 'production', // Never use a cache and recompile templates each time (server-side)
+  }
+
+  // Initialise nunjucks environment
+  const nunjucksEnvironment = configure(APP_VIEWS, nunjucksConfiguration)
+
+  // add custom date formatters
+  nunjucksEnvironment.addFilter('date', dateFilter)
+  nunjucksEnvironment.addFilter('mojDate', mojDate)
+  nunjucksEnvironment.addFilter('prettyDate', prettyDate)
+  nunjucksEnvironment.addFilter('prettyDateAndTime', prettyDateAndTime)
+  nunjucksEnvironment.addFilter('ageFrom', ageFrom)
+  nunjucksEnvironment.addFilter('todayPretty', todayPretty)
+
+  // add answer formatters
+  nunjucksEnvironment.addFilter('clearAnswers', clearAnswers)
+  nunjucksEnvironment.addFilter('hasAnswer', (a, v) => Array.isArray(a) && a.includes(v))
+  nunjucksEnvironment.addFilter('toDisabilityDescription', disabilityCodeToDescription)
+
+  nunjucksEnvironment.addFilter(
+    'shouldDisplayModernSlaveryVictimSection',
+    (flags = []) => isModernSlaveryVictim(flags) && !isModernSlaveryPerpetrator(flags),
+  )
+  nunjucksEnvironment.addFilter(
+    'shouldDisplayModernSlaveryPerpetratorSection',
+    (flags = []) => isModernSlaveryPerpetrator(flags) || hasBothModernSlaveryFlags(flags),
+  )
+
+  // for textarea or input components we can add an extra filter to encode any raw HTML characters
+  // that might cause security issues otherwise
+  nunjucksEnvironment.addFilter('encodeHtml', (str) => encodeHTML(str))
+  nunjucksEnvironment.addFilter('splitLines', splitLines)
+  nunjucksEnvironment.addFilter('doReplace', (str, target, replacement) => doReplace(str, target, replacement))
+
+  // typeof for array, using native JS Array.isArray()
+  nunjucksEnvironment.addFilter('isArr', (str) => Array.isArray(str))
+  nunjucksEnvironment.addFilter('addSpellcheck', (jsonObj) => updateJsonValue(jsonObj, 'spellcheck', true, true))
+  nunjucksEnvironment.addFilter('updateJsonValue', (jsonObj, keyToChange, newValue) =>
+    updateJsonValue(jsonObj, keyToChange, newValue),
+  )
+  nunjucksEnvironment.addFilter('shiftArray', (arr) => {
+    return arr.slice(1)
+  })
+
+  nunjucksEnvironment.addFilter('groupDisabilities', groupDisabilities)
+  nunjucksEnvironment.addFilter('groupProvisions', groupProvisions)
+
+  // Set view engine
+  app.set('view engine', 'njk')
+
+  // eslint-disable-next-line no-param-reassign
+  app.locals.cssPath = '/stylesheets/application.min.css'
+
+  if (isProduction) {
+    // eslint-disable-next-line no-param-reassign
+    app.locals.appVersion = buildNumber || Date.now().toString()
+  } else {
+    app.use((_req, _res, next) => {
+      // eslint-disable-next-line no-param-reassign
+      app.locals.appVersion = Date.now().toString()
+      next()
+    })
+  }
+}
+
+function initialisePublic(app) {
+  app.use('/assets', _static(join(__dirname, '/node_modules/@ministryofjustice/frontend/moj/assets')))
+  app.use('/assets', _static(join(__dirname, '/node_modules/govuk-frontend/dist/govuk/assets')))
+  app.use('/javascripts', _static(join(__dirname, '/dist/javascripts'), publicCaching))
+  app.use('/images', _static(join(__dirname, '/dist/images'), publicCaching))
+  app.use('/stylesheets', _static(join(__dirname, '/dist/stylesheets'), publicCaching))
+  app.use('/downloads', _static(join(__dirname, '/dist/downloads'), publicCaching))
+}
+
+function initialiseRoutes(app) {
+  router(app)
+}
+
+async function listen() {
+  const app = await initialise()
+  app.listen(PORT)
+  logger.info(`Listening on port ${PORT}`)
+}
+
+/**
+ * Configures app
+ * @return app
+ */
+async function initialise() {
+  const app = unconfiguredApp
+  app.disable('x-powered-by')
+  initialiseApplicationInsights()
+  initialiseProxy(app)
+  initialisePublic(app)
+  await initialiseGlobalMiddleware(app)
+  initialiseTemplateEngine(app)
+  initialiseRoutes(app)
+  return app
+}
+
+/**
+ * Starts app after ensuring DB is up
+ */
+async function start() {
+  await listen()
+}
+
+/**
+ * -i flag. Immediately invoke start.
+ * Allows script to be run by task runner
+ */
+if (argv.i) {
+  start()
+}
+
+export default { start, getApp: initialise }

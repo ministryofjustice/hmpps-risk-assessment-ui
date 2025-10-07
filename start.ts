@@ -1,0 +1,73 @@
+// Always load Application Insights before anything else (Needs to be before Winston for log collection to work)
+import throng from 'throng'
+import { readFileSync, unlink, writeFileSync } from 'fs'
+import { join } from 'path'
+import logger from './common/logging/logger'
+import { start as _start } from './server'
+
+const pidFile = join(__dirname, '/.start.pid')
+const fileOptions = { encoding: 'utf-8' }
+let pid
+
+/**
+ * Throng is a wrapper around node cluster
+ * https://github.com/hunterloftis/throng
+ */
+function start() {
+  throng({
+    workers: process.env.NODE_WORKER_COUNT || 1,
+    master: startMaster,
+    start: startWorker,
+  })
+}
+
+/**
+ * Start master process
+ */
+function startMaster() {
+  logger.info(`Master started. PID: ${process.pid}`)
+  process.on('SIGINT', () => {
+    logger.info(`Master exiting`)
+    process.exit()
+  })
+}
+
+/**
+ * Start cluster worker. Log start and exit
+ * @param  {Number} workerId
+ */
+function startWorker(workerId) {
+  _start().then(() => {
+    logger.info(`Started worker ${workerId}, PID: ${process.pid}`)
+  })
+
+  process.on('SIGINT', () => {
+    logger.info(`Worker ${workerId} exiting...`)
+    process.exit()
+  })
+}
+
+/**
+ * Make sure all child processes are cleaned up
+ */
+function onInterrupt() {
+  pid = readFileSync(pidFile, fileOptions)
+  unlink(pidFile, (err) => {
+    if (err) throw err
+    logger.info('File successfully deleted')
+  })
+  process.kill(pid, 'SIGTERM')
+  process.exit()
+}
+
+/**
+ * Keep track of processes, and clean up on SIGINT
+ */
+function monitor() {
+  writeFileSync(pidFile, process.pid.toString(), fileOptions)
+  process.on('SIGINT', onInterrupt)
+}
+
+monitor()
+
+start()
