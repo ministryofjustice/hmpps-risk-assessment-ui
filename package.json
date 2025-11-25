@@ -50,11 +50,6 @@
     "record-build-info": "node ./bin/record-build-info",
     "postinstall": "patch-package"
   },
-  "overrides": {
-    "cypress-axe": {
-      "cypress": "^15.0.0"
-    }
-  },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.817.0",
     "@aws-sdk/client-sns": "^3.817.0",
