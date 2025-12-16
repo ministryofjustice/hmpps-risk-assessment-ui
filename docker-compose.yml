@@ -16,9 +16,7 @@ services:
       - hmpps
 
   hmpps-auth:
-    # image: ghcr.io/ministryofjustice/hmpps-auth:latest
-    # TODO: revert this change when fixed, pinning as there are breaking changes that require an authorization server
-    image: ghcr.io/ministryofjustice/hmpps-auth:2025-05-02.28494.105ac61
+    image: ghcr.io/ministryofjustice/hmpps-auth
     networks:
       - hmpps
     depends_on:
