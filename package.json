@@ -6,8 +6,8 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "^24.0.0",
-    "npm": "^11.0.0"
+    "node": "^22.0.0 || ^24.0.0",
+    "npm": "^10.0.0 || ^11.0.0"
   },
   "jest": {
     "setupFilesAfterEnv": [
@@ -48,7 +48,8 @@
     "lint:fix": "eslint . --cache --fix && stylelint '**/*.scss' --cache --fix",
     "watch:sass": "nodemon -e scss -x \"npm run build:css\"",
     "record-build-info": "node ./bin/record-build-info",
-    "postinstall": "patch-package"
+    "postinstall": "patch-package",
+    "setup": "npm ci && hmpps-npm-script-run-allowlist"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.817.0",
@@ -100,7 +101,8 @@
     "@babel/helper-compilation-targets": "^7.27.2",
     "@badeball/cypress-cucumber-preprocessor": "^23.0.0",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.5",
-    "@ministryofjustice/eslint-config-hmpps": "^0.0.5",
+    "@ministryofjustice/eslint-config-hmpps": "1.0.2",
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@types/luxon": "^3.6.2",
     "audit-ci": "^7.1.0",
     "browserify": "^17.0.1",
