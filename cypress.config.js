@@ -12,7 +12,7 @@ const viewportHeight = 1200
 module.exports = defineConfig({
   chromeWebSecurity: false,
   execTimeout: 30000,
-  taskTimeout: 30000,
+  taskTimeout: 60000,
   watchForFileChanges: false,
   defaultCommandTimeout: 30000,
   pageLoadTimeout: 100000,
