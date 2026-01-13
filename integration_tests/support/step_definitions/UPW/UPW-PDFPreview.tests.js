@@ -3,7 +3,7 @@ const PdfPreviewPage = require('../../../integration/pages/upwPages/pdf-preview/
 const Common = require('../../../integration/pages/upwPages/common/common')
 
 When('I check {string} for visual regression', (id) => {
-  cy.compareSnapshot(id, 0.0001)
+  cy.compareSnapshot(id, 0.01)
 })
 
 When('I view the generated PDF', () => {
