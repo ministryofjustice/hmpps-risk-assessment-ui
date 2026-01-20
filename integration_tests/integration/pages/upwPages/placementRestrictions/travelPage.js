@@ -21,7 +21,7 @@ const markSectionCompleteRBtnYes = '#travel_information_complete'
 const iWillComeBackLaterRBtn = '#travel_information_complete-2'
 
 module.exports = {
-  selectTravelInfoStatus: (option) => {
+  selectTravelInfoStatus: option => {
     if (option === 'Yes') {
       cy.get(travelInfoRBtnYes).check()
     } else if (option === 'No') {
@@ -29,12 +29,12 @@ module.exports = {
     }
   },
 
-  enterTravelInfoDetails: (details) => {
+  enterTravelInfoDetails: details => {
     cy.get(travelInfoDetails).as('travelInfoDetails').clear()
     cy.get('@travelInfoDetails').type(details)
   },
 
-  selectDrivingLicenceStatus: (option) => {
+  selectDrivingLicenceStatus: option => {
     if (option === 'Yes') {
       cy.get(drivingLicenceRBtnYes).check()
     } else if (option === 'No') {
@@ -42,7 +42,7 @@ module.exports = {
     }
   },
 
-  selectPublicTransportStatus: (option) => {
+  selectPublicTransportStatus: option => {
     if (option === 'Yes') {
       cy.get(publicTransportRBtnYes).check()
     } else if (option === 'No') {
@@ -50,7 +50,7 @@ module.exports = {
     }
   },
 
-  selectVehicleStatus: (option) => {
+  selectVehicleStatus: option => {
     if (option === 'Yes') {
       cy.get(vehicleRBtnYes).check()
     } else if (option === 'No') {
@@ -58,7 +58,7 @@ module.exports = {
     }
   },
 
-  selectTravelInfoSectionComplete: (option) => {
+  selectTravelInfoSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

@@ -58,7 +58,7 @@ const markSectionCompleteRButtonYes = '#managing_risk_complete'
 const iWillComeBackLaterRButtonNo = '#managing_risk_complete-2'
 
 module.exports = {
-  selectLocationExclusionCriteriaStatus: (option) => {
+  selectLocationExclusionCriteriaStatus: option => {
     if (option === 'Yes') {
       cy.get(locationExclCriteriaRBtnYes).check()
     } else if (option === 'No') {
@@ -66,12 +66,12 @@ module.exports = {
     }
   },
 
-  enterlocationExclCriteriaDetails: (details) => {
+  enterlocationExclCriteriaDetails: details => {
     cy.get(locationExclCriteriaDetails).as('locationExclCriteriaDetails').clear()
     cy.get('@locationExclCriteriaDetails').type(details)
   },
 
-  selectRestrictedPlacementStatus: (option) => {
+  selectRestrictedPlacementStatus: option => {
     if (option === 'Yes') {
       cy.get(restrictedPlacementRBtnYes).check()
     } else if (option === 'No') {
@@ -79,12 +79,12 @@ module.exports = {
     }
   },
 
-  enterRestrictedPlacementDetails: (details) => {
+  enterRestrictedPlacementDetails: details => {
     cy.get(restrictedPlacemenDetails).as('restrictedPlacemenDetails').clear()
     cy.get('@restrictedPlacemenDetails').type(details)
   },
 
-  selectNoFemaleSupervisorStatus: (option) => {
+  selectNoFemaleSupervisorStatus: option => {
     if (option === 'Yes') {
       cy.get(noFemaleSupervisorRBtnYes).check()
     } else if (option === 'No') {
@@ -92,12 +92,12 @@ module.exports = {
     }
   },
 
-  enterNoFemaleSupervisorDetails: (details) => {
+  enterNoFemaleSupervisorDetails: details => {
     cy.get(noFemaleSupervisorDetails).as('noFemaleSupervisorDetails').clear()
     cy.get('@noFemaleSupervisorDetails').type(details)
   },
 
-  selectNoMaleSupervisorStatus: (option) => {
+  selectNoMaleSupervisorStatus: option => {
     if (option === 'Yes') {
       cy.get(noMaleSupervisorRBtnYes).check()
     } else if (option === 'No') {
@@ -105,12 +105,12 @@ module.exports = {
     }
   },
 
-  enterNoMaleSupervisorDetails: (details) => {
+  enterNoMaleSupervisorDetails: details => {
     cy.get(noMaleSupervisorDetails).as('noMaleSupervisorDetails').clear()
     cy.get('@noMaleSupervisorDetails').type(details)
   },
 
-  selectRestrictiveOrdertatus: (option) => {
+  selectRestrictiveOrdertatus: option => {
     if (option === 'Yes') {
       cy.get(restrictiveOrdersRBtnYes).check()
     } else if (option === 'No') {
@@ -118,12 +118,12 @@ module.exports = {
     }
   },
 
-  enterRestrictiveOrderDetails: (details) => {
+  enterRestrictiveOrderDetails: details => {
     cy.get(restrictiveOrderDetails).as('restrictiveOrderDetails').clear()
     cy.get('@restrictiveOrderDetails').type(details)
   },
 
-  selectRiskMgmtIssuesIndividualStatus: (option) => {
+  selectRiskMgmtIssuesIndividualStatus: option => {
     if (option === 'Yes') {
       cy.get(riskMgmtIssuesIndividualRBtnYes).check()
     } else if (option === 'No') {
@@ -131,12 +131,12 @@ module.exports = {
     }
   },
 
-  enterRiskMgmtIssuesIndividualDetails: (details) => {
+  enterRiskMgmtIssuesIndividualDetails: details => {
     cy.get(riskMgmtIssuesIndividualDetails).as('riskManagementIssuesIndividualDetails').clear()
     cy.get('@riskManagementIssuesIndividualDetails').type(details)
   },
 
-  selectRiskMgmtIssuesSupervisedStatus: (option) => {
+  selectRiskMgmtIssuesSupervisedStatus: option => {
     if (option === 'Yes') {
       cy.get(riskMgmtIssuesSupervisedRBtnYes).check()
     } else if (option === 'No') {
@@ -144,12 +144,12 @@ module.exports = {
     }
   },
 
-  enterRiskMgmtIssuesSupervisedDetails: (details) => {
+  enterRiskMgmtIssuesSupervisedDetails: details => {
     cy.get(riskMgmtIssuesSupervisedDetails).as('riskManagementIssuesSupervisedDetails').clear()
     cy.get('@riskManagementIssuesSupervisedDetails').type(details)
   },
 
-  selectAlcoholDrugIssuesStatus: (option) => {
+  selectAlcoholDrugIssuesStatus: option => {
     if (option === 'Yes') {
       cy.get(alcoholDrugIssuesRBtnYes).check()
     } else if (option === 'No') {
@@ -157,12 +157,12 @@ module.exports = {
     }
   },
 
-  enterAlcoholDrugIssuesDetails: (details) => {
+  enterAlcoholDrugIssuesDetails: details => {
     cy.get(alcoholDrugIssuesDetails).as('alcoholDrugIssuesDetails').clear()
     cy.get('@alcoholDrugIssuesDetails').type(details)
   },
 
-  selectManagingRiskSectionComplete: (option) => {
+  selectManagingRiskSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRButtonYes).check()
     } else {

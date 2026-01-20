@@ -1,4 +1,4 @@
-const signIn = (sessionId) => {
+const signIn = sessionId => {
   cy.session(
     sessionId,
     () => {
@@ -27,7 +27,7 @@ const signIn = (sessionId) => {
 const getOffendersNameText = () => {
   cy.get('.key-details-bar__name')
     .invoke('text')
-    .then((text) => {
+    .then(text => {
       cy.wrap(text).as('offenderName')
     })
 }

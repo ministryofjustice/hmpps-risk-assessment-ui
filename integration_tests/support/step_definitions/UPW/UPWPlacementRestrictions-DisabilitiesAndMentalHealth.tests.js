@@ -3,7 +3,7 @@ const DisabilitiesMentalHealth = require('../../../integration/pages/upwPages/pl
 
 Then(
   'I verify that the Disabilities and mental health related radio buttons are still selected & unselected',
-  (dataTable) => {
+  dataTable => {
     if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
       cy.get(DisabilitiesMentalHealth.addtlDisabilitiesRBtnYes)
         .should('have.attr', 'type', 'radio')

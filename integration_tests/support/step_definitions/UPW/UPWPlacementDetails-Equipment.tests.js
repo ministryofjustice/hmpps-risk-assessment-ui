@@ -10,7 +10,7 @@ Then('I see the following Equipment Summary and Field error messages for {string
   cy.get(Equipment.footwearSizeFieldError).should('contain.text', dataTable.hashes()[2]['Field Error Messages'])
 })
 
-Then('I verify that the Equipment related radio buttons are still selected & unselected', (dataTable) => {
+Then('I verify that the Equipment related radio buttons are still selected & unselected', dataTable => {
   if (dataTable.hashes()[0]['Select Option'] === 'Male') {
     cy.get(Equipment.clothingMaleRBtn).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[0]['Select Option'] === 'Female') {

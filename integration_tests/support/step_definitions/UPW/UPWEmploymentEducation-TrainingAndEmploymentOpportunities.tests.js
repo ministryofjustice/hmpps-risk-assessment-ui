@@ -1,7 +1,7 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const TrainingEmploymentOpps = require('../../../integration/pages/upwPages/employmentEducationAndSkills/trainingEmploymentOpportunitiesPage')
 
-Then('I see the following Training & employment Summary and Field error messages', (dataTable) => {
+Then('I see the following Training & employment Summary and Field error messages', dataTable => {
   cy.get(TrainingEmploymentOpps.educationTrainingNeedSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -12,7 +12,7 @@ Then('I see the following Training & employment Summary and Field error messages
   )
 })
 
-Then('I see the following Training & employment Details Summary and Field error messages', (dataTable) => {
+Then('I see the following Training & employment Details Summary and Field error messages', dataTable => {
   cy.get(TrainingEmploymentOpps.educTrainingNeedDetailsSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -31,7 +31,7 @@ Then('I see the following Training & employment Details Summary and Field error 
   )
 })
 
-Then('I see the following Training & Individual Commitment Details Summary and Field error messages', (dataTable) => {
+Then('I see the following Training & Individual Commitment Details Summary and Field error messages', dataTable => {
   cy.get(TrainingEmploymentOpps.educTrainingNeedDetailsSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -50,7 +50,7 @@ Then('I see the following Training & Individual Commitment Details Summary and F
   )
 })
 
-When('I verify that the Training & employment related radio buttons are still selected & unselected', (dataTable) => {
+When('I verify that the Training & employment related radio buttons are still selected & unselected', dataTable => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(TrainingEmploymentOpps.educationTrainingNeedRBtnYes)
       .should('have.attr', 'type', 'radio')

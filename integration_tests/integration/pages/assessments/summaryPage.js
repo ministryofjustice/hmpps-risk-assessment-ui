@@ -1,5 +1,5 @@
 module.exports = {
-  selectTaskLink: (linkName) => {
+  selectTaskLink: linkName => {
     cy.get('li').contains(linkName).click()
   },
 }

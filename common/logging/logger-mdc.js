@@ -1,4 +1,4 @@
-const uuid = require('uuid')
+const { randomUUID } = require('crypto')
 const { createNamespace, getNamespace } = require('cls-hooked')
 const { clsNamespace } = require('../config')
 
@@ -7,7 +7,7 @@ createNamespace(clsNamespace)
 function mdcSetup(req, res, next) {
   const MDC = {
     sessionId: req.sessionID,
-    correlationId: uuid.v4(),
+    correlationId: randomUUID(),
   }
   const mdcNamespace = getNamespace(clsNamespace)
   mdcNamespace.bindEmitter(req)

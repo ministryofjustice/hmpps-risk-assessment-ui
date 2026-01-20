@@ -127,7 +127,7 @@ Then('I see the following Managing Risk Summary and Field error messages for {st
   }
 })
 
-When('I verify that the Managing risk related radio buttons are still selected & unselected', (dataTable) => {
+When('I verify that the Managing risk related radio buttons are still selected & unselected', dataTable => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(Managingrisk.locationExclCriteriaRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[0]['Select Option'] === 'No') {

@@ -36,7 +36,7 @@ const uploadDocument = async ({ key, file, type }) => {
   }
 }
 
-const publishEvent = (req) => async () => {
+const publishEvent = req => async () => {
   const { assessment } = req.session
 
   if (!assessment?.episodeUuid || !assessment?.subject?.crn) {
@@ -54,7 +54,7 @@ const publishEvent = (req) => async () => {
   }
 }
 
-const completeAssessment = (req) => async () => {
+const completeAssessment = req => async () => {
   const { assessment } = req.session
 
   const assessmentId = assessment?.uuid

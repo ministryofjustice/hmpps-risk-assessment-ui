@@ -77,7 +77,7 @@ Then(
 
 When(
   'I verify that the Employment, education related related radio buttons are still selected & unselected',
-  (dataTable) => {
+  dataTable => {
     if (dataTable.hashes()[0]['Select Option'] === 'Full-time education or employment') {
       cy.get(EmploymentEducationAndSkills.fullTimeEmplEducationRBtn)
         .should('have.attr', 'type', 'radio')

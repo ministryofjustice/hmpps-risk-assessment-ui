@@ -18,7 +18,7 @@ const markSectionCompleteRBtnYes = '#eligibility_intensive_working_complete'
 const iWillComeBackLaterRBtn = '#eligibility_intensive_working_complete-2'
 
 module.exports = {
-  selectEligibilityIntenseWorkStatus: (option) => {
+  selectEligibilityIntenseWorkStatus: option => {
     if (option === 'Yes') {
       cy.get(eligibilityIntenseWorkRBtnYes).check()
     } else if (option === 'No') {
@@ -26,27 +26,27 @@ module.exports = {
     }
   },
 
-  enterRecommendedHoursStartOrder: (details) => {
+  enterRecommendedHoursStartOrder: details => {
     cy.get(recommendedHoursStartOrderTextBox).as('recommendedHoursStartOrderTextBox').clear()
     cy.get('@recommendedHoursStartOrderTextBox').type(details)
   },
 
-  enterRecommendedHoursMidOrder: (details) => {
+  enterRecommendedHoursMidOrder: details => {
     cy.get(recommendedHoursMidOrderTextBox).as('recommendedHoursMidOrderTextBox').clear()
     cy.get('@recommendedHoursMidOrderTextBox').type(details)
   },
 
-  enterTwentyEightHoursWeekDetails: (details) => {
+  enterTwentyEightHoursWeekDetails: details => {
     cy.get(twentyEightHoursWeekDetails).as('twentyEightHoursWeekDetails').clear()
     cy.get('@twentyEightHoursWeekDetails').type(details)
   },
 
-  enterEligibilityIntenseWorkNoDetails: (details) => {
+  enterEligibilityIntenseWorkNoDetails: details => {
     cy.get(eligibilityIntensWorkDetailsNo).as('eligibilityIntenseWorkDetailsNo').clear()
     cy.get('@eligibilityIntenseWorkDetailsNo').type(details)
   },
 
-  selectIntesiveWorkingSectionComplete: (option) => {
+  selectIntesiveWorkingSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

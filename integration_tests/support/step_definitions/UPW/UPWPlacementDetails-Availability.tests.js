@@ -3,7 +3,7 @@ const IndividualsDetailsPage = require('../../../integration/pages/upwPages/indi
 const Availability = require('../../../integration/pages/upwPages/placementDetails/availabilityPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I select the Availability CheckBoxes as follows', (dataTable) => {
+When('I select the Availability CheckBoxes as follows', dataTable => {
   Availability.selectMondayAvailabilityStatus(dataTable.hashes()[0].Monday)
   Availability.selectTuesdayAvailabilityStatus(dataTable.hashes()[1].Tuesday)
   Availability.selectWednesdayAvailabilityStatus(dataTable.hashes()[2].Wednesday)
@@ -67,7 +67,7 @@ When('I deselect the Availability CheckBoxes and enter the details and Save', ()
   IndividualsDetailsPage.clickSaveButton()
 })
 
-Then('I see the Availability Summary and Field error messages', (dataTable) => {
+Then('I see the Availability Summary and Field error messages', dataTable => {
   cy.get(Availability.availabiltySummError).should('have.text', dataTable.hashes()[0]['Summary Error Messages'])
   cy.get(Availability.availabiltyFieldError).should('contain.text', dataTable.hashes()[0]['Field Error Messages'])
 })

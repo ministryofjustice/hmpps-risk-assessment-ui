@@ -11,7 +11,7 @@ const markSectionCompleteRButtonYes = '#placement_preference_complete'
 const iWillComeBackLater = '#placement_preference_complete-2'
 
 module.exports = {
-  selectPlacementPreferStatus: (option) => {
+  selectPlacementPreferStatus: option => {
     if (option === 'Yes') {
       cy.get(placementPreferRButtonYes).check()
     } else {
@@ -19,7 +19,7 @@ module.exports = {
     }
   },
 
-  selectPlacementPrefMarkSectionComplete: (option) => {
+  selectPlacementPrefMarkSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRButtonYes).check()
     } else {
@@ -27,7 +27,7 @@ module.exports = {
     }
   },
 
-  selectPlacementPreference: (option) => {
+  selectPlacementPreference: option => {
     if (option === 'Individual') {
       cy.get(individualCheckBox).check()
     } else if (option === 'Mixed group') {

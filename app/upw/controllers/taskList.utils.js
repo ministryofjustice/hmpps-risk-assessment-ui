@@ -6,14 +6,14 @@ const { hasBothModernSlaveryFlags } = require('./common.utils')
 const { isModernSlaveryVictim } = require('./common.utils')
 const { isModernSlaveryPerpetrator } = require('./common.utils')
 
-const checkAllTasksAreComplete = (sections) => {
-  return sections.every((section) => {
+const checkAllTasksAreComplete = sections => {
+  return sections.every(section => {
     const tasks = section.items || []
-    return tasks.every((task) => !task.active || task.status === 'COMPLETE')
+    return tasks.every(task => !task.active || task.status === 'COMPLETE')
   })
 }
 
-const getPdfPreviewStatus = (tasks) => {
+const getPdfPreviewStatus = tasks => {
   return checkAllTasksAreComplete(tasks) ? 'VIEW_PDF' : 'CANNOT_VIEW_PDF'
 }
 
@@ -144,7 +144,7 @@ const getTaskList = (baseUrl = '', steps = {}, answers = {}, riskFlags = []) => 
   }
 
   if (speechToTextEnabled) {
-    tasks.forEach((task) => {
+    tasks.forEach(task => {
       if (task?.heading?.text === 'Placement details') {
         logger.info('STT feature enabled')
         task.items.push(getTask(answers, baseUrl, steps, 'additional-information', 'additional_information_complete'))

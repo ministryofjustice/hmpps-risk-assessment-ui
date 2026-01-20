@@ -2,7 +2,7 @@ const { getRegistrationsForCrn, getRoshRiskSummaryForCrn } = require('../../../c
 const logger = require('../../../common/logging/logger')
 const { prettyDate } = require('../../../common/utils/util')
 
-const whereStringNotNull = (s) => s !== null
+const whereStringNotNull = s => s !== null
 
 const formatMappaCode = (code, prefix) => {
   const suffixes = {
@@ -91,10 +91,9 @@ const getRoshRiskSummary = async (crn, user) => {
 const hasRiskFlags = (flags = [], requiredCodes = []) =>
   flags.filter(({ code }) => requiredCodes.includes(code)).length > 0
 
-const hasBothModernSlaveryFlags = (riskFlags) =>
-  isModernSlaveryPerpetrator(riskFlags) && isModernSlaveryVictim(riskFlags)
-const isModernSlaveryVictim = (riskFlags) => hasRiskFlags(riskFlags, ['MSV'])
-const isModernSlaveryPerpetrator = (riskFlags) => hasRiskFlags(riskFlags, ['MSP'])
+const hasBothModernSlaveryFlags = riskFlags => isModernSlaveryPerpetrator(riskFlags) && isModernSlaveryVictim(riskFlags)
+const isModernSlaveryVictim = riskFlags => hasRiskFlags(riskFlags, ['MSV'])
+const isModernSlaveryPerpetrator = riskFlags => hasRiskFlags(riskFlags, ['MSP'])
 
 module.exports = {
   getRegistrations,

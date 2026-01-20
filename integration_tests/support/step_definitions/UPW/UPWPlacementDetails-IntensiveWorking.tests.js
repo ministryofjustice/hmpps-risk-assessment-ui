@@ -1,7 +1,7 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const IntensiveWorking = require('../../../integration/pages/upwPages/placementDetails/intensiveWorkingPage')
 
-Then('I see the following Intensive working Summary and Field error messages', (dataTable) => {
+Then('I see the following Intensive working Summary and Field error messages', dataTable => {
   cy.get(IntensiveWorking.eligibilityIntensWorkSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -12,7 +12,7 @@ Then('I see the following Intensive working Summary and Field error messages', (
   )
 })
 
-Then('I see the following Intensive working Details Summary and Field error messages', (dataTable) => {
+Then('I see the following Intensive working Details Summary and Field error messages', dataTable => {
   cy.get(IntensiveWorking.recommendedHoursStartOrderSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -39,7 +39,7 @@ Then('I see the following Intensive working Details Summary and Field error mess
   )
 })
 
-Then('I see the following eligibility No Details Summary and Field error messages', (dataTable) => {
+Then('I see the following eligibility No Details Summary and Field error messages', dataTable => {
   cy.get(IntensiveWorking.eligibilityIntenseWorkDetailsNoSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -50,7 +50,7 @@ Then('I see the following eligibility No Details Summary and Field error message
   )
 })
 
-When('I verify that the Intensive working related radio buttons are still selected & unselected', (dataTable) => {
+When('I verify that the Intensive working related radio buttons are still selected & unselected', dataTable => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(IntensiveWorking.eligibilityIntenseWorkRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
     cy.get(IntensiveWorking.recommendedHoursStartOrderTextBox).should(

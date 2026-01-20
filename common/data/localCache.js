@@ -4,7 +4,7 @@ const redis = require('./redis')
 
 const LOCAL_CACHE = 'localCache'
 
-const applyBackendBusinessRules = (answers) => {
+const applyBackendBusinessRules = answers => {
   const updatedAnswers = JSON.parse(JSON.stringify(answers)) // deep clone
 
   if (Array.isArray(answers.gender_identity) && answers.gender_identity.includes('MALE')) {
@@ -17,7 +17,7 @@ const applyBackendBusinessRules = (answers) => {
 }
 
 // Simple mock for how the backend API handles answer updates
-const mockPostAnswers = async (updatedAnswers) => {
+const mockPostAnswers = async updatedAnswers => {
   try {
     const previousAnswers = (await redis.get(LOCAL_CACHE)) || '{}'
     const answers = { ...JSON.parse(previousAnswers), ...updatedAnswers.answers }
