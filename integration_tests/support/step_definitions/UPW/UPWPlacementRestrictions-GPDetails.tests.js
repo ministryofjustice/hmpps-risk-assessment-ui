@@ -7,7 +7,7 @@ When('I say Individual declined to give GP details', () => {
   GPDetailsPage.clickGPDetailsDecline()
 })
 
-Then('I see the following Summary and Field error messages on GP details page', (dataTable) => {
+Then('I see the following Summary and Field error messages on GP details page', dataTable => {
   cy.get(GPDetailsPage.gpDetailsDeclndSummError).should('have.text', dataTable.hashes()[0]['Summary Error Message'])
   cy.get(GPDetailsPage.gpDetailsDeclndFieldError).should('contain.text', dataTable.hashes()[0]['Field Error Message'])
 })
@@ -20,7 +20,7 @@ Then('I click on {string} link against the GP Contact {string} on the GP details
   }
 })
 
-Then('I see the following Summary and Field error messages for GP details', (dataTable) => {
+Then('I see the following Summary and Field error messages for GP details', dataTable => {
   cy.get(EditGPDetailsPage.gpPracticeNameSummError).should('have.text', dataTable.hashes()[0]['Summary Error Messages'])
   cy.get(EditGPDetailsPage.gpPracticeNameFieldError).should(
     'contain.text',
@@ -34,7 +34,7 @@ Then('I see the following Summary and Field error messages for GP details', (dat
 })
 
 When('I verify the GP contact details {string} on the GP details page as follows', (index, dataTable) => {
-  dataTable.hashes().forEach((row) => {
+  dataTable.hashes().forEach(row => {
     const subject = (() => {
       switch (row['Field Name']) {
         case 'Name':

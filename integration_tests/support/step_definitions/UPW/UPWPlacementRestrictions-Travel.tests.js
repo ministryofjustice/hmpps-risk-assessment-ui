@@ -1,12 +1,12 @@
 const { When, Then } = require('@badeball/cypress-cucumber-preprocessor')
 const TravelInformation = require('../../../integration/pages/upwPages/placementRestrictions/travelPage')
 
-Then('I see the following Travel information Summary and Field error messages', (dataTable) => {
+Then('I see the following Travel information Summary and Field error messages', dataTable => {
   cy.get(TravelInformation.travelInfoSummError).should('have.text', dataTable.hashes()[0]['Summary Error Messages'])
   cy.get(TravelInformation.travelInfoFieldError).should('contain.text', dataTable.hashes()[0]['Field Error Messages'])
 })
 
-Then('I see the following Travel information Details Summary and Field error messages', (dataTable) => {
+Then('I see the following Travel information Details Summary and Field error messages', dataTable => {
   cy.get(TravelInformation.travelInfoDetailsSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -32,7 +32,7 @@ Then('I see the following Travel information Details Summary and Field error mes
   )
 })
 
-When('I verify that the Travel information related radio buttons are still selected & unselected', (dataTable) => {
+When('I verify that the Travel information related radio buttons are still selected & unselected', dataTable => {
   if (dataTable.hashes()[0]['Select Option'] === 'Yes') {
     cy.get(TravelInformation.travelInfoRBtnYes).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[0]['Select Option'] === 'No') {

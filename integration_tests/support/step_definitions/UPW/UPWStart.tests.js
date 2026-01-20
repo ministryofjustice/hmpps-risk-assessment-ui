@@ -3,7 +3,7 @@ const ArnHomePage = require('../../../integration/pages/homePage/ARNHomePage')
 const urls = require('../../../fixtures/urls.json')
 const UPWStartPage = require('../../../integration/pages/upwPages/start/startPage')
 
-Given('I login and navigate to UPW Start Page with CRN {string}', (crn) => {
+Given('I login and navigate to UPW Start Page with CRN {string}', crn => {
   ArnHomePage.signIn(crn)
   const params = new URLSearchParams({
     crn,
@@ -16,13 +16,13 @@ Given('I login and navigate to UPW Start Page with CRN {string}', (crn) => {
 Then('I verify the offender does not have a PNC number', () => {
   UPWStartPage.descriptionList()
     .invoke('text')
-    .then((description) => {
+    .then(description => {
       expect(description).not.contains('PNC')
     })
 })
 
-When('I verify the following values on the Start Page', (dataTable) => {
-  dataTable.hashes().forEach((row) => {
+When('I verify the following values on the Start Page', dataTable => {
+  dataTable.hashes().forEach(row => {
     const valueToBeVerified = row['Values to be verified']
     const subject = (() => {
       switch (row['Offenders Details']) {
@@ -45,14 +45,14 @@ When('I verify the following values on the Start Page', (dataTable) => {
       }
     })()
 
-    subject.invoke('text').then((textContent) => {
+    subject.invoke('text').then(textContent => {
       expect(textContent).contains(valueToBeVerified)
     })
   })
 })
 
-Then('I see the UPW {string} page', (pageName) => {
-  cy.url().then(($url) => {
+Then('I see the UPW {string} page', pageName => {
+  cy.url().then($url => {
     expect($url).contains(pageName)
   })
 })

@@ -24,7 +24,7 @@ const markSectionCompleteRButtonYes = '#placement_preference_by_gender_complete'
 const iWillComeBackLaterRButtonNo = '#placement_preference_by_gender_complete-2'
 
 module.exports = {
-  selectGenderIdentity: (option) => {
+  selectGenderIdentity: option => {
     if (option === 'Male') {
       cy.get(maleGenderRBtn).check()
     } else if (option === 'Female') {
@@ -38,7 +38,7 @@ module.exports = {
     }
   },
 
-  selectSexChangeStatus: (option) => {
+  selectSexChangeStatus: option => {
     if (option === 'Yes') {
       cy.get(sexChangeRBtnYes).check()
     } else if (option === 'No') {
@@ -46,12 +46,12 @@ module.exports = {
     }
   },
 
-  enterSexChangeDetails: (details) => {
+  enterSexChangeDetails: details => {
     cy.get(sexChangeDetails).as('sexChangeDetails').clear()
     cy.get('@sexChangeDetails').type(details)
   },
 
-  selectintersexDSDStatus: (option) => {
+  selectintersexDSDStatus: option => {
     if (option === 'Yes') {
       cy.get(intersexDSDRBtnYes).check()
     } else if (option === 'No') {
@@ -59,7 +59,7 @@ module.exports = {
     }
   },
 
-  selectTransgenderStatus: (option) => {
+  selectTransgenderStatus: option => {
     if (option === 'Yes') {
       cy.get(transgenderRBtnYes).check()
     } else if (option === 'No') {
@@ -67,7 +67,7 @@ module.exports = {
     }
   },
 
-  selectGenderInformationSectionComplete: (option) => {
+  selectGenderInformationSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRButtonYes).check()
     } else {

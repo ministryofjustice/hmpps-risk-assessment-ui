@@ -12,7 +12,7 @@ Then('I click on {string} link against the {string} on the Individual details', 
   }
 })
 
-Then('I see the following Summary and Field error messages on Individual details page', (dataTable) => {
+Then('I see the following Summary and Field error messages on Individual details page', dataTable => {
   cy.get(IndividualsDetailsPage.emrgncyContactDeclndSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Message'],
@@ -35,7 +35,7 @@ When('I say Individual declined to give an emergency contact', () => {
   IndividualsDetailsPage.clickEmergncyContactDecline()
 })
 
-When('I verify the details on the "Individuals details" page as follows', (dataTable) => {
+When('I verify the details on the "Individuals details" page as follows', dataTable => {
   cy.get(IndividualsDetailsPage.contactDetailsAddress).should(
     'contain.text',
     dataTable.hashes()[0]['Text to be Verified'],
@@ -75,7 +75,7 @@ When('I verify the details on the "Individuals details" page as follows', (dataT
   )
 })
 
-Then('I see the following Summary and Field error messages for Contact details', (dataTable) => {
+Then('I see the following Summary and Field error messages for Contact details', dataTable => {
   cy.get(EditContactDetailsPage.contactAddrBldngNameSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -142,7 +142,7 @@ Then('I see the following Summary and Field error messages for Contact details',
   )
 })
 
-When('I verify the Emergency details on the "Individuals details" page as follows', (dataTable) => {
+When('I verify the Emergency details on the "Individuals details" page as follows', dataTable => {
   cy.get(IndividualsDetailsPage.emergencyContactDetailsName).should(
     'contain.text',
     dataTable.hashes()[0]['Text to be Verified'],
@@ -165,7 +165,7 @@ When('I verify the Emergency details on the "Individuals details" page as follow
   )
 })
 
-Then('I see the following Summary and Field error messages for Emergency contact details', (dataTable) => {
+Then('I see the following Summary and Field error messages for Emergency contact details', dataTable => {
   cy.get(EditEmergencyContactDetailsPage.emrgncyContactFirstNameSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],

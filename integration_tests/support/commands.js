@@ -24,7 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('getQuestion', (questionTitle) => {
+Cypress.Commands.add('getQuestion', questionTitle => {
   return cy
     .get(`form`)
     .find('fieldset > legend, .govuk-form-group > label')
@@ -91,29 +91,29 @@ Cypress.Commands.add('checkDropdownHasAnswer', (option, questionTitle) => {
   cy.get('@option').should('be.selected')
 })
 
-Cypress.Commands.add('checkQuestionHasNoAnswer', (questionTitle) => {
+Cypress.Commands.add('checkQuestionHasNoAnswer', questionTitle => {
   cy.getQuestion(questionTitle).find('input').first().as('target')
 
   cy.get('@target').should('be.empty')
 })
 
-Cypress.Commands.add('checkTextAreaIsUnanswered', (questionTitle) => {
+Cypress.Commands.add('checkTextAreaIsUnanswered', questionTitle => {
   cy.getQuestion(questionTitle).find('textarea').first().as('target')
 
   cy.get('@target').should('be.empty')
 })
 
-Cypress.Commands.add('checkDropdownHasNoAnswer', (questionTitle) => {
+Cypress.Commands.add('checkDropdownHasNoAnswer', questionTitle => {
   cy.getQuestion(questionTitle).find('> .govuk-select > option').filter(':contains("Select")').as('default')
 
   cy.get('@default').should('be.selected')
 })
 
-Cypress.Commands.add('checkRadioHasNoAnswer', (questionTitle) => {
+Cypress.Commands.add('checkRadioHasNoAnswer', questionTitle => {
   cy.getQuestion(questionTitle)
     .find('> .govuk-radios > .govuk-radios__item:visible > label')
     .invoke('attr', 'for')
-    .then((id) => {
+    .then(id => {
       cy.get(`#${id}`).should('not.be.checked')
     })
 })

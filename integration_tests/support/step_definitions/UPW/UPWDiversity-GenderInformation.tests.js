@@ -12,16 +12,16 @@ When('I complete {string} Section with gender as {string}', (sectionName, gender
   GenderInformation.selectTransgenderStatus('Yes')
   GenderInformation.selectGenderInformationSectionComplete('Yes')
   Common.clickSaveBtn()
-  cy.url().then(($url) => {
+  cy.url().then($url => {
     expect($url).contains('task-list')
   })
 })
 
-When('I see that {string} link is not available', (linkName) => {
+When('I see that {string} link is not available', linkName => {
   cy.get('[class="govuk-link"]').contains(linkName).should('not.exist')
 })
 
-When('I see that {string} link is available', (linkName) => {
+When('I see that {string} link is available', linkName => {
   cy.get('[class="govuk-link"]').contains(linkName).should('exist')
 })
 
@@ -72,7 +72,7 @@ Then(
   },
 )
 
-When('I verify that the Gender information related radio buttons are still selected & unselected', (dataTable) => {
+When('I verify that the Gender information related radio buttons are still selected & unselected', dataTable => {
   if (dataTable.hashes()[0]['Select Option'] === 'Male') {
     cy.get(GenderInformation.maleGenderRBtn).should('have.attr', 'type', 'radio').should('be.checked')
   } else if (dataTable.hashes()[0]['Select Option'] === 'Female') {

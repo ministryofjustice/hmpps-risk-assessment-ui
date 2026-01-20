@@ -21,13 +21,13 @@ Then('I select {string} for the question {string}', (option, questionTitle) => {
     .click()
 })
 
-Then('I click on the {string} button', (label) => {
+Then('I click on the {string} button', label => {
   cy.contains('button, a', label).click()
 })
 
-Then('I answer the multiple choice questions on the page', (dataTable) => {
+Then('I answer the multiple choice questions on the page', dataTable => {
   const questions = dataTable.hashes()
-  questions.forEach((row) => {
+  questions.forEach(row => {
     const question = row['Question Name']
     const option = row['Select Option']
     const detailsText = row['Text to be entered in Give Details']
@@ -37,8 +37,8 @@ Then('I answer the multiple choice questions on the page', (dataTable) => {
   })
 })
 
-Then('I answer the questions on the page', (dataTable) => {
-  dataTable.hashes().forEach((row) => {
+Then('I answer the questions on the page', dataTable => {
+  dataTable.hashes().forEach(row => {
     const question = row.Question
     const questionType = row.Type
     const answer = row.Answer
@@ -55,8 +55,8 @@ Then('I answer the questions on the page', (dataTable) => {
   })
 })
 
-Then('I check the answers on the page are as follows', (dataTable) => {
-  dataTable.hashes().forEach((row) => {
+Then('I check the answers on the page are as follows', dataTable => {
+  dataTable.hashes().forEach(row => {
     const question = row.Question
     const questionType = row.Type
     const answer = row.Answer
@@ -80,8 +80,8 @@ Then('I check that {string} is selected for {string}', (answer, question) => {
   cy.checkRadioHasAnswer(answer, null, question)
 })
 
-Then('I see the following questions on the page are cleared down', (dataTable) => {
-  dataTable.hashes().forEach((row) => {
+Then('I see the following questions on the page are cleared down', dataTable => {
+  dataTable.hashes().forEach(row => {
     const question = row.Question
     const questionType = row.Type
 
@@ -97,6 +97,6 @@ Then('I see the following questions on the page are cleared down', (dataTable) =
   })
 })
 
-Then('I am presented with the subheading {string}', (errorMessage) => {
+Then('I am presented with the subheading {string}', errorMessage => {
   cy.contains('h2', errorMessage)
 })

@@ -139,7 +139,7 @@ const action = async (request, authorisationToken) => {
       .auth(authorisationToken, { type: 'bearer' })
       .set('x-correlation-id', getCorrelationId())
       .timeout(timeout)
-      .then((response) => {
+      .then(response => {
         return [true, response.body]
       })
   } catch (error) {
@@ -161,7 +161,7 @@ const action = async (request, authorisationToken) => {
   }
 }
 
-const logError = (error) => {
+const logError = error => {
   logger.warn('Error calling hmppsAssessments API')
   logger.warn({
     status: error.status,

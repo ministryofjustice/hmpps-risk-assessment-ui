@@ -145,28 +145,28 @@ const otherHealthIssuesyOptionAndText = '#other_health_issues td'
 const pregnancyFld = '#pregnancy th'
 const pregnancyOptionAndText = '#pregnancy td'
 const gpCntctDtlsSection = '#heading_gp_details'
-const gpCntctNameFld = (index) => {
+const gpCntctNameFld = index => {
   return `#gp_details_${index}_name th`
 }
-const gpCntctName = (index) => {
+const gpCntctName = index => {
   return `#gp_details_${index}_name td`
 }
-const gpCntctPracticeNameFld = (index) => {
+const gpCntctPracticeNameFld = index => {
   return `#gp_details_${index}_practice_name th`
 }
-const gpCntctPracticeName = (index) => {
+const gpCntctPracticeName = index => {
   return `#gp_details_${index}_practice_name td`
 }
-const gpCntctAddressFld = (index) => {
+const gpCntctAddressFld = index => {
   return `#gp_details_${index}_address th`
 }
-const gpCntctAddress = (index) => {
+const gpCntctAddress = index => {
   return `#gp_details_${index}_address td`
 }
-const gpCntctPhoneNumberFld = (index) => {
+const gpCntctPhoneNumberFld = index => {
   return `#gp_details_${index}_phone_number th`
 }
-const gpCntctPhoneNumber = (index) => {
+const gpCntctPhoneNumber = index => {
   return `#gp_details_${index}_phone_number td`
 }
 const travelIssuesSectionHeading = '#caption_travel_information > .govuk-heading-m'

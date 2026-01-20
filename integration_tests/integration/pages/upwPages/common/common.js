@@ -11,7 +11,7 @@ module.exports = {
     return `${prefix}${Math.floor(100000 + Math.random() * 900000)}`
   },
   getText(locator) {
-    return cy.get(locator).then(($element) => {
+    return cy.get(locator).then($element => {
       const txt = $element.text().trim()
       return txt // in here, return txt
     })

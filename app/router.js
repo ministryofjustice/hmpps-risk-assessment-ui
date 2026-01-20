@@ -22,7 +22,7 @@ const { downloadUpwPdf } = require('./upw/controllers/api')
 const { ForbiddenError } = require('../common/utils/errors')
 
 // Export
-module.exports = (app) => {
+module.exports = app => {
   app.get('/health', (req, res, next) => {
     res.status(200).json({
       healthy: true,

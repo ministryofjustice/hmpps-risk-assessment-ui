@@ -1,23 +1,23 @@
 const async = require('async')
 const { getNamespace } = require('cls-hooked')
 const { DateTime } = require('luxon')
-const { v4: uuid } = require('uuid')
+const { randomUuid } = require('crypto')
 const { logger } = require('../logging/logger')
 const { clsNamespace } = require('../config')
 
-const getYearMonthFromDate = (isoString) => {
+const getYearMonthFromDate = isoString => {
   const date = DateTime.fromISO(isoString, { zone: 'utc' }).setLocale('en-GB').setZone('Europe/London')
   const { month } = date
   const monthName = date.monthLong
   return { month, monthName, year: date.year }
 }
 
-const isEmptyObject = (obj) => {
+const isEmptyObject = obj => {
   if (obj === undefined || obj === null) return true
   return !Object.keys(obj).length
 }
 
-const countWords = (str) => {
+const countWords = str => {
   return str.replace(/-/gi, ' ').trim().split(/\s+/).length
 }
 
@@ -48,7 +48,7 @@ const sortObject = (key, order = 'asc') => {
 
 const groupBy = (list, keyGetter) => {
   const sortedObject = {}
-  list.forEach((item) => {
+  list.forEach(item => {
     const key = keyGetter(item)
     const collection = sortedObject[key]
     if (!collection) {
@@ -77,11 +77,11 @@ const isValidDate = (day, month, year) => {
   }
 }
 
-const getCorrelationId = () => getNamespace(clsNamespace).get('MDC')?.correlationId || uuid()
+const getCorrelationId = () => getNamespace(clsNamespace).get('MDC')?.correlationId || randomUuid()
 
 const updateMDC = (mdcDataKey, mdc) => getNamespace(clsNamespace).set(mdcDataKey, mdc)
 
-const encodeHTML = (str) => {
+const encodeHTML = str => {
   if (!str) {
     return ''
   }
@@ -116,7 +116,7 @@ const dynamicMiddleware = async (validators, req, res, next) => {
     (middleware, doneMiddleware) => {
       middleware.bind(null, req, res, doneMiddleware)()
     },
-    (error) => {
+    error => {
       if (error) {
         logger.error('Problem executing dynamic middleware')
         throw error
@@ -137,7 +137,7 @@ const processReplacements = (input, replacementDetails) => {
   return JSON.parse(newInput)
 }
 
-const getOrdinalIndicator = (number) => {
+const getOrdinalIndicator = number => {
   const englishOrdinalRules = new Intl.PluralRules('en', { type: 'ordinal' })
   const suffixes = {
     one: 'st',
@@ -149,7 +149,7 @@ const getOrdinalIndicator = (number) => {
   return suffixes[ordinalCategory]
 }
 
-const formatDateWith = (pattern) => (isoString) => {
+const formatDateWith = pattern => isoString => {
   const parsedDate = DateTime.fromISO(isoString, { zone: 'utc' }).setLocale('en-GB').setZone('Europe/London')
   // This is a current workaround due to Luxon not supporting ordinal indicators
   const updatedPattern = pattern.replace('d ', `d'${getOrdinalIndicator(parsedDate.day)}' `)
@@ -167,9 +167,9 @@ const ageFrom = (dateOfBirth, today = DateTime.local().startOf('day')) => {
   return parsedDate.isValid ? Math.floor(Math.abs(parsedDate.diff(today).as('years'))) : null
 }
 
-const clearAnswers = (questions) => {
+const clearAnswers = questions => {
   const pageQuestions = Object.keys(questions)
-  pageQuestions.forEach((question) => {
+  pageQuestions.forEach(question => {
     // eslint-disable-next-line no-param-reassign
     questions[question].answer = ''
   })
@@ -191,7 +191,7 @@ const getErrorMessageFor = (user, reason) => {
   return 'Something went wrong' // Unhandled exception
 }
 
-const disabilityCodeToDescription = (code) => {
+const disabilityCodeToDescription = code => {
   const lookup = {
     DY: 'Dyslexia',
     VI: 'Visual condition',
@@ -210,12 +210,12 @@ const disabilityCodeToDescription = (code) => {
   return lookup[code]
 }
 
-const splitLines = (str) => (str ? str.split('\r\n') : [])
+const splitLines = str => (str ? str.split('\r\n') : [])
 
-const createDocumentId = (episodeId) => `documents/${episodeId}.pdf`
+const createDocumentId = episodeId => `documents/${episodeId}.pdf`
 
 const groupTypesSubtypes =
-  (subTypeKey) =>
+  subTypeKey =>
   (entries = []) => {
     const groupedDisabilities = entries.reduce((acc, entry) => {
       const typeCode = entry.type.code

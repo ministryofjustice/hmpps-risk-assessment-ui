@@ -4,12 +4,12 @@ const markSectionCompleteRBtnYes = '#caring_commitments_complete'
 const iWillComeBackLaterRBtn = '#caring_commitments_complete-2'
 
 module.exports = {
-  enterCaringCommitsAddtnlDetails: (details) => {
+  enterCaringCommitsAddtnlDetails: details => {
     cy.get(caringCommitsAddtnlDetails).as('caringCommitsAdditionalDetails').clear()
     cy.get('@caringCommitsAdditionalDetails').type(details)
   },
 
-  selectCaringCommitsSectionComplete: (option) => {
+  selectCaringCommitsSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

@@ -8,7 +8,7 @@ const markSectionCompleteRBtnYes = '#disabilities_complete'
 const iWillComeBackLaterRBtn = '#disabilities_complete-2'
 
 module.exports = {
-  selectAddtlDisabilityStatus: (option) => {
+  selectAddtlDisabilityStatus: option => {
     if (option === 'Yes') {
       cy.get(addtlDisabilitiesRBtnYes).check()
     } else if (option === 'No') {
@@ -16,12 +16,12 @@ module.exports = {
     }
   },
 
-  enterAddtlDisabilityDetails: (details) => {
+  enterAddtlDisabilityDetails: details => {
     cy.get(addtlDisabilityDetails).as('additionalDisabilityDetails').clear()
     cy.get('@additionalDisabilityDetails').type(details)
   },
 
-  selectDisabilityStatus: (option) => {
+  selectDisabilityStatus: option => {
     if (option === 'Yes') {
       cy.get(disabilitiesRBtnYes).check()
     } else if (option === 'No') {
@@ -29,12 +29,12 @@ module.exports = {
     }
   },
 
-  enterDisabilityDetails: (details) => {
+  enterDisabilityDetails: details => {
     cy.get(disabilityDetails).as('disabilityDetails').clear()
     cy.get('@disabilityDetails').type(details)
   },
 
-  selectDisabilitiesSectionComplete: (option) => {
+  selectDisabilitiesSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

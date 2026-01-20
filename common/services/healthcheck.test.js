@@ -19,7 +19,7 @@ describe('service healthcheck', () => {
   })
 
   describe('with healthy dependencies', () => {
-    beforeEach((done) => {
+    beforeEach(done => {
       serviceCheckFactory.mockReset()
       serviceCheckFactory.mockImplementation((_name, { url }) => {
         return () => {
@@ -68,7 +68,7 @@ describe('service healthcheck', () => {
     })
   })
   describe('with unhealthy dependencies', () => {
-    beforeEach((done) => {
+    beforeEach(done => {
       serviceCheckFactory.mockReset()
       serviceCheckFactory.mockImplementation((_name, { url }) => {
         return () => {

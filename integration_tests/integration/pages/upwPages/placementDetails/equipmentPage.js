@@ -18,7 +18,7 @@ const markSectionCompleteRBtnYes = '#equipment_complete'
 const iWillComeBackLaterRBtn = '#equipment_complete-2'
 
 module.exports = {
-  selectMaleFemaleClothingStatus: (option) => {
+  selectMaleFemaleClothingStatus: option => {
     if (option === 'Male') {
       cy.get(clothingMaleRBtn).check()
     } else if (option === 'Female') {
@@ -26,7 +26,7 @@ module.exports = {
     }
   },
 
-  selectWaterproofClothingSize: (option) => {
+  selectWaterproofClothingSize: option => {
     if (option === 'X-Small') {
       cy.get(xsmallClothingRBtn).check()
     } else if (option === 'Small') {
@@ -44,11 +44,11 @@ module.exports = {
     }
   },
 
-  selectFootwearSize: (size) => {
+  selectFootwearSize: size => {
     cy.get(footwearDropdown).select(size)
   },
 
-  selectEquipmentSectionComplete: (option) => {
+  selectEquipmentSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {
