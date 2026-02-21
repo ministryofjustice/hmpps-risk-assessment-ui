@@ -52,8 +52,8 @@
     "setup": "npm ci && hmpps-npm-script-run-allowlist && patch-package && cypress install"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.817.0",
-    "@aws-sdk/client-sns": "^3.817.0",
+    "@aws-sdk/client-s3": "^3.995.0",
+    "@aws-sdk/client-sns": "^3.995.0",
     "@ministryofjustice/frontend": "8.0.0",
     "agentkeepalive": "^4.6.0",
     "applicationinsights": "^2.9.7",
