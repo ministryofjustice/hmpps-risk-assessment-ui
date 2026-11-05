@@ -14,7 +14,7 @@ const {
 } = require('../config')
 const logger = require('../logging/logger')
 
-const convertHtmlToPdf = async (renderedHtml) => {
+const convertHtmlToPdf = async renderedHtml => {
   try {
     const request = superagent
       .post(url)

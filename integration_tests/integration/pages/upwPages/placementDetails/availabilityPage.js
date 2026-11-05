@@ -26,7 +26,7 @@ const markSectionCompleteRBtnYes = '#individual_availability_complete'
 const iWillComeBackLaterRBtn = '#individual_availability_complete-2'
 
 module.exports = {
-  selectMondayAvailabilityStatus: (option) => {
+  selectMondayAvailabilityStatus: option => {
     if (option === 'Morning-Yes') {
       cy.get(mondayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -36,7 +36,7 @@ module.exports = {
     }
   },
 
-  selectTuesdayAvailabilityStatus: (option) => {
+  selectTuesdayAvailabilityStatus: option => {
     if (option === 'Morning-Yes') {
       cy.get(tuesdayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -46,7 +46,7 @@ module.exports = {
     }
   },
 
-  selectWednesdayAvailabilityStatus: (option) => {
+  selectWednesdayAvailabilityStatus: option => {
     if (option === 'Morning-Yes') {
       cy.get(wednesdayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -56,7 +56,7 @@ module.exports = {
     }
   },
 
-  selectThursdayAvailabilityStatus: (option) => {
+  selectThursdayAvailabilityStatus: option => {
     if (option === 'Morning') {
       cy.get(thursdayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -66,7 +66,7 @@ module.exports = {
     }
   },
 
-  selectFridayAvailabilityStatus: (option) => {
+  selectFridayAvailabilityStatus: option => {
     if (option === 'Morning-Yes') {
       cy.get(fridayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -76,7 +76,7 @@ module.exports = {
     }
   },
 
-  selectSaturdayAvailabilityStatus: (option) => {
+  selectSaturdayAvailabilityStatus: option => {
     if (option === 'Morning-Yes') {
       cy.get(saturdayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -86,7 +86,7 @@ module.exports = {
     }
   },
 
-  selectSundayAvailabilityStatus: (option) => {
+  selectSundayAvailabilityStatus: option => {
     if (option === 'Morning-Yes') {
       cy.get(sundayMorningAvlbltyCheckBox).click()
     } else if (option === 'Afternoon-Yes') {
@@ -96,12 +96,12 @@ module.exports = {
     }
   },
 
-  enterAvailabilityInfoDetails: (details) => {
+  enterAvailabilityInfoDetails: details => {
     cy.get(availabilityInfoTextBox).as('availabilityInfoTextBox').clear()
     cy.get('@availabilityInfoTextBox').type(details)
   },
 
-  selectAvailabilitySectionComplete: (option) => {
+  selectAvailabilitySectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).click()
     } else {

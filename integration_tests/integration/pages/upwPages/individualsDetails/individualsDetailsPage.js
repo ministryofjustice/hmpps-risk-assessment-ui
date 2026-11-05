@@ -44,7 +44,7 @@ module.exports = {
     cy.get(changeOrAddContactDetails).click()
   },
 
-  clickChangeEmergncyContact: (contactNr) => {
+  clickChangeEmergncyContact: contactNr => {
     if (contactNr === 'Emergency Contact 1') {
       cy.get(emergencyContactOneChangeLink).click()
     } else if (contactNr === 'Emergency Contact 2') {
@@ -56,7 +56,7 @@ module.exports = {
     }
   },
 
-  clickRemoveEmergncyContact: (contactNr) => {
+  clickRemoveEmergncyContact: contactNr => {
     if (contactNr === 'Emergency Contact 1') {
       cy.get(emergencyContactOneRemoveLink).click()
     } else if (contactNr === 'Emergency Contact 2') {
@@ -76,7 +76,7 @@ module.exports = {
     cy.get(emergencyContactDeclineCheckBox).check()
   },
 
-  selectIndvdlDetailsSectionComplete: (option) => {
+  selectIndvdlDetailsSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRButtonYes).check()
     } else {

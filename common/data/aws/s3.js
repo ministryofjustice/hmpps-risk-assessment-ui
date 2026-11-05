@@ -30,7 +30,7 @@ class S3 {
         logger.info(`Uploaded file to S3: ${key}`)
         return { ok: true, key }
       })
-      .catch((error) => {
+      .catch(error => {
         logger.error(`Failed to upload file to S3: ${error.message}`)
         return { ok: false }
       })
@@ -48,7 +48,7 @@ class S3 {
         logger.info(`Fetched file from S3: ${key}`)
         return { ok: true, body }
       })
-      .catch((error) => {
+      .catch(error => {
         logger.error(`Failed to fetch file from S3: ${error.message}`)
         return { ok: false, error }
       })

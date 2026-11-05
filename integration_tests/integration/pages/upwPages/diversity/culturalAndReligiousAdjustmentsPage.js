@@ -9,7 +9,7 @@ const markSectionCompleteRBtnYes = '#cultural_religious_adjustment_complete'
 const iWillComeBackLaterRBtn = '#cultural_religious_adjustment_complete-2'
 
 module.exports = {
-  selectCulturalReligiousAdjstStatus: (option) => {
+  selectCulturalReligiousAdjstStatus: option => {
     if (option === 'Yes') {
       cy.get(cultReligiousAdjstRBtnYes).check()
     } else {
@@ -17,13 +17,13 @@ module.exports = {
     }
   },
 
-  enterCulturalAndReligiousDetails: (details) => {
+  enterCulturalAndReligiousDetails: details => {
     cy.get(cultReligiousAdjstDetails).as('cultReligiousAdjustmentsDetails')
     cy.get('@cultReligiousAdjustmentsDetails').clear()
     cy.get('@cultReligiousAdjustmentsDetails').type(details)
   },
 
-  selectCulturalReligiousMarkSectionComplete: (option) => {
+  selectCulturalReligiousMarkSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

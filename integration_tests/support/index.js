@@ -26,19 +26,19 @@ addCompareSnapshotCommand({
 Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
   return cy
     .document()
-    .then((doc) => {
-      return new Cypress.Promise((resolve) => {
+    .then(doc => {
+      return new Cypress.Promise(resolve => {
         setTimeout(() => {
           // hide the CRN
           doc.body
             .querySelectorAll('.key-details-bar__other-details > dd:first-of-type, tr#crn > td > p')
-            .forEach((element) => {
+            .forEach(element => {
               const updatedElement = element
               updatedElement.innerHTML = 'XXXXXX'
             })
 
           // override the visited state for links
-          doc.body.querySelectorAll('.govuk-link').forEach((element) => {
+          doc.body.querySelectorAll('.govuk-link').forEach(element => {
             const updatedElement = element
             if (!updatedElement.classList.contains('govuk-link--inverse')) {
               updatedElement.classList.add('govuk-link--no-visited-state')
@@ -53,14 +53,14 @@ Cypress.Commands.overwrite('compareSnapshot', (originalFn, ...args) => {
 })
 
 beforeEach(() => {
-  cy.getCookies().then((cookies) => {
-    cookies.forEach((cookie) => cy.clearCookie(cookie.name, { log: false }))
+  cy.getCookies().then(cookies => {
+    cookies.forEach(cookie => cy.clearCookie(cookie.name, { log: false }))
   })
 })
 
 afterEach(() => {
-  cy.getCookies().then((cookies) => {
-    cookies.forEach((cookie) => cy.clearCookie(cookie.name, { log: false }))
+  cy.getCookies().then(cookies => {
+    cookies.forEach(cookie => cy.clearCookie(cookie.name, { log: false }))
   })
 })
 

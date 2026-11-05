@@ -27,52 +27,52 @@ const contactEmailFieldError = '[id="contact_email_addresses-error"]'
 const contactDetailsSaveButton = '#main-content button'
 
 module.exports = {
-  enterContactAddrBldngName: (details) => {
+  enterContactAddrBldngName: details => {
     cy.get(contactAddrBldngName).as('contactAddrBuildingName').clear()
     cy.get('@contactAddrBuildingName').type(details)
   },
 
-  enterContactAddrHouseNr: (details) => {
+  enterContactAddrHouseNr: details => {
     cy.get(contactAddrHouseNr).as('contactAddressHouseNumber').clear()
     cy.get('@contactAddressHouseNumber').type(details)
   },
 
-  enterContactAddrStreet: (details) => {
+  enterContactAddrStreet: details => {
     cy.get(contactAddrStreet).as('contactAddressStreet').clear()
     cy.get('@contactAddressStreet').type(details)
   },
 
-  enterContactAddrDistrict: (details) => {
+  enterContactAddrDistrict: details => {
     cy.get(contactAddrDistrict).as('contactAddressDistrict').clear()
     cy.get('@contactAddressDistrict').type(details)
   },
 
-  enterContactAddrTownCity: (details) => {
+  enterContactAddrTownCity: details => {
     cy.get(contactAddrTownCity).as('contactAddressTownCity').clear()
     cy.get('@contactAddressTownCity').type(details)
   },
 
-  enterContactAddrCounty: (details) => {
+  enterContactAddrCounty: details => {
     cy.get(contactAddrCounty).as('contactAddressCounty').clear()
     cy.get('@contactAddressCounty').type(details)
   },
 
-  enterContactAddrPostCode: (details) => {
+  enterContactAddrPostCode: details => {
     cy.get(contactAddrPostCode).as('contactAddressPostCode').clear()
     cy.get('@contactAddressPostCode').type(details)
   },
 
-  enterContactPhoneNumber: (details) => {
+  enterContactPhoneNumber: details => {
     cy.get(contactPhoneNumber).as('contactPhoneNumber').clear()
     cy.get('@contactPhoneNumber').type(details)
   },
 
-  enterContactMobileNumber: (details) => {
+  enterContactMobileNumber: details => {
     cy.get(contactMobileNumber).as('contactMobileNumber').clear()
     cy.get('@contactMobileNumber').type(details)
   },
 
-  enterContactEmailAddress: (details) => {
+  enterContactEmailAddress: details => {
     cy.get(contactEmailAddress).as('contactEmailAddress').clear()
     cy.get('@contactEmailAddress').type(details)
   },

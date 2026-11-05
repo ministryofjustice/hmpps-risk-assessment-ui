@@ -34,7 +34,7 @@ const markSectionCompleteRBtnYes = '#employment_education_skills_complete'
 const iWillComeBackLaterRBtn = '#employment_education_skills_complete-2'
 
 module.exports = {
-  selectEmplEducationStatus: (option) => {
+  selectEmplEducationStatus: option => {
     if (option === 'Full-time education or employment') {
       cy.get(fullTimeEmplEducationRBtn).check()
     } else if (option === 'Part-time education or employment') {
@@ -44,17 +44,17 @@ module.exports = {
     }
   },
 
-  enterFullTimeEmplEducationDetails: (details) => {
+  enterFullTimeEmplEducationDetails: details => {
     cy.get(fullTimeEmplEducationDetails).as('fullTimeEmploymentEducationDetails').clear()
     cy.get('@fullTimeEmploymentEducationDetails').type(details)
   },
 
-  enterPartTimeEmplEducationDetails: (details) => {
+  enterPartTimeEmplEducationDetails: details => {
     cy.get(partTimeEmplEducationDetails).as('partTimeEmploymentEducationDetails').clear()
     cy.get('@partTimeEmploymentEducationDetails').type(details)
   },
 
-  selectReadWriteDifficultiesStatus: (option) => {
+  selectReadWriteDifficultiesStatus: option => {
     if (option === 'Yes') {
       cy.get(readWriteDifficultiesRBtnYes).check()
     } else if (option === 'No') {
@@ -62,12 +62,12 @@ module.exports = {
     }
   },
 
-  enterReadWriteDifficultiesDetails: (details) => {
+  enterReadWriteDifficultiesDetails: details => {
     cy.get(readWriteDifficultiesDetails).as('readWriteDifficultiesDetails').clear()
     cy.get('@readWriteDifficultiesDetails').type(details)
   },
 
-  selectWorkSkillsStatus: (option) => {
+  selectWorkSkillsStatus: option => {
     if (option === 'Yes') {
       cy.get(workSkillsRBtnYes).check()
     } else if (option === 'No') {
@@ -75,12 +75,12 @@ module.exports = {
     }
   },
 
-  enterWorkSkillsDetails: (details) => {
+  enterWorkSkillsDetails: details => {
     cy.get(workSkillsDetails).as('workSkillsDetails').clear()
     cy.get('@workSkillsDetails').type(details)
   },
 
-  selectFutureWorkPlansStatus: (option) => {
+  selectFutureWorkPlansStatus: option => {
     if (option === 'Yes') {
       cy.get(futureWorkPlansRBtnYes).check()
     } else if (option === 'No') {
@@ -88,12 +88,12 @@ module.exports = {
     }
   },
 
-  enterFutureWorkPlansDetails: (details) => {
+  enterFutureWorkPlansDetails: details => {
     cy.get(futureWorkPlansDetails).as('futureWorkPlansDetails').clear()
     cy.get('@futureWorkPlansDetails').type(details)
   },
 
-  selectEmplEducationSkillsSectionComplete: (option) => {
+  selectEmplEducationSkillsSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

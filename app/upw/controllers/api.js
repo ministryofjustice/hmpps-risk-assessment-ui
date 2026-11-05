@@ -20,7 +20,7 @@ const fetchWidgetData = async (crn, eventId, token) => {
   }
 }
 
-const fetchTemplateData = async (episodeId) => {
+const fetchTemplateData = async episodeId => {
   const token = await getApiToken()
   const episode = await getEpisode(episodeId, token) // need to update API, no reason to send both episode ID and assessment ID
   const subject = await getOffenderData(episode.assessmentUuid, token)
@@ -59,7 +59,7 @@ const streamDocumentResponse = (res, document) => {
   document.pipe(res)
 }
 
-const generatePdf = (res) => async (templateData) => {
+const generatePdf = res => async templateData => {
   const rendered = nunjucks.render('app/upw/templates/pdf-preview-and-declaration/pdf.njk', {
     ...templateData,
     cssPath: 'application.min.css',

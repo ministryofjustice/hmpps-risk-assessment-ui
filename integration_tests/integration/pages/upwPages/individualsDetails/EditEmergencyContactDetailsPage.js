@@ -15,27 +15,27 @@ const emrgncyContactMobileSummError = '[href="#emergency_contact_mobile_phone_nu
 const emrgncyContactMobileFieldError = '[id="emergency_contact_mobile_phone_number-error"]'
 
 module.exports = {
-  enterEmergencyContactFirstName: (details) => {
+  enterEmergencyContactFirstName: details => {
     cy.get(emergencyContactFirstName).as('emergencyContactFirstName').clear()
     cy.get('@emergencyContactFirstName').type(details)
   },
 
-  enterEmergencyContactFamilyName: (details) => {
+  enterEmergencyContactFamilyName: details => {
     cy.get(emergencyContactFamilyName).as('emergencyContactFamilyName').clear()
     cy.get('@emergencyContactFamilyName').type(details)
   },
 
-  enterEmergencyContactRelationship: (details) => {
+  enterEmergencyContactRelationship: details => {
     cy.get(emergencyContactRelationship).as('emergencyContactRelationship').clear()
     cy.get('@emergencyContactRelationship').type(details)
   },
 
-  enterEmergencyContactPhone: (details) => {
+  enterEmergencyContactPhone: details => {
     cy.get(emergencyContactPhone).as('emergencyContactPhone').clear()
     cy.get('@emergencyContactPhone').type(details)
   },
 
-  enterEmergencyContactMobile: (details) => {
+  enterEmergencyContactMobile: details => {
     cy.get(emergencyContactMobile).as('emergencyContactMobile').clear()
     cy.get('@emergencyContactMobile').type(details)
   },
