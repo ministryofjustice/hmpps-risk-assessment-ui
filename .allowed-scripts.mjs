@@ -3,8 +3,8 @@ import { configureAllowedScripts } from '@ministryofjustice/hmpps-npm-script-all
 
 export default configureAllowedScripts({
   allowlist: {
-    'node_modules/@badeball/cypress-cucumber-preprocessor@23.2.1': 'ALLOW',
-    'node_modules/@parcel/watcher@2.5.1': 'ALLOW',
+    'node_modules/@badeball/cypress-cucumber-preprocessor@28.0.1': 'ALLOW',
+    'node_modules/@parcel/watcher@2.6.0': 'ALLOW',
     'node_modules/applicationinsights-native-metrics@0.0.11': 'ALLOW',
     'node_modules/cypress@15.7.0': 'ALLOW',
     'node_modules/esbuild@0.27.0': 'ALLOW',

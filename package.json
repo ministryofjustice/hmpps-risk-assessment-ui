@@ -3,7 +3,6 @@
   "description": "HMPPS UI Service",
   "repository": "git@github.com:ministryofjustice/hmpps-risk-assessment-ui.git",
   "version": "0.0.1",
-  "private": true,
   "license": "MIT",
   "engines": {
     "node": "^24.0.0",
@@ -102,7 +101,7 @@
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "@ministryofjustice/eslint-config-hmpps": "^1.0.4",
-    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.6",
+    "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@types/luxon": "^3.6.2",
     "audit-ci": "^7.1.0",
     "browserify": "^17.0.1",
