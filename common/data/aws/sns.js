@@ -30,7 +30,7 @@ class SNS {
         logger.info(`Publishing message to SNS topic: ${this.topicArn}`)
         return { ok: true }
       })
-      .catch((error) => {
+      .catch(error => {
         logger.error(`Failed to publish to SNS topic: ${this.topicArn}`)
         return { ok: false, error }
       })

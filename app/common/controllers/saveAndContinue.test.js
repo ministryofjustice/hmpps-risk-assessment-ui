@@ -5,8 +5,8 @@ const { processReplacements, encodeHTML, updateJsonValue } = require('../../../c
 const { CACHE } = require('../../../common/utils/constants')
 
 const nunjucksEnvironment = configure({}, {})
-nunjucksEnvironment.addFilter('encodeHtml', (str) => encodeHTML(str))
-nunjucksEnvironment.addFilter('addSpellcheck', (jsonObj) => updateJsonValue(jsonObj, 'spellcheck', true, true))
+nunjucksEnvironment.addFilter('encodeHtml', str => encodeHTML(str))
+nunjucksEnvironment.addFilter('addSpellcheck', jsonObj => updateJsonValue(jsonObj, 'spellcheck', true, true))
 
 jest.mock('../../../common/data/hmppsAssessmentApi')
 jest.mock('../../../common/utils/util')
@@ -22,7 +22,7 @@ const controller = new SaveAndContinueController({
 
 describe('SaveAndContinueController', () => {
   const mockSessionModel = (values = {}) => {
-    req.sessionModel.get.mockImplementation((key) => {
+    req.sessionModel.get.mockImplementation(key => {
       switch (key) {
         case CACHE.ERRORS:
           return values.errors
@@ -36,7 +36,7 @@ describe('SaveAndContinueController', () => {
     })
   }
 
-  const inputWithName = (name) => new RegExp(`<input[^>]*?name=(["\\'])?${name}((?:.(?!\\1|>))*.?)\\1?`)
+  const inputWithName = name => new RegExp(`<input[^>]*?name=(["\\'])?${name}((?:.(?!\\1|>))*.?)\\1?`)
 
   const res = {
     redirect: jest.fn(),
@@ -92,7 +92,7 @@ describe('SaveAndContinueController', () => {
     getQuestionsForAssessmentType.mockReset()
     processReplacements.mockReset()
 
-    processReplacements.mockImplementation((questions) => questions)
+    processReplacements.mockImplementation(questions => questions)
     getAnswers.mockResolvedValue({ answers: {} })
   })
 

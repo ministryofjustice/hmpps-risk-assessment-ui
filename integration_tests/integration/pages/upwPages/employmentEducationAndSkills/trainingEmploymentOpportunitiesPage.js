@@ -16,7 +16,7 @@ const markSectionCompleteRBtnYes = '#employment_training_complete'
 const iWillComeBackLaterRBtn = '#employment_training_complete-2'
 
 module.exports = {
-  selectEducationTrainingNeedStatus: (option) => {
+  selectEducationTrainingNeedStatus: option => {
     if (option === 'Yes') {
       cy.get(educationTrainingNeedRBtnYes).check()
     } else if (option === 'No') {
@@ -24,12 +24,12 @@ module.exports = {
     }
   },
 
-  enterEducationTrainingNeedDetails: (details) => {
+  enterEducationTrainingNeedDetails: details => {
     cy.get(educationTrainingNeedDetails).as('educationTrainingNeedDetails').clear()
     cy.get('@educationTrainingNeedDetails').type(details)
   },
 
-  selectIndividCommitmentStatus: (option) => {
+  selectIndividCommitmentStatus: option => {
     if (option === 'Yes') {
       cy.get(individCommitmentRBtnYes).check()
     } else if (option === 'No') {
@@ -37,12 +37,12 @@ module.exports = {
     }
   },
 
-  enterIndividCommitmentDetails: (details) => {
+  enterIndividCommitmentDetails: details => {
     cy.get(individCommitmentDetails).as('individualCommitmentDetails').clear()
     cy.get('@individualCommitmentDetails').type(details)
   },
 
-  selectTrainingNeedSectionComplete: (option) => {
+  selectTrainingNeedSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRBtnYes).check()
     } else {

@@ -1,7 +1,7 @@
 const redis = require('./redis')
 const { REFRESH_TOKEN_LIFETIME_SECONDS } = require('../utils/constants')
 
-const cacheUserDetails = async (user) => {
+const cacheUserDetails = async user => {
   const userDetails = {
     username: user?.user_name,
     name: user?.name,
@@ -12,7 +12,7 @@ const cacheUserDetails = async (user) => {
   return userDetails
 }
 
-const getCachedUserDetails = async (userId) => {
+const getCachedUserDetails = async userId => {
   const serializedDetails = await redis.get(`user:${userId}`)
   return serializedDetails !== null ? JSON.parse(serializedDetails) : null
 }

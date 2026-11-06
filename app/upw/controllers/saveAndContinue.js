@@ -42,7 +42,7 @@ class SaveAndContinue extends BaseSaveAndContinue {
     await super.locals(req, res, next)
 
     const validationErrors = Object.keys(req.form.errors)
-    const sectionCompleteFields = Object.keys(req.form?.options?.fields).filter((key) => key.match(/^\w+_complete$/))
+    const sectionCompleteFields = Object.keys(req.form?.options?.fields).filter(key => key.match(/^\w+_complete$/))
 
     let { answers } = res.locals
 
@@ -61,7 +61,7 @@ class SaveAndContinue extends BaseSaveAndContinue {
   }
 
   successHandler(req, res, next) {
-    const sectionCompleteFields = Object.keys(req.form?.options?.fields).filter((key) => key.match(/^\w+_complete$/))
+    const sectionCompleteFields = Object.keys(req.form?.options?.fields).filter(key => key.match(/^\w+_complete$/))
     const answers = req.sessionModel.get(CACHE.PERSISTED_ANSWERS) || {}
     const answer = answers[sectionCompleteFields[0]]
     const sectionComplete = Array.isArray(answer) && answer.includes(SECTION_COMPLETE)

@@ -25,7 +25,7 @@ if ('webkitSpeechRecognition' in window) {
     document.querySelector('#status').style.display = 'none'
   }
 
-  speechRecognition.onresult = (event) => {
+  speechRecognition.onresult = event => {
     // Create the interim transcript string locally because we don't want it to persist like final transcript
     let interimTranscript = ''
 
@@ -45,13 +45,13 @@ if ('webkitSpeechRecognition' in window) {
   }
 
   // Set the onClick property of the start button
-  document.querySelector('#start').onclick = (e) => {
+  document.querySelector('#start').onclick = e => {
     e.preventDefault()
     // Start the Speech Recognition
     speechRecognition.start()
   }
   // Set the onClick property of the stop button
-  document.querySelector('#stop').onclick = (e) => {
+  document.querySelector('#stop').onclick = e => {
     e.preventDefault()
     // Stop the Speech Recognition
     speechRecognition.stop()

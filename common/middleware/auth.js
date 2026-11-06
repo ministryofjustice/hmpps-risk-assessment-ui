@@ -12,7 +12,7 @@ const logger = require('../logging/logger')
 const User = require('../models/user')
 const { SIXTY_SECONDS } = require('../utils/constants')
 
-const getAndCacheUserDetails = async (user) => {
+const getAndCacheUserDetails = async user => {
   return cacheUserDetails(jwtDecode(user.token))
 }
 
@@ -113,7 +113,7 @@ const handleLogout = () => {
   return (req, res, next) => {
     if (req.user) {
       const { username } = req.user
-      req.logout((err) => {
+      req.logout(err => {
         if (err) {
           next(err)
           return
@@ -186,7 +186,7 @@ const clientIsAuthenticated = () => {
   })
 }
 
-const clientHasRole = (role) => (req, res, next) => {
+const clientHasRole = role => (req, res, next) => {
   const roles = req.auth?.authorities || []
 
   if (!roles.includes(role)) {

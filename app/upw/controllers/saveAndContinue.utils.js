@@ -1,10 +1,10 @@
 const createFullNameFrom = (firstName = '', familyName = '') => `${firstName} ${familyName}`.trim()
 const orEmptyWith =
   (answers, defaultValue = []) =>
-  (questionCode) =>
+  questionCode =>
     answers[questionCode] || defaultValue
-const answersExistIn = (answers) => (questionCode) =>
-  Array.isArray(answers[questionCode]) && answers[questionCode].some((value) => value !== '')
+const answersExistIn = answers => questionCode =>
+  Array.isArray(answers[questionCode]) && answers[questionCode].some(value => value !== '')
 
 const gpDetailsMigration = {
   collectionKey: 'gp_details',
@@ -87,7 +87,7 @@ const fieldsToRemove = [
   'emergency_contact_mobile_phone_number',
 ]
 
-const createMultiplesFields = (answers) => {
+const createMultiplesFields = answers => {
   const getExistingEntriesFor = orEmptyWith(answers)
   return {
     ...answers,
@@ -98,7 +98,7 @@ const createMultiplesFields = (answers) => {
 
 const migrateFieldsUsing =
   (migration = {}) =>
-  (originalAnswers) => {
+  originalAnswers => {
     const { collectionKey, recordFrom, hasFieldsToBeConverted } = migration
 
     if (!collectionKey || !recordFrom || !hasFieldsToBeConverted) {
@@ -110,7 +110,7 @@ const migrateFieldsUsing =
       const recordToBeAdded = recordFrom(answers)
       if (
         !answers[collectionKey].some(
-          (existingRecord) => JSON.stringify(recordToBeAdded) === JSON.stringify(existingRecord),
+          existingRecord => JSON.stringify(recordToBeAdded) === JSON.stringify(existingRecord),
         )
       ) {
         answers[collectionKey].push(recordToBeAdded)
@@ -120,9 +120,9 @@ const migrateFieldsUsing =
     return answers
   }
 
-const safeDelete = (fields) => (answers) => {
+const safeDelete = fields => answers => {
   const updatedAnswers = { ...answers }
-  fields.forEach((id) => {
+  fields.forEach(id => {
     if (updatedAnswers[id]) {
       updatedAnswers[id] = ['']
     }

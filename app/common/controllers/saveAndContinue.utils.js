@@ -1,10 +1,10 @@
 const nunjucks = require('nunjucks')
 const { SECTION_INCOMPLETE, SECTION_COMPLETE } = require('../../../common/utils/constants')
 
-const hasAnswerIn = (v) => Array.isArray(v) && v.length > 0
-const hasAnswer = (v) => v && v.length > 0
+const hasAnswerIn = v => Array.isArray(v) && v.length > 0
+const hasAnswer = v => v && v.length > 0
 
-const getErrorMessage = (reason) => {
+const getErrorMessage = reason => {
   if (reason === 'OASYS_PERMISSION') {
     return 'You do not have permission to update this type of assessment. Speak to your manager and ask them to request a change to your level of authorisation.'
   }
@@ -27,7 +27,7 @@ const pageValidationErrorsFrom = (validationErrors, serverErrors = []) => {
     { validationErrors: {}, errorSummary: [] },
   )
 
-  const processedServerErrors = serverErrors.map((errorMessage) => ({
+  const processedServerErrors = serverErrors.map(errorMessage => ({
     text: errorMessage,
     href: `#`,
   }))
@@ -41,8 +41,8 @@ const pageValidationErrorsFrom = (validationErrors, serverErrors = []) => {
 const withAnswersFrom =
   (previousAnswers, submittedAnswers) =>
   ([fieldName, fieldProperties]) => {
-    const someValueFrom = (answer) => (hasAnswerIn(answer) ? answer : [])
-    const answerFor = (questionCode) => {
+    const someValueFrom = answer => (hasAnswerIn(answer) ? answer : [])
+    const answerFor = questionCode => {
       let answer = ''
 
       const submittedAnswer = someValueFrom(submittedAnswers[questionCode])
@@ -61,7 +61,7 @@ const withAnswersFrom =
 
     if (fieldProperties.answerType === 'radio') {
       let checkedAnswer = answerFor(fieldName)
-      const [selectedAnswer] = fieldProperties.answerDtos.filter((answer) => answer.value === checkedAnswer)
+      const [selectedAnswer] = fieldProperties.answerDtos.filter(answer => answer.value === checkedAnswer)
       const displayAnswer = selectedAnswer?.text || ''
 
       if (fieldName.match(/^\w+_complete$/)) {
@@ -72,7 +72,7 @@ const withAnswersFrom =
       return {
         ...fieldProperties,
         answer: displayAnswer,
-        answerDtos: fieldProperties.answerDtos.map((answer) => ({
+        answerDtos: fieldProperties.answerDtos.map(answer => ({
           ...answer,
           checked: checkedAnswer === answer.value,
         })),
@@ -82,14 +82,14 @@ const withAnswersFrom =
     if (fieldProperties.answerType === 'checkbox') {
       const selected = submittedAnswers[fieldName] || previousAnswers[fieldName] || fieldProperties.default || []
       const displayAnswers = fieldProperties.answerDtos
-        .filter((answer) => selected.includes(answer.value))
-        .map((answer) => answer.text)
+        .filter(answer => selected.includes(answer.value))
+        .map(answer => answer.text)
         .join(', ')
 
       return {
         ...fieldProperties,
         answer: displayAnswers,
-        answerDtos: fieldProperties.answerDtos.map((answer) => ({
+        answerDtos: fieldProperties.answerDtos.map(answer => ({
           ...answer,
           checked: selected.includes(answer.value),
         })),
@@ -98,7 +98,7 @@ const withAnswersFrom =
 
     if (fieldProperties.answerType === 'dropdown') {
       const checkedAnswer = answerFor(fieldName)
-      const [selectedAnswer] = fieldProperties.answerDtos.filter((answer) => answer.value === checkedAnswer)
+      const [selectedAnswer] = fieldProperties.answerDtos.filter(answer => answer.value === checkedAnswer)
       const displayAnswer = selectedAnswer?.text || ''
 
       if (!checkedAnswer || checkedAnswer === '') {
@@ -119,7 +119,7 @@ const withAnswersFrom =
       return {
         ...fieldProperties,
         answer: displayAnswer,
-        answerDtos: fieldProperties.answerDtos.map((answer) => ({
+        answerDtos: fieldProperties.answerDtos.map(answer => ({
           ...answer,
           selected: checkedAnswer === answer.value,
         })),
@@ -158,7 +158,7 @@ const answersByQuestionCode = (otherQuestions, currentQuestion) => ({
 })
 
 const combinedLocalFieldsWith =
-  (remoteQuestions) =>
+  remoteQuestions =>
   (otherFields, [questionCode, localQuestion]) => ({
     ...otherFields,
     [questionCode]: fieldFrom(localQuestion, remoteQuestions[questionCode]),
@@ -166,12 +166,12 @@ const combinedLocalFieldsWith =
 
 const combineDateFields = (formValues = {}) => {
   const dateFieldPattern = /-(day|month|year)$/
-  const whereDateField = (key) => dateFieldPattern.test(key)
+  const whereDateField = key => dateFieldPattern.test(key)
 
   const dateFieldNames = Object.keys(formValues).filter(whereDateField)
-  const nonDateFieldNames = Object.keys(formValues).filter((fieldName) => !whereDateField(fieldName))
+  const nonDateFieldNames = Object.keys(formValues).filter(fieldName => !whereDateField(fieldName))
 
-  const combinedDateFieldsFor = (answers) => (otherFields, fieldName) => {
+  const combinedDateFieldsFor = answers => (otherFields, fieldName) => {
     const dateKey = fieldName.replace(dateFieldPattern, '')
 
     if (
@@ -189,13 +189,13 @@ const combineDateFields = (formValues = {}) => {
     return { ...otherFields, [dateKey]: `${year}-${month}-${day}` }
   }
 
-  const answersFrom = (answers) => (otherFields, fieldName) => ({ ...otherFields, [fieldName]: answers[fieldName] })
+  const answersFrom = answers => (otherFields, fieldName) => ({ ...otherFields, [fieldName]: answers[fieldName] })
 
   const combinedDateFields = dateFieldNames.reduce(combinedDateFieldsFor(formValues), {})
   return nonDateFieldNames.reduce(answersFrom(formValues), combinedDateFields)
 }
 
-const answerDtoFrom = (formValues) =>
+const answerDtoFrom = formValues =>
   Object.keys(formValues).reduce((otherFields, fieldName) => {
     const answer = formValues[fieldName] !== '' ? formValues[fieldName] : []
     const answerAsArray = Array.isArray(answer) ? answer : [answer]
@@ -218,13 +218,13 @@ const renderConditionalQuestion = (
   _nunjucks = nunjucks,
 ) => {
   const conditionalQuestions = conditionalQuestionCodes.map(({ code, deps }) => {
-    const [schema] = questions.filter((question) => question.questionCode === code)
+    const [schema] = questions.filter(question => question.questionCode === code)
     return { schema, deps }
   })
 
-  const answerDtos = questionDto.answerDtos.map((answer) => {
+  const answerDtos = questionDto.answerDtos.map(answer => {
     const questionsDependentOnThisAnswer = conditionalQuestions.filter(
-      (question) => question.schema.dependent.value === answer.value,
+      question => question.schema.dependent.value === answer.value,
     )
 
     if (questionsDependentOnThisAnswer.length === 0) {
@@ -261,13 +261,13 @@ const renderConditionalQuestion = (
 
 const compileConditionalQuestions = (questions, errors) => {
   const inlineConditionalQuestions = questions.filter(
-    (question) => question.dependent && !question.dependent.displayOutOfLine,
+    question => question.dependent && !question.dependent.displayOutOfLine,
   )
 
-  const questionCodes = inlineConditionalQuestions.map((question) => question.questionCode)
+  const questionCodes = inlineConditionalQuestions.map(question => question.questionCode)
 
   const rootConditionalQuestions = inlineConditionalQuestions
-    .filter((question) => !questionCodes.includes(question.dependent.field))
+    .filter(question => !questionCodes.includes(question.dependent.field))
     .reduce(
       (otherQuestions, currentQuestion) => [
         ...otherQuestions,
@@ -276,12 +276,12 @@ const compileConditionalQuestions = (questions, errors) => {
       [],
     )
 
-  const buildNode = (parentQuestionCode) =>
+  const buildNode = parentQuestionCode =>
     inlineConditionalQuestions
-      .filter((question) => question.dependent.field === parentQuestionCode)
-      .map((question) => {
+      .filter(question => question.dependent.field === parentQuestionCode)
+      .map(question => {
         const dependents = inlineConditionalQuestions.filter(
-          (otherQuestion) => question.questionCode === otherQuestion.dependent.field,
+          otherQuestion => question.questionCode === otherQuestion.dependent.field,
         )
         if (dependents.length > 0) {
           return { code: question.questionCode, deps: buildNode(question.questionCode) }
@@ -289,13 +289,13 @@ const compileConditionalQuestions = (questions, errors) => {
         return { code: question.questionCode }
       })
 
-  const dependencyTree = rootConditionalQuestions.map((questionCode) => {
+  const dependencyTree = rootConditionalQuestions.map(questionCode => {
     return { code: questionCode, deps: buildNode(questionCode) }
   })
 
   return dependencyTree.reduce(
     (otherQuestions, { code: questionCode, deps: conditionalQuestionCodes }) => {
-      const [questionSchema] = otherQuestions.filter((question) => question.questionCode === questionCode)
+      const [questionSchema] = otherQuestions.filter(question => question.questionCode === questionCode)
 
       const updatedQuestion = renderConditionalQuestion(
         otherQuestions,
@@ -303,7 +303,7 @@ const compileConditionalQuestions = (questions, errors) => {
         conditionalQuestionCodes,
         errors,
       )
-      return otherQuestions.map((question) =>
+      return otherQuestions.map(question =>
         question.questionCode === updatedQuestion.questionCode ? updatedQuestion : question,
       )
     },
