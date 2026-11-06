@@ -65,7 +65,7 @@ const markSectionCompleteRButtonYes = '#rosh_community_complete'
 const iWillComeBackLaterRBtn = '#rosh_community_complete-2'
 
 module.exports = {
-  selectHistoryOfSexOffendingStatus: (option) => {
+  selectHistoryOfSexOffendingStatus: option => {
     if (option === 'Yes') {
       cy.get(historyOfSexOffendingRBtnYes).check()
     } else if (option === 'No') {
@@ -73,12 +73,12 @@ module.exports = {
     }
   },
 
-  enterHistoryOfSexOffendingDetails: (details) => {
+  enterHistoryOfSexOffendingDetails: details => {
     cy.get(historyOfSexOffendingDetails).as('historyOfSexOffendingDetails').clear()
     cy.get('@historyOfSexOffendingDetails').type(details)
   },
 
-  selectRiskToChildrenStatus: (option) => {
+  selectRiskToChildrenStatus: option => {
     if (option === 'Yes') {
       cy.get(riskToChildrenRBtnYes).check()
     } else if (option === 'No') {
@@ -86,12 +86,12 @@ module.exports = {
     }
   },
 
-  enterRiskToChildrenDetails: (details) => {
+  enterRiskToChildrenDetails: details => {
     cy.get(riskToChildrenDetails).as('riskToChildrenDetails').clear()
     cy.get('@riskToChildrenDetails').type(details)
   },
 
-  selectViolentOffencesStatus: (option) => {
+  selectViolentOffencesStatus: option => {
     if (option === 'Yes') {
       cy.get(violentOffencesRBtnYes).check()
     } else if (option === 'No') {
@@ -99,12 +99,12 @@ module.exports = {
     }
   },
 
-  enterViolentOffencesDetails: (details) => {
+  enterViolentOffencesDetails: details => {
     cy.get(violentOffencesDetails).as('violentOffencesDetails').clear()
     cy.get('@violentOffencesDetails').type(details)
   },
 
-  selectAcquisitiveOffendingStatus: (option) => {
+  selectAcquisitiveOffendingStatus: option => {
     if (option === 'Yes') {
       cy.get(acquisitiveOffendingRBtnYes).check()
     } else if (option === 'No') {
@@ -112,12 +112,12 @@ module.exports = {
     }
   },
 
-  enterAcquisitiveOffendingDetails: (details) => {
+  enterAcquisitiveOffendingDetails: details => {
     cy.get(acquisitiveOffendingDetails).as('acquisitiveOffendingDetails').clear()
     cy.get('@acquisitiveOffendingDetails').type(details)
   },
 
-  selectSeriousGroupOffendingStatus: (option) => {
+  selectSeriousGroupOffendingStatus: option => {
     if (option === 'Yes') {
       cy.get(seriousGroupOffendingRBtnYes).check()
     } else if (option === 'No') {
@@ -125,12 +125,12 @@ module.exports = {
     }
   },
 
-  enterSeriousGroupOffendingDetails: (details) => {
+  enterSeriousGroupOffendingDetails: details => {
     cy.get(seriousGroupOffendingDetails).as('seriousGroupOffendingDetails').clear()
     cy.get('@seriousGroupOffendingDetails').type(details)
   },
 
-  selectControlIssuesStatus: (option) => {
+  selectControlIssuesStatus: option => {
     if (option === 'Yes') {
       cy.get(controlIssuesRBtnYes).check()
     } else if (option === 'No') {
@@ -138,12 +138,12 @@ module.exports = {
     }
   },
 
-  enterControlIssuesDetails: (details) => {
+  enterControlIssuesDetails: details => {
     cy.get(controlIssuesDetails).as('controlIssuesDetails').clear()
     cy.get('@controlIssuesDetails').type(details)
   },
 
-  selectHateBehaviourStatus: (option) => {
+  selectHateBehaviourStatus: option => {
     if (option === 'Yes') {
       cy.get(hateBehaviourRBtnYes).check()
     } else if (option === 'No') {
@@ -151,12 +151,12 @@ module.exports = {
     }
   },
 
-  enterHateBehaviourDetails: (details) => {
+  enterHateBehaviourDetails: details => {
     cy.get(hateBehaviourDetails).as('hateBehaviourDetails').clear()
     cy.get('@hateBehaviourDetails').type(details)
   },
 
-  selectHighProfilePersonStatus: (option) => {
+  selectHighProfilePersonStatus: option => {
     if (option === 'Yes') {
       cy.get(highProfilePersonRBtnYes).check()
     } else if (option === 'No') {
@@ -164,12 +164,12 @@ module.exports = {
     }
   },
 
-  enterHighProfilePersonDetails: (details) => {
+  enterHighProfilePersonDetails: details => {
     cy.get(highProfilePersonDetails).as('highProfilePersonDetails').clear()
     cy.get('@highProfilePersonDetails').type(details)
   },
 
-  selectAdditionalRiskAssesInfoStatus: (option) => {
+  selectAdditionalRiskAssesInfoStatus: option => {
     if (option === 'Yes') {
       cy.get(additionalRoshInfoRBtnYes).check()
     } else if (option === 'No') {
@@ -177,7 +177,7 @@ module.exports = {
     }
   },
 
-  enterAdditionalRiskAssesInfoDetails: (details) => {
+  enterAdditionalRiskAssesInfoDetails: details => {
     cy.get(additionalRoshInfoDetails).as('additionalRoshInfoDetails').clear()
     cy.get('@additionalRoshInfoDetails').type(details)
   },
@@ -194,7 +194,7 @@ module.exports = {
     cy.get(additionalRoshInfoDetails).clear()
   },
 
-  selectRiskOfHarmMarkSectionComplete: (option) => {
+  selectRiskOfHarmMarkSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRButtonYes).check()
     } else {

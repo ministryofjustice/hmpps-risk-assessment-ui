@@ -17,7 +17,7 @@ const controller = new TaskList({
 
 describe('TaskListController', () => {
   const mockSessionModel = (values = {}) => {
-    req.sessionModel.get.mockImplementation((key) => {
+    req.sessionModel.get.mockImplementation(key => {
       switch (key) {
         case CACHE.ERRORS:
           return values.errors || []

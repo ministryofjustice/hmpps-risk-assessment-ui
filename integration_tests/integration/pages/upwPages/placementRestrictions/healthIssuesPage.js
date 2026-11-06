@@ -41,7 +41,7 @@ const markSectionCompleteRButtonYes = '#health_issues_complete'
 const iWillComeBackLaterRButtonNo = '#health_issues_complete-2'
 
 module.exports = {
-  selectAllergiesStatus: (option) => {
+  selectAllergiesStatus: option => {
     if (option === 'Yes') {
       cy.get(allergiesRBtnYes).check()
     } else if (option === 'No') {
@@ -49,12 +49,12 @@ module.exports = {
     }
   },
 
-  enterAllergiesDetails: (details) => {
+  enterAllergiesDetails: details => {
     cy.get(allergiesDetails).as('allergiesDetails').clear()
     cy.get('@allergiesDetails').type(details)
   },
 
-  selectLossOfConsciousnessStatus: (option) => {
+  selectLossOfConsciousnessStatus: option => {
     if (option === 'Yes') {
       cy.get(lossOfConsciousnessRBtnYes).check()
     } else if (option === 'No') {
@@ -62,12 +62,12 @@ module.exports = {
     }
   },
 
-  enterLossOfConsciousnessDetails: (details) => {
+  enterLossOfConsciousnessDetails: details => {
     cy.get(lossOfConsciousnessDetails).as('lossOfConsciousnessDetails').clear()
     cy.get('@lossOfConsciousnessDetails').type(details)
   },
 
-  selectEpilepsyStatus: (option) => {
+  selectEpilepsyStatus: option => {
     if (option === 'Yes') {
       cy.get(epilepsyRBtnYes).check()
     } else if (option === 'No') {
@@ -75,12 +75,12 @@ module.exports = {
     }
   },
 
-  enterEpilepsyDetails: (details) => {
+  enterEpilepsyDetails: details => {
     cy.get(epilepsyDetails).as('epilepsyDetails').clear()
     cy.get('@epilepsyDetails').type(details)
   },
 
-  selectPregnancyStatus: (option) => {
+  selectPregnancyStatus: option => {
     if (option === 'Pregnant') {
       cy.get(pregnancyRBtnYes).check()
     } else if (option === 'Recently given birth') {
@@ -90,12 +90,12 @@ module.exports = {
     }
   },
 
-  enterPregnancyDetails: (details) => {
+  enterPregnancyDetails: details => {
     cy.get(pregnancyDetails).as('pregnancyDetails').clear()
     cy.get('@pregnancyDetails').type(details)
   },
 
-  selectOtherHealthIssuesStatus: (option) => {
+  selectOtherHealthIssuesStatus: option => {
     if (option === 'Yes') {
       cy.get(otherHealthIssuesRBtnYes).check()
     } else if (option === 'No') {
@@ -103,12 +103,12 @@ module.exports = {
     }
   },
 
-  enterOtherHealthIssuesDetails: (details) => {
+  enterOtherHealthIssuesDetails: details => {
     cy.get(otherHealthIssuesDetails).as('otherHealthIssuesDetails').clear()
     cy.get('@otherHealthIssuesDetails').type(details)
   },
 
-  selectHealthIssuesSectionComplete: (option) => {
+  selectHealthIssuesSectionComplete: option => {
     if (option === 'Yes') {
       cy.get(markSectionCompleteRButtonYes).check()
     } else {

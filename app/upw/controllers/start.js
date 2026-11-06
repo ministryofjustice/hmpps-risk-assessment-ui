@@ -13,7 +13,7 @@ const createAssessment = (user, crn, deliusEventId = '0', assessmentSchemaCode =
   return startAssessment(assessmentParams, user?.token)
 }
 
-const getSubjectDetailsFor = (assessment) => ({
+const getSubjectDetailsFor = assessment => ({
   name: assessment?.subject?.name,
   dob: assessment?.subject?.dateOfBirth,
   pnc: assessment?.subject?.pnc,

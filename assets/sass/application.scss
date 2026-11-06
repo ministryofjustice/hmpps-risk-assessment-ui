@@ -7,7 +7,7 @@ $govuk-breakpoints: (
   desktop: 1024px,
 );
 
-@import "govuk-frontend/dist/govuk/all";
+@import "govuk-frontend/dist/govuk/index";
 @import "@ministryofjustice/frontend/moj/all";
 @import "assets/sass/components/cookie-message";
 @import "assets/sass/components/task-list";

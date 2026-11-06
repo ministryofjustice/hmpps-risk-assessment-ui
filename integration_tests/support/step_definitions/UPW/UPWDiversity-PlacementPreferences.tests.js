@@ -3,11 +3,11 @@ const placementPreferencesPage = require('../../../integration/pages/upwPages/di
 const IndividualsDetailsPage = require('../../../integration/pages/upwPages/individualsDetails/individualsDetailsPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-Then('I say my placement preference is {string}', (option) => {
+Then('I say my placement preference is {string}', option => {
   placementPreferencesPage.selectPlacementPreference(option)
 })
 
-Then('I see the following Placement preferences Summary and Field error messages', (dataTable) => {
+Then('I see the following Placement preferences Summary and Field error messages', dataTable => {
   cy.get(placementPreferencesPage.placementPreferSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -18,7 +18,7 @@ Then('I see the following Placement preferences Summary and Field error messages
   )
 })
 
-Then('I see the following Placement preferences Details Summary and Field error messages', (dataTable) => {
+Then('I see the following Placement preferences Details Summary and Field error messages', dataTable => {
   cy.get(placementPreferencesPage.placementPreferCBoxSummError).should(
     'have.text',
     dataTable.hashes()[0]['Summary Error Messages'],
@@ -40,7 +40,7 @@ When('I verify that the {string} Check Box is still selected', () => {
   cy.get(placementPreferencesPage.individualCheckBox).should('be.checked')
 })
 
-When('I say my placement preference is {string} and Save', (option) => {
+When('I say my placement preference is {string} and Save', option => {
   cy.get(Common.pageHeader).should('contain.text', 'Does the individual have any placement preferences?')
   placementPreferencesPage.selectPlacementPreferStatus('Yes')
   placementPreferencesPage.selectPlacementPreference(option)

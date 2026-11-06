@@ -2,23 +2,27 @@ const { When } = require('@badeball/cypress-cucumber-preprocessor')
 const PdfPreviewPage = require('../../../integration/pages/upwPages/pdf-preview/pdfPreviewPage')
 const Common = require('../../../integration/pages/upwPages/common/common')
 
-When('I check {string} for visual regression', (id) => {
+When('I check {string} for visual regression', id => {
   cy.compareSnapshot(id, 0.01)
 })
 
 When('I view the generated PDF', () => {
-  cy.get('@crn').then((crn) => {
-    cy.visit(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`)
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
-    cy.scrollTo(0, 10000, { duration: 2000 })
-    cy.scrollTo(0, 0, { duration: 2000 })
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
+  cy.get('@crn').then(crn => {
+    cy.request(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`).then(({ body }) => {
+      const pdfUrl = body.match(/src="([^"]+\.pdf)"/)?.[1]
+
+      expect(pdfUrl, 'generated PDF URL').to.be.a('string')
+
+      cy.request({ url: pdfUrl, encoding: 'binary' }).then(response => {
+        expect(response.status).to.equal(200)
+        expect(response.headers['content-type']).to.include('application/pdf')
+        expect(response.body.slice(0, 5)).to.equal('%PDF-')
+      })
+    })
   })
 })
 
-When('I see output {string} Page', (pageName) => {
+When('I see output {string} Page', pageName => {
   cy.url().should('include', pageName)
 })
 
@@ -51,7 +55,7 @@ When('I verify the {string} Section for personal info on the pdf-preview page as
   if (expectedCrn) {
     Common.getText(PdfPreviewPage.crnDetails).should('equal', expectedCrn)
   } else {
-    cy.get('@crn').then((crn) => {
+    cy.get('@crn').then(crn => {
       Common.getText(PdfPreviewPage.crnDetails).should('equal', crn)
     })
   }
@@ -115,7 +119,7 @@ When('I verify the {string} Section for contact info on the pdf-preview page as 
 When('I verify the section {string} is as follows', (sectionName, dataTable) => {
   cy.contains('h2, h3', sectionName).parent().find('.upw-pdf-table').as('sectionAnswers')
 
-  dataTable.hashes().forEach((row) => {
+  dataTable.hashes().forEach(row => {
     cy.get('@sectionAnswers').contains('tr', row.Question).parent().as('questionRow')
 
     cy.get('@questionRow').contains('td', row.Answer)
@@ -129,7 +133,7 @@ When('I verify the section {string} is as follows', (sectionName, dataTable) => 
 When('I verify the {string} table is as follows', (tableName, dataTable) => {
   cy.contains('caption', tableName).parent().as('sectionAnswers')
 
-  dataTable.hashes().forEach((row) => {
+  dataTable.hashes().forEach(row => {
     cy.get('@sectionAnswers').contains('tr', row.Question).parent().as('questionRow')
 
     cy.get('@questionRow').contains('td', row.Answer)
@@ -415,60 +419,60 @@ When('I verify the {string} disabilities Section for {string}', (sectionName, su
       dataTable.hashes()[1]['Question name to be verified'],
     )
     Common.getText(PdfPreviewPage.activeDisabilitiesOneCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[1]['Comments to be verified'])
     Common.getText(PdfPreviewPage.activeDisabilitiesOneCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[1].Adjustments)
     Common.getText(PdfPreviewPage.activeDisabilitiesTwoFld).should(
       'equal',
       dataTable.hashes()[2]['Question name to be verified'],
     )
     Common.getText(PdfPreviewPage.activeDisabilitiesTwoCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[2]['Comments to be verified'])
     Common.getText(PdfPreviewPage.activeDisabilitiesTwoCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[2].Adjustments)
     Common.getText(PdfPreviewPage.activeDisabilitiesThreeFld).should(
       'equal',
       dataTable.hashes()[3]['Question name to be verified'],
     )
     Common.getText(PdfPreviewPage.activeDisabilitiesThreeCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[3]['Comments to be verified'])
     Common.getText(PdfPreviewPage.activeDisabilitiesThreeCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[3].Adjustments)
     Common.getText(PdfPreviewPage.activeDisabilitiesFourFld).should(
       'equal',
       dataTable.hashes()[4]['Question name to be verified'],
     )
     Common.getText(PdfPreviewPage.activeDisabilitiesFourCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[4]['Comments to be verified'])
     Common.getText(PdfPreviewPage.activeDisabilitiesFourCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[4].Adjustments)
     Common.getText(PdfPreviewPage.activeDisabilitiesFiveFld).should(
       'equal',
       dataTable.hashes()[5]['Question name to be verified'],
     )
     Common.getText(PdfPreviewPage.activeDisabilitiesFiveCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[5]['Comments to be verified'])
     Common.getText(PdfPreviewPage.activeDisabilitiesFiveCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[5].Adjustments)
     Common.getText(PdfPreviewPage.activeDisabilitiesSixFld).should(
       'equal',
       dataTable.hashes()[6]['Question name to be verified'],
     )
     Common.getText(PdfPreviewPage.activeDisabilitiesSixCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[6]['Comments to be verified'])
     Common.getText(PdfPreviewPage.activeDisabilitiesSixCommentsAdjstmnts)
-      .then((text) => text.replace(/\n/g, ' '))
+      .then(text => text.replace(/\n/g, ' '))
       .should('include', dataTable.hashes()[6].Adjustments)
   } else if (subSection === 'Questions') {
     Common.getText(PdfPreviewPage.additionalDisabilitiesFld).should(
@@ -539,7 +543,7 @@ When('I verify the {string} health issues Section', (sectionName, dataTable) => 
 })
 
 When('I verify the GP contact {string} in GP Contact Section as follows', (index, dataTable) => {
-  dataTable.hashes().forEach((row) => {
+  dataTable.hashes().forEach(row => {
     const field = row['Question name to be verified']
     const expectedValue = row['Details to be verified']
 
@@ -799,7 +803,7 @@ When('I verify the {string} availability Section', (sectionName, dataTable) => {
   }
 })
 
-When('I verify the Additional availability information Section', (dataTable) => {
+When('I verify the Additional availability information Section', dataTable => {
   Common.getText(PdfPreviewPage.additionalAvailabilityFld).should(
     'equal',
     dataTable.hashes()[0]['Question name to be verified'],

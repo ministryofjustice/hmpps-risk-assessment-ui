@@ -1,11 +1,11 @@
 const sanitizeHtml = require('sanitize-html')
 
 function hasOwn(object, key) {
-  const keys = Reflect.ownKeys(object).filter((item) => typeof item !== 'symbol')
+  const keys = Reflect.ownKeys(object).filter(item => typeof item !== 'symbol')
   return keys.includes(key)
 }
 
-const initializeOptions = (options) => {
+const initializeOptions = options => {
   const sanitizerOptions = {}
   if (hasOwn(options, 'allowedTags') && Array.isArray(options.allowedTags) && options.allowedTags.length > 0) {
     sanitizerOptions.allowedTags = options.allowedTags
@@ -29,7 +29,7 @@ function sanitiseValue(data, options = {}) {
   }
 
   if (Array.isArray(data)) {
-    return data.map((item) => {
+    return data.map(item => {
       if (typeof item === 'string') {
         return sanitizeHtml(item, initialisedOptions.sanitizerOptions)
       }
@@ -43,7 +43,7 @@ function sanitiseValue(data, options = {}) {
   const modifiedData = { ...data }
 
   if (typeof modifiedData === 'object' && modifiedData !== null) {
-    Object.keys(modifiedData).forEach((key) => {
+    Object.keys(modifiedData).forEach(key => {
       if (initialisedOptions.allowedKeys.includes(key)) {
         return
       }
@@ -61,7 +61,7 @@ function sanitiseValue(data, options = {}) {
 
 function middleware(options = {}) {
   return (req, res, next) => {
-    Array.of('body', 'params', 'headers').forEach((property) => {
+    Array.of('body', 'params', 'headers').forEach(property => {
       if (req[property]) {
         req[property] = sanitiseValue(req[property], options)
       }

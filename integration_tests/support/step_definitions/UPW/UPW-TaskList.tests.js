@@ -5,7 +5,7 @@ const AreaSelectionPage = require('../../../integration/pages/areaSelection/area
 const Common = require('../../../integration/pages/upwPages/common/common')
 const TaskListPage = require('../../../integration/pages/upwPages/taskList/taskListPage')
 
-Given('I login and navigate to UPW Task list page with CRN {string}', (crn) => {
+Given('I login and navigate to UPW Task list page with CRN {string}', crn => {
   ArnHomePage.signIn(crn)
   const params = new URLSearchParams({
     crn,
@@ -58,7 +58,7 @@ Given('I login and navigate to UPW Task list page with dataDriven CRN by injecti
 })
 
 Given('I login and navigate to UPW Task list page for cloned assessment', () => {
-  cy.get('@crn').then((crn) => {
+  cy.get('@crn').then(crn => {
     const params = new URLSearchParams({
       crn,
       assessmentType: 'UPW',
@@ -71,7 +71,7 @@ Given('I login and navigate to UPW Task list page for cloned assessment', () => 
 
 When('I verify the following links are available & working on the {string}', (pageName, dataTable) => {
   const pages = dataTable.hashes()
-  pages.forEach((page) => {
+  pages.forEach(page => {
     cy.get(TaskListPage.sectionTag).should('contain.text', page.Status)
     cy.get(TaskListPage.sectionLink).contains(page['Link Name']).click()
     cy.get(Common.pageHeader).should('contain.text', page['Page to be displayed on clicking the Link'])
@@ -87,11 +87,11 @@ When('I verify the {string} Section on the task list page', (sectionName, dataTa
   cy.get('@task').should('contain.text', dataTable.hashes()[0]['Task list name'])
 })
 
-When('I click on the {string} link', (linkName) => {
+When('I click on the {string} link', linkName => {
   cy.get('.task-list__task-name').contains(linkName).click()
 })
 
-Then('I see UPW {string} page', (pageHeader) => {
+Then('I see UPW {string} page', pageHeader => {
   cy.get(Common.pageHeader).should('contain.text', pageHeader)
 })
 

@@ -1,5 +1,5 @@
 module.exports = {
-  splitDate: (s) => {
+  splitDate: s => {
     const dateElements = s.split(' ')
     return dateElements
   },
