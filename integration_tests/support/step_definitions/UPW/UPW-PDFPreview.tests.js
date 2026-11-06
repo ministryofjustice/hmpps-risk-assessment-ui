@@ -8,13 +8,17 @@ When('I check {string} for visual regression', id => {
 
 When('I view the generated PDF', () => {
   cy.get('@crn').then(crn => {
-    cy.visit(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`)
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(1000)
-    cy.scrollTo(0, 10000, { duration: 2000 })
-    cy.scrollTo(0, 0, { duration: 2000 })
-    // eslint-disable-next-line cypress/no-unnecessary-waiting
-    cy.wait(2000)
+    cy.request(`${Cypress.env().ARNS_API_URL}/sns/${Cypress.env().LOCALSTACK_HOSTNAME}/${crn}`).then(({ body }) => {
+      const pdfUrl = body.match(/src="([^"]+\.pdf)"/)?.[1]
+
+      expect(pdfUrl, 'generated PDF URL').to.be.a('string')
+
+      cy.request({ url: pdfUrl, encoding: 'binary' }).then(response => {
+        expect(response.status).to.equal(200)
+        expect(response.headers['content-type']).to.include('application/pdf')
+        expect(response.body.slice(0, 5)).to.equal('%PDF-')
+      })
+    })
   })
 })
 
