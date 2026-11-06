@@ -9,8 +9,8 @@ ENV GIT_REF=${GIT_REF}
 ENV GIT_BRANCH=${GIT_BRANCH}
 
 FROM base AS build
-# Needed to compile applicationinsights-native-metrics
-RUN apk add --no-cache python3 build-base linux-headers
+# Base image sets NODE_ENV=production, which makes npm ci skip devDependencies (e.g. ncp, used by copy-assets)
+ENV NODE_ENV='development'
 COPY package*.json .npmrc .allowed-scripts.mjs ./
 COPY patches ./patches
 RUN CYPRESS_INSTALL_BINARY=0 NPM_CONFIG_AUDIT=false NPM_CONFIG_FUND=false npm run setup

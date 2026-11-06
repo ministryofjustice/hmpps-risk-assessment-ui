@@ -1,5 +1,22 @@
-// Always load Application Insights before anything else (Needs to be before Winston for log collection to work)
-require('applicationinsights')
+// Always initialise the Microsoft OpenTelemetry Distro before anything else
+const { useMicrosoftOpenTelemetry } = require('@microsoft/opentelemetry')
+
+if (process.env.APPINSIGHTS_DISABLE !== 'true' && process.env.APPINSIGHTS_INSTRUMENTATIONKEY !== '') {
+  // Set service name via env (read by the distro's env resource detector) rather than the
+  // `resource` option, which throws in @microsoft/opentelemetry 1.5.0 (Object.assign on ResourceImpl)
+  if (!process.env.OTEL_SERVICE_NAME && process.env.npm_package_name) {
+    process.env.OTEL_SERVICE_NAME = process.env.npm_package_name
+  }
+  useMicrosoftOpenTelemetry({
+    // Without this the distro prints every span/log/metric to stdout when no Azure Monitor connection string is set
+    enableConsoleExporters: false,
+    azureMonitor: {
+      azureMonitorExporterOptions: {
+        connectionString: process.env.APPLICATIONINSIGHTS_CONNECTION_STRING,
+      },
+    },
+  })
+}
 
 const throng = require('throng')
 const { readFileSync, unlink, writeFileSync } = require('fs')

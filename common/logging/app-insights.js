@@ -1,10 +1,9 @@
-const appInsights = require('applicationinsights')
+const { logs } = require('@opentelemetry/api-logs')
 
 const trackEvent = (eventName, req = {}, customProperties = {}) => {
   const assessmentInfo = req.session?.assessment
 
-  const client = appInsights.defaultClient
-  if (client && eventName) {
+  if (eventName) {
     const eventProperties = {
       ...customProperties,
       assessmentUUID: assessmentInfo?.uuid,
@@ -12,7 +11,10 @@ const trackEvent = (eventName, req = {}, customProperties = {}) => {
       crn: assessmentInfo?.subject?.crn,
       author: req.user?.username,
     }
-    client.trackEvent({ name: eventName, properties: { ...eventProperties } })
+    logs.getLogger('hmpps-risk-assessment-ui').emit({
+      body: eventName,
+      attributes: { 'microsoft.custom_event.name': eventName, ...eventProperties },
+    })
   }
 }
 

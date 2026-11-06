@@ -3,7 +3,6 @@ const { join } = require('path')
 const crypto = require('crypto')
 
 // Npm dependencies
-const appInsights = require('applicationinsights')
 const express = require('express')
 const cookieParser = require('cookie-parser')
 const { json, urlencoded } = require('body-parser')
@@ -77,14 +76,7 @@ function initialiseApplicationInsights() {
     return
   }
 
-  appInsights
-    .setup()
-    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
-    .setInternalLogging(applicationInsights.internalLogging, true)
-    .start()
-
   const roleName = process.env.npm_package_name
-  appInsights.defaultClient.context.tags['ai.cloud.role'] = roleName
 
   logger.info(`Application Insights enabled with role name '${roleName}'`)
 }
