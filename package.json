@@ -28,13 +28,9 @@
     "build": "npm run clean && npm run build:copy && npm run build:css && npm run build:js",
     "clean": "rm -rf dist && mkdir dist",
     "build:copy": "npm run copy-assets",
-    "build:css": "npm run compile-sass && npm run cssmin",
-    "build:js": "npm run browserify && npm run babel",
-    "browserify": "browserify -o dist/javascripts/browsered.js assets/javascripts/browsered/*.js",
-    "babel": "babel -o dist/javascripts/application.js dist/javascripts/browsered.js",
+    "build:css": "sass --quiet-deps --no-source-map --load-path=node_modules --load-path=node_modules/govuk-frontend/dist --load-path=node_modules/@ministryofjustice/frontend --load-path=. assets/sass/application.scss:dist/stylesheets/application.min.css --style compressed",
+    "build:js": "esbuild assets/javascripts/browsered/index.js --bundle --minify --target=es2018 --outfile=dist/javascripts/application.js",
     "copy-assets": "ncp assets/javascripts/ dist/javascripts/ --filter=.* && ncp assets/images/ dist/images/ --filter=.*",
-    "compile-sass": "sass --quiet-deps --no-source-map --load-path=node_modules --load-path=node_modules/govuk-frontend/dist --load-path=node_modules/@ministryofjustice/frontend --load-path=. ./assets/sass:./dist/stylesheets --style compressed",
-    "cssmin": "cleancss -o dist/stylesheets/application.min.css dist/stylesheets/application.css",
     "security_audit": "npm audit",
     "start": "node ./start.js",
     "start:dev": "npm run build && node ./start.js",
@@ -45,7 +41,7 @@
     "lint": "eslint . --cache --max-warnings 0 && stylelint '**/*.scss' --cache --max-warnings 0",
     "lint-staged": "lint-staged",
     "lint:fix": "eslint . --cache --fix && stylelint '**/*.scss' --cache --fix",
-    "watch:sass": "nodemon -e scss -x \"npm run build:css\"",
+    "watch:sass": "sass --watch --quiet-deps --no-source-map --load-path=node_modules --load-path=node_modules/govuk-frontend/dist --load-path=node_modules/@ministryofjustice/frontend --load-path=. assets/sass/application.scss:dist/stylesheets/application.min.css --style compressed",
     "record-build-info": "node ./bin/record-build-info",
     "postinstall": "patch-package",
     "setup": "npm ci && hmpps-npm-script-run-allowlist && patch-package && cypress install"
@@ -54,7 +50,7 @@
     "@aws-sdk/client-s3": "^3.1161.0",
     "@aws-sdk/client-sns": "^3.1161.0",
     "@microsoft/opentelemetry": "1.5.0",
-    "@ministryofjustice/frontend": "8.0.0",
+    "@ministryofjustice/frontend": "12.0.0",
     "@opentelemetry/api-logs": "0.221.0",
     "agentkeepalive": "^4.6.0",
     "async": "^3.2.6",
@@ -69,7 +65,7 @@
     "express": "^5.3.0",
     "express-jwt": "^8.5.1",
     "express-session": "^1.18.2",
-    "govuk-frontend": "^5.10.1",
+    "govuk-frontend": "6.6.0",
     "helmet": "^8.1.0",
     "hmpo-form-wizard": "^18.2.0",
     "json-web-token": "^4.0.1",
@@ -95,9 +91,6 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.27.2",
-    "@babel/core": "^7.27.3",
-    "@babel/helper-compilation-targets": "^7.27.2",
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
     "@ministryofjustice/eslint-config-hmpps": "^1.0.4",
@@ -105,10 +98,7 @@
     "@types/luxon": "^3.6.2",
     "@types/supertest": "7.2.1",
     "audit-ci": "^7.1.0",
-    "browserify": "^17.0.1",
-    "cheerio": "^1.2.0",
     "chokidar": "^3.6.0",
-    "clean-css-cli": "^5.6.3",
     "cypress": "^15.0.0",
     "cypress-axe": "^1.6.0",
     "cypress-on-fix": "^1.1.0",
@@ -117,13 +107,13 @@
     "cypress-visual-regression": "^5.2.2",
     "cypress-wait-until": "^3.0.2",
     "envfile": "^7.1.0",
+    "esbuild": "^0.28.2",
     "jest": "^30.5.2",
     "lint-staged": "^17.6.0",
     "mocha-junit-reporter": "^2.2.1",
     "nanoid": "^6.0.2",
     "ncp": "^2.0.0",
     "nock": "^14.0.4",
-    "nodemon": "^3.1.14",
     "prettier": "^3.5.3",
     "redis-mock": "^0.56.3",
     "sass": "^1.89.0",
@@ -156,5 +146,13 @@
       "filePrefix": "",
       "fileSuffix": ".cucumber"
     }
+  },
+  "overrides": {
+    "sanitize-html": {
+      "htmlparser2": "^10.1.0"
+    },
+    "glob": "^14.0.4",
+    "minimatch": "^11.0.5",
+    "deepmerge": "4.1.2"
   }
 }
