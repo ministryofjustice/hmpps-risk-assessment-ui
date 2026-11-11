@@ -93,7 +93,7 @@
   "devDependencies": {
     "@badeball/cypress-cucumber-preprocessor": "^28.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.8",
-    "@ministryofjustice/eslint-config-hmpps": "^1.0.4",
+    "@ministryofjustice/eslint-config-hmpps": "^2.0.0-alpha.2",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.3",
     "@types/luxon": "^3.6.2",
     "@types/supertest": "7.2.1",
@@ -152,7 +152,25 @@
       "htmlparser2": "^10.1.0"
     },
     "glob": "^14.0.4",
-    "minimatch": "^11.0.5",
-    "deepmerge": "4.1.2"
+    "deepmerge": "4.1.2",
+    "eslint-plugin-import": {
+      "minimatch": "^3.1.5"
+    },
+    "@badeball/cypress-cucumber-preprocessor": {
+      "glob": "^14.0.4",
+      "minimatch": "^11.0.5"
+    },
+    "jest": {
+      "minimatch": "^11.0.5"
+    },
+    "find-cypress-specs": {
+      "minimatch": "^11.0.5"
+    },
+    "eslint": {
+      "minimatch": "^11.0.8"
+    },
+    "@eslint/config-array": {
+      "minimatch": "^11.0.8"
+    }
   }
 }

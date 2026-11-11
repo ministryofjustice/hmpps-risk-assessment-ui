@@ -1,3 +1,4 @@
+const path = require('path')
 const StartUpwAssessment = require('./controllers/start')
 const TaskList = require('./controllers/taskList')
 const SaveAndContinue = require('./controllers/saveAndContinue')
@@ -21,34 +22,34 @@ module.exports = {
     controller: StartUpwAssessment,
     reset: true,
     entryPoint: true,
-    template: `${__dirname}/templates/start`,
+    template: path.join(__dirname, 'templates/start'),
     next: 'task-list',
   },
   '/task-list': {
     pageTitle: 'Community payback assessment',
     controller: TaskList,
-    template: `${__dirname}/templates/taskList`,
+    template: path.join(__dirname, 'templates/taskList'),
     next: 'confirmation',
   },
   '/individuals-details': {
     pageTitle: "Individual's details",
     id: 'individuals-details',
     controller: individualsDetailsSaveAndContinue,
-    template: `${__dirname}/templates/individuals-details/individuals-details.njk`,
+    template: path.join(__dirname, 'templates/individuals-details/individuals-details.njk'),
     next: 'task-list#individuals-details',
     fields: ['individual_details_complete', 'emergency_contact_declined'],
   },
   '/edit-personal-details': {
     pageTitle: 'Personal details',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/individuals-details/edit-personal-details.njk`,
+    template: path.join(__dirname, 'templates/individuals-details/edit-personal-details.njk'),
     next: 'individuals-details',
     fields: ['first_name_aliases', 'family_name_aliases'],
   },
   '/edit-contact-details': {
     pageTitle: 'Contact details',
     controller: editContactDetailsSaveAndContinue,
-    template: `${__dirname}/templates/individuals-details/edit-contact-details.njk`,
+    template: path.join(__dirname, 'templates/individuals-details/edit-contact-details.njk'),
     next: 'individuals-details',
     fields: [
       'contact_address_building_name',
@@ -66,7 +67,7 @@ module.exports = {
   '/edit-emergency-contact/:index': {
     pageTitle: 'Emergency contact details',
     controller: editEmergencyContactsSaveAndContinue,
-    template: `${__dirname}/templates/individuals-details/edit-emergency-contact-details.njk`,
+    template: path.join(__dirname, 'templates/individuals-details/edit-emergency-contact-details.njk'),
     next: 'individuals-details',
     fields: [
       'emergency_contact_first_name',
@@ -85,7 +86,7 @@ module.exports = {
     pageTitle: 'Cultural and religious adjustments',
     id: 'cultural-religious-adjustments',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/diversity-information/cultural-and-religious-adjustments`,
+    template: path.join(__dirname, 'templates/diversity-information/cultural-and-religious-adjustments'),
     next: 'task-list#cultural-religious-adjustments',
     fields: [
       'cultural_religious_adjustment',
@@ -97,7 +98,7 @@ module.exports = {
     pageTitle: 'Other adjustments',
     id: 'other-adjustments',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/diversity-information/other-adjustments`,
+    template: path.join(__dirname, 'templates/diversity-information/other-adjustments'),
     next: 'task-list#other-adjustments',
     fields: [
       'diversity_information_trauma',
@@ -112,7 +113,7 @@ module.exports = {
   '/placement-preferences': {
     pageTitle: 'Placement preferences',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/diversity-information/placement-preferences`,
+    template: path.join(__dirname, 'templates/diversity-information/placement-preferences'),
     next: 'task-list',
     fields: ['placement_preference', 'placement_preferences', 'placement_preference_complete'],
   },
@@ -120,7 +121,7 @@ module.exports = {
     pageTitle: 'Gender information',
     id: 'gender-information',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/diversity-information/gender-information`,
+    template: path.join(__dirname, 'templates/diversity-information/gender-information'),
     next: 'task-list#gender-information',
     fields: [
       'gender_identity',
@@ -135,7 +136,7 @@ module.exports = {
     pageTitle: 'Risk of harm in the community',
     id: 'risk-of-harm-in-the-community',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/risk-information/risk-of-harm-in-the-community`,
+    template: path.join(__dirname, 'templates/risk-information/risk-of-harm-in-the-community'),
     next: 'task-list#risk-of-harm-in-the-community',
     fields: [
       'history_sexual_offending',
@@ -165,7 +166,7 @@ module.exports = {
     pageTitle: 'Managing risk',
     id: 'managing-risk',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/risk-information/managing-risk`,
+    template: path.join(__dirname, 'templates/risk-information/managing-risk'),
     next: 'task-list#managing-risk',
     fields: [
       'location_exclusion_criteria',
@@ -191,7 +192,7 @@ module.exports = {
     pageTitle: 'Modern day slavery - perpetrator',
     id: 'modern-day-slavery-perpetrator',
     controller: ModernDaySlaveryPerpetrator,
-    template: `${__dirname}/templates/risk-information/modern-day-slavery-perpetrator.njk`,
+    template: path.join(__dirname, 'templates/risk-information/modern-day-slavery-perpetrator.njk'),
     next: 'task-list#modern-day-slavery-perpetrator',
     fields: [
       'modern_day_slavery_risks_perpetrator',
@@ -207,7 +208,7 @@ module.exports = {
     pageTitle: 'Modern day slavery - victim',
     id: 'modern-day-slavery-victim',
     controller: ModernDaySlaveryVictim,
-    template: `${__dirname}/templates/risk-information/modern-day-slavery-victim.njk`,
+    template: path.join(__dirname, 'templates/risk-information/modern-day-slavery-victim.njk'),
     next: 'task-list#modern-day-slavery-victim',
     fields: [
       'modern_day_slavery_risks_victim',
@@ -221,7 +222,7 @@ module.exports = {
     pageTitle: 'Disabilities and mental health',
     id: 'disabilities-mental-health',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/placement-restrictions/disabilities-and-mental-health.njk`,
+    template: path.join(__dirname, 'templates/placement-restrictions/disabilities-and-mental-health.njk'),
     next: 'task-list#disabilities-mental-health',
     fields: [
       'additional_disabilities',
@@ -235,7 +236,7 @@ module.exports = {
     pageTitle: 'Health issues',
     id: 'health-issues',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/placement-restrictions/health-issues.njk`,
+    template: path.join(__dirname, 'templates/placement-restrictions/health-issues.njk'),
     next: 'task-list#health-issues',
     fields: [
       'allergies',
@@ -256,14 +257,14 @@ module.exports = {
     pageTitle: 'GP Details',
     id: 'gp-details',
     controller: gpDetailsSaveAndContinue,
-    template: `${__dirname}/templates/placement-restrictions/gp-details.njk`,
+    template: path.join(__dirname, 'templates/placement-restrictions/gp-details.njk'),
     next: 'task-list#gp-details',
     fields: ['gp_details_complete', 'gp_details_declined'],
   },
   '/edit-gp-details/:index': {
     pageTitle: 'Details of GP',
     controller: editGpDetailsSaveAndContinue,
-    template: `${__dirname}/templates/placement-restrictions/edit-gp-details.njk`,
+    template: path.join(__dirname, 'templates/placement-restrictions/edit-gp-details.njk'),
     next: 'gp-details',
     fields: [
       'gp_first_name', // Deprecated: use gp_name instead
@@ -289,7 +290,7 @@ module.exports = {
     pageTitle: 'Travel',
     id: 'travel',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/placement-restrictions/travel-information.njk`,
+    template: path.join(__dirname, 'templates/placement-restrictions/travel-information.njk'),
     next: 'task-list#travel',
     fields: [
       'travel_information',
@@ -304,7 +305,7 @@ module.exports = {
     pageTitle: 'Caring commitments',
     id: 'caring-commitments',
     controller: CaringCommitmentsController,
-    template: `${__dirname}/templates/placement-restrictions/caring-commitments.njk`,
+    template: path.join(__dirname, 'templates/placement-restrictions/caring-commitments.njk'),
     next: 'task-list#caring-commitments',
     fields: [
       'caring_commitments',
@@ -317,7 +318,7 @@ module.exports = {
     pageTitle: 'Employment, education and skills',
     id: 'employment-education-skills',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/employment-education-skills/employment-education-skills`,
+    template: path.join(__dirname, 'templates/employment-education-skills/employment-education-skills'),
     next: 'task-list#employment-education-skills',
     fields: [
       'employment_education',
@@ -336,7 +337,7 @@ module.exports = {
     pageTitle: 'Training & employment opportunities',
     id: 'training-employment-opportunities',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/employment-education-skills/training-employment-opportunities`,
+    template: path.join(__dirname, 'templates/employment-education-skills/training-employment-opportunities'),
     next: 'task-list#training-employment-opportunities',
     fields: [
       'education_training_need',
@@ -352,7 +353,7 @@ module.exports = {
     pageTitle: 'Intensive working',
     id: 'intensive-working',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/placement-details/intensive-working`,
+    template: path.join(__dirname, 'templates/placement-details/intensive-working'),
     next: 'task-list#intensive-working',
     fields: [
       'eligibility_intensive_working',
@@ -367,7 +368,7 @@ module.exports = {
     pageTitle: 'Availability',
     id: 'availability',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/placement-details/availability`,
+    template: path.join(__dirname, 'templates/placement-details/availability'),
     next: 'task-list#availability',
     fields: [
       'individual_availability',
@@ -385,7 +386,7 @@ module.exports = {
     pageTitle: 'Choose equipment sizes',
     id: 'equipment',
     controller: SaveAndContinue,
-    template: `${__dirname}/templates/placement-details/equipment`,
+    template: path.join(__dirname, 'templates/placement-details/equipment'),
     next: 'task-list#equipment',
     fields: ['male_female_clothing', 'waterproof_clothing', 'footwear_size', 'equipment_complete'],
   },
@@ -393,7 +394,7 @@ module.exports = {
     pageTitle: 'Completed assessment',
     id: 'pdf-preview',
     controller: PreviewPdf,
-    template: `${__dirname}/templates/pdf-preview-and-declaration/pdf-preview.njk`,
+    template: path.join(__dirname, 'templates/pdf-preview-and-declaration/pdf-preview.njk'),
     fields: [],
     next: 'task-list#pdf-preview',
   },
@@ -401,43 +402,43 @@ module.exports = {
     pageTitle: 'Confirmation',
     controller: Confirmation,
     noPost: true,
-    template: `${__dirname}/templates/confirmation.njk`,
+    template: path.join(__dirname, 'templates/confirmation.njk'),
   },
   '/assessment-saved': {
     pageTitle: 'Your assessment has been saved',
     noPost: true,
-    template: `${__dirname}/templates/assessment-saved.njk`,
+    template: path.join(__dirname, 'templates/assessment-saved.njk'),
   },
   '/privacy': {
     pageTitle: 'Privacy notice',
     noPost: true,
-    template: `${__dirname}/templates/privacy.njk`,
+    template: path.join(__dirname, 'templates/privacy.njk'),
   },
   '/close-assessment': {
     pageTitle: 'Assessment closed',
     controller: CloseAssessment,
     noPost: true,
-    template: `${__dirname}/templates/close-assessment.njk`,
+    template: path.join(__dirname, 'templates/close-assessment.njk'),
   },
   '/cookies': {
     pageTitle: 'Cookies',
     noPost: true,
-    template: `${__dirname}/templates/cookies.njk`,
+    template: path.join(__dirname, 'templates/cookies.njk'),
   },
   '/accessibility-statement': {
     pageTitle: 'Accessibility statement for the Community Payback Assessment',
     noPost: true,
-    template: `${__dirname}/templates/accessibility-statement.njk`,
+    template: path.join(__dirname, 'templates/accessibility-statement.njk'),
   },
   '/assessment-help': {
     pageTitle: 'Community Payback assessment help',
     noPost: true,
-    template: `${__dirname}/templates/assessment-help.njk`,
+    template: path.join(__dirname, 'templates/assessment-help.njk'),
   },
   '/additional-information': {
     id: 'additional-information',
     pageTitle: 'Additional information',
-    template: `${__dirname}/templates/additional-information.njk`,
+    template: path.join(__dirname, 'templates/additional-information.njk'),
     fields: ['additional_information', 'additional_information_complete'],
     controller: SaveAndContinue,
     next: 'task-list#additional-information',

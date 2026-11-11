@@ -11,7 +11,7 @@ jest.mock('cls-hooked')
 
 describe('Set correlation ID to value of x-request-id if it is present', () => {
   let req
-  let res
+  const res = {}
   beforeEach(() => {
     req = {
       headers: {
