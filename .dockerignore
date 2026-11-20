@@ -23,3 +23,5 @@ cypress
 __mocks__
 volume
 .vscode
+!.npmrc
+!.allowed-scripts.mjs
