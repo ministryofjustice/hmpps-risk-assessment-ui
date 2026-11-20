@@ -1,0 +1,13 @@
+diff --git a/node_modules/find-cypress-specs/package.json b/node_modules/find-cypress-specs/package.json
+index 0000000..0000000 100644
+--- a/node_modules/find-cypress-specs/package.json
++++ b/node_modules/find-cypress-specs/package.json
+@@ -84,7 +84,7 @@
+     "console.table": "^0.10.0",
+     "debug": "^4.3.3",
+     "find-test-names": "1.29.19",
+-    "minimatch": "^10.2.4",
++    "minimatch": "^11.0.5",
+     "pluralize": "^8.0.0",
+     "require-and-forget": "^1.0.1",
+     "shelljs": "^0.10.0",

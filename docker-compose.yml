@@ -16,7 +16,7 @@ services:
       - hmpps
 
   hmpps-auth:
-    image: ghcr.io/ministryofjustice/hmpps-auth
+    image: ghcr.io/ministryofjustice/hmpps-auth:2026-01-19.282.b6537e8
     networks:
       - hmpps
     depends_on:
@@ -32,7 +32,7 @@ services:
       # which the API rejects - point it at the in-network hostname instead
       - AUTH_ENDPOINT_URL=http://hmpps-auth:9090/auth
       - SPRING_PROFILES_ACTIVE=dev,delius
-      - APPLICATION_AUTHENTICATION_UI_ALLOWLIST=0.0.0.0/0
+      - APPLICATION_AUTHENTICATION_UI_ALLOWLIST=0.0.0.0/0,::/0
       - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=DEBUG
       - DELIUS_ENDPOINT_URL=http://delius:8080
 

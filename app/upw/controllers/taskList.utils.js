@@ -30,7 +30,7 @@ const getPdfPreviewTask = (baseUrl, steps, taskName, otherSections) => {
 const getTask = (answers, baseUrl, steps, taskName, completionField, active = true) => {
   return {
     text: steps[`/${taskName}`]?.pageTitle || 'Unknown Task',
-    href: `${baseUrl}/${taskName}` || '#',
+    href: `${baseUrl}/${taskName}`,
     status: answers[completionField]?.toString().toUpperCase() === SECTION_COMPLETE ? 'COMPLETE' : 'INCOMPLETE',
     id: steps[`/${taskName}`]?.id,
     active,

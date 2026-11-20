@@ -41,6 +41,5 @@ make e2e
 [nunjucks]: https://mozilla.github.io/nunjucks/
 [snyk]: https://snyk.io/
 [gov.uk frontend]: https://design-system.service.gov.uk/
-[browserify]: http://browserify.org/
 [standardjs]: https://standardjs.com/
 [nvm]: https://github.com/creationix/nvm

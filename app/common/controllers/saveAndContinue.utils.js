@@ -43,20 +43,16 @@ const withAnswersFrom =
   ([fieldName, fieldProperties]) => {
     const someValueFrom = answer => (hasAnswerIn(answer) ? answer : [])
     const answerFor = questionCode => {
-      let answer = ''
-
       const submittedAnswer = someValueFrom(submittedAnswers[questionCode])
       const previousAnswer = someValueFrom(previousAnswers[questionCode])
 
       if (submittedAnswer.length > 0) {
-        answer = submittedAnswer.join('\r\n')
-      } else if (previousAnswer.length > 0) {
-        answer = previousAnswer.join('\r\n')
-      } else {
-        answer = fieldProperties.default || ''
+        return submittedAnswer.join('\r\n')
       }
-
-      return answer
+      if (previousAnswer.length > 0) {
+        return previousAnswer.join('\r\n')
+      }
+      return fieldProperties.default || ''
     }
 
     if (fieldProperties.answerType === 'radio') {

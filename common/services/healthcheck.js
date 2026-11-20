@@ -28,7 +28,7 @@ function gatherCheckInfo(total, currentValue) {
 
 function getBuild() {
   try {
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line n/global-require
     return require('../../build-info.json')
   } catch {
     return null
