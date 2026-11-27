@@ -19,7 +19,24 @@ describe('Auth', () => {
 
       await cacheUserDetails(user)
       // Persist user details to Redis and key by the user's ID
-      expect(redis.set).toHaveBeenCalledWith('user:1', '{"username":"ITAG_USER"}', 'EX', 43200)
+      expect(redis.set).toHaveBeenCalledWith('user:1', '{"username":"ITAG_USER","userUuid":null}', 'EX', 43200)
+    })
+
+    it('includes the user uuid from the HMPPS Auth token', async () => {
+      const userDetails = await cacheUserDetails({
+        user_id: '1',
+        user_name: 'ITAG_USER',
+        name: 'Itag User',
+        user_uuid: '11111111-1111-1111-1111-111111111111',
+      })
+
+      expect(userDetails.userUuid).toEqual('11111111-1111-1111-1111-111111111111')
+      expect(redis.set).toHaveBeenCalledWith(
+        'user:1',
+        '{"username":"ITAG_USER","name":"Itag User","userUuid":"11111111-1111-1111-1111-111111111111"}',
+        'EX',
+        43200,
+      )
     })
 
     it('get the user details from redis cache', async () => {

@@ -16,9 +16,10 @@ class User {
     return this
   }
 
-  withDetails({ username, name } = {}) {
+  withDetails({ username, name, userUuid } = {}) {
     this.username = username
     this.name = name || username
+    this.userUuid = userUuid
     return this
   }
 
@@ -26,6 +27,7 @@ class User {
     return {
       username: this.username,
       name: this.name,
+      userUuid: this.userUuid,
     }
   }
 

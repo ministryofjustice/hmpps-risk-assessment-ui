@@ -51,6 +51,7 @@
     "@aws-sdk/client-sns": "^3.1173.0",
     "@microsoft/opentelemetry": "1.5.0",
     "@ministryofjustice/frontend": "12.0.1",
+    "@opentelemetry/api": "1.9.1",
     "@opentelemetry/api-logs": "0.223.0",
     "agentkeepalive": "^4.6.0",
     "async": "^3.2.6",
