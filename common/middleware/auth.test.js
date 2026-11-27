@@ -370,6 +370,7 @@ describe('Auth', () => {
           JSON.stringify({
             username: 'FBAR',
             name: 'Foo Bar',
+            userUuid: '11111111-1111-1111-1111-111111111111',
           }),
         ),
       )
@@ -395,11 +396,33 @@ describe('Auth', () => {
       expect(user.getDetails()).toEqual({
         username: 'FBAR',
         name: 'Foo Bar',
+        userUuid: '11111111-1111-1111-1111-111111111111',
       })
       expect(user.getSession()).toEqual({
         id: 1,
         token: 'FOO_TOKEN',
       })
+      expect(cacheUserDetails).not.toHaveBeenCalled()
+    })
+
+    it('rebuilds cached details that pre-date the user uuid', async () => {
+      const req = {}
+      const [deserializer] = passport.deserializeUser.mock.calls[0]
+
+      getCachedUserDetails.mockResolvedValue({ username: 'FBAR', name: 'Foo Bar' })
+      cacheUserDetails.mockResolvedValue({
+        username: 'FBAR',
+        name: 'Foo Bar',
+        userUuid: '11111111-1111-1111-1111-111111111111',
+      })
+      const callback = jest.fn()
+
+      await deserializer(req, User.from({ id: 1, token: 'FOO_TOKEN' }), callback)
+
+      expect(cacheUserDetails).toHaveBeenCalled()
+      const [error, user] = callback.mock.calls[0]
+      expect(error).toBeNull()
+      expect(user.userUuid).toEqual('11111111-1111-1111-1111-111111111111')
     })
 
     it('passes errors to the callback', async () => {

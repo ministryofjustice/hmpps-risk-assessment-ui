@@ -30,7 +30,9 @@ passport.deserializeUser(async (req, serializedUser, done) => {
     const user = User.from(serializedUser)
     const serializedDetails = await getCachedUserDetails(user.id)
 
-    const details = serializedDetails !== null ? serializedDetails : await getAndCacheUserDetails(user)
+    // Entries cached before userUuid was added lack the field, so rebuild them from the token
+    const isCurrent = serializedDetails !== null && serializedDetails.userUuid !== undefined
+    const details = isCurrent ? serializedDetails : await getAndCacheUserDetails(user)
 
     user.withDetails(details)
     done(null, user)

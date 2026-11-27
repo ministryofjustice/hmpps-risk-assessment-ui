@@ -41,6 +41,7 @@ const {
 } = require('./common/utils/util')
 const config = require('./common/config')
 const auth = require('./common/middleware/auth')
+const addUserMetadataToTelemetry = require('./common/middleware/add-user-metadata-to-telemetry')
 const redis = require('./common/data/redis')
 const { REFRESH_TOKEN_LIFETIME_SECONDS, SIXTY_SECONDS } = require('./common/utils/constants')
 
@@ -168,6 +169,8 @@ async function initialiseGlobalMiddleware(app) {
   auth.init(passport)
   app.use(passport.initialize())
   app.use(passport.session())
+  // Counter Corruption Unit uses App Insights as audit evidence, so tag every request span with who made it
+  app.use(addUserMetadataToTelemetry)
 
   // add instrumentation key to app so it can be picked up in front end templates
   // eslint-disable-next-line no-param-reassign
